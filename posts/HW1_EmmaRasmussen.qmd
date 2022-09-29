@@ -1,0 +1,229 @@
+---
+title: "Homework 1"
+author: "Emma Rasmussen"
+description: "The first homework on descriptive statistics and probability"
+date: "09/29/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+lungcap<-read_excel("_data/LungCapData.xls")
+head(lungcap)
+
+#saving a copy of original dataset
+lungcap_orig<-lungcap
+
+#checking for missing values in LungCap
+which(is.na(lungcap$LungCap))
+```
+
+# 1a. The distribution of LungCapData is plotted as a histogram below. 
+```{r}
+ggplot(lungcap, aes(x=LungCap))+geom_histogram()
+```
+The histogram looks approximately normally distributed
+
+# b. The probability distribution of LungCap data for males and females is compared using the boxplots below:
+```{r}
+ggplot(lungcap, aes(x=LungCap, y=Gender))+geom_boxplot()
+```
+The mean lung capacity of males appears slightly higher than that of females. The IQR and range for males and females appears similarly spread with a higher average for males. 
+
+# c. Below the mean and standard deviation of smokers and non-smokers is compared. They are also plotted as a boxplot to help visualize the distribution.
+```{r}
+lungcap%>%
+  group_by(Smoke) %>% 
+  summarize(Mean=mean(LungCap))
+
+lungcap%>%
+  group_by(Smoke) %>% 
+  summarize(stdev=sd(LungCap))
+
+ggplot(lungcap, aes(x=LungCap, y=Smoke))+geom_boxplot()
+
+```
+
+The mean lung capacity for smokers (8.645) in this sample is higher than that of non-smokers (7.770). This does not make sense. However, the standard deviation of non-smokers (2.726) is much higher than smokers (1.883) so there might be something else going on (see boxplot).
+
+# d.Below, means are taken by age groups of smokers/non-smokers. I also created a new age category variable ("AgeCat") to plot the data by smoking status and age category.
+```{r}
+#Mean under 13 and nonsmoker
+lungcap %>% 
+  filter(Age<=13 & Smoke=="no") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean under 13 and smoker
+lungcap %>% 
+  filter(Age<=13 & Smoke=="yes") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean 14-15 and nonsmoker
+lungcap %>% 
+  filter(Age==14 | Age==15 & Smoke=="no") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean 14-15 and smoker
+lungcap %>% 
+  filter(Age==14 | Age==15 & Smoke=="yes") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean 16-17 and nonsmoker
+lungcap %>% 
+  filter(Age==16 | Age==17 & Smoke=="no") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean 16-17 and smoker
+lungcap %>% 
+  filter(Age==16 | Age==17 & Smoke=="yes") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean over 18 and nonsmoker
+lungcap %>% 
+  filter(Age>=18 & Smoke=="no") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#Mean over 18 and smoker
+lungcap %>% 
+  filter(Age>=18 & Smoke=="yes") %>% 
+  pull(LungCap) %>% 
+  mean()
+
+#creating new variable AgeCat to create boxplots
+lungcap<-lungcap %>% 
+  mutate(AgeCat= as.factor(case_when(Age <= 13 ~ "13 and under", 
+                           Age == 14 |Age ==15 ~ "14-15", 
+                           Age == 16 | Age==17 ~ "16-17",
+                           Age >= 18 ~ "18 or over"
+                           )))
+
+#new Category AgeCat is the last column
+lungcap
+
+ggplot(lungcap, aes(x=LungCap))+geom_boxplot()+facet_grid(Smoke ~ AgeCat)
+
+```
+
+# e. Comparing the lung capacities for smokers and non-smokers in different age categories:
+
+Now we can see that the mean lung capacity for smokers by age group is generally lower than that of nonsmokers. This is true in all categories except for Under 13, which is likely because smokers in that category are going to be older than nonsmokers in that category (i.e. it is more likely that a 12 year old smokes than a 6 year old, and a 12 year old has a larger lung capacity than a 6 year old regardless of smoking status)
+
+This explains the first calculation of mean by smoking status (before finding the mean by age categories). Smokers are generally going to be older than non-smokers for this sample (the oldest participant in the sample is 19- see code below), which explains why the mean for smokers versus non-smokers (not separated by age categories) makes it look like smokers have a higher average lung capacity.
+
+```{r}
+#checking how old participants in the sample are
+lungcap %>% 
+  summarize(range(Age))
+```
+
+# f. Calculating the correlation and covariance between Lung Capacity and Age:
+```{r}
+#Creating vectors of Age and Lung Capacity from df (lungcap) to apply cov() and cor() functions to
+x<-c(lungcap$Age)
+y<-c(lungcap$LungCap)
+
+
+#Calculating covariance
+cov(x, y)
+
+#calculating correlation
+cor(x, y)
+
+```
+The covariance, 8.738 is fairly high and positive, meaning as age increases, so does lung capacity (i.e. age and lung capacity co-vary). The correlation (0.82) is fairly close to one and positive, indicating they correlate fairly closely.
+
+# Question 2. Prior Conviction Data
+```{r}
+#creating a data frame
+X<-c(0, 1, 2, 3, 4)
+Frequency<-c(128, 434, 160, 64, 24)
+prison<- data.frame(X, Frequency)
+prison
+
+prison<-rename(prison, PriorConvictions=X)
+prison
+
+#visualizing df using bar chart
+ggplot(prison, aes(x=PriorConvictions, y=Frequency))+geom_bar(stat="identity")+geom_text(aes(label = Frequency), vjust = -.3)
+
+#There are 810 obs in df
+sum(Frequency)
+
+```
+# Answering the Questions
+```{r}
+#creating a vector of probabilities
+probs<-Frequency/810
+probs
+
+#A
+# P(x=2)=160/810
+160/810
+
+#B
+#P(x<2)=P(0)+P(1)
+(128+434)/810
+
+#C
+#P(x<=2)=P(0)+P(1)+P(2)
+(128+434+160)/810
+
+#D
+#1-P(above)
+1-((128+434+160)/810)
+
+#E
+#Expected value=sum of probabilities*each value (0, 1, 2, 3 or 4)
+weighted.mean(X, probs)
+
+#F
+#Calculating the Variance using the formula for variance
+(sum(Frequency*((X-1.28642)^2)))/(sum(Frequency)-1)
+
+#Calculating the sample standard deviation from the variance
+sqrt(0.8572937)
+```
+a. What is the probability that a randomly selected inmate has exactly 2 prior
+convictions?
+  19.75% probability (or 0.1975)
+b. What is the probability that a randomly selected inmate has fewer than 2 prior
+convictions?
+  69.38% probability
+c. What is the probability that a randomly selected inmate has 2 or fewer prior
+convictions?
+  89.14% probability
+d. What is the probability that a randomly selected inmate has more than 2 prior
+convictions?
+  10.86% probability
+e. What is the expected value for the number of prior convictions?
+  1.28642 prior convictions
+f. Calculate the variance and the standard deviation for the Prior Convictions.
+  variance: 0.8572937
+  standard deviation: 0.9259016 prior convictions
