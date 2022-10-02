@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "DACSS 603 Introduction to Quantitative Analysis Fall 2022",
     "section": "",
-    "text": "The blog posts here are contributed by students enrolled in DACSS 603, Introduction to Quantitative Analysis.\n\n\n\n\n\n\n\n\n\n\nHomework 1 - Example\n\n\n\n\n\n\n\nhw1\n\n\ndesriptive statistics\n\n\nprobability\n\n\n\n\nThe first homework on descriptive statistics and probability\n\n\n\n\n\n\nSep 20, 2022\n\n\nOmer Yalcin\n\n\n\n\n\n\nNo matching items"
+    "text": "The blog posts here are contributed by students enrolled in DACSS 603, Introduction to Quantitative Analysis.\n\n\n\n\n\n\n\n\n\n\nHomework 1\n\n\n\n\n\n\n\nhw1\n\n\n\n\n\n\n\n\n\n\n\nOct 1, 2022\n\n\nSaaradhaa M\n\n\n\n\n\n\n\n\nHomework 1 - Example\n\n\n\n\n\n\n\nhw1\n\n\ndesriptive statistics\n\n\nprobability\n\n\n\n\nThe first homework on descriptive statistics and probability\n\n\n\n\n\n\nSep 20, 2022\n\n\nOmer Yalcin\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -12,6 +12,97 @@
     "title": "Contributors",
     "section": "",
     "text": "No matching items"
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html",
+    "href": "posts/HW1_Saaradhaa.html",
+    "title": "Homework 1",
+    "section": "",
+    "text": "knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)"
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#a",
+    "href": "posts/HW1_Saaradhaa.html#a",
+    "title": "Homework 1",
+    "section": "1 (a)",
+    "text": "1 (a)\nReading in the data:\n\n# load packages.\nlibrary(readxl)\nlibrary(tidyverse)\nlibrary(lsr)\n\nError in library(lsr): there is no package called 'lsr'\n\n# read in data.\ndf <- read_excel(\"_data/LungCapData.xls\")\n\nDistribution of LungCap:\n\nhist(df$LungCap)\n\n\n\n\nThe histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15)."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#b",
+    "href": "posts/HW1_Saaradhaa.html#b",
+    "title": "Homework 1",
+    "section": "1 (b)",
+    "text": "1 (b)\nThe boxplots below show the probability distributions grouped by gender.\n\nboxplot(LungCap~Gender, data = df)\n\n\n\n\nMales appear to have a slightly greater lung capacity than females."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#c",
+    "href": "posts/HW1_Saaradhaa.html#c",
+    "title": "Homework 1",
+    "section": "1 (c)",
+    "text": "1 (c)\n\n# check class of Smoke.\nclass(df$Smoke)\n\n[1] \"character\"\n\n# convert Smoke to factor type.\ndf$Smoke <- as.factor(df$Smoke)\n\n# mean lung capacity for smokers.\ndf %>% select(Smoke, LungCap) %>% group_by(Smoke) %>% summarise(mean(LungCap))\n\n\n\n  \n\n\n\nIt does not make sense, as I did not expect smokers to have greater mean lung capacities than non-smokers."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#d",
+    "href": "posts/HW1_Saaradhaa.html#d",
+    "title": "Homework 1",
+    "section": "1 (d)",
+    "text": "1 (d)\n\n# check class of Age.\nclass(df$Age)\n\n[1] \"numeric\"\n\n# convert Age to categorical variable.\ndf <- mutate(df, AgeGroup = case_when(Age <= 13 ~ \"13 and below\", Age == 14 | Age == 15 ~ \"14 to 15\", Age == 16 | Age == 17 ~ \"16 to 17\", Age >= 18 ~ \"18 and above\"))\n\n# construct histogram.\nggplot(df, aes(x = LungCap)) +\n  geom_histogram() +\n  facet_grid(AgeGroup~Smoke)\n\n\n\n\nMost people seem to be non-smokers, and non-smokers seem to have greater lung capacity."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#e",
+    "href": "posts/HW1_Saaradhaa.html#e",
+    "title": "Homework 1",
+    "section": "1 (e)",
+    "text": "1 (e)\n\n# check class of AgeGroup.\nclass(df$AgeGroup)\n\n[1] \"character\"\n\n# convert AgeGroup to factor.\ndf$AgeGroup <- as.factor(df$AgeGroup)\n\n# construct table.\ndf %>% select(Smoke, LungCap, AgeGroup) %>% group_by(AgeGroup, Smoke) %>% summarise(mean(LungCap))\n\n\n\n  \n\n\n\nNon-smokers have greater mean lung capacity for ages 14-15, 16-17 and 18 and above. Smokers have greater mean lung capacity for age 13 and below, which is different from 1(d). There might be some extreme outliers affecting the results for those age 13 and below."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#f",
+    "href": "posts/HW1_Saaradhaa.html#f",
+    "title": "Homework 1",
+    "section": "1 (f)",
+    "text": "1 (f)\n\n# correlation.\ncor(df$LungCap,df$Age)\n\n[1] 0.8196749\n\n# covariance.\ncov(df$LungCap,df$Age)\n\n[1] 8.738289\n\n\nThe value of 0.82 for correlation indicates a strong positive relationship between lung capacity and age - as age increases, lung capacity increases. The covariance is a little harder to interpret - the positive value reflects a positive relationship between lung capacity and age, but it is hard to assess the strength of the relationship, given that covariance ranges from negative infinity to infinity. I would prefer to use correlation in most cases."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#a-1",
+    "href": "posts/HW1_Saaradhaa.html#a-1",
+    "title": "Homework 1",
+    "section": "2 (a)",
+    "text": "2 (a)\n\na <- 160/810\n\nThe probability that a randomly selected inmate has exactly 2 prior convictions is 0.1975309."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#b-1",
+    "href": "posts/HW1_Saaradhaa.html#b-1",
+    "title": "Homework 1",
+    "section": "2 (b)",
+    "text": "2 (b)\n\nb <- (128+434)/810\n\nThe probability that a randomly selected inmate has fewer than 2 prior convictions is 0.6938272."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#c-1",
+    "href": "posts/HW1_Saaradhaa.html#c-1",
+    "title": "Homework 1",
+    "section": "2 (c)",
+    "text": "2 (c)\n\nc <- (128+434+160)/810\n\nThe probability that a randomly selected inmate has 2 or fewer prior convictions is 0.891358."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#d-1",
+    "href": "posts/HW1_Saaradhaa.html#d-1",
+    "title": "Homework 1",
+    "section": "2 (d)",
+    "text": "2 (d)\n\nd <- (64+24)/810\n\nThe probability that a randomly selected inmate has more than 2 prior convictions is 0.108642."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#e-1",
+    "href": "posts/HW1_Saaradhaa.html#e-1",
+    "title": "Homework 1",
+    "section": "2 (e)",
+    "text": "2 (e)\n\n# multiply each value of X by its probability and add the products.\ne <- (0*(128/810)) + (1*(434/810)) + (2*(160/810)) + (3*(64/810)) + (4*(24/810))\n\nThe expected value for the number of prior convictions is 1.2864198. To be more precise, since number of prior convictions should not have decimal places, we can round this down to 1, which is what the line graph showed us as well."
+  },
+  {
+    "objectID": "posts/HW1_Saaradhaa.html#f-1",
+    "href": "posts/HW1_Saaradhaa.html#f-1",
+    "title": "Homework 1",
+    "section": "2 (f)",
+    "text": "2 (f)\n\n# calculate required formula for each value of X.\nf1_0 <- ((0-e)^2) * (128/810)\nf1_1 <- ((1-e)^2) * (434/810)\nf1_2 <- ((2-e)^2) * (160/810)\nf1_3 <- ((3-e)^2) * (64/810)\nf1_4 <- ((4-e)^2) * (24/810)\n\n# sum up the above for variance.\nf1 <- f1_0 + f1_1 + f1_2 + f1_3 + f1_4\n\n# square root for SD.\nf2 <- sqrt(f1)\n\nFor prior convictions, the variance is 0.8562353 and the standard deviation is 0.9253298. In general, I think it might be more meaningful to calculate mode and proportions when generating descriptive statistics for number of prior convictions."
   },
   {
     "objectID": "posts/HW1example_OmerYalcin.html",
