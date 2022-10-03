@@ -1,0 +1,184 @@
+---
+title: "Homework 1"
+author: "Nick Boonstra"
+description: "The first homework on descriptive statistics and probability"
+date: Sys.Date()
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+```{r setup}
+
+library(tidyverse)
+library(readxl)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+# Question 1
+
+## a
+
+First, let's read in the data from the Excel file:
+
+```{r readin}
+library(readxl)
+lungcap <- read_excel("_data/LungCapData.xls")
+```
+
+The distribution of LungCap looks as follows:
+
+```{r hist}
+hist(lungcap$LungCap)
+```
+
+The histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15).
+
+## b
+
+These are the boxplots of the distributions for the lung capacity of males and females in the sample:
+
+```{r boxplot}
+
+lungcap %>% 
+  ggplot(aes(x="",y=LungCap)) +
+  geom_boxplot() +
+  facet_wrap(vars(Gender)) +
+  labs(x="",y="Lung Capacity")
+
+
+```
+
+According to these boxplots, it appears that males and females have similar median lung capacities, but that males may be more likely to have a higher lung capacity than females.
+
+## c
+
+```{r lungcap by smoke}
+
+lungcap %>% 
+  group_by(Smoke) %>% 
+  summarise(mean_lungcap=mean(LungCap))
+
+
+```
+
+According to this sample, it would appear that smokers have a higher lung capacity than non-smokers. This would appear to be counter-intuitive, as one would likely expect smoking to reduce lung functionality and, by extension, capacity.
+
+## d
+
+In order to complete this examination by group, we must create a new nominal variable that groups observations by age; this can be accomplished fairly simply using the `mutate()` and `case_when()` functions:
+
+```{r age_group}
+
+lungcap_age <- lungcap %>% 
+  mutate(age_group = case_when(
+    Age <= 13 ~ "13 and under",
+    Age == 14 | Age == 15 ~ "14 to 15",
+    Age == 16 | Age == 17 ~ "16 to 17",
+    Age >= 18 ~ "18 and older"
+  ))
+
+```
+
+With this new dataframe, we can use the `group_by()` function to calculate mean lung capacity by age group and smoker status:
+
+```{r age_group and smoke}
+
+lungcap_age %>% 
+  group_by(age_group,Smoke) %>% 
+  summarise(mean(LungCap))
+
+```
+
+According to these data, it appears that lung capacity generally increases with age. Interestingly, lung capacity is worse for smokers than it is for non-smokers in every age group except for "13 and under". This is surprising on the surface, given that, when the data are ungrouped, smokers have a higher lung capacity than non-smokers (see part c). However, this begins to make more sense when we see how much better the "13 and under" group is represented compared to the others in this dataset:
+
+```{r count age group}
+
+lungcap_age %>% 
+  group_by(age_group) %>% 
+  count()
+
+
+```
+
+This high number of observations compared to other age groups likely plays a significant role in skewing the mean of the entire dataset.
+
+## e
+
+It is not clear to me how this part is different from part d; from what I do understand, I believe the question being asked here is addressed in that part.
+
+## f
+
+```{r cov corr}
+
+cov(lungcap$LungCap, lungcap$Age)
+cor(lungcap$LungCap, lungcap$Age)
+
+
+```
+
+It would appear that lung capacity and age covary together positively, such that a higher age means a higher lung capacity. We can confirm this with a simple visualization:
+
+```{r corr viz}
+
+lungcap %>% 
+  ggplot(aes(x=Age,y=LungCap)) +
+  geom_point() +
+  geom_smooth()
+
+```
+
+# Question 2
+
+Before we begin answering the parts of this question, we must create a dataframe in R that represents the necessary data.
+
+```{r q2_df}
+
+priors <- c(0,1,2,3,4)
+freq <- c(128,434,160,64,24)
+prisoners <- data.frame(priors,freq)
+prisoners
+
+```
+
+## a
+
+The probability that a randomly selected inmate has exactly 2 prior convictions is 160 / 810 = `r 160 / 810`.
+
+## b
+
+The probability that a randomly selected inmate has less than 2 prior convictions is (128+434) / 810 = `r (128+434) / 810`.
+
+## c
+
+The probability that a randomly selected inmate has 2 or fewer prior convictions is (128+434+160) / 810 = `r (128+434+160) / 810`.
+
+## d
+
+The probability that a randomly selected inmate has more than 2 prior convictions is (64+24) / 810 = `r (64+24)/810`.
+
+## e
+
+Before calculating expected value, we should put together a probability mass function for the `prisoners` data.
+
+```{r pmf}
+
+prisoners <- prisoners %>% 
+  mutate(prob=freq/810) %>% 
+  mutate(expect=prob*priors)
+
+prisoners %>% 
+  summarise(sum(expect))
+
+
+```
+
+The expected value for the number of prior convictions is about 1.29 priors.
