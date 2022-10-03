@@ -1,0 +1,169 @@
+---
+title: "Homework 1"
+author: "Caleb Hill"
+desription: "The first homework on descriptive statistics and probability"
+date: "10/02/2022"
+format:
+  html: 
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - descriptive statistics
+  - probability
+---
+
+# Question 1
+
+## a
+
+First, let's read in the data from the Excel file:
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+df <- read_excel("_data/LungCapData.xls")
+```
+
+The distribution of LungCap looks as follows:
+
+```{r hist}
+hist(df$LungCap)
+```
+
+The histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15).
+
+## b
+
+Next, let's compare the probability distribution of the LungCap with respect to Males and Females, using a boxplot.
+
+```{r gender}
+boxplot(LungCap ~ Gender, df)
+```
+
+The minimum and mean are very similar to each other, with the minimum around 1 and the mean around 8. The maximum does differ though by gender, at 13 to 14/15 respectively.
+
+## c
+
+For the third question, we're going to compare the mean lung capacities for smokers and non-smokers. To compare the mean, we'll again use the box-plot.
+
+```{r smoker status}
+boxplot(LungCap ~ Smoke, df)
+```
+
+While the mean is very similar, hovering between 8 and 9, the range is what is substantial. A smoker's lung capacity has a much smaller range, 4 - 13, compared to non-smokers, at 1 - 15. This makes sense, as a smoker's lungs would start to have less capacity through consistent substance abuse.
+
+## d
+
+For question four, we need to create a new variable, Age Group, followed by comparing the relationship between Smoking and Lung Capacity, broken down by Age Group. First, we'll create the new column, referencing the Age column to determine groups.
+
+```{r Age Groups}
+df_new <- df %>%
+  mutate(
+    Age_Group = dplyr::case_when(
+      Age <= 13 ~ "Less than or equal to 13",
+      Age == 14 | Age == 15 ~ "14 or 15",
+      Age == 16 | Age == 17 ~ "16 or 17",
+      Age >= 18 ~ "Greater than or equal to 18"
+    ),
+    Age_Group = factor(
+      Age_Group,
+      level = c("Less than or equal to 13", "14 or 15", "16 or 17", "Greater than or equal to 18")
+    )
+  )
+head(df_new)
+```
+
+Good. Now we can place a histogram to better understand the relationship between LungCap and Smoking status. To view it by age group, we'll add a facet wrap to the visualization.
+
+```{r relationships}
+ggplot(df_new, aes(LungCap, color=Smoke)) +
+  geom_histogram() +
+  facet_wrap(~Age_Group)
+```
+
+Those that are smokers have a smaller sample size than non-smokers. Looking purely at the distribution of each, we can see that three of the four age groups follow a normal distribution, save the 14 or 15 group that has a somewhat "two hump" distribution.
+
+Even so, smoking status does seem to mirror the non-smoker distribution, when it comes to the overall sample count and LungCap.
+
+## e
+
+For the fifth question, we'll compare the lung capacities for smokers and non-smokers within each age group. We'll use a box-plot and facet wrap this visualization again by Age Group.
+
+```{r facet wrap}
+ggplot(df_new, aes(LungCap, Smoke)) +
+  geom_boxplot() +
+  facet_wrap(~Age_Group)
+```
+
+We can readily see that smokers, irrespective of age, have a substantially smaller lung capacity range compared to non-smokers. While the mean might be similar, sometimes even smaller for "13 years old or less", the length of each capacity varies for non-smokers where it doesn't for smokers.
+
+## f
+
+For the sixth question, we shall calculate the covariance and correlation between LungCap and Age.
+
+```{r lung capacity by age}
+cov(df$LungCap, df$Age)
+cor(df$LungCap, df$Age)
+```
+
+Covariance is the relationship between a pair of random variables where change in one variable causes change in another variable. With a covariance of 8.73, that means that there is a positive relationship between the two variables and that, by every 1 point change of Age, that can result in an average of 8.73 point change in LungCap.
+
+Correlations show whether and how strongly pairs or variables are related to one another. Correlation can range from 0.0 to 1.0. With a result of 0.81, that means there is a high correlation between LungCap and Age.
+
+# Question 2
+
+## a
+
+Let's calculate the probability that a randomly selected inmate has EXACTLY 2 prior convictions.
+
+```{r section a}
+dbinom(2, 810, 0.1975)
+```
+
+So 7.9%.
+
+## b
+
+Let's calculate the probability that a randomly selected inmate has FEWER THAN 2 prior convictions.
+
+```{r section b}
+pbinom(2, 810, 0.1975, lower.tail=FALSE)
+```
+
+Not sure why it's pulling 1.
+
+## c
+
+Let's calculate the probability that a randomly selected inmate has 2 OR FEWER prior convictions.
+
+```{r section c}
+pbinom(2, 810, 0.1975)
+```
+
+So 7.98%.
+
+## d
+
+Let's calculate the probability that a randomly selected inmate has MORE THAN 2 prior convictions.
+
+```{r lsection d}
+```
+
+## e
+
+Let's calculate the expected value for the number of prior convictions. As I am unable to calculate sections B and D, I'm unable to determine the expected value.
+
+```{r section e}
+```
+
+## f
+
+Let's calculate the variance and the standard deviation for the Prior Convictions.As I am unable to determine the expected value, I cannot calculate the variance and standard deviation either.
+
+```{r section f}
+```
+
