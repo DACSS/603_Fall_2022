@@ -1,0 +1,149 @@
+---
+title: "Homework 1 - Donny Snyder"
+author: "Donny Snyder"
+description: "The first homework on descriptive statistics and probability"
+date: "10/1/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+# Question 1
+
+## a
+
+First, let's read in the data from the Excel file:
+
+```{r, echo=T}
+library(readxl)
+df <- read_excel("_data/LungCapData.xls")
+```
+
+
+The distribution of LungCap looks as follows:
+
+```{r, echo=T}
+hist(df$LungCap)
+```
+
+The histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15).
+
+##b 
+
+```{r, echo=T}
+library(ggplot2)
+ggplot(df, aes(x = Gender, y = LungCap)) + geom_boxplot()
+```
+The probability distribution suggests that the lung capacity of males tends to be higher. 
+
+##c
+
+```{r, echo=T}
+aggregate(data = df, LungCap~Smoke, mean)
+
+```
+
+The mean lung capacity of smokers vs nonsmokers appears to be higher for smokers. This doesn't really make sense because I've been taught to think smokers tend to have reduced lung capacity. 
+
+##d and e
+
+```{r, echo=T}
+x=1
+df$AgeGroup <- rep(c("NA"),times=725)
+while(x <= 725){
+  if(df$Age[x] <= 13){
+    df$AgeGroup[x] = "less than or equal to 13"
+  }
+  else if((df$Age[x] >= 14)&&(df$Age[x] <= 15)){
+    df$AgeGroup[x] = "14 to 15"
+  }
+  else if((df$Age[x] >= 16)&&(df$Age[x] <= 17)){
+    df$AgeGroup[x] = "16 to 17"
+  }
+  else if(df$Age[x] >= 18){
+    df$AgeGroup[x] = "greater than 18"
+  }
+x = x + 1
+}
+aggregate(data = df, LungCap~AgeGroup+Smoke, mean)
+aggregate(data = df,LungCap~AgeGroup+Smoke,length)
+aggregate(data = df,Age~Smoke,mean)
+
+```
+It seems like people tend to have a lung capacity that increases with age. However, nonsmokers have a higher lung capacity for  each age break down besides less than or equal to 13. It seems like smokers just might tend to be older. I confirmed this by looking at the length and mean ages per group, where you can see a majority of smokers are older, whereas non smokers tend to be younger. The mean age for smokers also tends to be older.
+
+
+##f
+
+```{r, echo=T}
+cor(x= df$LungCap, y = df$Age)
+cov(x= df$LungCap, y = df$Age)
+
+```
+Lung capacity appears to be quite correlated with age. This means that Lung capacity tends to go up as age goes up, and vice versa. This is confirmed also by the covariance.
+
+#Question 2 
+
+##a
+
+```{r, echo=T}
+print((160/810) * 100)
+
+```
+The probability is 19.75309% that a randomly selected inmate has exactly 2 prior convictions.
+
+##b
+
+```{r, echo=T}
+print(((434+128)/810) * 100)
+
+```
+The probability is 69.38272% that a randomly selected inmate has fewer than 2 prior convictions.
+
+##c
+
+```{r, echo=T}
+print(((160+434+128)/810) * 100)
+
+```
+The probability is 89.1358% that a randomly selected inmate has 2 or fewer prior convictions.
+
+##d
+
+```{r, echo=T}
+print(((64+24)/810) * 100)
+
+```
+The probability is 10.8642% that a randomly selected inmate has more than 2 prior convictions.
+
+##e
+
+```{r, echo=T}
+newDf <- NA
+newDf[1:128] <- 0
+newDf[129:562] <- 1
+newDf[563:722] <- 2
+newDf[723:786] <- 3
+newDf[787:810] <- 4
+newDf <- as.data.frame(newDf)
+mean(newDf$newDf)
+
+```
+
+The expected value, known as the "mean" when it deals in data that are not probability distributions, is 1.28642. Because I created a vector here, I took the mean, though I also could have calculated the expected value by multiplying the probabilities by the numbers. They are both the same value in this case.
+
+##f
+
+```{r, echo=T}
+sd(newDf$newDf)
+var(newDf$newDf)
+
+```
+The variance of prior convictions is 0.8572937, the standard deviation of prior convictions is 0.9259016.
