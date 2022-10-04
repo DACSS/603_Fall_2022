@@ -1,0 +1,258 @@
+---
+title: "Homework 1"
+author: "Omer Yalcin"
+description: "The first homework on descriptive statistics and probability"
+date: "10/04/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+# Question 1
+
+## a
+
+First, let's read in the data from the Excel file:
+
+```{r}
+library(readxl)
+library(dplyr, warn.conflicts = F)
+library(magrittr)
+df <- read_excel("_data/LungCapData.xls")
+```
+
+
+The distribution of LungCap looks as follows:
+
+```{r}
+hist(df$LungCap, xlab = 'Lung Capacity', main = '', freq = F)
+```
+
+The histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15).
+
+## b
+
+```{r}
+boxplot(LungCap ~ Gender, data = df)
+```
+
+The shape of the distribution is similar for males and females. The median, first quartile, third quartile lung capacity values all seem to be somewhat higher for males.
+
+## c
+
+```{r}
+df %>%
+  group_by(Smoke) %>%
+  summarize(LungCap = mean(LungCap))
+```
+
+The lung capacity for smokers seems to be higher than non-smokers. It goes against the common idea that smoking would hurt lung capacity.
+
+## d
+
+- Less than or equal to 13
+
+```{r}
+df %>%
+  filter(Age <= 13) %>%
+  group_by(Smoke) %>%
+  summarize(LungCap = mean(LungCap))
+```
+
+- 14 to 15
+
+```{r}
+df %>%
+  filter(Age == 14 | Age == 15) %>%
+  group_by(Smoke) %>%
+  summarize(LungCap = mean(LungCap))
+```
+
+- 16 to 17
+
+```{r}
+df %>%
+  filter(Age == 16 | Age == 17) %>%
+  group_by(Smoke) %>%
+  summarize(LungCap = mean(LungCap))
+```
+
+- Greater than or equal to 18
+
+```{r}
+df %>%
+  filter(Age >= 18) %>%
+  group_by(Smoke) %>%
+  summarize(LungCap = mean(LungCap))
+```
+
+
+## e
+
+For three out of the four groups, lung capacity if smaller for smokers.
+This makes another explanation plausible.
+Smoking is inversely related to lung capacity, but older people both smoke more and have more lung capacity.
+Thus, considering the relationship between smoking and lung capacity without looking at age makes the relationship look the opposite of what it is.
+
+
+## f
+
+```{r}
+cov(df$LungCap, df$Age)
+cor(df$LungCap, df$Age)
+```
+
+Both the correlation and the covariance are positive (when one of them is the other has to).
+Positive values suggest that people who are older tend to have higher lung capacity, confirming what we found.
+Since correlation is standardized (needs to be between -1 and 1), its absolute value tells us about the strength of the relationship.
+0.82 suggests a pretty strong relationship.  
+
+# Question 2
+
+Let's recreate the data in the question in R.
+
+```{r}
+tb <- tibble(
+  X = c(0, 1, 2, 3, 4),
+  Frequency = c(128, 434, 160, 64, 24)
+  )
+```
+
+
+There is no super elegant way of doing these (as far as I know), here's one way.
+
+Store the total number of observations, 810, into n
+
+```{r}
+n <- sum(tb$Frequency) 
+```
+
+## a
+
+
+```{r}
+tb %>%
+  filter(X == 2) %>%
+  pull(Frequency) %>%
+  divide_by(n)
+```
+
+## b
+
+```{r}
+tb %>%
+  filter(X < 2) %>%
+  pull(Frequency) %>%
+  sum() %>%
+  divide_by(n)
+```
+
+
+## c
+
+```{r}
+tb %>%
+  filter(X <= 2) %>%
+  pull(Frequency) %>%
+  sum() %>%
+  divide_by(n)
+```
+
+## d
+
+```{r}
+tb %>%
+  filter(X > 2) %>%
+  pull(Frequency) %>%
+  sum() %>%
+  divide_by(n)
+```
+
+
+## e
+
+Expected number of prior convictions is just a weighted average of the number of prior convictions.
+
+- **Method 1:** Multiply every value with their frequency, then divide by total frequency i.e. (0 * 128 + 1 * 434 + 2 * 160 ......) / 810.
+
+```{r}
+sum(tb$X * tb$Frequency) / n
+```
+
+- **Method 2:** Multiply every value with their probility, sum them up.
+
+```{r}
+tb %>%
+  mutate(probability = Frequency / n) -> tb
+
+print(tb)
+```
+
+```{r}
+sum(tb$X * tb$probability)
+```
+
+- **Method 3:** Recreate the whole sample (a vector that has 128 zeroes, 434 ones, 160 twos, ....) with a total length/size of 810. Take the mean.
+
+
+```{r}
+sample <- c(rep(0, 128), rep(1, 434), rep(2, 160), rep(3, 64), rep(4, 24))
+mean(sample)
+```
+
+## f
+
+- **Method 1:** Let's start from the end: we have the sample, just call `var()` and `sd()`
+
+```{r}
+cat('Variance:', var(sample))
+cat('\nStandard Deviation:', sd(sample))
+```
+**Method 2:** Manually apply the formula using weights.
+
+Standard deviation is square root of variance. So let's calculate variance first.
+For that we need the mean.
+Let's pull the expected value from the previous section:
+
+```{r}
+m <- sum(tb$X * tb$Frequency) / n
+```
+
+For every observation, we'll need the squared difference from mean (squared deviation from mean).
+
+```{r}
+
+tb %>%
+  mutate(sq_deviation = (X - m)^2) -> tb 
+print(tb)
+
+```
+
+Then, we can now multiply them with probability.
+
+```{r}
+sum(tb$sq_deviation * tb$probability)
+```
+
+This gives us the 'population' variance. If we wanted the 'sample' variance, what the `var()` function does, we could manually apply the Bessel's correction:
+
+```{r}
+variance <- sum(tb$sq_deviation * tb$probability) * (n / (n-1))
+print(variance)
+```
+
+Standard deviation is then just the square root:
+
+```{r}
+sqrt(variance)
+```
+
+This replicated what we found directly using the sample.
+
