@@ -182,3 +182,32 @@ prisoners %>%
 ```
 
 The expected value for the number of prior convictions is about 1.29 priors.
+
+EDIT: There is a much simpler way to compute this! Rather than using the dataframe I created, storing values and their frequencies, I can create one vector that stores each value a certain number of times, according to the given frequencies:
+
+```{r prisoners full}
+
+prisoners_full <- rep(c(0,1,2,3,4),times=c(128,434,160,64,24))
+prisoners_full
+
+```
+
+Because each value now appears as frequently as its "probability" of appearing, taking the mean of this vector also provides the correct expected value.
+
+```{r simple mean}
+
+mean(prisoners_full)
+
+```
+
+
+## f
+
+Creating this numerical vector also makes the standard deviation calculation extremely simple in R.
+
+```{r sd}
+
+sd(prisoners_full)
+
+```
+
