@@ -5,10 +5,10 @@ date: "10/03/2022"
 desription: Something to describe what I did
 format:
   html:
-    toc: yes
-    code-fold: yes
-    code-copy: yes
-    code-tools: yes
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
 categories: HW1
 ---
 
