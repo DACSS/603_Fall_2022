@@ -1,0 +1,173 @@
+---
+title: "Duryea Homework 1"
+author: "Emily Duryea"
+description: "Homework 1 for DACSS 603"
+date: "10/03/2022"
+format:
+  html:
+  toc: true
+code-fold: true
+code-copy: true
+code-tools: true
+categories:
+  - hw1
+- descriptive statistics 
+- probability
+---
+
+Question 1
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(readxl)
+df <- read_excel("_data/LungCapData.xls")  
+
+hist(df$LungCap)
+```
+
+Part A: Plotting probability density histogram
+
+```{r}
+hist(df$LungCap, 
+     col="yellow",
+     border="black",
+     prob = TRUE,
+     xlab = "LungCap",
+     main = "Density Plot")
+
+lines(density(df$LungCap),
+      lwd = 2,
+      col = "chocolate3")
+```
+
+Part B: Compare the probability distribution of the LungCap with respect to Males and Females
+
+```{r}
+ggplot(df, aes(y = dnorm(LungCap), color = Gender)) +
+  geom_boxplot() +
+  labs(title = "LungCap Probability Distribution for Males and Females", y = "Probability density")
+```
+
+Part C: Compare the mean lung capacities for smokers and non-smokers
+
+```{r}
+mean_smoking <- df %>%
+  group_by(Smoke) %>%
+  summarise(mean = mean(LungCap))
+mean_smoking
+```
+
+The means of smokers vs non smokers does not make sense since non smokers have a lower mean lung cap, when one would think it would be the other way around. However, limited data is provided on the sample, so there could be other factors in play.
+
+Part D: Examine the relationship between Smoking and Lung Capacity within age groups: "less than or equal to 13", "14 to 15", "16 to 17", and "greater than or equal to 18"
+
+```{r}
+df <- mutate(df, AgeGroup = case_when(Age <= 13 ~ "less than or equal to 13",
+                                    Age == 14 | Age == 15 ~ "14 to 15",
+                                    Age == 16 | Age == 17 ~ "16 to 17",
+                                    Age >= 18 ~ "greater than or equal to 18"))
+
+df %>%
+  ggplot(aes(y = LungCap, color = Smoke)) +
+  geom_histogram(bins = 25) +
+  facet_wrap(vars(AgeGroup)) +
+  theme_classic() + 
+  labs(title = "LungCap and Smoke based on age groups", y = "Lung Capacity", x = "Frequency")
+```
+
+Based on the histograms, Part D seems to contrast with Part C, since the plots seem to demonstrate non-smokers having higher lung capacity than smokers in all age groups. Additionally, lung capacity appears to decrease with age based on the graph.
+
+Part E: Compare the lung capacities for smokers and non-smokers within each age group
+
+```{r}
+df %>%
+  ggplot(aes(x = Age, y = LungCap, color = Smoke)) +
+  geom_line() +
+  facet_wrap(vars(Smoke)) +
+  labs(title = "LungCap and Smoke based on age and smoker vs nonsmoker", y = "Lung Capacity", x = "Age")
+```
+
+Based on information gained in Part D and Part E, it appears that lung capacity decreases with age, and, despite the means in Part C, lung capacity is higher for non-smokers.
+
+Part F: Calculate the correlation and covariance between Lung Capacity and Age
+
+```{r}
+Cov_lungcapage <- cov(df$LungCap, df$Age)
+Cor_lungcapeage <- cor(df$LungCap, df$Age)
+Cov_lungcapage
+Cor_lungcapeage
+```
+
+Because both the covariance and correlation are positive numbers, the relationship between lung capacity and age are positively related, meaning as one increases, the other also increases in a proportional manner.
+
+Question 2
+
+```{r}
+Prior_Convictions <- c(0:4)
+Inmate_Number <- c(128, 434, 160, 64, 24)
+ip <- tibble(Prior_Convictions, Inmate_Number)
+
+ip <- mutate(ip, Probability = Inmate_Number/sum(Inmate_Number))
+ip
+```
+
+Part A: What is the probability that a randomly selected inmate has exactly 2 prior convictions?
+
+```{r}
+ip %>%
+  filter(Prior_Convictions == 2) %>%
+  select(Probability)
+```
+
+The probability that a randomly selected inmate has exactly two prior convictions is 0.1975309.
+
+Part B: What is the probability that a randomly selected inmate has fewer than 2 prior convictions?
+
+```{r}
+partb <- ip %>%
+  filter(Prior_Convictions < 2)
+sum(partb$Probability)
+```
+
+The probability that a randomly selected inmate has fewer than two prior convictions is 0.6938272.
+
+Part C: What is the probability that a randomly selected inmate has 2 or fewer prior convictions?
+
+```{r}
+partc <- ip %>%
+  filter(Prior_Convictions <= 2)
+sum(partc$Probability)
+```
+
+The probability that a randomly selected inmate has two or fewer prior convictions is 0.891358.
+
+Part D: What is the probability that a randomly selected inmate has more than 2 prior convictions?
+
+```{r}
+partd <- ip %>%
+  filter(Prior_Convictions > 2)
+sum(partd$Probability)
+```
+
+The probability that a randomly selected inmate has more than two prior convictions is 0.108642.
+
+Part E: What is the expected value for the number of prior convictions?
+
+```{r}
+ip <- mutate(ip, vl = Prior_Convictions*Probability)
+parte <- sum(ip$vl)
+parte
+```
+
+The expected value for the number of prior convictions is 1.28642.
+
+Part F: Calculate the variance and the standard deviation for the Prior Convictions
+
+```{r}
+ip_var <-sum(((ip$Prior_Convictions-parte)^2)*ip$Probability)
+ip_var
+sqrt(ip_var)
+```
+
+The variance for prior convictions is 0.8562353 and the standard deviation is 0.9253298.
