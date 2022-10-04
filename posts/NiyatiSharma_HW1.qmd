@@ -1,0 +1,175 @@
+---
+title: "HW1"
+author: "Niyati Sharma"
+desription: "The first homework on descriptive statistics and probability"
+date: "10/03/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - Niyati Sharma
+  - desriptive statistics 
+  - probability
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(stats)
+
+
+
+knitr::opts_chunk$set(echo = TRUE)
+
+
+```
+
+## Question 1
+
+## Read the data from xls file
+```{r}
+RE <- read_excel("_data/LungCapData.xls")
+RE
+
+```
+
+##A
+
+```{r}
+RE %>% 
+  ggplot(aes(LungCap))+
+  geom_histogram(bins=20)
+```
+
+The histogram looks close to normal distributed.
+
+
+## B
+
+
+```{r}
+RE %>%
+  ggplot(aes (LungCap, color=Gender)) +
+  geom_boxplot() +
+  theme_classic() 
+```
+  The probability density of the female is higher than the males.
+
+
+## C
+
+```{r}
+Mean_Smoker <- RE %>%
+  group_by(Smoke) %>%
+  summarise(mean = mean(LungCap))
+Mean_Smoker
+
+ggplot(RE, aes(LungCap,Smoke))+
+  geom_boxplot()
+```
+From this sample, it appears that smokers have a higher mean lung capacity than non-smokers. 
+
+## D
+
+```{r}
+RE<-RE %>% 
+  mutate(Category = as.factor(case_when(Age <= 13 ~ "13 and under", 
+                           Age == 14 |Age ==15 ~ "14-15", 
+                           Age == 16 | Age==17 ~ "16-17",
+                           Age >= 18 ~ "18 or over"
+                           )))
+RE
+
+RE %>%
+  ggplot(aes( LungCap, color = Smoke)) +
+  geom_histogram()+
+  facet_grid(Smoke ~ Category)
+```
+The people who smoke are few in age group of "less than or equal to 13".
+From the result we can say  age is inversely proportional to the lung capacity.
+
+
+
+## E
+Form the above data we can say the output are pretty similar that smokers have a lower lung capacity compared to non-smokers
+
+## F
+correlation and covariance between lung capacity and age
+```{r}
+cov(RE$LungCap,RE$Age)
+cor(RE$LungCap,RE$Age)
+
+```
+Covariance is positive and indicates that age and lung capacity are directly related.
+Correlation is also positive,from these results we can conclude that the lung capacity increases with age. 
+
+
+## Question 2
+
+```{r}
+x <- c(0:4)
+freq <- c(128, 434, 160, 64, 24)
+convictions <- data_frame(x, freq)
+convictions
+
+```
+
+```{r}
+convictions <- convictions %>% mutate(probability = freq/sum(freq))
+convictions
+```
+
+
+## A
+Probability of exactly 2 is 19.75%
+
+## B
+```{r}
+a <-head(convictions,2)
+sum(a$probability)
+```
+Probability that a randomly selected inmate has fewer than 2 prior
+convictions : 69.38%
+
+## C 
+
+```{r}
+a <-head(convictions,3)
+sum(a$probability)
+```
+The probability that a randomly selected inmate has 2 or fewer prior
+convictions : 89.13%
+
+## D
+
+```{r}
+a <-tail(convictions,2)
+sum(a$probability)
+```
+The probability that a randomly selected inmate has more than 2 prior
+convictions? : 10.86%
+
+
+## E
+```{r}
+WE <- weighted.mean(convictions$x,convictions$probability)
+WE
+```
+The expected value for the number of prior convictions : 1.28
+
+## F
+The variance is 0.857 and the standard deviation is 0.925
+```{r}
+
+AB <- (sum(freq*((x-WE)^2)))/(sum(freq)-1)
+AB
+sqrt(AB)
+```
