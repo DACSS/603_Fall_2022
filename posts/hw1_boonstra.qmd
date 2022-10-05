@@ -2,7 +2,7 @@
 title: "Homework 1"
 author: "Nick Boonstra"
 description: "The first homework on descriptive statistics and probability"
-date: Sys.Date()
+date: "10/05/2022"
 format:
   html:
     toc: true
@@ -49,10 +49,8 @@ These are the boxplots of the distributions for the lung capacity of males and f
 ```{r boxplot}
 
 lungcap %>% 
-  ggplot(aes(x="",y=LungCap)) +
-  geom_boxplot() +
-  facet_wrap(vars(Gender)) +
-  labs(x="",y="Lung Capacity")
+  ggplot(aes(x=Gender,y=LungCap)) +
+  geom_boxplot()
 
 
 ```
@@ -132,7 +130,7 @@ It would appear that lung capacity and age covary together positively, such that
 lungcap %>% 
   ggplot(aes(x=Age,y=LungCap)) +
   geom_point() +
-  geom_smooth()
+  geom_smooth(method='lm')
 
 ```
 
