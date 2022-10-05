@@ -1,0 +1,267 @@
+---
+title: "Homework 1"
+author: "Ken Docekal"
+desription: "The first homework on descriptive statistics and probability"
+date: "10/03/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Question 1
+
+## a
+
+Read in the data from the Excel file:
+
+
+```{r}
+
+library(readr)
+library(readxl)
+
+LungCapData <- read_excel("_data/LungCapData.xls")
+View(LungCapData)
+
+
+```
+
+The distribution of LungCap looks as follows:
+
+```{r, echo=T}
+
+hist(LungCapData$LungCap)
+
+```
+
+
+
+## b
+
+Probability distribution of the LungCap, Males and Females, in a box plot:
+
+
+```{r, echo=T}
+
+boxplot(LungCapData$LungCap ~ LungCapData$Gender)
+
+```
+
+
+## c
+
+Lung capacities for smokers and non-smokers, mean and standard deviation:
+
+
+```{r, echo=T}
+
+LungCapData %>% 
+  group_by(Smoke) %>% 
+  summarise(mean = mean(LungCap, na.rm = TRUE), sd = sd(LungCap, na.rm = TRUE))
+
+```
+
+Results seem to point to smokers having greater lung capacity which is odd and could indicate factors other than age are influencing lung capacity
+
+
+
+## d
+
+The relationship between Smoking and Lung Capacity within age
+groups: “less than or equal to 13”, “14 to 15”, “16 to 17”, and “greater than or
+equal to 18”:
+
+
+
+age 13 and lower:
+
+```{r, echo=T}
+
+
+LungCapData %>% 
+  group_by(Smoke) %>% 
+ dplyr::filter(Age <=13)%>% 
+  summarise(mean = mean(LungCap, na.rm = TRUE),sd = sd(LungCap, na.rm = TRUE))
+
+```
+
+
+age 14 to 15:
+
+```{r, echo=T}
+
+LungCapData %>% 
+  group_by(Smoke) %>% 
+ dplyr::filter(Age == 14:15)%>% 
+  summarise(mean = mean(LungCap, na.rm = TRUE),sd = sd(LungCap, na.rm = TRUE))
+
+```
+
+
+age 16 to 17:
+
+```{r, echo=T}
+
+LungCapData %>% 
+  group_by(Smoke) %>% 
+ dplyr::filter(Age == 16:17)%>% 
+  summarise(mean = mean(LungCap, na.rm = TRUE),sd = sd(LungCap, na.rm = TRUE))
+
+```
+
+
+age 18 and over:
+
+```{r, echo=T}
+
+
+LungCapData %>% 
+  group_by(Smoke) %>% 
+ dplyr::filter(Age >=18)%>% 
+  summarise(mean = mean(LungCap, na.rm = TRUE),sd = sd(LungCap, na.rm = TRUE))
+
+
+```
+
+
+## e
+
+When looking at mean lung capacity of smokers versus non-smokers by age groups we can see lung capacity increasing consistently as age increases. For the two lowest age groups mean capacity is lower for non-smokers although the difference decreases as age increases; this trend is reversed from age 16 onwards as non-smokers overtake smokers in lung capacity. Across all age groups non-smokers also have a greater standard deviation in lung capacity compared to smokers with the age 13 and under non-smoker group having the greatest standard deviation. It is likely that the greater number of age 13 and under respondents is the reason why overall results mirror the distribution seen in the youngest age group.
+
+
+
+## f
+
+Covariance between lung capacity and age:
+
+```{r, echo=T}
+ 
+cov(LungCapData$Age,LungCapData$LungCap)
+
+```
+A positive covariance is shown which lets us know that as age increases lung capacity also increases.
+
+
+
+Correlation between lung capacity and age:
+
+```{r, echo=T}
+ 
+cor(LungCapData$Age,LungCapData$LungCap)
+
+```
+The correlation coefficient is also positive; similar to the covariance this lets us know that there is a positive relationship between age and lung capacity. Additionally, since .819 is a relatively high score, as a score of 1 would indicate a perfect positive relationship, we know there is a strong relationship where a older respondent would be highly likely to have higher lung capacity and a younger respondent would likely have lower lung capacity. 
+
+
+
+
+# Question 2
+
+## a
+
+The probability that a randomly selected inmate has exactly 2 prior
+convictions:
+
+Create data frame:
+```{r, echo=T}
+ 
+convictions<- c(0,1,2,3,4)
+prisoners<- c(128, 434, 160, 64, 24)
+
+df <- data.frame(convictions, prisoners)
+
+tibble(df)
+
+```
+
+
+Probability of exactly 2 prior convictions:
+
+```{r, echo=T}
+
+160/sum(prisoners)
+
+
+```
+
+
+## b
+
+Probability of fewer than 2 prior convictions (total # of prisoners with less than 2 prior convictions = 562):
+
+```{r, echo=T}
+
+562/sum(prisoners)
+
+```
+
+## c
+
+Probability of 2 or fewer prior convictions (total # of prisoners with 2 or fewer prior convictions = 722):
+
+```{r, echo=T}
+
+722/sum(prisoners)
+
+```
+
+
+## d
+
+Probability of more than 2 prior convictions (total # of prisoners with more than 2 prior convictions = 88):
+
+```{r, echo=T}
+
+88/sum(prisoners)
+
+```
+
+
+## e
+
+The expected value for the number of prior convictions (using the probability of observing each prisoner prior conviction group):
+
+```{r, echo=T}
+
+con1<- c(0,1,2,3,4)
+pprob<- c(.158,.536,.198,.079,.028)
+
+
+sum(con1*pprob)
+
+
+```
+
+
+## f
+
+Variance and standard deviation for prior convictions:
+
+```{r, echo=T}
+
+var(prisoners)
+
+sd(prisoners)
+
+```
+
+
+
+
