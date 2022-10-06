@@ -1,0 +1,141 @@
+---
+title: "Homework 1 - Prahitha Movva"
+author: "Prahitha Movva"
+description: "The first homework on descriptive statistics and probability"
+date: "10/05/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+# Question 1
+
+## a
+
+First, let's read in the data from the Excel file:
+
+```{r, echo=T}
+library(readxl)
+df <- read_excel("_data/LungCapData.xls")
+```
+
+The distribution of LungCap looks as follows:
+
+```{r}
+hist(df$LungCap)
+```
+
+The histogram suggests that the distribution is close to a normal distribution. Most of the observations are close to the mean. Very few observations are close to the margins (0 and 15).
+
+
+## b
+
+```{r}
+boxplot(LungCap~Gender, data = df)
+```
+
+From the boxplots for gender above, we can see that males seem to have (slightly) higher lung capacity than females.
+
+
+## c
+
+```{r}
+aggregate(data = df, LungCap~Smoke, mean)
+```
+
+The mean lung capacity for smokers and nonsmokers seems to be higher for smokers. This does not make sense as we generally expect smokers to have a reduced lung capacity due to the damage from smoking.
+
+
+## d
+
+```{r}
+df_ageGroups <- mutate(df, AgeGroup = case_when(Age <= 13 ~ "13 and below", Age == 14 | Age == 15 ~ "14 to 15", Age == 16 | Age == 17 ~ "16 to 17", Age >= 18 ~ "18 and above"))
+
+
+ggplot(df_ageGroups, aes(x = LungCap)) +
+  geom_histogram() +
+  facet_grid(AgeGroup~Smoke)
+```
+
+We see non-smokers to have a higher lung capacity than smokers, as expected.
+
+
+## e
+
+Lung capacity seems to be directly proportional to age and after breaking down the data by age groups, we see that the lung capacities for non-smokers are higher than those of smokers in the same age group (except for less than or equal to 13). This could be because of the total number of observations in each age group. The age group less than or equal to 13 has the highest number of observations - thereby skewing the results (here, mean) for the entire distribution.
+
+
+## f
+
+```{r}
+cor(x= df$LungCap, y = df$Age)
+cov(x= df$LungCap, y = df$Age)
+```
+
+Lung capacity seems to be positively correlated with age i.e., as age increases, lung capacity increases. Same is the case with covariance.
+
+
+# Question 2
+
+## a
+
+```{r}
+a <- 160/810
+```
+
+The probability that a randomly selected inmate has exactly 2 prior convictions is `r a`.
+
+## b
+
+```{r}
+b <- (128+434)/810
+```
+
+The probability that a randomly selected inmate has fewer than 2 prior convictions is `r b`.
+
+## c
+
+```{r}
+c <- (128+434+160)/810
+```
+
+The probability that a randomly selected inmate has 2 or fewer prior convictions is `r c`.
+
+## d
+
+```{r}
+d <- (64+24)/810
+```
+
+The probability that a randomly selected inmate has more than 2 prior convictions is `r d`.
+
+## e
+
+```{r}
+e <- (0*(128/810)) + (1*(434/810)) + (2*(160/810)) + (3*(64/810)) + (4*(24/810))
+```
+
+The expected value for the number of prior convictions is `r e` or 1, as the number of convictions cannot be a float.
+
+## f
+
+```{r}
+var_0 <- ((0-e)^2) * (128/810)
+var_1 <- ((1-e)^2) * (434/810)
+var_2 <- ((2-e)^2) * (160/810)
+var_3 <- ((3-e)^2) * (64/810)
+var_4 <- ((4-e)^2) * (24/810)
+
+var <- var_0 + var_1 + var_2 + var_3 + var_4
+
+sd <- sqrt(var)
+```
+
+For prior convictions, the variance is `r var` and the standard deviation is `r sd`.
