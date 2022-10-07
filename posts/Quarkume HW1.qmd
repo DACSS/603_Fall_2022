@@ -1,0 +1,179 @@
+---
+title: "HW1 Quat"
+author: "Amy Quarkume"
+format: html
+editor: visual
+---
+
+## 1. Examination of Lung Capacity
+
+## LungCapDate
+
+1.  Use the LungCapData to answer the following questions. (Hint: Using dplyr, especially group_by() and summarize() can help you answer the following questions relatively efficiently.)
+
+Install Libraries
+
+```{r}
+#install.packages("dplyr")
+library(dplyr)
+#install.packages("ggplot2")
+library(ggplot2)
+#install.packages("readxl")
+library(readxl)
+#install.packages("magrittr")
+library(magrittr)
+```
+
+1.  What does the distribution of LungCap look like?
+
+    The distribution of Lung Capacity in the data set looks normally distributed.
+
+```{r}
+#histogram of LungCap
+hist(LungCapData$LungCap, xlab = 'LungCap', main = '', freq = F)
+
+```
+
+2.  Compare the probability distribution of the LungCap with respect to Males and Females?
+
+    Looking at the comparative boxplot males have a higher lung capacity than females.
+
+```{r}
+boxplot(LungCapData$LungCap ~ LungCapData$Gender,
+        col = c("#FFE0B2", "#FFA726"))
+
+```
+
+c\. Compare the mean lung capacities for smokers and non-smokers. Does it make sense? In comparing the means, the lung capacity for smokers is higher than for nonsmokers.
+
+```{r}
+#Mean Lung capacities of smokers
+LungCapData %>%
+  filter(Smoke == 'yes') %>%
+  pull(LungCap) %>%
+  mean()
+
+#Mean Lung capacities of non-smokers
+LungCapData %>%
+  filter(Smoke == 'no') %>%
+  pull(LungCap) %>%
+  mean()
+
+```
+
+d\. Examine the relationship between Smoking and Lung Capacity within age groups: "less than or equal to 13", "14 to 15", "16 to 17", and "greater than or equal to 18".
+
+```{r}
+#new var for Age Groups
+LungCapData$Age_Cat <- cut(LungCapData$Age,
+                           breaks = c(0,13,15,17,25),
+                           labels = c('less than or equal to 13','14 to 15','16 to 17','greater than or equal to 18'))
+
+ggplot(LungCapData, aes(x=Smoke, y=LungCap)) + 
+    geom_boxplot() +
+  facet_wrap(~Age_Cat, scale="free")
+
+```
+
+e\. Compare the lung capacities for smokers and non-smokers within each age group. Is your answer different from the one in part c. What could possibly be going on here? We see an intervening relationship with age. Where most young children either don't smoke ar all and have smaller lung capacities because of their size.
+
+```{r}
+ggplot(LungCapData, aes(x=Smoke, y=LungCap)) + 
+    geom_boxplot() +
+  facet_wrap(~Age, scale="free")
+
+--
+  
+```
+
+f.Calculate the correlation and correlation between Lung Capacity and Age. (use the cov() and cor() functions in R).
+
+```{r}
+
+#correlation
+LungCapData %>% 
+  summarize(correlation = cor(LungCap, Age))
+
+#correlation
+LungCapData %>% 
+  summarize(covariance = cov(LungCap, Age))
+
+
+
+```
+
+## 1. Examination of Prison Convictions
+
+## PrisonData
+
+Data
+
+```{r}
+
+PrisonData <- tibble(
+  prior_convictions = c(0,1,2,3,4),
+  freq = c(128,434,160,64,24))
+
+PrisonData
+num <- sum (PrisonData$freq)
+num
+```
+
+1.  What is the probability that a randomly selected inmate has exactly 2 prior convictions?
+
+```{r}
+PrisonData %>% 
+  filter(prior_convictions == 2) %>% 
+  pull (freq) %>% 
+  divide_by (num)
+```
+
+b\. What is the probability that a randomly selected inmate has fewer than 2 prior convictions?
+
+```{r}
+
+PrisonData %>% 
+  filter(prior_convictions < 2) %>% 
+  pull (freq) %>% 
+  sum() %>%
+  divide_by (num)
+```
+
+c\. What is the probability that a randomly selected inmate has 2 or fewer prior convictions?
+
+```{r}
+
+PrisonData %>% 
+  filter(prior_convictions <= 2) %>% 
+  pull (freq) %>% 
+  sum() %>%
+  divide_by (num)
+```
+
+d.What is the probability that a randomly selected inmate has more than 2 prior convictions?
+
+```{r}
+
+PrisonData %>% 
+  filter(prior_convictions > 2) %>% 
+  pull (freq) %>% 
+  sum() %>%
+  divide_by (num)
+```
+
+e\. What is the expected value for the number of prior convictions?
+
+```{r}
+
+sum(prior_convictions*freq)
+
+```
+
+f\. Calculate the variance and the standard deviation for the Prior Convictions.
+
+```{r}
+
+
+```
+
+The `echo: false` option disables the printing of code (only output is displayed).
