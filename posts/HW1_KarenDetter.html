@@ -242,7 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Homework 1</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Homework 1</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">hw1</div>
     <div class="quarto-category">descriptive statistics</div>
@@ -278,24 +278,53 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <section id="q.1a" class="level1">
 <h1>Q.1a</h1>
 <section id="read-in-data-from-excel-file" class="level2">
 <h2 class="anchored" data-anchor-id="read-in-data-from-excel-file">read in data from Excel file:</h2>
-<pre><code>library(readxl)
-LungCapData &lt;- read_excel("posts/_data/LungCapData.xls")</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>LungCapData <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">'_data/LungCapData.xls'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="plot-histogram-with-probability-density-on-the-y-axis" class="level2">
 <h2 class="anchored" data-anchor-id="plot-histogram-with-probability-density-on-the-y-axis">plot histogram with probability density on the y axis</h2>
-<pre><code>hist(LungCapData$LungCap, freq = FALSE)</code></pre>
-<p>The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, and very few observations are close to the margins (0 and 15).</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(LungCapData<span class="sc">$</span>LungCap, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="HW1_KarenDetter_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, with few observations close to the margins (0 and 15).</p>
 </section>
 </section>
 <section id="q.1b" class="level1">
 <h1>Q.1b</h1>
 <section id="create-boxplots-separated-by-gender" class="level2">
 <h2 class="anchored" data-anchor-id="create-boxplots-separated-by-gender">create boxplots separated by gender</h2>
-<pre><code>boxplot(LungCap ~ Gender, data = LungCapData, horizontal = TRUE)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(LungCap <span class="sc">~</span> Gender, <span class="at">data =</span> LungCapData, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="HW1_KarenDetter_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
 <p>The boxplots show that male lung capacity has a wider range than that of females; however, the minimum, median, and maximum values are all higher than those of females. This implies that, as a group, men are likely to have higher lung capacity than women.</p>
 </section>
 </section>
@@ -303,10 +332,22 @@ LungCapData &lt;- read_excel("posts/_data/LungCapData.xls")</code></pre>
 <h1>Q.1c</h1>
 <section id="group-by-smoking-status-and-summarize-mean-lung-capacities" class="level2">
 <h2 class="anchored" data-anchor-id="group-by-smoking-status-and-summarize-mean-lung-capacities">group by smoking status and summarize mean lung capacities</h2>
-<pre><code>library(dplyr)
-LungCapData %&gt;%
-group_by(Smoke) %&gt;%
-summarize(mean = mean(LungCap), n = n())</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>LungCapData <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(LungCap), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  Smoke  mean     n
+  &lt;chr&gt; &lt;dbl&gt; &lt;int&gt;
+1 no     7.77   648
+2 yes    8.65    77</code></pre>
+</div>
+</div>
 <p>In this dataset, the mean lung capacity of smokers is actually higher than that of non-smokers. Since this is counter to what would be expected, there is likely another variable exerting a confounding effect on lung capacity.</p>
 </section>
 </section>
@@ -314,17 +355,45 @@ summarize(mean = mean(LungCap), n = n())</code></pre>
 <h1>Q.1d</h1>
 <section id="create-new-data-frame-with-age-group-category-variables" class="level2">
 <h2 class="anchored" data-anchor-id="create-new-data-frame-with-age-group-category-variables">create new data frame with age group category variables</h2>
-<pre><code>LungCapData_AgeGroups &lt;- LungCapData %&gt;%
-mutate(AgeGroup = case_when(Age &lt;= 13 ~ "less than or equal to 13", 
-            Age == 14 | Age == 15 ~ "14 to 15",
-            Age == 16 | Age == 17 ~ "16 to 17",
-            Age &gt;= 18 ~ "greater than or equal to 18"))</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>LungCapData_AgeGroups <span class="ot">&lt;-</span> LungCapData <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">AgeGroup =</span> <span class="fu">case_when</span>(Age <span class="sc">&lt;=</span> <span class="dv">13</span> <span class="sc">~</span> <span class="st">"less than or equal to 13"</span>, </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">==</span> <span class="dv">14</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"14 to 15"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">==</span> <span class="dv">16</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">17</span> <span class="sc">~</span> <span class="st">"16 to 17"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"greater than or equal to 18"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="summarize-mean-lung-capacities-by-age-group-and-smoking-status" class="level2">
 <h2 class="anchored" data-anchor-id="summarize-mean-lung-capacities-by-age-group-and-smoking-status">summarize mean lung capacities by age group and smoking status</h2>
-<pre><code>LungCapData_AgeGroups %&gt;%
-group_by(AgeGroup,Smoke) %&gt;%
-summarize(mean = mean(LungCap), n = n())</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>LungCapData_AgeGroups <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(AgeGroup, Smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">MeanLungCap =</span> <span class="fu">mean</span>(LungCap), <span class="at">n =</span> <span class="fu">n</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'AgeGroup'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+# Groups:   AgeGroup [4]
+  AgeGroup                    Smoke MeanLungCap     n
+  &lt;chr&gt;                       &lt;chr&gt;       &lt;dbl&gt; &lt;int&gt;
+1 14 to 15                    no           9.14   105
+2 14 to 15                    yes          8.39    15
+3 16 to 17                    no          10.5     77
+4 16 to 17                    yes          9.38    20
+5 greater than or equal to 18 no          11.1     65
+6 greater than or equal to 18 yes         10.5     15
+7 less than or equal to 13    no           6.36   401
+8 less than or equal to 13    yes          7.20    27</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.1e" class="level1">
@@ -335,8 +404,22 @@ summarize(mean = mean(LungCap), n = n())</code></pre>
 <h1>Q.1f</h1>
 <section id="calculate-correlation-and-covariance-between-lung-capacity-and-age" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-correlation-and-covariance-between-lung-capacity-and-age">calculate correlation and covariance between lung capacity and age</h2>
-<pre><code>cor(LungCapData$LungCap, LungCapData$Age)
-cov(LungCapData$LungCap, LungCapData$Age)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(LungCapData<span class="sc">$</span>LungCap, LungCapData<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8196749</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(LungCapData<span class="sc">$</span>LungCap, LungCapData<span class="sc">$</span>Age)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8.738289</code></pre>
+</div>
+</div>
 <p>Since the correlation coefficient is close to 1, there is a high degree of correlation between lung capacity and age. The covariance of 8.7, being a positive number, indicates that as age increases, lung capacity increases.</p>
 </section>
 </section>
@@ -344,15 +427,36 @@ cov(LungCapData$LungCap, LungCapData$Age)</code></pre>
 <h1>Q.2a</h1>
 <section id="create-data-frame" class="level2">
 <h2 class="anchored" data-anchor-id="create-data-frame">create data frame</h2>
-<pre><code>PriorConv &lt;- c(0,1,2,3,4)
-Freq &lt;- c(128,434,160,64,24)
-PrisonerData &lt;- data.frame (PriorConv, Freq)
-PrisonerData</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>PriorConv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">128</span>,<span class="dv">434</span>,<span class="dv">160</span>,<span class="dv">64</span>,<span class="dv">24</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>PrisonerData <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (PriorConv, Freq)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>PrisonerData</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  PriorConv Freq
+1         0  128
+2         1  434
+3         2  160
+4         3   64
+5         4   24</code></pre>
+</div>
+</div>
 </section>
 <section id="calculate-probability-that-an-inmate-has-2-prior-convictions" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-probability-that-an-inmate-has-2-prior-convictions">calculate probability that an inmate has == 2 prior convictions</h2>
 <p>probability = frequency/n</p>
-<pre><code>160/810</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="dv">160</span><span class="sc">/</span><span class="dv">810</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1975309</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.2b" class="level1">
@@ -360,9 +464,15 @@ PrisonerData</code></pre>
 <section id="calculate-probability-that-an-inmate-has-2-prior-convictions-1" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-probability-that-an-inmate-has-2-prior-convictions-1">calculate probability that an inmate has &lt; 2 prior convictions</h2>
 <p>probability = frequency(0)/n + frequency(1)/n</p>
-<pre><code>128/810
-434/810
-0.1580247 + 0.5358025</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">128</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">434</span><span class="sc">/</span><span class="dv">810</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.6938272</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.2c" class="level1">
@@ -370,7 +480,15 @@ PrisonerData</code></pre>
 <section id="calculate-probability-that-an-inmate-has-2-prior-convictions-2" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-probability-that-an-inmate-has-2-prior-convictions-2">calculate probability that an inmate has &lt;= 2 prior convictions</h2>
 <p>probability = frequency(0)/n + frequency(1)/n + frequency(2)/n</p>
-<pre><code>0.1580247 + 0.5358025 + 0.1975309</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">128</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">434</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">160</span><span class="sc">/</span><span class="dv">810</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.891358</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.2d" class="level1">
@@ -378,9 +496,15 @@ PrisonerData</code></pre>
 <section id="calculate-probability-that-an-inmate-has-2-prior-convictions-3" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-probability-that-an-inmate-has-2-prior-convictions-3">calculate probability that an inmate has &gt; 2 prior convictions</h2>
 <p>probability = frequency(3)/n + frequency(4)/n</p>
-<pre><code>64/810
-24/810
-0.07901235 + 0.02962963</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">64</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">24</span><span class="sc">/</span><span class="dv">810</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.108642</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.2e" class="level1">
@@ -390,24 +514,59 @@ PrisonerData</code></pre>
 </section>
 <section id="define-values-of-prior-convictions-and-probabilities" class="level2">
 <h2 class="anchored" data-anchor-id="define-values-of-prior-convictions-and-probabilities">define values of prior convictions and probabilities</h2>
-<pre><code>PriorConv &lt;- c(0,1,2,3,4)
-Probs &lt;- c(0.1580247, 0.5358025, 0.1975309, 0.07901235, 0.02962963)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>PriorConv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>Probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1580247</span>, <span class="fl">0.5358025</span>, <span class="fl">0.1975309</span>, <span class="fl">0.07901235</span>, <span class="fl">0.02962963</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="calculate-expected-value" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-expected-value">calculate expected value</h2>
-<pre><code>c(PriorConv %*% Probs)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(PriorConv <span class="sc">%*%</span> Probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.28642</code></pre>
+</div>
+</div>
 </section>
 </section>
 <section id="q.2f" class="level1">
 <h1>Q.2f</h1>
 <section id="calculate-variance-and-standard-deviation-for-prior-convictions" class="level2">
 <h2 class="anchored" data-anchor-id="calculate-variance-and-standard-deviation-for-prior-convictions">calculate variance and standard deviation for prior convictions</h2>
-<pre><code>var(PriorConv)
-sd(PriorConv)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(PriorConv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.5</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(PriorConv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.581139</code></pre>
+</div>
+</div>
 </section>
 <section id="double-check-values" class="level2">
 <h2 class="anchored" data-anchor-id="double-check-values">double-check values</h2>
-<pre><code>sqrt(var(PriorConv)) == sd(PriorConv)</code></pre>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(PriorConv)) <span class="sc">==</span> <span class="fu">sd</span>(PriorConv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+</div>
 
 
 <!-- -->
@@ -680,179 +839,161 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/DACSS_603_Introduction_to_Quantitative_Analysis_Fall_2022" data-repo-id="" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Homework 1"</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Karen Detter"</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "The first homework on descriptive statistics and probability"</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/03/2022"</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - hw1</span></span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - descriptive statistics </span></span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - probability</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1a</span></span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## read in data from Excel file:</span></span>
-<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a><span class="in">library(readxl)</span></span>
-<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="in">LungCapData &lt;- read_excel("posts/_data/LungCapData.xls")</span></span>
-<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## plot histogram with probability density on the y axis</span></span>
-<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="in">hist(LungCapData$LungCap, freq = FALSE)</span></span>
-<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, and very few observations are close to the margins (0 and 15).</span>
-<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1b</span></span>
-<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## create boxplots separated by gender</span></span>
-<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="in">boxplot(LungCap ~ Gender, data = LungCapData, horizontal = TRUE)</span></span>
-<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>The boxplots show that male lung capacity has a wider range than that of females; however, the minimum, median, and maximum values are all higher than those of females. This implies that, as a group, men are likely to have higher lung capacity than women.</span>
-<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1c</span></span>
-<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## group by smoking status and summarize mean lung capacities</span></span>
-<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="in">library(dplyr)</span></span>
-<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a><span class="in">LungCapData %&gt;%</span></span>
-<span id="cb17-52"><a href="#cb17-52" aria-hidden="true" tabindex="-1"></a><span class="in">group_by(Smoke) %&gt;%</span></span>
-<span id="cb17-53"><a href="#cb17-53" aria-hidden="true" tabindex="-1"></a><span class="in">summarize(mean = mean(LungCap), n = n())</span></span>
-<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a>In this dataset, the mean lung capacity of smokers is actually higher than that of non-smokers. Since this is counter to what would be expected, there is likely another variable exerting a confounding effect on lung capacity. </span>
-<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1d</span></span>
-<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="fu">## create new data frame with age group category variables</span></span>
-<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a><span class="in">LungCapData_AgeGroups &lt;- LungCapData %&gt;%</span></span>
-<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="in">mutate(AgeGroup = case_when(Age &lt;= 13 ~ "less than or equal to 13", </span></span>
-<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a><span class="in">            Age == 14 | Age == 15 ~ "14 to 15",</span></span>
-<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a><span class="in">            Age == 16 | Age == 17 ~ "16 to 17",</span></span>
-<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a><span class="in">            Age &gt;= 18 ~ "greater than or equal to 18"))</span></span>
-<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a><span class="fu">## summarize mean lung capacities by age group and smoking status</span></span>
-<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a><span class="in">LungCapData_AgeGroups %&gt;%</span></span>
-<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a><span class="in">group_by(AgeGroup,Smoke) %&gt;%</span></span>
-<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a><span class="in">summarize(mean = mean(LungCap), n = n())</span></span>
-<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1e</span></span>
-<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a>When lung capacity data is further broken down by age group, the lung capacities of smokers and non-smokers appear to be more in line with expectations, with mean lung capacities of smokers ages 14-15, 16-17, and 18+ being less than those of non-smokers of the same age. In the 13 and under group, however, mean lung capacity is actually higher for smokers. This anomaly could be due to the fact that the number of observations is significantly higher for this age group than any of the others, likely resulting in wider variations in lung capacity. In addition, this category covers ages from 2 through 13, meaning that the minimum values are likely to be quite low and could skew the distribution to the left.</span>
-<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1f</span></span>
-<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate correlation and covariance between lung capacity and age</span></span>
-<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a><span class="in">cor(LungCapData$LungCap, LungCapData$Age)</span></span>
-<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="in">cov(LungCapData$LungCap, LungCapData$Age)</span></span>
-<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a>Since the correlation coefficient is close to 1, there is a high degree of correlation between lung capacity and age. The covariance of 8.7, being a positive number, indicates that as age increases, lung capacity increases.</span>
-<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2a</span></span>
-<span id="cb17-93"><a href="#cb17-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-94"><a href="#cb17-94" aria-hidden="true" tabindex="-1"></a><span class="fu">## create data frame</span></span>
-<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="in">PriorConv &lt;- c(0,1,2,3,4)</span></span>
-<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a><span class="in">Freq &lt;- c(128,434,160,64,24)</span></span>
-<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a><span class="in">PrisonerData &lt;- data.frame (PriorConv, Freq)</span></span>
-<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="in">PrisonerData</span></span>
-<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has == 2 prior convictions</span></span>
-<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a>probability = frequency/n</span>
-<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a><span class="in">160/810</span></span>
-<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2b</span></span>
-<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &lt; 2 prior convictions</span></span>
-<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>probability = frequency(0)/n + frequency(1)/n</span>
-<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a><span class="in">128/810</span></span>
-<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a><span class="in">434/810</span></span>
-<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a><span class="in">0.1580247 + 0.5358025</span></span>
-<span id="cb17-121"><a href="#cb17-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-122"><a href="#cb17-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2c</span></span>
-<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &lt;= 2 prior convictions</span></span>
-<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a>probability = frequency(0)/n + frequency(1)/n + frequency(2)/n</span>
-<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a><span class="in">0.1580247 + 0.5358025 + 0.1975309</span></span>
-<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2d</span></span>
-<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-135"><a href="#cb17-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &gt; 2 prior convictions</span></span>
-<span id="cb17-136"><a href="#cb17-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a>probability = frequency(3)/n + frequency(4)/n</span>
-<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a><span class="in">64/810</span></span>
-<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a><span class="in">24/810</span></span>
-<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="in">0.07901235 + 0.02962963</span></span>
-<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2e</span></span>
-<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate expected value for number of prior convictions</span></span>
-<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a><span class="fu">## define values of prior convictions and probabilities</span></span>
-<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a><span class="in">PriorConv &lt;- c(0,1,2,3,4)</span></span>
-<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a><span class="in">Probs &lt;- c(0.1580247, 0.5358025, 0.1975309, 0.07901235, 0.02962963)</span></span>
-<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate expected value</span></span>
-<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-156"><a href="#cb17-156" aria-hidden="true" tabindex="-1"></a><span class="in">c(PriorConv %*% Probs)</span></span>
-<span id="cb17-157"><a href="#cb17-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2f</span></span>
-<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate variance and standard deviation for prior convictions</span></span>
-<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a><span class="in">var(PriorConv)</span></span>
-<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a><span class="in">sd(PriorConv)</span></span>
-<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="fu">## double-check values</span></span>
-<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="in">sqrt(var(PriorConv)) == sd(PriorConv)</span></span>
-<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb34" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Homework 1"</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Karen Detter"</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "The first homework on descriptive statistics and probability"</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/03/2022"</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - hw1</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - descriptive statistics </span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - probability</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1a</span></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## read in data from Excel file:</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>LungCapData <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">'_data/LungCapData.xls'</span>)</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## plot histogram with probability density on the y axis</span></span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(LungCapData<span class="sc">$</span>LungCap, <span class="at">freq =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, with few observations close to the margins (0 and 15).</span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1b</span></span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## create boxplots separated by gender</span></span>
+<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(LungCap <span class="sc">~</span> Gender, <span class="at">data =</span> LungCapData, <span class="at">horizontal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb34-53"><a href="#cb34-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-54"><a href="#cb34-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-55"><a href="#cb34-55" aria-hidden="true" tabindex="-1"></a>The boxplots show that male lung capacity has a wider range than that of females; however, the minimum, median, and maximum values are all higher than those of females. This implies that, as a group, men are likely to have higher lung capacity than women.</span>
+<span id="cb34-56"><a href="#cb34-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-57"><a href="#cb34-57" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1c</span></span>
+<span id="cb34-58"><a href="#cb34-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## group by smoking status and summarize mean lung capacities</span></span>
+<span id="cb34-61"><a href="#cb34-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-62"><a href="#cb34-62" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb34-63"><a href="#cb34-63" aria-hidden="true" tabindex="-1"></a>LungCapData <span class="sc">%&gt;%</span></span>
+<span id="cb34-64"><a href="#cb34-64" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(Smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb34-65"><a href="#cb34-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(LungCap), <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb34-66"><a href="#cb34-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-67"><a href="#cb34-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-68"><a href="#cb34-68" aria-hidden="true" tabindex="-1"></a>In this dataset, the mean lung capacity of smokers is actually higher than that of non-smokers. Since this is counter to what would be expected, there is likely another variable exerting a confounding effect on lung capacity. </span>
+<span id="cb34-69"><a href="#cb34-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-70"><a href="#cb34-70" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1d</span></span>
+<span id="cb34-71"><a href="#cb34-71" aria-hidden="true" tabindex="-1"></a><span class="fu">## create new data frame with age group category variables</span></span>
+<span id="cb34-74"><a href="#cb34-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-75"><a href="#cb34-75" aria-hidden="true" tabindex="-1"></a>LungCapData_AgeGroups <span class="ot">&lt;-</span> LungCapData <span class="sc">%&gt;%</span></span>
+<span id="cb34-76"><a href="#cb34-76" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">AgeGroup =</span> <span class="fu">case_when</span>(Age <span class="sc">&lt;=</span> <span class="dv">13</span> <span class="sc">~</span> <span class="st">"less than or equal to 13"</span>, </span>
+<span id="cb34-77"><a href="#cb34-77" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">==</span> <span class="dv">14</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"14 to 15"</span>,</span>
+<span id="cb34-78"><a href="#cb34-78" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">==</span> <span class="dv">16</span> <span class="sc">|</span> Age <span class="sc">==</span> <span class="dv">17</span> <span class="sc">~</span> <span class="st">"16 to 17"</span>,</span>
+<span id="cb34-79"><a href="#cb34-79" aria-hidden="true" tabindex="-1"></a>            Age <span class="sc">&gt;=</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"greater than or equal to 18"</span>))</span>
+<span id="cb34-80"><a href="#cb34-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-81"><a href="#cb34-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-82"><a href="#cb34-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## summarize mean lung capacities by age group and smoking status</span></span>
+<span id="cb34-85"><a href="#cb34-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-86"><a href="#cb34-86" aria-hidden="true" tabindex="-1"></a>LungCapData_AgeGroups <span class="sc">%&gt;%</span></span>
+<span id="cb34-87"><a href="#cb34-87" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(AgeGroup, Smoke) <span class="sc">%&gt;%</span></span>
+<span id="cb34-88"><a href="#cb34-88" aria-hidden="true" tabindex="-1"></a><span class="fu">summarize</span>(<span class="at">MeanLungCap =</span> <span class="fu">mean</span>(LungCap), <span class="at">n =</span> <span class="fu">n</span>())</span>
+<span id="cb34-89"><a href="#cb34-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-90"><a href="#cb34-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-91"><a href="#cb34-91" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1e</span></span>
+<span id="cb34-92"><a href="#cb34-92" aria-hidden="true" tabindex="-1"></a>When lung capacity data is further broken down by age group, the lung capacities of smokers and non-smokers appear to be more in line with expectations, with mean lung capacities of smokers ages 14-15, 16-17, and 18+ being less than those of non-smokers of the same age. In the 13 and under group, however, mean lung capacity is actually higher for smokers. This anomaly could be due to the fact that the number of observations is significantly higher for this age group than any of the others, likely resulting in wider variations in lung capacity. In addition, this category covers ages from 2 through 13, meaning that the minimum values are likely to be quite low and could skew the distribution to the left.</span>
+<span id="cb34-93"><a href="#cb34-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-94"><a href="#cb34-94" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.1f</span></span>
+<span id="cb34-95"><a href="#cb34-95" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate correlation and covariance between lung capacity and age</span></span>
+<span id="cb34-98"><a href="#cb34-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-99"><a href="#cb34-99" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(LungCapData<span class="sc">$</span>LungCap, LungCapData<span class="sc">$</span>Age)</span>
+<span id="cb34-100"><a href="#cb34-100" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(LungCapData<span class="sc">$</span>LungCap, LungCapData<span class="sc">$</span>Age)</span>
+<span id="cb34-101"><a href="#cb34-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-102"><a href="#cb34-102" aria-hidden="true" tabindex="-1"></a>Since the correlation coefficient is close to 1, there is a high degree of correlation between lung capacity and age. The covariance of 8.7, being a positive number, indicates that as age increases, lung capacity increases.</span>
+<span id="cb34-103"><a href="#cb34-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-104"><a href="#cb34-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-105"><a href="#cb34-105" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2a</span></span>
+<span id="cb34-106"><a href="#cb34-106" aria-hidden="true" tabindex="-1"></a><span class="fu">## create data frame</span></span>
+<span id="cb34-109"><a href="#cb34-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-110"><a href="#cb34-110" aria-hidden="true" tabindex="-1"></a>PriorConv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb34-111"><a href="#cb34-111" aria-hidden="true" tabindex="-1"></a>Freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">128</span>,<span class="dv">434</span>,<span class="dv">160</span>,<span class="dv">64</span>,<span class="dv">24</span>)</span>
+<span id="cb34-112"><a href="#cb34-112" aria-hidden="true" tabindex="-1"></a>PrisonerData <span class="ot">&lt;-</span> <span class="fu">data.frame</span> (PriorConv, Freq)</span>
+<span id="cb34-113"><a href="#cb34-113" aria-hidden="true" tabindex="-1"></a>PrisonerData</span>
+<span id="cb34-114"><a href="#cb34-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-115"><a href="#cb34-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-116"><a href="#cb34-116" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has == 2 prior convictions</span></span>
+<span id="cb34-117"><a href="#cb34-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-118"><a href="#cb34-118" aria-hidden="true" tabindex="-1"></a>probability = frequency/n</span>
+<span id="cb34-121"><a href="#cb34-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-122"><a href="#cb34-122" aria-hidden="true" tabindex="-1"></a><span class="dv">160</span><span class="sc">/</span><span class="dv">810</span></span>
+<span id="cb34-123"><a href="#cb34-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-124"><a href="#cb34-124" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2b</span></span>
+<span id="cb34-125"><a href="#cb34-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &lt; 2 prior convictions</span></span>
+<span id="cb34-126"><a href="#cb34-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-127"><a href="#cb34-127" aria-hidden="true" tabindex="-1"></a>probability = frequency(0)/n + frequency(1)/n</span>
+<span id="cb34-130"><a href="#cb34-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-131"><a href="#cb34-131" aria-hidden="true" tabindex="-1"></a>(<span class="dv">128</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">434</span><span class="sc">/</span><span class="dv">810</span>)</span>
+<span id="cb34-132"><a href="#cb34-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-133"><a href="#cb34-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-134"><a href="#cb34-134" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2c</span></span>
+<span id="cb34-135"><a href="#cb34-135" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &lt;= 2 prior convictions</span></span>
+<span id="cb34-136"><a href="#cb34-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-137"><a href="#cb34-137" aria-hidden="true" tabindex="-1"></a>probability = frequency(0)/n + frequency(1)/n + frequency(2)/n</span>
+<span id="cb34-140"><a href="#cb34-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-141"><a href="#cb34-141" aria-hidden="true" tabindex="-1"></a>(<span class="dv">128</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">434</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">160</span><span class="sc">/</span><span class="dv">810</span>)</span>
+<span id="cb34-142"><a href="#cb34-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-143"><a href="#cb34-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-144"><a href="#cb34-144" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2d</span></span>
+<span id="cb34-145"><a href="#cb34-145" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate probability that an inmate has &gt; 2 prior convictions</span></span>
+<span id="cb34-146"><a href="#cb34-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-147"><a href="#cb34-147" aria-hidden="true" tabindex="-1"></a>probability = frequency(3)/n + frequency(4)/n</span>
+<span id="cb34-150"><a href="#cb34-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-151"><a href="#cb34-151" aria-hidden="true" tabindex="-1"></a>(<span class="dv">64</span><span class="sc">/</span><span class="dv">810</span>) <span class="sc">+</span> (<span class="dv">24</span><span class="sc">/</span><span class="dv">810</span>)</span>
+<span id="cb34-152"><a href="#cb34-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-153"><a href="#cb34-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-154"><a href="#cb34-154" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2e</span></span>
+<span id="cb34-155"><a href="#cb34-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-156"><a href="#cb34-156" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate expected value for number of prior convictions</span></span>
+<span id="cb34-157"><a href="#cb34-157" aria-hidden="true" tabindex="-1"></a><span class="fu">## define values of prior convictions and probabilities</span></span>
+<span id="cb34-160"><a href="#cb34-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-161"><a href="#cb34-161" aria-hidden="true" tabindex="-1"></a>PriorConv <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb34-162"><a href="#cb34-162" aria-hidden="true" tabindex="-1"></a>Probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.1580247</span>, <span class="fl">0.5358025</span>, <span class="fl">0.1975309</span>, <span class="fl">0.07901235</span>, <span class="fl">0.02962963</span>)</span>
+<span id="cb34-163"><a href="#cb34-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-164"><a href="#cb34-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-165"><a href="#cb34-165" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate expected value</span></span>
+<span id="cb34-168"><a href="#cb34-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-169"><a href="#cb34-169" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(PriorConv <span class="sc">%*%</span> Probs)</span>
+<span id="cb34-170"><a href="#cb34-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-171"><a href="#cb34-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-172"><a href="#cb34-172" aria-hidden="true" tabindex="-1"></a><span class="fu"># Q.2f</span></span>
+<span id="cb34-173"><a href="#cb34-173" aria-hidden="true" tabindex="-1"></a><span class="fu">## calculate variance and standard deviation for prior convictions</span></span>
+<span id="cb34-176"><a href="#cb34-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-177"><a href="#cb34-177" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(PriorConv)</span>
+<span id="cb34-178"><a href="#cb34-178" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(PriorConv)</span>
+<span id="cb34-179"><a href="#cb34-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-180"><a href="#cb34-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-181"><a href="#cb34-181" aria-hidden="true" tabindex="-1"></a><span class="fu">## double-check values</span></span>
+<span id="cb34-184"><a href="#cb34-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-185"><a href="#cb34-185" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">var</span>(PriorConv)) <span class="sc">==</span> <span class="fu">sd</span>(PriorConv)</span>
+<span id="cb34-186"><a href="#cb34-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-187"><a href="#cb34-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-188"><a href="#cb34-188" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
