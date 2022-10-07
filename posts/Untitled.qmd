@@ -1,0 +1,115 @@
+---
+title: "Graphs and Probz"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(ggplot2)
+library(markdown)
+library(rmarkdown)
+library(tidyr)
+library(tidyselect)
+library(tidyverse)
+```
+
+
+```{r}
+library(readxl)
+LungCapData <- read_excel("_data/LungCapData.xls")
+View(LungCapData)                                                              
+```
+
+
+```{r} 
+m_lung<-mean(LungCapData$LungCap)
+sd_lung<-sd(LungCapData$LungCap)
+
+hist(LungCapData$LungCap, prob= TRUE, xlim = c(0, 20))
+curve(dnorm(x, m_lung, sd_lung), add= TRUE,lwd= 2,col= "blue")
+
+```
+# Section 1 Question 1
+Looks like a normal distribution
+
+
+### Question 2
+
+```{r}
+grouped_gender<- LungCapData %>% group_by(Gender)
+summarize(grouped_gender)
+qplot(data = grouped_gender, x = Gender, y = LungCap, geom = "boxplot")
+```
+Males have a higher mean than females. 
+
+### Question 3
+Smokers have a higher mean
+```{r}
+grouped_smokers<- LungCapData %>% group_by(Smoke)
+summarize(grouped_smokers)
+qplot(data = grouped_smokers, x = Smoke, y = LungCap, geom = "boxplot")
+```
+
+
+### Question 4
+Looks like the lung capacity is highest for children ages 0-13, specifically for males. 
+```{r}
+LungCapData$Agegroups<-cut(LungCapData$Age,breaks=c(-Inf, 13, 15, 17, 20), labels=c("0-13 years", "14-15 years", "16-17 years", "18+ years"))
+
+ggplot(LungCapData, aes(x = LungCap, y = Agegroups, fill = Gender)) +
+          geom_bar(stat = "identity") +
+          coord_flip() +
+          theme_classic()
+                
+```
+
+## Question 5
+Doesnt look like its good being a smoker under the age of 18, or any age. Lung capacity is smaller for these groups
+```{r}
+ggplot(LungCapData, aes(x = LungCap, y = Agegroups, fill = Smoke)) +
+    geom_bar(stat = "identity") +
+    coord_flip() +
+    theme_classic()
+
+```
+
+
+## Question 6
+
+```{r}
+covar<-cov(LungCapData$LungCap, LungCapData$Age)
+print(covar)
+corre<-cor(LungCapData$LungCap, LungCapData$Age, method = "pearson")
+print(corre)
+```
+
+
+# Section 2 Question 2
+ 
+```{r}
+a<-128/810
+a
+b<-434/810
+b
+c<-160/810
+c
+d<-64/810
+d
+e<-24/810
+e
+ei<-((a*0)+(b*1)+(c*2)+(d*3)+(e*4))
+ei
+varei<-((0-ei)^2+(1-ei)^2+(2-ei)^2+(3-ei)^2+(4-ei)^2)/5
+varei
+sdei<-sqrt(varei)
+sdei
+```
+
+
+
+
