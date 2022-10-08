@@ -1,11 +1,43 @@
----
-title: "Final Project"
-format:
-  html:
-    theme: default
----
+
+```{r}
+library(ggplot2)
+library(markdown)
+library(rmarkdown)
+library(tidyr)
+library(tidyselect)
+library(tidyverse)
+library(readxl)
+```
+
+## Research Question
+
+I am interested in examining the relationship between exports from China to the US, and the increase in Co2 emissions over the years. China is marked to be the highest Co2 emitting country followed by the US. However, it is clear that China pulls some of the carbon weight for the United States by manufacturing a wealth of goods. I would like to explore the connection between exports to the US and increasing carbon emissions. This could be helpful in guiding policy in international trade and climate change moving forward. I would also like to specify the industries and goods more closely related to these emissions, if possible.
+
+## Hypothesis
+
+I am starting with the hypothesis that there exports from China to the US is positively related with its Co2 emissions. However, taken together, its also significant to ask whether or not export process alone accounts for the greater sum of Co2 emission increases. The manufacturing process likely plays a role here, and may be considered for further analyses. Exports may be used in an inferential manner, suggesting that increased exports indicate higher rates of manufacturing that could thereby increase Co2 emissions. As such, exports would be an indirect measure of domestic activity, the correlation of which could lead to further insights. A search of datasets with more direct measures of carbon emissions in China relating to trade and supply of goods to the US may also be considered.   
+
+## Export Data
+Two initial datasets have been pulled for the purpose of this study. The first set includes data on exports from China to the US. The set has 2 columns of interest representing the date, value (in US dollars"). The overall dataset has 3 columns, each containing 30 rows. This dataset was chosen because it covers a relatively adequate sample range from 1992-2020. This data was pulled from the United Nations COMTRADE database on comerce and trade. 
+```{r}
+comtrade_historical_CHNUSA00002 <- read.csv("~/Downloads/comtrade_historical_CHNUSA00002.csv")
+exports<-comtrade_historical_CHNUSA00002
+glimpse(exports)
+summary(exports)
+```
+
+## Carbon Data
+
+Carbon data was pulled to show the difference in carbon emissions from china between the years 2010-2020. It is unclear, yet, if this dataset will be used for final drafts, as it exludes a number of years reviewed in the export data. As a result, the gaps in years may lead to weaker analyses. For now, this data will be considered. 
+```{r}
+statistic_id270499_global_co2_emissions_by_select_country_2010_2020<-read_excel("Downloads/statistic_id270499_global-co2-emissions-by-select-country-2010-2020.xlsx")
+```
 
 ```{r}
 
+carbon<-statistic_id270499_global_co2_emissions_by_select_country_2010_2020
+summarize(carbon)
 ```
 
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
