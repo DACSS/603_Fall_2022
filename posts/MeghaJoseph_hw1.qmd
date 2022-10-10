@@ -1,0 +1,151 @@
+---
+title: "HOME WORK1 603"
+author: "Megha Joseph"
+desription: "The first homework on descriptive statistics and probability"
+date: "10/03/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - descriptive statistics
+  - megha joseph
+  - probability
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(stats)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Answer 1
+```{r}
+readD <- read_excel("_data/LungCapData.xls")
+readD
+
+```
+## Answer 1 (a)
+Distribution of LungCap:
+
+```{r}
+hist(readD$LungCap)
+```
+
+The distribution is a normal distribution. 
+## Answer 1 (b)
+
+```{r}
+boxplot(readD$LungCap ~ readD$Gender)
+```
+The mean of males appear higher than females.
+
+## Answer 1 (c)
+
+```{r}
+readD%>%
+  group_by(Smoke) %>% 
+  summarize(Mean=mean(LungCap))
+readD%>%
+  group_by(Smoke) %>% 
+  summarize(stdev=sd(LungCap))
+ggplot(readD, aes(x=LungCap, y=Smoke))+geom_boxplot()
+```
+The mean of smokers is higher than the mean of non smokers and therefore it is not sensible.
+
+## Answer 1 (d)
+
+```{r}
+class(readD$Age)
+readD <- mutate(readD, AgeGroup = case_when(Age <= 13 ~ "13 and below", 
+                                            Age == 14 | Age == 15 ~ "14 to 15", 
+                                            Age == 16 | Age == 17 ~ "16 to 17", 
+                                            Age >= 18 ~ "18 and above"))
+ggplot(readD, aes(x = LungCap)) +
+  geom_histogram() +
+  facet_grid(AgeGroup~Smoke)
+```
+```{r}
+readD %>%
+  ggplot(aes(x = Age, y = LungCap, color = Smoke)) +
+  geom_line() +
+  facet_wrap(vars(Smoke)) +
+  labs(y = "Lung Capacity", x = "Age")
+```
+From the above results we can say that people from age group 10 and above smoke.
+
+## Answer 1 (f)
+
+
+```{r}
+cor(readD$LungCap,readD$Age)
+cov(readD$LungCap,readD$Age)
+```
+From the data we can see that the covariance is positive and it shows that there is a direct relationship between age and lung capacity. And the correlation is also positive, so they move in same direction. Therefore as the age increases, the lung capacity also increases that is they are directly proportional to each other.
+
+## Answer 2
+
+```{r}
+
+X<-c(0, 1, 2, 3, 4)
+Frequency<-c(128, 434, 160, 64, 24)
+C<- data.frame(X, Frequency)
+C
+C<-rename(C, PriorConvictions=X)
+C
+#visualizing df using bar chart
+ggplot(C, aes(x=PriorConvictions, y=Frequency))+geom_bar(stat="identity")+geom_text(aes(label = Frequency), vjust = -.3)
+#There are 810 obs in df
+sum(Frequency)
+```
+
+```{r}
+PO<-Frequency/810
+PO
+
+
+#A
+# P(x=2)=160/810
+160/810
+
+#B
+#P(x<2)=P(0)+P(1)
+(128+434)/810
+
+#C
+#P(x<=2)=P(0)+P(1)+P(2)
+(128+434+160)/810
+
+#D
+#1-P(above)
+1-((128+434+160)/810)
+
+#E
+#Expected value=sum of probabilities*each value (0, 1, 2, 3 or 4)
+weighted.mean(X, PO)
+
+#F
+#Calculating the Variance using the formula for variance
+(sum(Frequency*((X-1.28642)^2)))/(sum(Frequency)-1)
+#Calculating the sample standard deviation from the variance
+sqrt(0.8572937)
+```
+
+Answer
+
+a: 19.75% 
+b :9.38% 
+c :89.14%
+d :10.86% 
+e :1.28642
+f: variance: 0.8572937
+standard deviation: 0.9259016 
