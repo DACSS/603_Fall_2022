@@ -1,0 +1,187 @@
+---
+title: "Final Project Proposal"
+author: "Saaradhaa M"
+date: "10/09/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - finalpart1
+---
+
+## Introduction
+
+Prior research literature in the social sciences has continually stressed the need for more research on the Global South. However, few papers actually focus on it. Hence, I am interested to learn more about this region. A data source that lends itself useful for this is the World Values Survey, a global survey with an easily accessible database.
+
+I am specifically interested in understanding what drives subjective well-being, which can be interpreted via happiness and life satisfaction (Addai et al., 2013).
+
+::: callout-tip
+## Research Questions
+
+A. What predicts happiness and life satisfaction in the Global South?
+
+B. Do predictors of happiness and life satisfaction differ between the Global North and South?
+:::
+
+This project will be useful to better understand motivations and desires in the Global South, reduce inter-cultural tensions and enhance cross-cultural cohesion. Governments can also benefit from this research in terms of policy prioritization to maximize citizens' well-being.
+
+## Hypothesis
+
+Past researchers have studied happiness and life satisfaction in the Global South via the World Values Survey (Addai et al., 2013; Ngamaba, 2016). The studies focused on Ghana and Rwanda respectively. The common predictors of happiness and life satisfaction across both countries were satisfaction with **health** and **income**.
+
+To the best of my knowledge, few studies comparing well-being in the Global North and South exist. Alba (2019) found that happiness was generally greater in the Global North than the Global South, and indicated that future research should attempt to cover the factors behind this. I think happiness and well-being in the Global North may depend on more subjective measures, given that health and income-related issues should be relatively more accounted for.
+
+Given the above, we can frame our hypotheses as follows:
+
+::: callout-tip
+## H~0A~
+
+Health and financial satisfaction [will not]{.underline} be statistically significant predictors of happiness and life satisfaction in the Global South.
+:::
+
+::: callout-tip
+## H~1A~
+
+Health and financial satisfaction [will]{.underline} be statistically significant predictors of happiness and life satisfaction in the Global South.
+:::
+
+::: callout-tip
+## H~0B~
+
+Predictors of happiness and life satisfaction [will not]{.underline} differ between the Global North and South.
+:::
+
+::: callout-tip
+## H~1B~
+
+Predictors of happiness and life satisfaction [will]{.underline} differ between the Global North and South.
+:::
+
+# Reading In Dataset
+
+I will be working with the most recent wave of the World Values Survey, Wave 7, which was conducted from 2017 to 2022. The data is freely available for non-profit purposes. It must be cited properly and not re-distributed (Haerpfer et al., 2022).
+
+Representative samples of the population aged 18 and above were collected from 59 countries. Data was mostly collected by interviewing respondents at their homes ("WVS Database", 2022).
+
+I am using the most recent version of Wave 7 released in May 2022. The most final version of the dataset will be released in Oct 2022. I may update the dataset below at a later date, if time permits.
+
+I will indicate my comments in each code chunk to keep track of my progress.
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+# load libraries.
+library(tidyverse)
+library(ggplot2)
+library(summarytools)
+library(Amelia)
+library(plotly)
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+#| label: read in
+
+# read in dataset.
+wvs <- read_csv("~/Desktop/2022_Fall/DACSS 603/General/Final Project/WVS/4. Data/WVS_Cross-National_Wave_7_csv_v4_0.csv") %>% select("A_YEAR", "B_COUNTRY_ALPHA", "Q_MODE", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "O1_LONGITUDE", "O2_LATITUDE", "Q1", "Q2", "Q3", "Q6", "Q46", "Q47", "Q48", "Q49", "Q50", "Q57", "Q171", "Q260", "Q262", "Q263", "Q269", "Q270", "Q271", "Q273", "Q274", "Q275", "Q279", "Q288", "Q288R", "Q289", "Q290", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "I_HOMOLIB", "I_ABORTLIB", "womenparl")
+```
+
+The dataset originally had 552 columns. I have selected a subset of columns based on variables used in past papers, as well as some variables I am interested to examine. These include place/area of residence, literacy, demographics, importance of various social aspects, happiness and wellbeing indicators, trust, religiosity, equality of gender/sexual orientation and abortion attitudes.
+
+I will first create a dummy variable for Global North/South. The Global South comprises low- and lower-middle income countries, as defined by the [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups) ("World Bank Country and Lending Groups", 2022). Global South countries surveyed include Ethiopia, Philippines, Indonesia, Bangladesh, Iran, Kenya, Bolivia, Kyrgyzstan, Lebanon, Tajikistan, Tunisia, Ukraine, Mongolia, Morocco, Egypt, Myanmar, Vietnam, Nicaragua, Zimbabwe, Nigeria and Pakistan.
+
+```{r}
+#| label: create dummy
+
+# create dummy.
+wvs <- mutate(wvs, NS = case_when(B_COUNTRY_ALPHA == "ETH" | B_COUNTRY_ALPHA == "PHL" | B_COUNTRY_ALPHA == "IDN" | B_COUNTRY_ALPHA == "BGD" | B_COUNTRY_ALPHA == "IRN" | B_COUNTRY_ALPHA == "KEN" | B_COUNTRY_ALPHA == "BOL" | B_COUNTRY_ALPHA == "KGZ" | B_COUNTRY_ALPHA == "LBN" | B_COUNTRY_ALPHA == "TJK" | B_COUNTRY_ALPHA == "TUN" | B_COUNTRY_ALPHA == "MOR" | B_COUNTRY_ALPHA == "UKR" | B_COUNTRY_ALPHA == "MNG" | B_COUNTRY_ALPHA == "EGY" | B_COUNTRY_ALPHA == "MMR" | B_COUNTRY_ALPHA == "VNM" | B_COUNTRY_ALPHA == "NIC" | B_COUNTRY_ALPHA == "ZWE" | B_COUNTRY_ALPHA == "NGA" | B_COUNTRY_ALPHA == "PAK" ~ "1"))
+
+# replace "NA" with "O" (for Global North).
+wvs$NS <- replace_na(wvs$NS, "0")
+
+# change to factor.
+wvs$NS <- as.factor(wvs$NS)
+
+# check counts of levels.
+wvs %>% select(NS) %>% summary()
+
+# sanity check.
+wvs %>% filter(B_COUNTRY_ALPHA == "ETH" | B_COUNTRY_ALPHA == "PHL" | B_COUNTRY_ALPHA == "IDN" | B_COUNTRY_ALPHA == "BGD" | B_COUNTRY_ALPHA == "IRN" | B_COUNTRY_ALPHA == "KEN" | B_COUNTRY_ALPHA == "BOL" | B_COUNTRY_ALPHA == "KGZ" | B_COUNTRY_ALPHA == "LBN" | B_COUNTRY_ALPHA == "TJK" | B_COUNTRY_ALPHA == "TUN" | B_COUNTRY_ALPHA == "MOR" | B_COUNTRY_ALPHA == "UKR" | B_COUNTRY_ALPHA == "MNG" | B_COUNTRY_ALPHA == "EGY" | B_COUNTRY_ALPHA == "MMR" | B_COUNTRY_ALPHA == "VNM" | B_COUNTRY_ALPHA == "NIC" | B_COUNTRY_ALPHA == "ZWE" | B_COUNTRY_ALPHA == "NGA" | B_COUNTRY_ALPHA == "PAK") %>% nrow()
+
+# rename columns.
+names(wvs) <- c("A_YEAR", "B_COUNTRY_ALPHA", "Q_MODE", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "Long", "Lat", "FamImpt", "FriendsImpt", "LeisureImpt", "ReligionImpt", "Happiness", "PerceivedHealth", "FOC", "LS", "FS", "Trust", "AttendReligious", "Sex", "Age", "Immigrant", "Citizen", "HHSize", "Parents", "Married", "Kids", "Edu", "Job", "Income", "IncomeR", "Religion", "Race", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "I_HOMOLIB", "I_ABORTLIB", "womenparl", "NS")
+```
+
+The sanity check shows that the creation of the dummy was successful, with 28,644 datapoints from the Global South.
+
+# Exploratory Analysis of Data
+
+```{r}
+# check rows, columns and variable types.
+str(wvs)
+
+# check basic descriptive statistics.
+summary(wvs)
+print(dfSummary(wvs, varnumbers = FALSE, plain.ascii = FALSE, graph.magnif = 0.30, style = "grid", valid.col = FALSE), 
+      method = 'render', table.classes = 'table-condensed')
+```
+
+The dataset has 87,822 rows, each representing one participant, and 40 columns. All variables seem to be labelled correctly.
+
+Referring to the codebook, these are some noteworthy descriptive statistics:
+
+-   Respondents tended to come from more urban settings (H_URBRURAL).
+
+-   On average, family was perceived as more important than friends, leisure time and religion (FamImpt, FriendsImpt, LeisureImpt, ReligionImpt).
+
+-   On average, people were "quite happy" (the second-highest option for Happiness).
+
+-   Life satisfaction tended to be 7/10 (LS).
+
+-   People tended to err on the side of caution when it came to trusting others (Trust).
+
+-   Households had 4 people on average, with maximum household size being 63 (HHSize)!
+
+-   The interquartile range for education was lower secondary to short-cycle tertiary education (Edu).
+
+-   For the survey variables (FamImpt to I_ABORTLIB), missing data ranged from 0.2% to 10.8%, which is acceptable.
+
+-   67.4% of the respondents came from the Global North (NS).
+
+Let's check if life satisfaction and happiness differ between the Global North and South.
+
+```{r}
+t.test(Happiness ~ NS, wvs)
+t.test(LS ~ NS, wvs)
+```
+
+The Welch's two-sample t-tests show that there is a significant difference in happiness and life satisfaction between the Global North and South, where the former has higher mean values for both, *p* \< .001. This echoes Alba (2019)'s finding on happiness and adds new knowledge to the literature regarding life satisfaction.
+
+We can also create graphs to visualize the latitude and longitude of countries in the Global North and Global South.
+
+```{r}
+ggplot(wvs) + geom_bin2d(mapping = aes(x = Long, y = Lat)) + facet_wrap(vars(NS))
+```
+
+The graph above shows that the Global North ("0") and South ("1") are not neatly divided by physical location, due to the existence of developed countries physically located in the South (e.g., South Korea) and developing countries physically located in the North (e.g., Ukraine).
+
+# Bibliography
+
+Addai, I., Opoku-Agyeman, C., & Amanfu, S. (2013). Exploring Predictors of Subjective Well-Being in Ghana: A Micro-Level Study. *Journal Of Happiness Studies*, *15*(4), 869-890.
+
+Alba, C. (2019). A Data Analysis of the World Happiness Index and its Relation to the North-South Divide. *Undergraduate Economic Review*, *16*(1).
+
+Haerpfer, C., Inglehart, R., Moreno, A., Welzel, C., Kizilova, K., Diez-Medrano J., M. Lagos, P. Norris, E. Ponarin & B. Puranen (eds.). 2022. World Values Survey: Round Seven - Country-Pooled Datafile Version 4.0. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat.
+
+Ngamaba, K. (2016). Happiness and life satisfaction in Rwanda. *Journal Of Psychology In Africa*, *26*(5), 407-414.
+
+*World Bank Country and Lending Groups*. World Bank Data Help Desk. (2022). Retrieved from https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups.
+
+*WVS Database*. World Values Survey. (2022). Retrieved from https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp.
