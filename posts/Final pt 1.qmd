@@ -1,0 +1,65 @@
+---
+title: "Final Project Proposal"
+author: "Lindsay Jones"
+editor: visual
+description: Initial proposal for my final project
+date: "10/07/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+## Research Question
+
+In the United States, wage stagnation has become a hot-button issue for many people in various fields of employment. Graduate students have been at the center of this issue in recent years- strikes for wage increases and cost-of-living adjustments have taken place at multiple universities throughout the country. Because PhD students often do not have the time to earn extra income (and their contracts often prohibit them from pursuing work elsewhere), how much they will earn from their stipend is a huge factor in considering where to pursue their research (Powell, 2004; Soar et al., 2022). Knowing how much My research question is: **What is the strongest predictor of the value of a PhD stipend?**
+
+## Hypothesis
+
+**H₀: Cost of living is not the strongest predictor of the value of a PhD stipend.**
+
+**H₁: Cost of living is the strongest predictor of the value of a PhD stipend.**
+
+## Dataset
+
+This dataset is comprised of self-reported survey data collected by PhDStipends.com. Respondents are asked their university, department, academic year, and year in the program. They are also asked whether they receive a 12-month or 9-month salary, gross pay, and required fees. PhDStipends automatically calculators the LW Ratio (living wage ratio), which is the stipend divided by the living wage of the country the university is located in. I will likely need to add additional information for my own analysis.
+
+The variables of interest for me are the university, department, and program year.
+
+```{r}
+library(readr)
+csv <- read_csv("~/School/UMASS/DACSS 603/Final Project/csv.csv")
+summary(csv)
+```
+
+```{r}
+print(summarytools::dfSummary(csv,
+                              varnumbers = FALSE,
+                              plain.ascii  = FALSE,
+                              style        = "grid",
+                              graph.magnif = 0.70,
+                              valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+```
+
+Based on this summary, there are some extreme outliers in need of removal, particularly in the Overall Pay column. Interesting, the mean Overall Pay of \$27549.4 does not seem unreasonable,.
+
+## References
+
+*Living Wage Calculator*. (n.d.). Retrieved October 10, 2022, from <https://livingwage.mit.edu/>
+
+Powell, K. Stipend survival. Nature 428, 102--103 (2004). <https://doi.org/10.1038/nj6978-102a>
+
+Emily Roberts & Kyle Roberts. (2022, October 10). PhD stipends [Dataset]. <http://www.phdstipends.com/csv>
+
+Soar, M., Stewart, L., Nissen, S. et al. Sweat Equity: Student Scholarships in Aotearoa New Zealand's Universities. NZ J Educ Stud (2022). <https://doi.org/10.1007/s40841-022-00244-5>
