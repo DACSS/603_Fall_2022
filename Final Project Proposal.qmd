@@ -1,0 +1,138 @@
+---
+title: "Final Project Proposal"
+author: "Emily Duryea"
+desription: "Final Project Proposal"
+date: "10/10/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - final project
+  - proposal
+  - Emily Duryea
+  - dataset
+  - ggplot2
+---
+
+# Final Project Proposal
+
+## Research Question
+
+The research questions that I am looking to investigate involve the factors that increase university students' GPA. These include the following:
+
+1\) Does classroom engagement (i.e., taking notes, attending class, listening) result in a higher GPA in university students?
+
+2\) Does reported studying (i.e., weekly study hours) result in a higher GPA in university students?
+
+3\) Does collaboration between students (i.e., studying together, positive class discussions) result in a higher GPA in university students?
+
+## Hypothesis
+
+### Research Question #1
+
+For the first research question, it is reasonable to hypothesize that classroom engagement will have a positive effect on students' academic achievement. Previous research supports this hypothesis. For example, one study found that classroom engagement, as well as other related factors such as time management and autonomous motivation, are predictors of academic achievement (Fokkens-Bruinsma, et al., 2021). Another study found that attendance in higher education is a small, but still statistically significant, predictor of academic performance (Büchele, 2021). In this study, classroom engagement will be defined as "taking notes, attendance, and frequency of listening." These measures will be reported by university students via survey.
+
+### Research Question #2
+
+In regards to the second research question, it is hypothesized that students who study more will have a higher GPA. There are many previous studies that support this claim. For instance, one study found that university freshmen who studied more than eight hours a week saw an average increase in GPA of 0.580 (Nelson, 2003). Research has also found that increasing study time leads to an increased GPA (Thibodeaux, et al., 2017). In this study, hours spent studying will be measured through students' estimated range of hours studied, reported via survey.
+
+### Research Question #3
+
+In response to the third research question, it is hypothesized that student collaboration will have a positive effect on student GPA. There is some research literature that supports this statement. One study found that students who study with their peers achieve significantly higher homework scores (Vargas, et al., 2018). Another study found that university students who had a strong social network and exhibited collaborative behaviors tended to achieve higher grades (Ellis & Han, 2021). Effective student collaboration can also occur during class time, such as through small group discussions. Research has found that students who participate in small group discussions demonstrate an increase in resilience, which has shown to improve academic performance (Torrento-estimo, et al, 2012). In this study, student collaboration will be measured through students' reported time spent studying with peers, and impact that their class discussions have.
+
+## Descriptive Statistics
+
+The dataset used is one retrieved from Kaggle using the link [here](https://www.kaggle.com/datasets/csafrit2/higher-education-students-performance-evaluation?resource=download). The dataset is named, "Higher Education Student Performance Evaluation." This dataset was used in a self-report survey study conducted by Yılmaz and Sekeroglu (2019).
+
+```{r}
+studentsurvey <- read.csv("student_prediction.csv")
+summary(studentsurvey)
+library(ggplot2)
+```
+
+To begin, it is important to examine the demographic variables through descriptive statistics to observe the sample.
+
+### Sample Gender
+
+To start, students' reported gender (1 = female and 2 = male) is plotted in the bar graph below.
+
+```{r}
+ggplot(studentsurvey, aes(x = GENDER)) + geom_bar()
+```
+
+In this sample, there are more males than females.
+
+### Sample Age
+
+The bar graph below plots the students' reported ages at the time of the survey (1 = 18-21, 2 = 22-25, 3 = 26 or above).
+
+```{r}
+ggplot(studentsurvey, aes(x = AGE)) + geom_bar()
+```
+
+The majority of students are between the ages 18-25, with very few above the age of 26.
+
+### Sample High School Type
+
+The bar graph below depicts what type of high school the university students graduated from (1= private, 2 = state, 3 = other).
+
+```{r}
+ggplot(studentsurvey, aes(x = HS_TYPE)) + geom_bar()
+```
+
+According to the graph, most students attended a state (public) high school.
+
+### Sample Scholarship Received
+
+The bar graph below demonstrates what percentage of their tuition was paid for by scholarship (1 = None, 2 = 25%, 3 = 50%, 4 = 75%, 5 = Full)
+
+```{r}
+ggplot(studentsurvey, aes(x = SCHOLARSHIP)) + geom_bar()
+```
+
+Most students have received at least 50% scholarship at this university.
+
+### Sample Work Status
+
+The bar graph below depicts how many students work a job outside of their classes (1 = Yes, 2 = No)
+
+```{r}
+ggplot(studentsurvey, aes(x = WORK)) + geom_bar()
+```
+
+Most students do not have a job while they are studying at university in this sample.
+
+### Sample Conclusions
+
+This sample may not be representative of the U.S. student population. There are more male than female students, which is not the case at most schools: there is about a 1:2 male to female ratio at U.S. colleges (Leukhina & Smaldone, 2022). The ages of students, however, do align with the ages of current university students: about a third of students in university are ages 24 and under (Hanson, 2022). Additionally, like in the sample, the vast majority of students attended public schools (Riser-Kositsky, 2022). In regards to scholarships, the students at this particular university receive scholarships at significantly higher rates than the rest of the U.S. Only about one in eight students receive a scholarship, and only 5% receive a full scholarship (Scholarship Statistics, 2021). While the enrollment statuses of the students were not given, if all students were full-time students, it would align with research that shows that less than half of full-time students (40%) in U.S. universities work while in school. While this sample may not be entirely representative of the U.S. college student population, analyses of this dataset conducted may provide some insight on factors that improve university students GPA.
+
+## Works Cited
+
+Büchele, S. (2021). Evaluating the link between attendance and performance in higher education: the role of classroom engagement dimensions. *Assessment & Evaluation in Higher Education, 46*(1), 132-150.
+
+Ellis, R., & Han, F. (2021). Assessing university student collaboration in new ways. *Assessment & Evaluation in Higher Education, 46*(4), 509-524.
+
+Fokkens-Bruinsma, M., Vermue, C., Deinumdataset, J. F., & van Rooij, E. (2021). First-year academic achievement: the role of academic self-efficacy, self-regulated learning and beyond classroom engagement. *Assessment & Evaluation in Higher Education, 46*(7), 1115-1126.
+
+Hanson, M. (2022, July 26). College Enrollment & Student Demographic Statistics. EducationData.org. Retrieved from <https://educationdata.org/college-enrollment-statistics>.
+
+Leukhina, O., & Smaldone, A. (2022, March 14). Why do women outnumber men in college enrollment? Saint Louis Fed Eagle. Retrieved from <https://www.stlouisfed.org/on-the-economy/2022/mar/why-women-outnumber-men-college-enrollment#:~:text=When%20the%20fall%20college%20enrollment,seen%20in%20U.S.%20college%20enrollment>.
+
+National Center for Education Statistics. (2022, May). *College Student Employment*. Coe - college student employment. Retrieved from <https://nces.ed.gov/programs/coe/indicator/ssa/college-student-employment>
+
+Nelson, R. (2003). Student Efficiency: A study on the behavior and productive efficiency of college students and the determinants of GPA. *Issues in Political Economy, 12*, 32-43.
+
+Riser-Kositsky, M. (2022, August 2). *Education statistics: Facts about American Schools*. Education Week. Retrieved from <https://www.edweek.org/leadership/education-statistics-facts-about-american-schools/2019/01>.
+
+*Scholarship statistics*. ThinkImpact.com. (2021, November 10). Retrieved from <https://www.thinkimpact.com/scholarship-statistics/>.
+
+Thibodeaux, J., Deutsch, A., Kitsantas, A., & Winsler, A. (2017). First-year college students\' time use: Relations with self-regulation and GPA. *Journal of Advanced Academics, 28*(1), 5-27.
+
+Torrento-estimo, E., Lourdes, C., & Evidente, L. G. (2012). Collaborative Learning in Small Group Discussions and Its Impact on Resilience Quotient and Academic Performance. *JPAIR Multidisciplinary Research Journal, 7*(1), 1-1.
+
+Vargas, D. L., Bridgeman, A. M., Schmidt, D. R., Kohl, P. B., Wilcox, B. R., & Carr, L. D. (2018). Correlation between student collaboration network centrality and academic performance. *Physical Review Physics Education Research, 14*(2), 020112.
+
+Yılmaz, N., & Sekeroglu, B. (2019, August). Student Performance Classification Using Artificial Intelligence Techniques. *In International Conference on Theory and Application of Soft Computing, Computing with Words and Perceptions* (pp. 596-603). Springer, Cham.
