@@ -1,0 +1,184 @@
+---
+title: "Final Project 1"
+author: "Ken Docekal"
+desription: "Final Project draft part 1"
+date: "10/10/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+  - desriptive statistics 
+  - probability
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# Research Question
+
+How much does state policy intervention impact future social and economic value preferences in residents?
+
+While political values often explicitly inform social and economic policy actions taken by governments, policy actions themselves can also affect the development of the values of both program recipients and the greater public. Low-income recipients are assumed to benefit from, and therefore favor, state intervention and redistributive policies while upper income groups are assumed to be against but this is not always true, especially at the program level (Bueno et al.). Authors like Holland note that “the poor only have an economic interest in supporting social expenditures in contexts where they expect policies to redistribute resources or risks in their favor”. 
+
+This study seeks to better understand the relationship between policy action and value formation at the sub-national level by looking at the effect of US state policy interventions on residents' subsequent policy preferences. By looking at how differences in US states’ social and economic policy intervention from 1936 to 2000 we can see how these factors may shape the subsequent policy values of residents. The dataset “Correlates of State Policy” includes variables which also allow us to better understand the role of differences in policy design and implementation by controlling for variables that may moderate impact, such as the length of policy implementation (Soss) and differences in economic interest (Ansell).
+
+
+
+
+Sources:
+
+Ansell, Ben. 2014. “The Political Economy of Ownership." American Political Science Review
+108(02):383{402.
+
+Boehmke, Frederick J., and Paul Skinner. 2012. “State Policy Innovativeness Revisited.” State Politics and Policy Quarterly, 12(3):303-29.
+
+Bueno, Natalia and Nunes, Felipe and Zucco, Cesar, Making the bourgeoisie? Values, voice, and state-provided homeownership (January 7, 2022). SSRN. 
+
+Caughey, Devin, and Christopher Warshaw. 2015. “The Dynamics of State Policy Liberalism, 1936–2014.” American Journal of Political Science, September. doi: 10.1111/ajps.12219.
+
+Holland, Alisha C. 2018. “Diminished Expectations: Redistributive preferences in truncated welfare states." World Politics 70(4):555{594
+
+Jacoby, William G., and Saundra K. Schneider. 2008. “A New Measure of Policy Spending Priorities in the American States.”  
+
+Jordan, Marty P. and Matt Grossmann. 2016. The Correlates of State Policy Project v.1.10. East Lansing, MI: Institute for Public Policy and Social Research (IPPSR).
+
+Rigby, Elizabeth and Gerald C. Wright. 2013. “Political Parties and Representation of the Poor in the American States.” American Journal of Political Science 57(3): 552-565.
+
+Soss, Joe. 1999. “Lessons of Welfare: Policy Design, Political Learning, and Political Action." The American Political Science Review 93(2):363{380.
+
+
+
+# Hypothesis
+
+Increased state intervention increases US state residents’ preference for future interventions in social and economic policy.
+
+This study proposes to build on Bueno et al.’s exploration of the effects of state-provided home ownership on political values and policy preferences by exploring that relationship at the level of US states. Additionally, instead of focusing on a single social program, we will examine the cumulative effects of multiple policy interventions across 65 years in 50 US states. This will provide insights into the effect of public policy on value differences at the sub-national level and on different subgroups including program non-participants. We will be able to see how this relationship may vary according to state and population characteristics despite differences in policy design and implementation. 
+
+
+
+# Descriptive Statistics
+
+This dataset is from the Correlates of State Policy Project by the Institute for Public Policy and Social Research at Michigan State University. The full dataset, which contains 928 variables and covers data from 1900 to 2016, draws from multiple sources including government agencies and peer-reviewed articles listed in the Sources section. Due to limited data coverage across all years however, this study will focus on the period from 1935 to 2000. We will examining the following 25 variables (listed with description and years available):
+
+
+Independent-
+
+Year  1935 - 2000
+
+State 1935 - 2000
+
+Econdev - Did State adopt Strategic Planning for Economic Development? 1981 – 1992
+
+Pldvpag - Did State adopt Planning/Development Agency? 1935 – 1978
+
+Urbrenen - Did State adopt Urban Renewal ?  1941 – 1952 
+
+Pollib_median - State Policy Liberalism Score – Median  1936 – 2014
+
+Policypriorityscore - State Policy Priority Score - collective goods (e.g., education and highways) v particularized benefits (e.g., health care and welfare)  1982-2005
+
+Poptotal - Population Total  1900 – 2008 
+
+Popfemale - Female Population  1994 – 2010 
+
+Nonwhite - Proportion of the population that is nonwhite 1974 - 2011 
+
+Soc_capital_ma - Hawes et al. Weighted Moving Average Measure of Social Capital 1984 - 2011
+
+Evangelical_pop - Evangelical Population 1975 - 2013
+
+Newimmig - New Immigrant Green Card Holders 1988 – 2011 
+
+Popdensity - Population Density  1975 – 1999 
+
+Gsp_q  -  Gross State Product Combined in Millions of 2016 Dollars   1963 – 2010
+
+Gini_coef - Gini Coefficient 1917 - 2013
+
+Hsdiploma  - High School Diploma 1975 – 2006
+
+Educspend  - State Education Spending 1975 – 2001
+
+Nofelons - Number of Felons Ineligible to Vote 1980 – 2010 
+
+Co2emissions - Total CO2 emissions from fossil-fuels (metric tons)  1960 – 2001
+
+Ideo - State Ideology Score 1976 – 2011
+
+
+
+Dependent-
+
+Vst_ec - Mean Economic Liberalism- All Voters 2000
+
+Vst_soc - Mean Social Liberalism- All Voters 2000 
+
+Vavgec_low -  Mean Economic Liberalism Score for Low Income Voting Citizens 2000
+
+Vavgsoc_low  - Mean Social Liberalism Score for Low Income Voting Citizens 2000
+
+
+
+Reading in dataset
+
+```{r, echo=T}
+
+library(readr)
+library(readxl)
+
+
+statedata <- read.csv("_data/correlatesofstatepolicyprojectv1_10.csv")
+
+```
+
+
+Specifying variables
+
+```{r, echo=T}
+
+
+statedata1 = subset(statedata, select = c(policypriorityscore, econdev, pldvpag, urbrenen, year, state, poptotal, popfemale, nonwhite, soc_capital_ma, evangelical_pop, newimmig, popdensity, gsp_q, gini_coef, hsdiploma, educspend, nofelons, co2emissions, ideo, pollib_median,vst_ec, vst_soc, vavgec_low, vavgsoc_low))
+
+
+```
+
+
+Specifying date range
+
+```{r, echo=T}
+
+
+sd <- subset(statedata1, year>1934 & year<2001, na.rm = TRUE ) 
+
+
+```
+
+
+Descriptive statistics
+
+```{r, echo=T}
+
+str(sd)
+
+glimpse(sd)
+
+summary(sd)
+
+
+```
+
+
+
+
+
