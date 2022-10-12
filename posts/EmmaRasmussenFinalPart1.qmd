@@ -1,0 +1,80 @@
+---
+author: "Emma Rasmussen"
+title: "Final Project Part 1"
+date: "10/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+## Research Question: 
+Does political partisanship correlate with COVID-19 death rates?
+
+The COVID-19 pandemic became a political matter. Behaviors associated with COVID-19 prevention were adopted on partisan lines (masking, social distancing, and vaccine uptake). Early in the pandemic, mask mandates were protested in some communities. My research question is have these behaviors affected COVID-19 death rates along partisan lines? If so, public health interventions could target communities that may be higher risk for COVID-19 deaths based on political partisanship. 
+
+I am thinking death toll would make the most sense to measure than infection rates as infection rates are constantly changing (other studies have looked at infection rates over waves of the pandemic, see this study from the Pew Research Center (Jones 2022)). I also think that one way to measure partisanship will be the 2020 county-level election results (% voting for Trump). In other words, my research is looking to see if (county-level) Trump support correlates with COVID-19 death rates. Both these variables can be found in county-level data sets so I can join multiple dataset with county name (or FIPS code) as the "key".
+
+Other variables to consider at the county-level (confounding variables): vaccine (and booster) uptake, average age of population
+
+
+## Hypothesis: 
+While I came up with this research idea on my own, other organizations such as NPR (Wood and Brumfiel 2021) and the Pew Research Center ()have already tested this. For this project, I will use the most recent data I can find. I was hoping to consider the confounding variable of population density, for instance I am guessing more urban populations will tend to vote democratic but these more densely populated places may also have higher infection rates. However, I cannot find any county level population density data sets, so I may use the "Urban Rural Description" variable in one of my datasets.
+
+H0: B1 (and all beta values) is zero. There is no correlation
+Ha: B1 (or any beta value) is not zero. There is a correlation between partisanship and COVID-19 death rates. 
+
+## Descriptive Statistics: 
+```{r}
+#set wd to change file path so I can access data on my computer without adding to posts folder
+setwd("/Users/emmarasmussen/Documents")
+votedf<- read_csv("countypres_2000-2020.csv")
+head(votedf, 12)
+
+coviddf<- read_csv("Provisional_COVID-19_Deaths_by_County__and_Race_and_Hispanic_Origin.csv")
+head(coviddf, 12)
+
+#counting the number of distinct counties in df
+n_distinct(votedf$county_name)
+n_distinct(coviddf$"County Name")
+```
+
+```{r}
+summary(votedf)
+summary(coviddf)
+```
+
+This data is going to require some tidying before merging. In the coviddf, each county is listed 3 times, (once per indicator) so I will likely filter out just the indicator "Distribution of COVID-19 deaths (%)" so each county is listed only once. Similarly, the votedf contains extra years. For my research, I am only concerned with 2016 data so I will filter out % voting for Trump in 2016 as a measure of political affiliation/partisanship. Then I will merge the two dfs based on county names (will also require some data tidying).
+
+The votedf was compiled by the MIT Election Data and Science Lab. It was first published in 2018 and has been updated with the 2020 election. It contains county-level presidential election data beginning in 2000 and going up to the 2020 election. The data has 12 columns, and 72,617 rows (many of which I will filter out before conducting analysis.) There are 1,892 distinct county names in the data set. 
+
+The coviddf only has 857 unique county names in the data frame. This may be because not all counties reported COVID-19 death counts. When I join the data sets, I will join so as to only include observations that we have information from both data frames. The coviddf is provisional, meaning that it is consistently updated (I believe on a weekly basis) with current COVID-19 death toll data. It is likely compiled by counties/towns reporting these numbers to the CDC. This data has limitations, not all counties report this, and not all report it accurately/ attribute COVID-19 as the true cause of death in all circumstances. Using the summary function, we can see the "mean" COVID-19 deaths by county is 852.7, however this isn't super meaningful given each county has this reported 3 times in the data and the median is significantly lower. Statistics provided by the summary function will be more meaningful once the data is tidied.  
+
+## References
+Jones, B. (2022). The Changing Political Geography of COVID-19 Over the Last Two Years. Pew Research Center. March 3, 2022. https://www.pewresearch.org/politics/2022/03/03/the-changing-political-geography-of-covid-19-over-the-last-two-years/
+
+MIT Election Data and Science Lab. (2021) County Presidential Election Returns 2000-2020. Accessed from the Harvard Dataverse [October 11, 2022]. https://doi.org/10.7910/DVN/VOQCHQ
+
+National Center for Health Statistics. (2022). Provisional COVID-19 Deaths by County, and Race and Hispanic Origin. Accessed from the Centers for Disease Control [October 11, 2022]. https://data.cdc.gov/d/k8wy-p9cg
+
+Wood, D. and Brumfiel, G. (2021). Pro-Trump counties now have far higher COVID death rates. Misinformation is to blame. NPR. December 5, 2021. https://www.npr.org/sections/health-shots/2021/12/05/1059828993/data-vaccine-misinformation-trump-counties-covid-death-rate
+
+
+[Need to add italics to references]
