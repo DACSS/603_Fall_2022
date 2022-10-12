@@ -3,10 +3,19 @@ rm(list=ls())
 library(tidyverse)
 library(readxl)
 
+
+
+
 # Reading In Data ---- 
+
+
+
+
+
+
 # MIT Election Lab data ==== 
 
-election_full <- read_csv("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/mit_election_1976_2020.csv")
+election_full <- read_csv("./posts/_data/mit_election_1976_2020.csv")
 
 election_full <- election_full %>% 
   mutate(party_simplified2 = case_when(
@@ -28,10 +37,11 @@ summary(election_full)
 
 
 
+
 # NCSL Voter ID Chronology Data ====
 ## Obtained 10/11/22
 
-voter_id <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/voter_id_chronology.xlsx",
+voter_id <- read_excel("./posts/_data/voter_id_chronology.xlsx",
                       skip = 2,
                       col_types = c("text","skip","text","skip","text","skip",
                                     "text","skip","text","skip","text","skip",
@@ -55,13 +65,14 @@ voter_id <- voter_id %>%
   ))
 
 
+
 # USEP 1980-2014 turnout data ====
 
 ## Date Accessed 10/11/22
 ## citation https://www.electproject.org/election-data/faq/citation
 ## vep vs vap https://www.electproject.org/election-data/faq/vap-v-vap
 
-turnout <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/1980-2014 November General Election.xlsx",
+turnout <- read_excel("./posts/_data/1980-2014 November General Election.xlsx",
                       skip=2,
                       col_types=c(
                         "numeric","skip","skip","text",
@@ -79,6 +90,7 @@ turnout <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/19
 
 head(turnout,n=20)
 summary(turnout)
+
 
 
 
@@ -109,11 +121,13 @@ turnout_2000 <- turnout_2000 %>%
   mutate(year=2000)
 
 
+
 #### USEP 2004 turnout data ####
 
 ## Date Accessed 10/05/22
 ## citation https://www.electproject.org/election-data/faq/citation
 ## vep vs vap https://www.electproject.org/election-data/faq/vap-v-vap
+
 
 
 
@@ -127,11 +141,13 @@ turnout_2000 <- turnout_2000 %>%
 
 
 
+
 #### USEP 2012 turnout data ####
 
 ## Date Accessed 10/05/22
 ## citation https://www.electproject.org/election-data/faq/citation
 ## vep vs vap https://www.electproject.org/election-data/faq/vap-v-vap
+
 
 
 
@@ -145,11 +161,40 @@ turnout_2000 <- turnout_2000 %>%
 
 
 
+
+
 #### USEP 2020 turnout data ####
 
 ## Date Accessed 10/05/22
 ## citation https://www.electproject.org/election-data/faq/citation
 ## vep vs vap https://www.electproject.org/election-data/faq/vap-v-vap
+
+
+
+
+
+
+# Merges? ----
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Statistical Analysis ---- 
+
+
+
+
+
+
 
 
 

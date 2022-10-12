@@ -2,7 +2,7 @@
 title: "Voter Turnout and Partisan Bias in U.S. Presidential Elections"
 subtitle: "DACSS 602 Final Project Proposal - Fall 2022"
 author: "Nicholas Boonstra"
-date: "October 11, 2022"
+date: "October 12, 2022"
 editor: visual
 format:
   html:
@@ -63,7 +63,7 @@ What follows is a brief summary of the datasets I intend to use for this analysi
 Obtained from the [MIT Election Project](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX) on 10/10/2022.
 
 ```{r election_full}
-election_full <- read_csv("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/mit_election_1976_2020.csv")
+election_full <- read_csv("./_data/mit_election_1976_2020.csv")
 
 election_full <- election_full %>% 
   mutate(party_simplified2 = case_when(
@@ -91,7 +91,7 @@ This dataframe contains state-level election results for all 50 states and the D
 Obtained from [the US Elections Project](https://www.electproject.org/election-data/voter-turnout-data) on 10/11/2022.
 
 ```{r turnout}
-turnout <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/1980-2014 November General Election.xlsx",
+turnout <- read_excel("./_data/1980-2014 November General Election.xlsx",
                       skip=2,
                       col_types=c(
                         "numeric","skip","skip","text",
@@ -121,7 +121,7 @@ This dataset makes distinctions between turnout based on voting-age population (
 Obtained from [the National Conference of State Legislatures](https://www.ncsl.org/research/elections-and-campaigns/voter-id-chronology.aspx), who kindly provided via email a spreadsheet version of the data on this webpage on 10/11/2022.
 
 ```{r voter_id}
-voter_id <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/voter_id_chronology.xlsx",
+voter_id <- read_excel("./_data/voter_id_chronology.xlsx",
                       skip = 2,
                       col_types = c("text","skip","text","skip","text","skip",
                                     "text","skip","text","skip","text","skip",
