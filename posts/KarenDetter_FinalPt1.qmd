@@ -1,0 +1,113 @@
+---
+title: "Final Project Proposal"
+author: "Karen Detter"
+desription: "What predicts support for government regulation of 'Big Tech'?"
+date: "10/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(haven)
+library(labelled)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Background / Research Question
+
+What predicts support for government regulation of 'Big Tech'?
+
+In 2001, Google piloted a program to boost profits, which were sinking as the "dot-com bubble" burst, by collecting data generated from users' search queries and using it to sell precisely targeted advertising. The company's ad revenues grew so quickly that they expanded their data collection tools with tracking "cookies" and predictive algorithms. Other technology firms took notice of Google's soaring profits, and the sale of passively-collected data from people's online activities soon became the predominant business model of the internet economy (Zuboff, 2015).
+
+As the data-collection practices of 'Big Tech' firms, including Google, Amazon, Facebook (Meta), Apple, and Microsoft, have gradually been exposed, the public is now aware that the 'free' platforms that have become essential to daily life are actually harvesting personal information as payment. Despite consumers being essentially extorted into accepting this arrangement, regulatory intervention of 'surveillance capitalism' has remained limited.
+
+Over the two decades since passive data collection began commercializing the internet, survey research has shown the American public's increasing concern about the dominance Big Tech has been allowed to exert. A 2019 study conducted by Pew Research Center found that 81% of Democrats and 70% of Republicans think there should be more government regulation of corporate data-use practices (Pew Research Center, 2019). It is very unusual to find majorities of both Republicans and Democrats agreeing on any policy position, since party affiliation is known to be a main predictor of any political stance, especially in the current polarized climate. The natural question that arises, then, is what other factors predict support for increased regulation of data-collection practices?    
+
+# Hypothesis
+
+Although few studies have directly examined the mechanisms behind public support for regulation of passive data collection, a good amount of research has been done on factors influencing individual adoption of privacy protection measures (Barth et al., 2019; Boerman et al., 2021; Turow et al., 2015). It seems a reasonable extrapolation that these factors would similarly influence support for additional data privacy regulation, leading to these hypotheses:
+
+1) A higher level of awareness of data collection issues predicts support for increased 'Big Tech' regulation.
+
+2) Greater understanding of how companies use passively collected data predicts support for increased regulation.
+
+3) The feeling of having no personal control over online tracking 'digital resignation' predicts support for increased regulation.
+
+4) Certain demographics (age group, education level, and political ideology) have an effect on attitudes toward 'Big Tech' regulation.
+
+Since there are currently dozens of data privacy bills pending in Congress, pinpointing the forces driving support for this type of legislation can help with both shaping the regulatory framework needed and appealing for broader support from voters. 
+
+# Descriptive Statistics
+
+Pew Research Center's American Trends Panel (Wave 49) data set can provide insight into which of these factors are predictive of support for greater regulation of technology company data practices. In June 2019, an online survey covering a wide variety of topics was conducted and 4,272 separate observations for 144 variables were collected from adults age 18 and over. The margin of error (at the 95% confidence level) is given as +/- 1.87 percentage points.
+
+The data set was compiled in SPSS and all pertinent variables are categorical.
+
+```{r}
+#read in data from SPSS file
+wav49 <- read_sav("_data/ATPW49.sav")
+wav49
+```
+
+Since there are so many variables in the data set, selecting the variables of interest into a new data frame will make it easier to manage:
+
+```{r}
+sel_vars <- c('PRIVACYNEWS1_W49', 'TRACKCO1a_W49', 'CONTROLCO_W49', 'UNDERSTANDCO_W49', 'ANONYMOUS1CO_W49', 'PP4_W49', 'PRIVACYREG_W49', 'GOVREGV1_W49', 'PROFILE4_W49', 'F_AGECAT', 'F_EDUCCAT', 'F_PARTYSUM_FINAL', 'F_IDEO')
+wav49_selected <- wav49[sel_vars]
+wav49_selected
+```
+
+The variable labels contain the survey questions asked:
+
+```{r}
+#summary of $variable names and their [labels]
+var_label(wav49_selected)
+```
+
+Because the data set is made up of categorical variables, transformation is required before computing any statistics:
+
+```{r}
+#convert all variables to factors
+wav49_factored <- wav49_selected %>%
+  mutate_all(as_factor)
+#convert user-defined missing values to regular missing values
+zap_missing(wav49_factored)
+```
+
+After the variables are converted to meaningful factors, a summary of response frequencies can be generated:
+
+```{r}
+summary(wav49_factored)
+```
+*High NA value indicates that the question was not presented to all respondents
+ 
+The data set is now primed for examining correlations and testing hypotheses.
+
+# References
+
+Barth, S., de Jong, M. D. T., Junger, M., Hartel, P. H. & Roppelt, J. C. (2019). Putting the privacy paradox to the test: Online privacy and security behaviors among users with technical knowledge, privacy awareness, and financial resources. Telematics and Informatics, 41, 55–69. doi:10.1016/j.tele.2019.03.003
+
+Boerman, S. C., Kruikemeier, S., & Zuiderveen Borgesius, F. J. (2021). Exploring Motivations for Online Privacy Protection Behavior: Insights From Panel Data. Communication Research, 48(7), 953–977. https://doi.org/10.1177/0093650218800915
+
+Pew Research Center. (2019). Americans and privacy: Concerned, confused and feeling lack of control 	over their personal information. 		https://www.pewresearch.org/internet/2019/11/15/americans-and-privacy-concerned-confused-and-	feeling-lack-of-control-over-their-personal-information/
+
+Pew Research Center. (2020). Wave 49 American trends panel [Data set]. 	https://www.pewresearch.org/internet/dataset/american-trends-panel-wave-49/
+
+Turow, J., Hennessy, M. & Draper, N. (2015). The tradeoff fallacy – How marketers are				misrepresenting American consumers and opening them up to exploitation. Annenberg School for	Communication.
+
+Zuboff, S. (2015). Big other: Surveillance capitalism and the prospects of an information civilization. Journal of Information Technology, 30(1), 75–89. doi:10.1057/jit.2015.5
+
+
+
+
