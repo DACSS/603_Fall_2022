@@ -1,0 +1,61 @@
+---
+title: "Final Project Submission 1"
+author: "Kaushika Potluri"
+desription: "Final Project Submission 1"
+date: "10/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+---
+### Research Question:
+the research question that I have been interested in is the impact of education about sex and fertility for women and how that changes the fetility rate.
+Women's education raises the value of time spent working in the market and, as a result, the opportunity cost of spending time to take care of their child seems less. Across time and places, there is a clear negative link between women's education and fertility, although its meaning is ambiguous. Women's level of education may impact fertility through its effects on children's health, the number of children desired, and women's ability to give birth and understanding of various birth control options. Each of these are influenced by local, institutional, and national circumstances. Their relative importance may fluctuate as a society develops economically. Since having children affects how much mothers must pay for childcare, women's education may also be correlated with fertility. The data was acquired from various years of the National Opinion Resource Center’s General Social Survey.
+Compared to other women, mothers who stay at home with their kids are less likely to invest more money in their education. The correlation between women's education and unobservable qualities that are jointly linked with fertility may be even more significant.
+
+###Hypothesis
+It can be thought of as the total number of unplanned and intended children. The number of kids a family can have, the number of kids the family desires, and the capability to regulate birth through the availability of modern contraceptives and the knowledge of how to use them are all impacted by advancements in women's education. The number of children a woman has is halfway between the amount she wants and her level of natural fertility. Age and fertility control are the determining variables.If there was a variation by region in birth control availability, such information might be valuable. However, our data set does not contain geographical information (parameters). 
+My assumption would be that if the level of education increases, the number of children would decrease.
+
+```{r}
+#| label: setup
+#| warning: false
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading in packages:
+```{r}
+library(readr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+
+```
+
+## Reading in Data:
+The data was acquired from Professor Sander's article that he used.
+```{r}
+Womendata <-  read.csv("_data/data.csv")
+```
+
+## Summary of the data
+
+```{r}
+summary(Womendata)
+```
+
+```{r}
+glimpse(Womendata)
+```
+We can see that we have 28 variables and 4361 observations in this dataset.
+The dependent variable of interest - number of living children
+Then I will perform data manipulation to tidy the data.
+The variables of interest are age, yearborn, month born, urban education and many more variables that seem intriguing. Variables like radio, bicycle, electric can be ignored in this.
+
+###References
+[1] The effect of women's schooling on fertility by W Sander · 1992
+[2] The Impact of Women's Schooling on Fertility and Contraceptive Use by M Ainsworth · 1996
