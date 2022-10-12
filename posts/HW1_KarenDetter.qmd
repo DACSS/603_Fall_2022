@@ -23,42 +23,36 @@ library(tidyverse)
 knitr::opts_chunk$set(echo = TRUE)
 ```
 # Q.1a
-
-## read in data from Excel file:
-
+##Read in data from Excel file
 ```{r}
 library(readxl)
 LungCapData <- read_excel('_data/LungCapData.xls')
 ```
-
-## plot histogram with probability density on the y axis
+## Plot histogram with probability density on the y axis
 ```{r}
 hist(LungCapData$LungCap, freq = FALSE)
 ```
-
-The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, with few observations close to the margins (0 and 15).
+The histogram suggests that the distribution is close to a normal distribution - most of the observations are close to the mean, with very few close to the margins (0 and 15).
 
 # Q.1b
-## create boxplots separated by gender
+## Create boxplots separated by gender
 ```{r}
 boxplot(LungCap ~ Gender, data = LungCapData, horizontal = TRUE)
 ```
-
 The boxplots show that male lung capacity has a wider range than that of females; however, the minimum, median, and maximum values are all higher than those of females. This implies that, as a group, men are likely to have higher lung capacity than women.
 
 # Q.1c
-## group by smoking status and summarize mean lung capacities
+## Group by smoking status and summarize mean lung capacities
 ```{r}
 library(dplyr)
 LungCapData %>%
 group_by(Smoke) %>%
 summarize(mean = mean(LungCap), n = n())
 ```
-
-In this dataset, the mean lung capacity of smokers is actually higher than that of non-smokers. Since this is counter to what would be expected, there is likely another variable exerting a confounding effect on lung capacity. 
+In this dataset, the mean lung capacity of smokers is actually higher than that of non-smokers. Since this is counter to what would be expected, there is likely another variable exerting a confounding effect on lung capacity.
 
 # Q.1d
-## create new data frame with age group category variables
+## Create new data frame with age group category variables
 ```{r}
 LungCapData_AgeGroups <- LungCapData %>%
 mutate(AgeGroup = case_when(Age <= 13 ~ "less than or equal to 13", 
@@ -67,27 +61,26 @@ mutate(AgeGroup = case_when(Age <= 13 ~ "less than or equal to 13",
             Age >= 18 ~ "greater than or equal to 18"))
 ```
 
-## summarize mean lung capacities by age group and smoking status
+## Summarize mean lung capacities by age group and smoking status
 ```{r}
 LungCapData_AgeGroups %>%
 group_by(AgeGroup, Smoke) %>%
 summarize(MeanLungCap = mean(LungCap), n = n())
 ```
-
 # Q.1e
-When lung capacity data is further broken down by age group, the lung capacities of smokers and non-smokers appear to be more in line with expectations, with mean lung capacities of smokers ages 14-15, 16-17, and 18+ being less than those of non-smokers of the same age. In the 13 and under group, however, mean lung capacity is actually higher for smokers. This anomaly could be due to the fact that the number of observations is significantly higher for this age group than any of the others, likely resulting in wider variations in lung capacity. In addition, this category covers ages from 2 through 13, meaning that the minimum values are likely to be quite low and could skew the distribution to the left.
+When lung capacity data is further broken down by age group, the lung capacities of smokers and non-smokers appear to be more in line with expectations. The one exception is the 13 and under age category - here, mean lung capacity is actually higher for smokers. This anomaly could be due to the fact that the number of observations is significantly higher for this age group than any of the others, likely resulting in a wider range of lung capacities. Also, this age category, which includes ages 3 through 13, covers a broader scope of ages than any of the other categories, likely producing the paradox of a smaller number of smokers exhibiting higher lung capacities than their cohorts simply because they are older. 
 
 # Q.1f
-## calculate correlation and covariance between lung capacity and age
+## Calculate correlation and covariance between lung capacity and age
 ```{r}
 cor(LungCapData$LungCap, LungCapData$Age)
 cov(LungCapData$LungCap, LungCapData$Age)
 ```
-Since the correlation coefficient is close to 1, there is a high degree of correlation between lung capacity and age. The covariance of 8.7, being a positive number, indicates that as age increases, lung capacity increases.
+Since the correlation coefficient is close to 1, there is a high degree of correlation between lung capacity and age. The covariance of 8.7, being a positive number, indicates that as age increases, lung capacity increases. 
 
 
 # Q.2a
-## create data frame
+## Create data frame
 ```{r}
 PriorConv <- c(0,1,2,3,4)
 Freq <- c(128,434,160,64,24)
@@ -95,14 +88,14 @@ PrisonerData <- data.frame (PriorConv, Freq)
 PrisonerData
 ```
 
-## calculate probability that an inmate has == 2 prior convictions
+## Calculate probability that an inmate has == 2 prior convictions
 
 probability = frequency/n
 ```{r}
 160/810
 ```
 # Q.2b
-## calculate probability that an inmate has < 2 prior convictions
+## Calculate probability that an inmate has < 2 prior convictions
 
 probability = frequency(0)/n + frequency(1)/n
 ```{r}
@@ -110,7 +103,7 @@ probability = frequency(0)/n + frequency(1)/n
 ```
 
 # Q.2c
-## calculate probability that an inmate has <= 2 prior convictions
+## Calculate probability that an inmate has <= 2 prior convictions
 
 probability = frequency(0)/n + frequency(1)/n + frequency(2)/n
 ```{r}
@@ -118,7 +111,7 @@ probability = frequency(0)/n + frequency(1)/n + frequency(2)/n
 ```
 
 # Q.2d
-## calculate probability that an inmate has > 2 prior convictions
+## Calculate probability that an inmate has > 2 prior convictions
 
 probability = frequency(3)/n + frequency(4)/n
 ```{r}
@@ -127,26 +120,26 @@ probability = frequency(3)/n + frequency(4)/n
 
 # Q.2e
 
-## calculate expected value for number of prior convictions
-## define values of prior convictions and probabilities
+## Calculate expected value for number of prior convictions
+## Create a matrix of prior conviction values and their probabilities
 ```{r}
 PriorConv <- c(0,1,2,3,4)
 Probs <- c(0.1580247, 0.5358025, 0.1975309, 0.07901235, 0.02962963)
 ```
 
-## calculate expected value
+## Calculate expected value
 ```{r}
 c(PriorConv %*% Probs)
 ```
 
 # Q.2f
-## calculate variance and standard deviation for prior convictions
+## Calculate variance and standard deviation for prior convictions
 ```{r}
 var(PriorConv)
 sd(PriorConv)
 ```
 
-## double-check values
+## Double-check values
 ```{r}
 sqrt(var(PriorConv)) == sd(PriorConv)
 ```
