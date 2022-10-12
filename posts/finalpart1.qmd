@@ -1,121 +1,93 @@
 ---
-title: "Final Project: Diabetes Prediction"
-author: "Steph Roberts"
-desription: "Final Project Draft 1. Introduction of research question, hypothesis, and descriptive statistics"
-date: "10/9/2022"
+title: "finalpart1"
+author: "Niharika Pola"
+description: "Part 1 of my final project"
+date: "10/11/2022"
 format:
   html:
+    df-print: paged
+    css: styles.css
     toc: true
     code-fold: true
     code-copy: true
     code-tools: true
 categories:
-  - finalproject
-  - Steph Roberts
-  - dataset
-  - ggplot2
+  - finalpart1
 ---
+
+## Research Question:
+
+Are Women and Racial minorities underrepresented in STEM fields (Study & Career)? A predictive analysis of the likelihood of STEM careers.
+
+### Background & Motivation:
+
+Women are significantly underrepresented in STEM (science, technology, engineering, and mathematics) fields in the USA, making up less than a quarter of those working in STEM occupations (Noonan, [2017](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR13 "Noonan, R. Women in STEM: 2017 update (ESA Issue Brief #06-17). Office of the Chief Economist, Economics and Statistics Administration, U.S. Department of Commerce (November 13, 2017). Retrieved from 
+https://www.commerce.gov/news/fact-sheets/2017/11/women-stem-2017-update
+
+
+"); Ong, Smith, & Ko, [2018](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR15 "Ong, M., Smith, J. M., & Ko, L. T. (2018). Counterspaces for women of color in STEM higher education: marginal and central spaces for persistence and success. Journal of Research in Science Teaching, 55(2), 206–245. 
+https://doi.org/10.1002/tea.21417
+
+.")).
+
+Representation of women of color is even lower, with Hispanic, Asian, and African American women each receiving less than 5% of STEM bachelor\'s degrees in the USA (Ong et al., [2018](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR15 "Ong, M., Smith, J. M., & Ko, L. T. (2018). Counterspaces for women of color in STEM higher education: marginal and central spaces for persistence and success. Journal of Research in Science Teaching, 55(2), 206–245. 
+https://doi.org/10.1002/tea.21417
+
+.");
+
+**By the time students reach college**, women are significantly underrepresented in STEM majors --- for instance, only around 21% of engineering majors are women and only around 19% of computer and information science majors are women.<https://www.aauw.org/resources/research/the-stem-gap/>
+
+The fact that women and racial minorities are still discriminated and underrepresented in the STEM in the 21st century while mankind is stepping foot on other planets is a topic to be given a serious thought.
+
+The above mentioned articles are my motivation to perform this analysis in addition to the 2011 survey by US Department of Commerce showing that women and racial minorities are underrpresented in stem fields in two ways: They represent a disproportionatly small percentage of STEM degree holders, as well as STEM workers. These reports are linked below:
+
+-   ["Women in STEM: A Gender Gap to Innovation"](http://www.esa.doc.gov/reports/women-stem-gender-gap-innovation)
+
+-   ["Education Supports Racial and Ethnic Equality in STEM"](http://www.esa.doc.gov/reports/education-supports-racial-and-ethnic-equality-stem)
+
+**The goal of this project is to build a model to predict likelihood of working in a STEM (Science, Technology, Engineering, and Math) career based on basic demographics: Age, sex, race, state of origin.**
+
+## Hypothesis:
+
+My hypothesis: **Women and Racial minorities are underrepresented in STEM fields.**
+
+The above mentioned hypothesis has been tested and proved by many researchers and government survey analysis already. Bus i wish to perform this study again by modifying it by developing regression models to resume the likelihood of STEM careers.
+
+\-\--
+
+#### Loading the libraries
 
 ```{r}
 #| label: setup
 #| warning: false
 
 library(tidyverse)
+library(readxl)
 library(ggplot2)
-library(dplyr)
+library(stats)
 
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
-####Diabetes risk factors
-
-According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death. The WHO states close to 1.5 million people died due to diabetes and its complication in 2019 alone. It is a growing problem that requires dedicated research to aim at the slowdown and prevention of future cases. 
-
-###Research Questions
-1. What risk factors are most predictive of diabetes? 
-
-Research on Diabetes is ongoing and in-depth within the medical field. The prevalence and incidence of diabetes mellitus type 2 (DQ2) have increased consistently for decades, giving way to an increase in mortality related to diabetes. Commonly in the medical field, many risk factors are used to measure a patient’s risk of developing DM2, such as obesity, family history, hypertension and changes in fasting blood sugar levels. 
-Moreno et al. (2018) studied risk parameters for diabetes and concluded "risk of being diabetic rises in patients whose father has suffered an acute myocardial infarction, in those whose mother or father is diabetic and in patients with a high waist perimeter." 
-Their focus on family history leaves room for studies more focused on individual medical factors, such as blood pressure, BMI, number of pregnancies, etc. That is the aim of this project.
-
-
-M. L. M. V. J. A. (2018, June 11). Predictive risk model for the diagnosis of diabetes mellitus type 2 in a follow-up study 15 Years on: Prodi2 study. European journal of public health. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/29897477/ 
-
-
-2. Can the use of regression analysis help predict risk of diabetes based on several medical variables?
-
-Other research, such as a Edlitz & Segal (2022) study titled Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards, does focus on using individual medical factors to predict risk of diabetes through regression. This project aims to conduct similar analysis on different data. 
-
-E. Y. S. E. (2022, June 22). Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards. eLife. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/35731045/ 
-
-###Hypothesis
-
-1. Body mass index (BMI), glucose, and age are significant predictors of diabetes mellitus type 2.  
-
-2. Regression analysis can help predict the risk of developing diabetes mellitus type 2.
-
-Both hypothesis have been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. 
-
-###Descriptive Statistics
-
-The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0, 11 patients had a body mass index of 0, 28 others had a diastolic blood pressure of 0, 192 others had skin fold thickness readings of 0, and 140 others had serum insulin levels of 0. After cleaning the data by removing the cases with numbers that are incompatible with life, 392 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.
-
-The datasets consists of 9 medical predictor (independent) variables and one target (dependent) variable, outcome.  
-
-Pregnancies: Number of times a woman has been pregnant
-Glucose: Plasma Glucose concentration of 2 hours in an oral glucose tolerance test
-BloodPressure: Diastollic Blood Pressure (mm hg)
-SkinThickness: Triceps skin fold thickness(mm)
-Insulin: 2 hour serum insulin(mu U/ml)
-BMI: Body Mass Index ((weight in kg/height in m)^2)
-Age: Age(years)
-DiabetesPedigreeFunction: scores likelihood of diabetes based on family history)
-Outcome: 0(doesn't have diabetes) or 1 (has diabetes)
-
+#### Reading the raw data
 
 ```{r}
-df<- read_csv("diabetes2.csv")
-dim(df)
-summary(df)
-head(df)
-```
-```{r}
-#check for null entries
-is.null(df)
-```
-```{r}
-#Check number of 0s in each column
-colSums(df==0)
+pop <- read.csv("C:/Users/91955/Desktop/603_Fall_2022/ss13pusa.csv")
+head(pop)
 ```
 
-Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables that should logically have 0s. Those values, if true, are likely incompatible with life. We will remove those cases from analysis.
+## Descriptive Statistics
 
 ```{r}
-#Remove rows with 0 in respective columns
-dfc <- df[apply(df[c(2:6, 8)],1,function(z) !any(z==0)),] 
-
-#Verify 0s are gone in selected rows
-colSums(dfc==0)
+summary(pop)
+nrow(pop)
+ncol(pop)
+glimpse(pop)
 ```
 
+### 
 
-```{r}
-#Check cleaned data frame
-glimpse(dfc)
-```
-The cleaned data frame includes 392 observations, or cases, along the original 9 variables. 
+The data has 1613672 rows and 238 columns. The variables I am interested in are AGEP, SEX, HISP, POBP, RAC1P, SCIENGP, SOCP.
 
-```{r}
-#Summarize df
-summary(dfc)
-```
-At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70.66, a BMI of 33, and age of 30.86 are reasonable accurate of our population. The data is clean and ready for analysis. 
-
-###Analysis
-
-###Hypothesis Testing
-
-###Model Comparisons
-
-###Diagnostics
-
+The data needs cleaning and rearranging the columns and rows.
