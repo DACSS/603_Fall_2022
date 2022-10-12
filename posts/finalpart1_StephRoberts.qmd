@@ -1,0 +1,121 @@
+---
+title: "Final Project: Diabetes Prediction"
+author: "Steph Roberts"
+desription: "Final Project Draft 1. Introduction of research question, hypothesis, and descriptive statistics"
+date: "10/9/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalproject
+  - Steph Roberts
+  - dataset
+  - ggplot2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+###Diabetes risk factors
+
+According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death. The WHO states close to 1.5 million people died due to diabetes and its complication in 2019 alone. It is a growing problem that requires dedicated research to aim at the slowdown and prevention of future cases. 
+
+##Research Questions
+1. What risk factors are most predictive of diabetes? 
+
+Research on Diabetes is ongoing and in-depth within the medical field. The prevalence and incidence of diabetes mellitus type 2 (DQ2) have increased consistently for decades, giving way to an increase in mortality related to diabetes. Commonly in the medical field, many risk factors are used to measure a patient’s risk of developing DM2, such as obesity, family history, hypertension and changes in fasting blood sugar levels. 
+Moreno et al. (2018) studied risk parameters for diabetes and concluded "risk of being diabetic rises in patients whose father has suffered an acute myocardial infarction, in those whose mother or father is diabetic and in patients with a high waist perimeter." 
+Their focus on family history leaves room for studies more focused on individual medical factors, such as blood pressure, BMI, number of pregnancies, etc. That is the aim of this project.
+
+
+M. L. M. V. J. A. (2018, June 11). Predictive risk model for the diagnosis of diabetes mellitus type 2 in a follow-up study 15 Years on: Prodi2 study. European journal of public health. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/29897477/ 
+
+
+2. Can the use of regression analysis help predict risk of diabetes based on several medical variables?
+
+Other research, such as a Edlitz & Segal (2022) study titled Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards, does focus on using individual medical factors to predict risk of diabetes through regression. This project aims to conduct similar analysis on different data. 
+
+E. Y. S. E. (2022, June 22). Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards. eLife. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/35731045/ 
+
+##Hypothesis
+
+1. Body mass index (BMI), glucose, and age are significant predictors of diabetes mellitus type 2.  
+
+2. Regression analysis can help predict the risk of developing diabetes mellitus type 2.
+
+Both hypothesis have been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. 
+
+##Descriptive Statistics
+
+The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0, 11 patients had a body mass index of 0, 28 others had a diastolic blood pressure of 0, 192 others had skin fold thickness readings of 0, and 140 others had serum insulin levels of 0. After cleaning the data by removing the cases with numbers that are incompatible with life, 392 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.
+
+The datasets consists of 9 medical predictor (independent) variables and one target (dependent) variable, outcome.  
+
+Pregnancies: Number of times a woman has been pregnant
+Glucose: Plasma Glucose concentration of 2 hours in an oral glucose tolerance test
+BloodPressure: Diastollic Blood Pressure (mm hg)
+SkinThickness: Triceps skin fold thickness(mm)
+Insulin: 2 hour serum insulin(mu U/ml)
+BMI: Body Mass Index ((weight in kg/height in m)^2)
+Age: Age(years)
+DiabetesPedigreeFunction: scores likelihood of diabetes based on family history)
+Outcome: 0(doesn't have diabetes) or 1 (has diabetes)
+
+
+```{r}
+df<- read_csv("diabetes2.csv")
+dim(df)
+summary(df)
+head(df)
+```
+```{r}
+#check for null entries
+is.null(df)
+```
+```{r}
+#Check number of 0s in each column
+colSums(df==0)
+```
+
+Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables that should logically have 0s. Those values, if true, are likely incompatible with life. We will remove those cases from analysis.
+
+```{r}
+#Remove rows with 0 in respective columns
+dfc <- df[apply(df[c(2:6, 8)],1,function(z) !any(z==0)),] 
+
+#Verify 0s are gone in selected rows
+colSums(dfc==0)
+```
+
+
+```{r}
+#Check cleaned data frame
+glimpse(dfc)
+```
+The cleaned data frame includes 392 observations, or cases, along the original 9 variables. 
+
+```{r}
+#Summarize df
+summary(dfc)
+```
+At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70.66, a BMI of 33, and age of 30.86 are reasonably accurate of our population. The data is clean and ready for analysis. 
+
+##Analysis
+
+##Hypothesis Testing
+
+##Model Comparisons
+
+##Diagnostics
+
