@@ -1,0 +1,93 @@
+---
+title: "finalpart1"
+author: "Niharika Pola"
+description: "Part 1 of my final project"
+date: "10/11/2022"
+format:
+  html:
+    df-print: paged
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+---
+
+## Research Question:
+
+Are Women and Racial minorities underrepresented in STEM fields (Study & Career)? A predictive analysis of the likelihood of STEM careers.
+
+### Background & Motivation:
+
+Women are significantly underrepresented in STEM (science, technology, engineering, and mathematics) fields in the USA, making up less than a quarter of those working in STEM occupations (Noonan, [2017](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR13 "Noonan, R. Women in STEM: 2017 update (ESA Issue Brief #06-17). Office of the Chief Economist, Economics and Statistics Administration, U.S. Department of Commerce (November 13, 2017). Retrieved from 
+https://www.commerce.gov/news/fact-sheets/2017/11/women-stem-2017-update
+
+
+"); Ong, Smith, & Ko, [2018](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR15 "Ong, M., Smith, J. M., & Ko, L. T. (2018). Counterspaces for women of color in STEM higher education: marginal and central spaces for persistence and success. Journal of Research in Science Teaching, 55(2), 206–245. 
+https://doi.org/10.1002/tea.21417
+
+.")).
+
+Representation of women of color is even lower, with Hispanic, Asian, and African American women each receiving less than 5% of STEM bachelor\'s degrees in the USA (Ong et al., [2018](https://stemeducationjournal.springeropen.com/articles/10.1186/s40594-020-00219-2#ref-CR15 "Ong, M., Smith, J. M., & Ko, L. T. (2018). Counterspaces for women of color in STEM higher education: marginal and central spaces for persistence and success. Journal of Research in Science Teaching, 55(2), 206–245. 
+https://doi.org/10.1002/tea.21417
+
+.");
+
+**By the time students reach college**, women are significantly underrepresented in STEM majors --- for instance, only around 21% of engineering majors are women and only around 19% of computer and information science majors are women.<https://www.aauw.org/resources/research/the-stem-gap/>
+
+The fact that women and racial minorities are still discriminated and underrepresented in the STEM in the 21st century while mankind is stepping foot on other planets is a topic to be given a serious thought.
+
+The above mentioned articles are my motivation to perform this analysis in addition to the 2011 survey by US Department of Commerce showing that women and racial minorities are underrpresented in stem fields in two ways: They represent a disproportionatly small percentage of STEM degree holders, as well as STEM workers. These reports are linked below:
+
+-   ["Women in STEM: A Gender Gap to Innovation"](http://www.esa.doc.gov/reports/women-stem-gender-gap-innovation)
+
+-   ["Education Supports Racial and Ethnic Equality in STEM"](http://www.esa.doc.gov/reports/education-supports-racial-and-ethnic-equality-stem)
+
+**The goal of this project is to build a model to predict likelihood of working in a STEM (Science, Technology, Engineering, and Math) career based on basic demographics: Age, sex, race, state of origin.**
+
+## Hypothesis:
+
+My hypothesis: **Women and Racial minorities are underrepresented in STEM fields.**
+
+The above mentioned hypothesis has been tested and proved by many researchers and government survey analysis already. Bus i wish to perform this study again by modifying it by developing regression models to resume the likelihood of STEM careers.
+
+\-\--
+
+#### Loading the libraries
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(stats)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+#### Reading the raw data
+
+```{r}
+pop <- read.csv("C:/Users/91955/Desktop/603_Fall_2022/ss13pusa.csv")
+head(pop)
+```
+
+## Descriptive Statistics
+
+```{r}
+summary(pop)
+nrow(pop)
+ncol(pop)
+glimpse(pop)
+```
+
+### 
+
+The data has 1613672 rows and 238 columns. The variables I am interested in are AGEP, SEX, HISP, POBP, RAC1P, SCIENGP, SOCP.
+
+The data needs cleaning and rearranging the columns and rows.
