@@ -174,7 +174,7 @@ turnout_2000 <- turnout_2000 %>%
 
 
 
-# Merges? ----
+# Joins ----
 
 
 
