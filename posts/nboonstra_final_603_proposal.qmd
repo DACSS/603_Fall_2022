@@ -1,0 +1,154 @@
+---
+title: "Voter Turnout and Partisan Bias in U.S. Presidential Elections"
+subtitle: "DACSS 602 Final Project Proposal - Fall 2022"
+author: "Nicholas Boonstra"
+date: "October 11, 2022"
+editor: visual
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+  - nboonstra
+---
+
+```{r setup}
+rm(list=ls())
+
+library(tidyverse)
+library(readxl)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+# Research Question
+
+On the surface, my research question is fairly straightforward: **Does higher turnout in U.S. presidential elections benefit Democratic candidates?** However, this question can be assessed in a number of ways, particularly when it comes to measurement. For example, "higher" turnout can be measured in absolute terms across states, or in relative terms within states across elections (i.e. whether turnout increased or decreased, andy by how much). Similarly, "benefit" to Democratic candidates can be assessed in terms of whether or not an election is won as well as how much an election is won or lost by, which itself can also be further broken down into absolute and relative terms. For the sake of validity and robustness, I would naturally like to be able to assess this question in each of these ways, comparing different IVs, DVs, and models; however, I recognize that it may not prove feasible to take such a deep look at this question as the term proceeds.
+
+These questions have been looked at a number of times in the American political science literature, and yet there is little consensus on the effects of turnout on partisan electoral outcomes. One of the earliest, and perhaps one of the most seminal, works in this area is DeNardo (1980), which uses mostly theoretical arguments to counter the conventional wisdom that higher turnout benefits Democrats. A rebuttal -- Tucker, Vedlitz, and DeNardo (1986) -- counters DeNardo's argument while also giving the original author an opportunity to double down on his case. More recently, Shaw and Petrocik's (2020) book *The Turnout Myth* takes a deeper dive into these questions, attacking the conventional wisdom with both theoretical arguments and empirical evidence, and coming to a similar conclusion to DeNardo: higher turnout does not benefit Democrats. However, I take issue with some of the theoretical underpinnings of Shaw and Petrocik's argument, as I expand upon below.
+
+I want to note my excitement to work on this project. I began my work on this question as an undergraduate, using the Stata statistical package for my analysis; I am looking forward to learning to use `R` and Quarto to perform, develop, and present this analysis. Specifically, because of the time-series nature of the data I was taught to go beyond standard linear regression and utilize a Panel-Corrected Standard Errors (PCSE) model. I hope to build on this knowledge and further my understanding of statistical modelling with this project.
+
+# Hypothesis
+
+## Theory
+
+A review of even such a small sample of the literature as the works mentioned above will clearly demonstrate that, beyond disagreement over the presence of partisan turnout bias, there is little consensus on the theoretical aspect of such a phenomenon. Before offering my hypothesis, therefore, I would like to briefly address this theoretical side of the argument.
+
+Shaw and Petrocik (2020) take issue with a notion found in turnout bias literature, the notion being "that turnout is endogenous to candidate preference" (p. 53). They cite Downs' (1957) famous equation, $V=(P*B)-C$, as evidence that it is the *intensity* of one's political beliefs, and not their *direction*, that determines the decision to vote or not, and that therefore turnout is not endogenous to candidate preference.
+
+I believe this argument misses a subtle nuance that is key to the turnout bias debate. Suppose that not all individuals in a given polity face the same costs to voting; assume, in other words, that a more accurate rendition of Downs' equation would be $V_i=(P*B_i)-C_i$, in which both cost of voting and the perceived benefit of a preferred candidate's victory are unique to the individual. For the sake of this argument, the manner in which these costs are distributed is not important; only the fact that there are unequal costs matters. Suppose further that one of the parties in this polity has established itself as being the party that lobbies for a reduction in the cost of voting, particularly for those who face disproportionately high barriers. In a world of rational actors and perfect information, it would follow, *ceteris paribus*, that an individual who faced disproportionately high costs to voting would support this party, since this party would lobby to improve opportunities for this group. However, the very higher cost of voting that would motivate this individual to support this party could also prevent them from ultimately voting for that candidate in an election. Thus, it could be said that turnout is endogenous to candidate preference -- or, more accurately, that the cost of voting is endogenous to both candidate preference and turnout.
+
+We can apply this theoretical model to the American case. Certain individuals do face higher barriers to voting; unfortunately, unlike in the model, these barriers do tend to be distributed in a certain manner, often inequitably by race and socioeconomic status. Additionally, it would not be difficult to argue that, of the two major parties, the Democrats have placed themselves in the position of the party lobbying for expanded voting access and reduction of barriers to the ballot box, starting with their role in the Civil Rights movement and corresponding legislation, and continuing to the start of the present Congress and the introduction of H.R. 1, a bill explicitly aimed at expanding voting rights. Thus, while our world is not one of completely perfect information or completely rational actors, and while a number of factors contribute to partisan identity and vote choice, there is a reasonable case to be made that individuals who face barriers to voting, *ceteris paribus*, would be more likely to support the Democratic Party. Once again, these very barriers to voting that would push individuals toward the Democrats also can restrict them from expressing that preference at the ballot box. Thus, we have our situation of endogeneity between partisan preference and turnout.
+
+## Hypotheses
+
+With the theoretical argument out of the way, I can proceed to out line some of the hypotheses I would like to test with this project.
+
+$H_1$: Higher turnout will benefit Democrats in state-level Presidential elections.
+
+$H_2$: Democrats will perform better in state-level Presidential elections as turnout increases relative to the previous election in that state.
+
+The distinction of *state-level* elections is an important one; Shaw and Petrocik (2020) tend to aggregate their data, either by assessing elections on the national level or by aggregating county-level data. In the United States, Presidential elections are conducted at the state level, and I believe that this is the appropriate level of analysis for this analysis.
+
+# Descriptive Statistics
+
+What follows is a brief summary of the datasets I intend to use for this analysis.
+
+## Election Data, 1976-2020
+
+Obtained from the [MIT Election Project](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX) on 10/10/2022.
+
+```{r election_full}
+election_full <- read_csv("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/mit_election_1976_2020.csv")
+
+election_full <- election_full %>% 
+  mutate(party_simplified2 = case_when(
+    party_detailed == "DEMOCRAT" ~ "DEMOCRAT",
+    party_detailed == "REPUBLICAN" ~ "REPUBLICAN",
+    party_detailed == "LIBERTARIAN" ~ "LIBERTARIAN",
+    party_detailed == "GREEN" ~ "GREEN",
+    party_detailed == "INDEPENDENT" ~ "INDEPENDENT",
+    TRUE ~ "OTHER"
+  )) %>% 
+  mutate(party_dem = case_when(
+    party_detailed == "DEMOCRAT" ~ 1,
+    TRUE ~ 0
+  ))
+
+head(election_full, n=20)
+colnames(election_full)
+summary(election_full)
+```
+
+This dataframe contains state-level election results for all 50 states and the District of Columbia for the six Presidential elections from 1976 to 2020. (I am currently not sure that I will use that entire date range, particularly because it does not exactly coincide with the turnout data available, but for now I am including the full data set.) Included in the dataframe are candidate vote totals and party affiliations, which I have used to add an extra column, `party_dem`, which is a dummy variable recording whether or not a given candidate is a Democrat. The data already come in tidy, which is a nice touch; a "case" or row is a given candidate's performance in a given state's Presidential election in a given year.
+
+## Turnout data, 1980-2014
+
+Obtained from [the US Elections Project](https://www.electproject.org/election-data/voter-turnout-data) on 10/11/2022.
+
+```{r turnout}
+turnout <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/1980-2014 November General Election.xlsx",
+                      skip=2,
+                      col_types=c(
+                        "numeric","skip","skip","text",
+                        "numeric","numeric","numeric",
+                        "numeric","numeric","numeric","numeric",
+                        "numeric","numeric","numeric","numeric","numeric","numeric"
+                      ),
+                      col_names=c(
+                        "year","state",
+                        "totballots_vep_rate","highestoff_vep_rate","highestoff_vap_rate",
+                        "totalballots_count","highestoff_count","vep_count","vap_count",
+                        "noncitizen_percent","prison_count","probation_count",
+                        "parole_count","totineligible_count","overseas_count"
+                      ))
+
+head(turnout,n=20)
+colnames(turnout)
+summary(turnout)
+```
+
+Additional turnout data are available from the USEP by election from 2000-2020, albeit in their own individual spreadsheets; I may end up merging the 2016 and 2020 spreadsheets into this 1980-2014 set. It is important to note that this dataset includes observations for both Presidential and midterm election years, while I only intend to analyze Presidential elections.
+
+This dataset makes distinctions between turnout based on voting-age population (VAP) and voting-eligible population (VEP). The literature generally agrees that VEP is the most reliable and consistent measure. However, given that one of the main differences between the two is the barrier of felony disenfranchisement, a barrier that is often inequitably distributed by race, I may end up using VAP turnout in my analysis; I have not yet decided as of the time of this submission.
+
+## Voter ID data, 2000-2020
+
+Obtained from [the National Conference of State Legislatures](https://www.ncsl.org/research/elections-and-campaigns/voter-id-chronology.aspx), who kindly provided via email a spreadsheet version of the data on this webpage on 10/11/2022.
+
+```{r voter_id}
+voter_id <- read_excel("/Users/boonstra/Documents/github/603_Fall_2022/_freeze/voter_id_chronology.xlsx",
+                      skip = 2,
+                      col_types = c("text","skip","text","skip","text","skip",
+                                    "text","skip","text","skip","text","skip",
+                                    "text","skip","skip"))
+
+voter_id <- voter_id %>% 
+  pivot_longer(cols=c(2:7),
+               names_to="year",
+               values_to="id_text") %>% 
+  mutate(id_req = case_when(
+    grepl("no id", id_text, ignore.case = TRUE) ~ 0,
+    TRUE ~ 1
+  )) %>% 
+  mutate(id_strict = case_when(
+    grepl("Strict", id_text) ~ 1,
+    TRUE ~ 0
+  )) %>% 
+  mutate(id_photo = case_when(
+    grepl(" photo", id_text, ignore.case = TRUE) ~ 1,
+    TRUE ~ 0
+  ))
+
+head(voter_id,n=20)
+colnames(voter_id)
+summary(voter_id)
+```
+
+Given that barriers to voting factor into the argument behind my research, I wanted to include data on voter ID laws in my analysis, as a controlling (or other type of) variable. The data here track voter ID laws across all 50 U.S. states and the District of Columbia from 2000 to 2020.
+
+These data are surprisingly well balanced when it comes to the occurrence of voter ID laws; `r round(100*mean(voter_id$id_req),2)` percent of elections were held under voter-ID laws of some sort. Cases are also specified by whether or not a voter ID law was strict (i.e. required the voter to cast a provisional ballot and verify their identity after Election Day), and whether or not the state required a photo on the identification. Strict voter ID laws are the most rare, occurring in only `r round(100*mean(voter_id$id_strict),2)` percent of elections in the data set; photo requirements are slightly more common, occurring in `r round(100*mean(voter_id$id_photo),2)` percent of elections.
