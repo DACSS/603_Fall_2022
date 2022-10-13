@@ -1,17 +1,29 @@
 ---
 title: "Final Project Proposal"
 author: "Saaradhaa M"
+description: "Part 1"
 date: "10/09/2022"
 format: 
   html:
-    df-print: paged
     toc: true
+    code-fold: true
     code-copy: true
     code-tools: true
-    css: "styles.css"
 categories:
   - finalpart1
 ---
+
+```{r}
+#| label: setup
+#| warning: false
+
+# load libraries.
+library(tidyverse)
+library(ggplot2)
+library(summarytools)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 ## Introduction
 
@@ -72,25 +84,10 @@ I am using the most recent version of Wave 7 released in May 2022. The most fina
 I will indicate my comments in each code chunk to keep track of my progress.
 
 ```{r}
-#| label: setup
-#| warning: false
-#| message: false
-
-# load libraries.
-library(tidyverse)
-library(ggplot2)
-library(summarytools)
-library(Amelia)
-library(plotly)
-
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-```
-
-```{r}
 #| label: read in
 
 # read in dataset.
-wvs <- read_csv("~/Desktop/2022_Fall/DACSS 603/General/Final Project/WVS/4. Data/WVS_Cross-National_Wave_7_csv_v4_0.csv") %>% select("A_YEAR", "B_COUNTRY_ALPHA", "Q_MODE", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "O1_LONGITUDE", "O2_LATITUDE", "Q1", "Q2", "Q3", "Q6", "Q46", "Q47", "Q48", "Q49", "Q50", "Q57", "Q171", "Q260", "Q262", "Q263", "Q269", "Q270", "Q271", "Q273", "Q274", "Q275", "Q279", "Q288", "Q288R", "Q289", "Q290", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "I_HOMOLIB", "I_ABORTLIB", "womenparl")
+wvs <- read_csv("~/Desktop/2022_Fall/DACSS 603/General/Final Project/WVS/4. Data/WVS_Cross-National_Wave_7_csv_v4_0.csv", show_col_types = FALSE) %>% select("A_YEAR", "B_COUNTRY_ALPHA", "Q_MODE", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "O1_LONGITUDE", "O2_LATITUDE", "Q1", "Q2", "Q3", "Q6", "Q46", "Q47", "Q48", "Q49", "Q50", "Q57", "Q171", "Q260", "Q262", "Q263", "Q269", "Q270", "Q271", "Q273", "Q274", "Q275", "Q279", "Q288", "Q288R", "Q289", "Q290", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "I_HOMOLIB", "I_ABORTLIB", "womenparl")
 ```
 
 The dataset originally had 552 columns. I have selected a subset of columns based on variables used in past papers, as well as some variables I am interested to examine. These include place/area of residence, literacy, demographics, importance of various social aspects, happiness and wellbeing indicators, trust, religiosity, equality of gender/sexual orientation and abortion attitudes.
