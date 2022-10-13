@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nicholas Boonstra">
+<meta name="dcterms.date" content="2022-10-12">
+<meta name="description" content="On the surface, my research question is fairly straightforward: Does higher turnout in U.S. presidential elections benefit Democratic candidates? However, this question can be assessed in a number of ways, particularly when it comes to measurement.">
+
+<title>- Voter Turnout and Partisan Bias in U.S. Presidential Elections</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="- Voter Turnout and Partisan Bias in U.S. Presidential Elections">
+<meta name="twitter:description" content="On the surface, my research question is fairly straightforward: Does higher turnout in U.S. presidential elections benefit Democratic candidates? However, this question can be assessed in a number of ways, particularly when it comes to measurement.">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#research-question" id="toc-research-question" class="nav-link active" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a>
+  <ul class="collapse">
+  <li><a href="#theory" id="toc-theory" class="nav-link" data-scroll-target="#theory">Theory</a></li>
+  <li><a href="#hypotheses" id="toc-hypotheses" class="nav-link" data-scroll-target="#hypotheses">Hypotheses</a></li>
+  </ul></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive Statistics</a>
+  <ul class="collapse">
+  <li><a href="#election-data-1976-2020" id="toc-election-data-1976-2020" class="nav-link" data-scroll-target="#election-data-1976-2020">Election Data, 1976-2020</a></li>
+  <li><a href="#turnout-data-1980-2014" id="toc-turnout-data-1980-2014" class="nav-link" data-scroll-target="#turnout-data-1980-2014">Turnout data, 1980-2014</a></li>
+  <li><a href="#voter-id-data-2000-2020" id="toc-voter-id-data-2000-2020" class="nav-link" data-scroll-target="#voter-id-data-2000-2020">Voter ID data, 2000-2020</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Voter Turnout and Partisan Bias in U.S. Presidential Elections</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<p class="subtitle lead">DACSS 602 Final Project Proposal - Fall 2022</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">finalpart1</div>
+    <div class="quarto-category">nboonstra</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    On the surface, my research question is fairly straightforward: Does higher turnout in U.S. presidential elections benefit Democratic candidates? However, this question can be assessed in a number of ways, particularly when it comes to measurement.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nicholas Boonstra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 12, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.3.6     ✔ purrr   0.3.4
+✔ tibble  3.1.8     ✔ dplyr   1.0.9
+✔ tidyr   1.2.0     ✔ stringr 1.4.0
+✔ readr   2.1.2     ✔ forcats 0.5.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="research-question" class="level1">
+<h1>Research Question</h1>
+<p>On the surface, my research question is fairly straightforward: <strong>Does higher turnout in U.S. presidential elections benefit Democratic candidates?</strong> However, this question can be assessed in a number of ways, particularly when it comes to measurement. For example, “higher” turnout can be measured in absolute terms across states, or in relative terms within states across elections (i.e.&nbsp;whether turnout increased or decreased, andy by how much). Similarly, “benefit” to Democratic candidates can be assessed in terms of whether or not an election is won as well as how much an election is won or lost by, which itself can also be further broken down into absolute and relative terms. For the sake of validity and robustness, I would naturally like to be able to assess this question in each of these ways, comparing different IVs, DVs, and models; however, I recognize that it may not prove feasible to take such a deep look at this question as the term proceeds.</p>
+<p>These questions have been looked at a number of times in the American political science literature, and yet there is little consensus on the effects of turnout on partisan electoral outcomes. One of the earliest, and perhaps one of the most seminal, works in this area is DeNardo (1980), which uses mostly theoretical arguments to counter the conventional wisdom that higher turnout benefits Democrats. A rebuttal – Tucker, Vedlitz, and DeNardo (1986) – counters DeNardo’s argument while also giving the original author an opportunity to double down on his case. More recently, Shaw and Petrocik’s (2020) book <em>The Turnout Myth</em> takes a deeper dive into these questions, attacking the conventional wisdom with both theoretical arguments and empirical evidence, and coming to a similar conclusion to DeNardo: higher turnout does not benefit Democrats. However, I take issue with some of the theoretical underpinnings of Shaw and Petrocik’s argument, as I expand upon below.</p>
+<p>I want to note my excitement to work on this project. I began my work on this question as an undergraduate, using the Stata statistical package for my analysis; I am looking forward to learning to use <code>R</code> and Quarto to perform, develop, and present this analysis. Specifically, because of the time-series nature of the data I was taught to go beyond standard linear regression and utilize a Panel-Corrected Standard Errors (PCSE) model. I hope to build on this knowledge and further my understanding of statistical modelling with this project.</p>
+</section>
+<section id="hypothesis" class="level1">
+<h1>Hypothesis</h1>
+<section id="theory" class="level2">
+<h2 class="anchored" data-anchor-id="theory">Theory</h2>
+<p>A review of even such a small sample of the literature as the works mentioned above will clearly demonstrate that, beyond disagreement over the presence of partisan turnout bias, there is little consensus on the theoretical aspect of such a phenomenon. Before offering my hypothesis, therefore, I would like to briefly address this theoretical side of the argument.</p>
+<p>Shaw and Petrocik (2020) take issue with a notion found in turnout bias literature, the notion being “that turnout is endogenous to candidate preference” (p.&nbsp;53). They cite Downs’ (1957) famous equation, <span class="math inline">\(V=(P*B)-C\)</span>, as evidence that it is the <em>intensity</em> of one’s political beliefs, and not their <em>direction</em>, that determines the decision to vote or not, and that therefore turnout is not endogenous to candidate preference.</p>
+<p>I believe this argument misses a subtle nuance that is key to the turnout bias debate. Suppose that not all individuals in a given polity face the same costs to voting; assume, in other words, that a more accurate rendition of Downs’ equation would be <span class="math inline">\(V_i=(P*B_i)-C_i\)</span>, in which both cost of voting and the perceived benefit of a preferred candidate’s victory are unique to the individual. For the sake of this argument, the manner in which these costs are distributed is not important; only the fact that there are unequal costs matters. Suppose further that one of the parties in this polity has established itself as being the party that lobbies for a reduction in the cost of voting, particularly for those who face disproportionately high barriers. In a world of rational actors and perfect information, it would follow, <em>ceteris paribus</em>, that an individual who faced disproportionately high costs to voting would support this party, since this party would lobby to improve opportunities for this group. However, the very higher cost of voting that would motivate this individual to support this party could also prevent them from ultimately voting for that candidate in an election. Thus, it could be said that turnout is endogenous to candidate preference – or, more accurately, that the cost of voting is endogenous to both candidate preference and turnout.</p>
+<p>We can apply this theoretical model to the American case. Certain individuals do face higher barriers to voting; unfortunately, unlike in the model, these barriers do tend to be distributed in a certain manner, often inequitably by race and socioeconomic status. Additionally, it would not be difficult to argue that, of the two major parties, the Democrats have placed themselves in the position of the party lobbying for expanded voting access and reduction of barriers to the ballot box, starting with their role in the Civil Rights movement and corresponding legislation, and continuing to the start of the present Congress and the introduction of H.R. 1, a bill explicitly aimed at expanding voting rights. Thus, while our world is not one of completely perfect information or completely rational actors, and while a number of factors contribute to partisan identity and vote choice, there is a reasonable case to be made that individuals who face barriers to voting, <em>ceteris paribus</em>, would be more likely to support the Democratic Party. Once again, these very barriers to voting that would push individuals toward the Democrats also can restrict them from expressing that preference at the ballot box. Thus, we have our situation of endogeneity between partisan preference and turnout.</p>
+</section>
+<section id="hypotheses" class="level2">
+<h2 class="anchored" data-anchor-id="hypotheses">Hypotheses</h2>
+<p>With the theoretical argument out of the way, I can proceed to out line some of the hypotheses I would like to test with this project.</p>
+<p><span class="math inline">\(H_1\)</span>: Higher turnout will benefit Democrats in state-level Presidential elections.</p>
+<p><span class="math inline">\(H_2\)</span>: Democrats will perform better in state-level Presidential elections as turnout increases relative to the previous election in that state.</p>
+<p>The distinction of <em>state-level</em> elections is an important one; Shaw and Petrocik (2020) tend to aggregate their data, either by assessing elections on the national level or by aggregating county-level data. In the United States, Presidential elections are conducted at the state level, and I believe that this is the appropriate level of analysis for this analysis.</p>
+</section>
+</section>
+<section id="descriptive-statistics" class="level1">
+<h1>Descriptive Statistics</h1>
+<p>What follows is a brief summary of the datasets I intend to use for this analysis.</p>
+<section id="election-data-1976-2020" class="level2">
+<h2 class="anchored" data-anchor-id="election-data-1976-2020">Election Data, 1976-2020</h2>
+<p>Obtained from the <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX">MIT Election Project</a> on 10/10/2022.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>election_full <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./_data/mit_election_1976_2020.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>election_full <span class="ot">&lt;-</span> election_full <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_simplified2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"DEMOCRAT"</span> <span class="sc">~</span> <span class="st">"DEMOCRAT"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"REPUBLICAN"</span> <span class="sc">~</span> <span class="st">"REPUBLICAN"</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"LIBERTARIAN"</span> <span class="sc">~</span> <span class="st">"LIBERTARIAN"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"GREEN"</span> <span class="sc">~</span> <span class="st">"GREEN"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"INDEPENDENT"</span> <span class="sc">~</span> <span class="st">"INDEPENDENT"</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"OTHER"</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_dem =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"DEMOCRAT"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(election_full, <span class="at">n=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 17
+    year state    state…¹ state…² state…³ state…⁴ office candi…⁵ party…⁶ writein
+   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;lgl&gt;  
+ 1  1976 ALABAMA  AL            1      63      41 US PR… "CARTE… DEMOCR… FALSE  
+ 2  1976 ALABAMA  AL            1      63      41 US PR… "FORD,… REPUBL… FALSE  
+ 3  1976 ALABAMA  AL            1      63      41 US PR… "MADDO… AMERIC… FALSE  
+ 4  1976 ALABAMA  AL            1      63      41 US PR… "BUBAR… PROHIB… FALSE  
+ 5  1976 ALABAMA  AL            1      63      41 US PR… "HALL,… COMMUN… FALSE  
+ 6  1976 ALABAMA  AL            1      63      41 US PR… "MACBR… LIBERT… FALSE  
+ 7  1976 ALABAMA  AL            1      63      41 US PR…  &lt;NA&gt;   &lt;NA&gt;    TRUE   
+ 8  1976 ALASKA   AK            2      94      81 US PR… "FORD,… REPUBL… FALSE  
+ 9  1976 ALASKA   AK            2      94      81 US PR… "CARTE… DEMOCR… FALSE  
+10  1976 ALASKA   AK            2      94      81 US PR… "MACBR… LIBERT… FALSE  
+11  1976 ALASKA   AK            2      94      81 US PR…  &lt;NA&gt;   &lt;NA&gt;    TRUE   
+12  1976 ARIZONA  AZ            4      86      61 US PR… "FORD,… REPUBL… FALSE  
+13  1976 ARIZONA  AZ            4      86      61 US PR… "CARTE… DEMOCR… FALSE  
+14  1976 ARIZONA  AZ            4      86      61 US PR… "MCCAR… INDEPE… FALSE  
+15  1976 ARIZONA  AZ            4      86      61 US PR… "MACBR… LIBERT… FALSE  
+16  1976 ARIZONA  AZ            4      86      61 US PR… "CAMEJ… SOCIAL… FALSE  
+17  1976 ARIZONA  AZ            4      86      61 US PR… "ANDER… AMERIC… FALSE  
+18  1976 ARIZONA  AZ            4      86      61 US PR… "MADDO… AMERIC… FALSE  
+19  1976 ARIZONA  AZ            4      86      61 US PR…  &lt;NA&gt;   &lt;NA&gt;    TRUE   
+20  1976 ARKANSAS AR            5      71      42 US PR… "CARTE… DEMOCR… FALSE  
+# … with 7 more variables: candidatevotes &lt;dbl&gt;, totalvotes &lt;dbl&gt;,
+#   version &lt;dbl&gt;, notes &lt;lgl&gt;, party_simplified &lt;chr&gt;,
+#   party_simplified2 &lt;chr&gt;, party_dem &lt;dbl&gt;, and abbreviated variable names
+#   ¹​state_po, ²​state_fips, ³​state_cen, ⁴​state_ic, ⁵​candidate, ⁶​party_detailed
+# ℹ Use `colnames()` to see all variable names</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(election_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "year"              "state"             "state_po"         
+ [4] "state_fips"        "state_cen"         "state_ic"         
+ [7] "office"            "candidate"         "party_detailed"   
+[10] "writein"           "candidatevotes"    "totalvotes"       
+[13] "version"           "notes"             "party_simplified" 
+[16] "party_simplified2" "party_dem"        </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(election_full)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year         state             state_po           state_fips   
+ Min.   :1976   Length:4287        Length:4287        Min.   : 1.00  
+ 1st Qu.:1988   Class :character   Class :character   1st Qu.:16.00  
+ Median :2000   Mode  :character   Mode  :character   Median :28.00  
+ Mean   :1999                                         Mean   :28.62  
+ 3rd Qu.:2012                                         3rd Qu.:41.00  
+ Max.   :2020                                         Max.   :56.00  
+   state_cen        state_ic        office           candidate        
+ Min.   :11.00   Min.   : 1.00   Length:4287        Length:4287       
+ 1st Qu.:33.00   1st Qu.:22.00   Class :character   Class :character  
+ Median :53.00   Median :42.00   Mode  :character   Mode  :character  
+ Mean   :53.67   Mean   :39.75                                        
+ 3rd Qu.:81.00   3rd Qu.:61.00                                        
+ Max.   :95.00   Max.   :82.00                                        
+ party_detailed      writein        candidatevotes       totalvotes      
+ Length:4287        Mode :logical   Min.   :       0   Min.   :  123574  
+ Class :character   FALSE:3807      1st Qu.:    1177   1st Qu.:  652274  
+ Mode  :character   TRUE :477       Median :    7499   Median : 1569180  
+                    NA's :3         Mean   :  311908   Mean   : 2366924  
+                                    3rd Qu.:  199242   3rd Qu.: 3033118  
+                                    Max.   :11110250   Max.   :17500881  
+    version          notes         party_simplified   party_simplified2 
+ Min.   :20210113   Mode:logical   Length:4287        Length:4287       
+ 1st Qu.:20210113   NA's:4287      Class :character   Class :character  
+ Median :20210113                  Mode  :character   Mode  :character  
+ Mean   :20210113                                                       
+ 3rd Qu.:20210113                                                       
+ Max.   :20210113                                                       
+   party_dem     
+ Min.   :0.0000  
+ 1st Qu.:0.0000  
+ Median :0.0000  
+ Mean   :0.1428  
+ 3rd Qu.:0.0000  
+ Max.   :1.0000  </code></pre>
+</div>
+</div>
+<p>This dataframe contains state-level election results for all 50 states and the District of Columbia for the six Presidential elections from 1976 to 2020. (I am currently not sure that I will use that entire date range, particularly because it does not exactly coincide with the turnout data available, but for now I am including the full data set.) Included in the dataframe are candidate vote totals and party affiliations, which I have used to add an extra column, <code>party_dem</code>, which is a dummy variable recording whether or not a given candidate is a Democrat. The data already come in tidy, which is a nice touch; a “case” or row is a given candidate’s performance in a given state’s Presidential election in a given year.</p>
+</section>
+<section id="turnout-data-1980-2014" class="level2">
+<h2 class="anchored" data-anchor-id="turnout-data-1980-2014">Turnout data, 1980-2014</h2>
+<p>Obtained from <a href="https://www.electproject.org/election-data/voter-turnout-data">the US Elections Project</a> on 10/11/2022.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>turnout <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./_data/1980-2014 November General Election.xlsx"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">skip=</span><span class="dv">2</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_types=</span><span class="fu">c</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"skip"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_names=</span><span class="fu">c</span>(</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"year"</span>,<span class="st">"state"</span>,</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"totballots_vep_rate"</span>,<span class="st">"highestoff_vep_rate"</span>,<span class="st">"highestoff_vap_rate"</span>,</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"totalballots_count"</span>,<span class="st">"highestoff_count"</span>,<span class="st">"vep_count"</span>,<span class="st">"vap_count"</span>,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"noncitizen_percent"</span>,<span class="st">"prison_count"</span>,<span class="st">"probation_count"</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"parole_count"</span>,<span class="st">"totineligible_count"</span>,<span class="st">"overseas_count"</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                      ))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(turnout,<span class="at">n=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 15
+    year state   totba…¹ highe…² highe…³ total…⁴ highe…⁵ vep_c…⁶ vap_c…⁷ nonci…⁸
+   &lt;dbl&gt; &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  2014 United…   0.367   0.36    0.332  8.33e7  8.17e7  2.27e8  2.46e8   0.084
+ 2  2014 Alabama   0.332   0.329   0.315  1.19e6  1.18e6  3.59e6  3.75e6   0.025
+ 3  2014 Alaska    0.548   0.542   0.51   2.85e5  2.82e5  5.21e5  5.53e5   0.039
+ 4  2014 Arizona   0.341   0.334   0.295  1.54e6  1.51e6  4.51e6  5.11e6   0.101
+ 5  2014 Arkans…   0.403   0.401   0.375  8.53e5  8.49e5  2.12e6  2.26e6   0.04 
+ 6  2014 Califo…   0.307   0.299   0.247  7.51e6  7.32e6  2.44e7  2.96e7   0.168
+ 7  2014 Colora…   0.547   0.537   0.494  2.08e6  2.04e6  3.80e6  4.13e6   0.072
+ 8  2014 Connec…   0.425   0.423   0.385  1.10e6  1.09e6  2.58e6  2.83e6   0.082
+ 9  2014 Delawa…   0.349   0.343   0.318  2.38e5  2.34e5  6.82e5  7.35e5   0.051
+10  2014 Distri…   0.357   0.353   0.32   1.77e5  1.75e5  4.96e5  5.47e5   0.094
+11  2014 Florida   0.433   0.428   0.376  6.03e6  5.95e6  1.39e7  1.58e7   0.106
+12  2014 Georgia   0.386   0.382   0.338  2.60e6  2.57e6  6.73e6  7.60e6   0.071
+13  2014 Hawaii    0.365   0.362   0.329  3.70e5  3.66e5  1.01e6  1.11e6   0.086
+14  2014 Idaho     0.398   0.393   0.365  4.45e5  4.40e5  1.12e6  1.21e6   0.046
+15  2014 Illino…   0.408   0.402   0.366  3.68e6  3.63e6  9.03e6  9.92e6   0.085
+16  2014 Indiana   0.287   0.278   0.267  1.39e6  1.34e6  4.83e6  5.03e6   0.035
+17  2014 Iowa      0.503   0.498   0.473  1.14e6  1.13e6  2.27e6  2.39e6   0.036
+18  2014 Kansas    0.433   0.425   0.398  8.87e5  8.70e5  2.05e6  2.18e6   0.052
+19  2014 Kentuc…   0.449   0.442   0.422  1.46e6  1.44e6  3.25e6  3.41e6   0.027
+20  2014 Louisi…   0.449   0.439   0.415  1.50e6  1.47e6  3.35e6  3.55e6   0.03 
+# … with 5 more variables: prison_count &lt;dbl&gt;, probation_count &lt;dbl&gt;,
+#   parole_count &lt;dbl&gt;, totineligible_count &lt;dbl&gt;, overseas_count &lt;dbl&gt;, and
+#   abbreviated variable names ¹​totballots_vep_rate, ²​highestoff_vep_rate,
+#   ³​highestoff_vap_rate, ⁴​totalballots_count, ⁵​highestoff_count, ⁶​vep_count,
+#   ⁷​vap_count, ⁸​noncitizen_percent
+# ℹ Use `colnames()` to see all variable names</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "year"                "state"               "totballots_vep_rate"
+ [4] "highestoff_vep_rate" "highestoff_vap_rate" "totalballots_count" 
+ [7] "highestoff_count"    "vep_count"           "vap_count"          
+[10] "noncitizen_percent"  "prison_count"        "probation_count"    
+[13] "parole_count"        "totineligible_count" "overseas_count"     </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(turnout)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year         state           totballots_vep_rate highestoff_vep_rate
+ Min.   :1980   Length:936         Min.   :0.0000      Min.   :0.2020     
+ 1st Qu.:1988   Class :character   1st Qu.:0.4310      1st Qu.:0.4140     
+ Median :1997   Mode  :character   Median :0.5200      Median :0.5010     
+ Mean   :1997                      Mean   :0.5125      Mean   :0.4993     
+ 3rd Qu.:2006                      3rd Qu.:0.6040      3rd Qu.:0.5840     
+ Max.   :2014                      Max.   :0.7880      Max.   :0.7840     
+                                   NA's   :215         NA's   :1          
+ highestoff_vap_rate totalballots_count  highestoff_count   
+ Min.   :0.1990      Min.   :   122356   Min.   :   117623  
+ 1st Qu.:0.3895      1st Qu.:   422851   1st Qu.:   488820  
+ Median :0.4770      Median :  1170867   Median :  1236230  
+ Mean   :0.4733      Mean   :  3074280   Mean   :  3509231  
+ 3rd Qu.:0.5560      3rd Qu.:  2395791   3rd Qu.:  2336586  
+ Max.   :0.7390      Max.   :132609063   Max.   :131304731  
+ NA's   :1           NA's   :223         NA's   :1          
+   vep_count           vap_count         noncitizen_percent  prison_count    
+ Min.   :   270122   Min.   :   277261   Min.   :0.00400    Min.   :      0  
+ 1st Qu.:   999644   1st Qu.:  1044366   1st Qu.:0.01500    1st Qu.:   3464  
+ Median :  2662524   Median :  2778086   Median :0.03100    Median :  10018  
+ Mean   :  7277622   Mean   :  7840064   Mean   :0.04344    Mean   :  39257  
+ 3rd Qu.:  4569632   3rd Qu.:  4898253   3rd Qu.:0.06600    3rd Qu.:  24819  
+ Max.   :227157964   Max.   :245712915   Max.   :0.18900    Max.   :1605448  
+                                                                             
+ probation_count    parole_count    totineligible_count overseas_count   
+ Min.   :      0   Min.   :     0   Min.   :      0     Min.   :   6916  
+ 1st Qu.:      0   1st Qu.:     0   1st Qu.:   6210     1st Qu.:  43108  
+ Median :   7982   Median :  1870   Median :  21329     Median :  89605  
+ Mean   :  67542   Mean   : 16227   Mean   :  90039     Mean   : 920963  
+ 3rd Qu.:  38902   3rd Qu.:  6592   3rd Qu.:  52525     3rd Qu.:1803021  
+ Max.   :2451708   Max.   :637410   Max.   :3363118     Max.   :5345814  
+                                                        NA's   :867      </code></pre>
+</div>
+</div>
+<p>Additional turnout data are available from the USEP by election from 2000-2020, albeit in their own individual spreadsheets; I may end up merging the 2016 and 2020 spreadsheets into this 1980-2014 set. It is important to note that this dataset includes observations for both Presidential and midterm election years, while I only intend to analyze Presidential elections.</p>
+<p>This dataset makes distinctions between turnout based on voting-age population (VAP) and voting-eligible population (VEP). The literature generally agrees that VEP is the most reliable and consistent measure. However, given that one of the main differences between the two is the barrier of felony disenfranchisement, a barrier that is often inequitably distributed by race, I may end up using VAP turnout in my analysis; I have not yet decided as of the time of this submission.</p>
+</section>
+<section id="voter-id-data-2000-2020" class="level2">
+<h2 class="anchored" data-anchor-id="voter-id-data-2000-2020">Voter ID data, 2000-2020</h2>
+<p>Obtained from <a href="https://www.ncsl.org/research/elections-and-campaigns/voter-id-chronology.aspx">the National Conference of State Legislatures</a>, who kindly provided via email a spreadsheet version of the data on this webpage on 10/11/2022.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>voter_id <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./_data/voter_id_chronology.xlsx"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"skip"</span>))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>voter_id <span class="ot">&lt;-</span> voter_id <span class="sc">%&gt;%</span> </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>),</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">"year"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span><span class="st">"id_text"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_req =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"no id"</span>, id_text, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_strict =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"Strict"</span>, id_text) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_photo =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">" photo"</span>, id_text, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(voter_id,<span class="at">n=</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 6
+   State    year  id_text                 id_req id_strict id_photo
+   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;                    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 Alabama  2000  No ID required at polls      0         0        0
+ 2 Alabama  2004  Non-strict, non-photo        1         0        0
+ 3 Alabama  2008  Non-strict, non-photo        1         0        0
+ 4 Alabama  2012  Non-strict, non-photo        1         0        0
+ 5 Alabama  2016  Non-strict, photo            1         0        1
+ 6 Alabama  2020  Non-strict, photo            1         0        1
+ 7 Alaska   2000  Non-strict, non-photo        1         0        0
+ 8 Alaska   2004  Non-strict, non-photo        1         0        0
+ 9 Alaska   2008  Non-strict, non-photo        1         0        0
+10 Alaska   2012  Non-strict, non-photo        1         0        0
+11 Alaska   2016  Non-strict, non-photo        1         0        0
+12 Alaska   2020  Non-strict, non-photo        1         0        0
+13 Arizona  2000  No ID required at polls      0         0        0
+14 Arizona  2004  No ID required at polls      0         0        0
+15 Arizona  2008  Strict non-photo             1         1        0
+16 Arizona  2012  Strict non-photo             1         1        0
+17 Arizona  2016  Strict non-photo             1         1        0
+18 Arizona  2020  Strict non-photo             1         1        0
+19 Arkansas 2000  Non-strict, non-photo        1         0        0
+20 Arkansas 2004  Non-strict, non-photo        1         0        0</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(voter_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "State"     "year"      "id_text"   "id_req"    "id_strict" "id_photo" </code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(voter_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    State               year             id_text              id_req      
+ Length:306         Length:306         Length:306         Min.   :0.0000  
+ Class :character   Class :character   Class :character   1st Qu.:0.0000  
+ Mode  :character   Mode  :character   Mode  :character   Median :1.0000  
+                                                          Mean   :0.5033  
+                                                          3rd Qu.:1.0000  
+                                                          Max.   :1.0000  
+   id_strict          id_photo     
+ Min.   :0.00000   Min.   :0.0000  
+ 1st Qu.:0.00000   1st Qu.:0.0000  
+ Median :0.00000   Median :0.0000  
+ Mean   :0.09804   Mean   :0.1928  
+ 3rd Qu.:0.00000   3rd Qu.:0.0000  
+ Max.   :1.00000   Max.   :1.0000  </code></pre>
+</div>
+</div>
+<p>Given that barriers to voting factor into the argument behind my research, I wanted to include data on voter ID laws in my analysis, as a controlling (or other type of) variable. The data here track voter ID laws across all 50 U.S. states and the District of Columbia from 2000 to 2020.</p>
+<p>These data are surprisingly well balanced when it comes to the occurrence of voter ID laws; 50.33 percent of elections were held under voter-ID laws of some sort. Cases are also specified by whether or not a voter ID law was strict (i.e.&nbsp;required the voter to cast a provisional ballot and verify their identity after Election Day), and whether or not the state required a photo on the identification. Strict voter ID laws are the most rare, occurring in only 9.8 percent of elections in the data set; photo requirements are slightly more common, occurring in 19.28 percent of elections.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Voter Turnout and Partisan Bias in U.S. Presidential Elections"</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "DACSS 602 Final Project Proposal - Fall 2022"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "On the surface, my research question is fairly straightforward: Does higher turnout in U.S. presidential elections benefit Democratic candidates? However, this question can be assessed in a number of ways, particularly when it comes to measurement."</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nicholas Boonstra"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Oct 12, 2022"</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="an">editor:</span><span class="co"> visual</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart1</span></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - nboonstra</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup}</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span>
+<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="fu"># Research Question</span></span>
+<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>On the surface, my research question is fairly straightforward: **Does higher turnout in U.S. presidential elections benefit Democratic candidates?** However, this question can be assessed in a number of ways, particularly when it comes to measurement. For example, "higher" turnout can be measured in absolute terms across states, or in relative terms within states across elections (i.e. whether turnout increased or decreased, andy by how much). Similarly, "benefit" to Democratic candidates can be assessed in terms of whether or not an election is won as well as how much an election is won or lost by, which itself can also be further broken down into absolute and relative terms. For the sake of validity and robustness, I would naturally like to be able to assess this question in each of these ways, comparing different IVs, DVs, and models; however, I recognize that it may not prove feasible to take such a deep look at this question as the term proceeds.</span>
+<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>These questions have been looked at a number of times in the American political science literature, and yet there is little consensus on the effects of turnout on partisan electoral outcomes. One of the earliest, and perhaps one of the most seminal, works in this area is DeNardo (1980), which uses mostly theoretical arguments to counter the conventional wisdom that higher turnout benefits Democrats. A rebuttal -- Tucker, Vedlitz, and DeNardo (1986) -- counters DeNardo's argument while also giving the original author an opportunity to double down on his case. More recently, Shaw and Petrocik's (2020) book *The Turnout Myth* takes a deeper dive into these questions, attacking the conventional wisdom with both theoretical arguments and empirical evidence, and coming to a similar conclusion to DeNardo: higher turnout does not benefit Democrats. However, I take issue with some of the theoretical underpinnings of Shaw and Petrocik's argument, as I expand upon below.</span>
+<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>I want to note my excitement to work on this project. I began my work on this question as an undergraduate, using the Stata statistical package for my analysis; I am looking forward to learning to use <span class="in">`R`</span> and Quarto to perform, develop, and present this analysis. Specifically, because of the time-series nature of the data I was taught to go beyond standard linear regression and utilize a Panel-Corrected Standard Errors (PCSE) model. I hope to build on this knowledge and further my understanding of statistical modelling with this project.</span>
+<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis</span></span>
+<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Theory</span></span>
+<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>A review of even such a small sample of the literature as the works mentioned above will clearly demonstrate that, beyond disagreement over the presence of partisan turnout bias, there is little consensus on the theoretical aspect of such a phenomenon. Before offering my hypothesis, therefore, I would like to briefly address this theoretical side of the argument.</span>
+<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>Shaw and Petrocik (2020) take issue with a notion found in turnout bias literature, the notion being "that turnout is endogenous to candidate preference" (p. 53). They cite Downs' (1957) famous equation, $V=(P*B)-C$, as evidence that it is the *intensity* of one's political beliefs, and not their *direction*, that determines the decision to vote or not, and that therefore turnout is not endogenous to candidate preference.</span>
+<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>I believe this argument misses a subtle nuance that is key to the turnout bias debate. Suppose that not all individuals in a given polity face the same costs to voting; assume, in other words, that a more accurate rendition of Downs' equation would be $V_i=(P*B_i)-C_i$, in which both cost of voting and the perceived benefit of a preferred candidate's victory are unique to the individual. For the sake of this argument, the manner in which these costs are distributed is not important; only the fact that there are unequal costs matters. Suppose further that one of the parties in this polity has established itself as being the party that lobbies for a reduction in the cost of voting, particularly for those who face disproportionately high barriers. In a world of rational actors and perfect information, it would follow, *ceteris paribus*, that an individual who faced disproportionately high costs to voting would support this party, since this party would lobby to improve opportunities for this group. However, the very higher cost of voting that would motivate this individual to support this party could also prevent them from ultimately voting for that candidate in an election. Thus, it could be said that turnout is endogenous to candidate preference -- or, more accurately, that the cost of voting is endogenous to both candidate preference and turnout.</span>
+<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>We can apply this theoretical model to the American case. Certain individuals do face higher barriers to voting; unfortunately, unlike in the model, these barriers do tend to be distributed in a certain manner, often inequitably by race and socioeconomic status. Additionally, it would not be difficult to argue that, of the two major parties, the Democrats have placed themselves in the position of the party lobbying for expanded voting access and reduction of barriers to the ballot box, starting with their role in the Civil Rights movement and corresponding legislation, and continuing to the start of the present Congress and the introduction of H.R. 1, a bill explicitly aimed at expanding voting rights. Thus, while our world is not one of completely perfect information or completely rational actors, and while a number of factors contribute to partisan identity and vote choice, there is a reasonable case to be made that individuals who face barriers to voting, *ceteris paribus*, would be more likely to support the Democratic Party. Once again, these very barriers to voting that would push individuals toward the Democrats also can restrict them from expressing that preference at the ballot box. Thus, we have our situation of endogeneity between partisan preference and turnout.</span>
+<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypotheses</span></span>
+<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>With the theoretical argument out of the way, I can proceed to out line some of the hypotheses I would like to test with this project.</span>
+<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>$H_1$: Higher turnout will benefit Democrats in state-level Presidential elections.</span>
+<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>$H_2$: Democrats will perform better in state-level Presidential elections as turnout increases relative to the previous election in that state.</span>
+<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>The distinction of *state-level* elections is an important one; Shaw and Petrocik (2020) tend to aggregate their data, either by assessing elections on the national level or by aggregating county-level data. In the United States, Presidential elections are conducted at the state level, and I believe that this is the appropriate level of analysis for this analysis.</span>
+<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive Statistics</span></span>
+<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a>What follows is a brief summary of the datasets I intend to use for this analysis.</span>
+<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a><span class="fu">## Election Data, 1976-2020</span></span>
+<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a>Obtained from the <span class="co">[</span><span class="ot">MIT Election Project</span><span class="co">](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX)</span> on 10/10/2022.</span>
+<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r election_full}</span></span>
+<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a>election_full <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"./_data/mit_election_1976_2020.csv"</span>)</span>
+<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a>election_full <span class="ot">&lt;-</span> election_full <span class="sc">%&gt;%</span> </span>
+<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_simplified2 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"DEMOCRAT"</span> <span class="sc">~</span> <span class="st">"DEMOCRAT"</span>,</span>
+<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"REPUBLICAN"</span> <span class="sc">~</span> <span class="st">"REPUBLICAN"</span>,</span>
+<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"LIBERTARIAN"</span> <span class="sc">~</span> <span class="st">"LIBERTARIAN"</span>,</span>
+<span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"GREEN"</span> <span class="sc">~</span> <span class="st">"GREEN"</span>,</span>
+<span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"INDEPENDENT"</span> <span class="sc">~</span> <span class="st">"INDEPENDENT"</span>,</span>
+<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"OTHER"</span></span>
+<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">party_dem =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a>    party_detailed <span class="sc">==</span> <span class="st">"DEMOCRAT"</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-83"><a href="#cb22-83" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(election_full, <span class="at">n=</span><span class="dv">20</span>)</span>
+<span id="cb22-84"><a href="#cb22-84" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(election_full)</span>
+<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(election_full)</span>
+<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>This dataframe contains state-level election results for all 50 states and the District of Columbia for the six Presidential elections from 1976 to 2020. (I am currently not sure that I will use that entire date range, particularly because it does not exactly coincide with the turnout data available, but for now I am including the full data set.) Included in the dataframe are candidate vote totals and party affiliations, which I have used to add an extra column, <span class="in">`party_dem`</span>, which is a dummy variable recording whether or not a given candidate is a Democrat. The data already come in tidy, which is a nice touch; a "case" or row is a given candidate's performance in a given state's Presidential election in a given year.</span>
+<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a><span class="fu">## Turnout data, 1980-2014</span></span>
+<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a>Obtained from <span class="co">[</span><span class="ot">the US Elections Project</span><span class="co">](https://www.electproject.org/election-data/voter-turnout-data)</span> on 10/11/2022.</span>
+<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r turnout}</span></span>
+<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a>turnout <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./_data/1980-2014 November General Election.xlsx"</span>,</span>
+<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a>                      <span class="at">skip=</span><span class="dv">2</span>,</span>
+<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_types=</span><span class="fu">c</span>(</span>
+<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"skip"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,</span>
+<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,</span>
+<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,</span>
+<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span>,<span class="st">"numeric"</span></span>
+<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a>                      ),</span>
+<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_names=</span><span class="fu">c</span>(</span>
+<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"year"</span>,<span class="st">"state"</span>,</span>
+<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"totballots_vep_rate"</span>,<span class="st">"highestoff_vep_rate"</span>,<span class="st">"highestoff_vap_rate"</span>,</span>
+<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"totalballots_count"</span>,<span class="st">"highestoff_count"</span>,<span class="st">"vep_count"</span>,<span class="st">"vap_count"</span>,</span>
+<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"noncitizen_percent"</span>,<span class="st">"prison_count"</span>,<span class="st">"probation_count"</span>,</span>
+<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"parole_count"</span>,<span class="st">"totineligible_count"</span>,<span class="st">"overseas_count"</span></span>
+<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a>                      ))</span>
+<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-111"><a href="#cb22-111" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(turnout,<span class="at">n=</span><span class="dv">20</span>)</span>
+<span id="cb22-112"><a href="#cb22-112" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(turnout)</span>
+<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(turnout)</span>
+<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-115"><a href="#cb22-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-116"><a href="#cb22-116" aria-hidden="true" tabindex="-1"></a>Additional turnout data are available from the USEP by election from 2000-2020, albeit in their own individual spreadsheets; I may end up merging the 2016 and 2020 spreadsheets into this 1980-2014 set. It is important to note that this dataset includes observations for both Presidential and midterm election years, while I only intend to analyze Presidential elections.</span>
+<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a>This dataset makes distinctions between turnout based on voting-age population (VAP) and voting-eligible population (VEP). The literature generally agrees that VEP is the most reliable and consistent measure. However, given that one of the main differences between the two is the barrier of felony disenfranchisement, a barrier that is often inequitably distributed by race, I may end up using VAP turnout in my analysis; I have not yet decided as of the time of this submission.</span>
+<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-120"><a href="#cb22-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Voter ID data, 2000-2020</span></span>
+<span id="cb22-121"><a href="#cb22-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-122"><a href="#cb22-122" aria-hidden="true" tabindex="-1"></a>Obtained from <span class="co">[</span><span class="ot">the National Conference of State Legislatures</span><span class="co">](https://www.ncsl.org/research/elections-and-campaigns/voter-id-chronology.aspx)</span>, who kindly provided via email a spreadsheet version of the data on this webpage on 10/11/2022.</span>
+<span id="cb22-123"><a href="#cb22-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-124"><a href="#cb22-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r voter_id}</span></span>
+<span id="cb22-125"><a href="#cb22-125" aria-hidden="true" tabindex="-1"></a>voter_id <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"./_data/voter_id_chronology.xlsx"</span>,</span>
+<span id="cb22-126"><a href="#cb22-126" aria-hidden="true" tabindex="-1"></a>                      <span class="at">skip =</span> <span class="dv">2</span>,</span>
+<span id="cb22-127"><a href="#cb22-127" aria-hidden="true" tabindex="-1"></a>                      <span class="at">col_types =</span> <span class="fu">c</span>(<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,</span>
+<span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"text"</span>,<span class="st">"skip"</span>,</span>
+<span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">"text"</span>,<span class="st">"skip"</span>,<span class="st">"skip"</span>))</span>
+<span id="cb22-130"><a href="#cb22-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a>voter_id <span class="ot">&lt;-</span> voter_id <span class="sc">%&gt;%</span> </span>
+<span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols=</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">7</span>),</span>
+<span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">"year"</span>,</span>
+<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span><span class="st">"id_text"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_req =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"no id"</span>, id_text, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">1</span></span>
+<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_strict =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">"Strict"</span>, id_text) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id_photo =</span> <span class="fu">case_when</span>(</span>
+<span id="cb22-144"><a href="#cb22-144" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grepl</span>(<span class="st">" photo"</span>, id_text, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>) <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb22-145"><a href="#cb22-145" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="dv">0</span></span>
+<span id="cb22-146"><a href="#cb22-146" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb22-147"><a href="#cb22-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-148"><a href="#cb22-148" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(voter_id,<span class="at">n=</span><span class="dv">20</span>)</span>
+<span id="cb22-149"><a href="#cb22-149" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(voter_id)</span>
+<span id="cb22-150"><a href="#cb22-150" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(voter_id)</span>
+<span id="cb22-151"><a href="#cb22-151" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb22-152"><a href="#cb22-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-153"><a href="#cb22-153" aria-hidden="true" tabindex="-1"></a>Given that barriers to voting factor into the argument behind my research, I wanted to include data on voter ID laws in my analysis, as a controlling (or other type of) variable. The data here track voter ID laws across all 50 U.S. states and the District of Columbia from 2000 to 2020.</span>
+<span id="cb22-154"><a href="#cb22-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-155"><a href="#cb22-155" aria-hidden="true" tabindex="-1"></a>These data are surprisingly well balanced when it comes to the occurrence of voter ID laws; <span class="in">`r round(100*mean(voter_id$id_req),2)`</span> percent of elections were held under voter-ID laws of some sort. Cases are also specified by whether or not a voter ID law was strict (i.e. required the voter to cast a provisional ballot and verify their identity after Election Day), and whether or not the state required a photo on the identification. Strict voter ID laws are the most rare, occurring in only <span class="in">`r round(100*mean(voter_id$id_strict),2)`</span> percent of elections in the data set; photo requirements are slightly more common, occurring in <span class="in">`r round(100*mean(voter_id$id_photo),2)`</span> percent of elections.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
