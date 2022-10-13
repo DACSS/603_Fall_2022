@@ -1,0 +1,164 @@
+---
+title: "Final Part 1"
+author: "Steve O'Neill"
+description: "Final Project - Check-in"
+date: "10/1/2022"
+df-print: paged
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+---
+
+```{r echo=FALSE}
+#| label: setup
+library(readxl)
+library(tidyverse)
+```
+
+# PPP Loans: Party Affiliation and Loan Forgiveness
+
+## Introduction
+
+By analyzing public Paycheck Protection Program data, I have the ability to examine correlations between PPP loan size, forgiveness status, business status, geographical location, and - most optimistically - political affiliation. In the United States, the PPP was introduced as an emergency economic measure in 2020 during the Covid-19 pandemic. As a massive direct-loan program, some have criticized it for lax oversight.
+
+PPP fraud is an important issue, but finding lawbreakers is probably better left to the Feds. Instead, I think there is room in the academic body of work to study political affiliation for loan recipients.
+
+### Existing Work
+
+There have already been many studies about the PPP focusing on overall economic impact and the emergence of non-traditional, non-bank lenders.
+
+Separately, two interesting studies have been done about racial disparities re: access to PPP loans, with one [finding that Black-owned businesses in Florida were 25% less likely to receive PPP funds](https://www.nber.org/system/files/working_papers/w29748/w29748.pdf) (Chernenko & Scharfstein, 2022), and another finding even higher of a disparity (50%) but taking note of mitigating factors (e.g. access to "fintech" lending instead of traditional banks) [(Atkins, Cook & Seamans)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3774992)
+
+I am not so much interested in the efficacy of the PPP or the racial make-up of PPP borrowers. But I am interested in their political affiliation, i.e. if they registered are Democrat or Republican. So, similarly to Chernenko & Scharfstein, I intend to use public-access data to cross-reference federal PPP data with state-level voter registration and corporation search data.
+
+A relevant paper I found after I started looking at this data - [*"Buying the Vote? The Economics of Electoral Politics and Small-Business Loans"*](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3) - does look at data from SBA and PPP loans and pit them against the hypothesis that "electoral considerations may have tilted the allocation of PPP funds toward firms in areas or industries that could have a significant impact on the results of the 2020 election".(Duchin & Hackney, 2021)
+
+That particular study measured political ad spending and FEC filings as indicators of electoral considerations and used the Partisan Voting Index (PVI) from the Cook Political National Report to find which states were "battleground" or solid-R states. PPP lending outcomes were compared with electoral considerations to find if the SBA (under Trump) preferred to give PPP loans to swing voters or members of the party "base" in anticipation of an upcoming general election.
+
+Rather than aggregate-level state data, my analysis will compare individuals' *personal* voter affiliation - if they are registered, and to which party - with their loan amount, forgiveness status, and other metrics.
+
+## Research Question
+
+I am still developing my research question, but a simple one could be:
+
+**How does political affiliation affect PPP loan forgiveness status?**
+
+The data for PPP loans is current available on [ProPublica](https://projects.propublica.org/coronavirus/bailouts/), but not in a queryable way.
+
+Fortunately, the underlying data has been made public at https://data.sba.gov/dataset/ppp-foia.
+
+My hypotheses could be that:
+
+***Hypothesis 1 (H1): PPP loan forgiveness was given to registered Republicans more often than registered Democrats***
+
+***Null Hypothesis (H0): There is no difference in loan forgiveness given to registered Democrats vs registered Republicans.***
+
+In some ways this is similar to Duchin & Hackney, but this benefits from a narrower look at who actually received PPP stimulus rather than eventual outcomes on the state level.
+
+Clearly a few effects that would need to be controlled for. For example, Republicans could be more likely to be *in* any kind of business in the first place, confounding my results.
+
+Ideally, I would have focused on my home state of Massachusetts. However, although voter registration data is personally available in MA, you can't download it all in one .csv, and scraping the Commonwealth's website is not allowed. The National Conference of State Legislatures [keeps track of which states have full voter registration data for download](https://www.ncsl.org/research/elections-and-campaigns/access-to-and-use-of-voter-registration-lists.aspx). For now, I will use [Ohio](https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD:::#stwdVtrFiles) as an example (although later on I will explain why I could have chosen better):
+
+### PPP Data Dictionary
+
+To help understand which fields mean what, the PPP data comes with a "Data Dictionary" with an explanation of columns \[scroll right to see explanation\]:
+
+```{r}
+ppp_data_dictionary <- read_excel("_data/ppp-data-dictionary.xlsx")
+ppp_data_dictionary
+```
+
+### PPP Data (Ohio)
+
+Importing the data of the actual PPP loans is pretty easy, although it gets clipped at 900k rows. This .csv contains just the PPP loans below \$150k - others are contained in a smaller spreadsheet that covers all 50 states, and will be part of my final project.
+
+```{r}
+ppp_all <- read_csv("_data/public_up_to_150k_9_220930.csv")
+ppp_all
+```
+
+It still seems to capture all of Ohio, because Ohio doesn't come last alphabetically:
+
+```{r}
+ppp_ohio <- ppp_all %>% filter(BorrowerState == "OH")
+ppp_ohio
+```
+
+### LLCs, Corporations
+
+Visually, you may notice that businesses and LLCs make up a majority of the loan recipients.
+
+When I was preparing to do this project for Massachusetts - before I knew about the limitation of voter registration data in that state - I contacted the Secretary of the Commonwealth and they sent me a document with the entire "Corporation Search" data in tabular format, with the name of the founder, every board member, business type, year established, etc. I anticipated I would be able to match those individuals with the voter registration data, but that data was unfortunately available.
+
+The Corporation Search data would be essential to the successful completion of the project.
+
+I have not inquired yet, but assume Ohio will provide the same Corporation Search data. And if they do not, I will just pick another state that 1.) has public voter registration information, and 2.) can supply the Corporation Search data in .csv or .xlsx (as Massachusetts did).
+
+### Deeper Looks
+
+```{r}
+glimpse(ppp_ohio)
+```
+
+`ForgivenessAmount`, `ForgivenessDate`, and `BorrowerName` promise to be the most useful variables.
+
+```{r}
+print(summarytools::dfSummary(ppp_ohio,
+                        varnumbers = FALSE,
+                        plain.ascii  = FALSE, 
+                        style        = "grid", 
+                        graph.magnif = 0.70, 
+                        valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+```
+
+From a first look, most applicants reported only one employee needing coverage under the PPP. In fact, "Sole Proprietorship" was the highest category of `BusinessType`, above even LLCs, with 33.3%.
+
+19% of applicants were white, leading the race category, and 68% were unreported.
+
+Median `ForgivenessAmount` was \$20,438.7, and most loans were forgiven in 2021.
+
+## Voter Registration
+
+The Ohio voter registration data is easily read-in:
+
+```{r}
+ohio_voters <- read_csv("_data/SWVF_1_22.txt")
+ohio_voters
+```
+
+Zip codes will let us know with high confidence that we are dealing with the same business owner even if names are duplicated.
+
+The historical information tells us if they have changed their party affiliation from year-to-year, which can be useful in determining if political rent-seeking was successful - we can even see 'D' or 'R' going back 22 years:
+
+```{r}
+glimpse(ohio_voters)
+```
+
+```{r}
+print(summarytools::dfSummary(ohio_voters,
+                        varnumbers = FALSE,
+                        plain.ascii  = FALSE, 
+                        style        = "grid", 
+                        graph.magnif = 0.70, 
+                        valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+```
+
+So - it seems like registered voters in our example of Ohio are slightly more Republican (by 2.8%), but a majority are undeclared.
+
+Ohio actually has open primaries which is a good reason to consider another state for this dataset. I'll be looking for others. But maybe, on the other hand, we can take `PARTY_AFFILIATION` to mean emphatic support for one party over another.
+
+## Next Steps
+
+Next, I will find the most advantageous state with a closed primary. Ideally, it will be a battleground or solid-Republican state with freely available voter registration data and a downloadable Corporation Search database (or available upon request).
+
+I look forward to any feedback or refinements to the hypotheses above.
+
