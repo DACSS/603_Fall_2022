@@ -1,0 +1,165 @@
+---
+title: "Homework 2"
+author: "Emma Rasmussen"
+description: "The second homework assignment"
+date: "10/13/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+## 1.
+
+```{r}
+#Bypass
+#calculating t-score for 90% confidence interval
+tscoreb<- qt(p=1-.05, df=539-1)
+
+#calculating standard error
+seb<- 10/sqrt(539)
+
+meanb<- 19
+
+CIb<- c(meanb- (tscoreb*seb), meanb+ (tscoreb*seb))
+CIb
+
+#Angiography
+#calculating t-score for 90% confidence interval
+tscorea<- qt(p=1-.05, df=847-1)
+
+#calculating standard error
+sea<- 9/sqrt(847)
+
+meana<- 18
+
+CIa<- c(meana- (tscorea*sea), meana+ (tscorea*sea))
+CIa
+```
+
+The 90% confidence interval for bypass is [18.29, 19.71] days. The 90% confidence interval for angiography is [17.49, 18.51] days. The confidence interval for angiography is narrower, which makes sense given it has a (slightly) smaller standard deviation and a larger sample size (larger sample size reduces margin of error).
+
+## 2.
+
+```{r}
+#assigning n= number of trials
+n<- 1031
+#assigning k= number agree
+k<- 567
+
+#calculating point estimate
+p<- 567/1031
+p
+
+#calculating margin of error for 95% CI. I have no idea how to calculate a confidence interval without a sd. I found this formula online.
+margin<- qnorm(0.975)*sqrt(p*(1-p)/n)
+margin
+
+CI<- c(p-margin, p+ margin)
+CI
+
+```
+
+The 95% confidence interval for American's agreeing that college education is essential for success is [51.96, 58.03]%. The point estimate for this value based on the survey is 55%.
+
+## 3.
+
+```{r}
+#estimating population standard deviation
+(200-30)/4
+
+#solving for n in the equation for confidence intervals 5=1.96*(42.5/sqrt(n))
+#n= 277.56 or 278
+
+```
+By plugging in 5 to the formula for confidence intervals (the t-value for 95%, and the standard deviation estimate of 42.5) we get a value of n=277.56 or 278 need to be in the sample to retrieve a confidence interval of width 10.
+
+## 4.
+
+### a.
+
+-   Assume data is normally distributed
+-   Ho: μ =500
+-   Ha: μ not equal to 500 
+μ < 500 
+μ > 500
+-   alpha level =0.05
+
+```{r}
+#calculating the standard error
+sef<- 90/sqrt(9)
+sef
+
+#calculating t-score
+tf<-(410-500)/(sef)
+tf 
+
+#calculating the p-value from the test statistic (multiply times two because we are doing a two-sided test)
+(pt(q=-3, df=8))*2
+
+#this represents the probability of getting a random sample from the population with a mean of 410 or lower, as the default calculates the lower tail)
+pt(-3, 8)
+
+#this represents the probability of getting a random sample from the population with a mean of 410 or higher, as we included lower.tail=FALSE)
+pt(-3, 8, lower.tail=FALSE)
+
+# since our p-value is 0.99 we do not have evidence that the mean income of female employees is greater than 500 a week
+
+```
+
+Two-sided: Since our p-value is 0.017 we can reject the null hypothesis at alpha level=0.05. We have evidence that the mean weekly earnings for women at this company is different from $500. 
+### b. 
+Lower tail: Since our p-value (0.0085) is less than the alpha level of 0.05, we can reject the null. We have evidence that the mean weekly earnings at this company for women is less than $500. 
+### c. 
+Upper tail: Since our p-value is 0.99 we do not have evidence that the mean income of female employees is greater than $500 a week
+
+## 5.
+
+### a.
+
+```{r}
+#Jones
+#calculating t-score
+(519.5-500)/(10)
+#Calculating from p value from t-score. Because it is a two sided test, we multiply the result times two.
+(pt(q=1.95, df=999, lower.tail=FALSE))*2
+
+#Smith
+##calculating t-score
+(519.7-500)/(10)
+#Calculating from p value from t-score. Because it is a two sided test, we multiply the result times two.
+(pt(q=1.97, df=999, lower.tail=FALSE))*2
+```
+
+### b.
+At the .05 significance level, Jones' findings are not significant but Smith's findings are. 
+
+### c.
+This example shows that there is a very find line between rejecting and not rejecting the null hypothesis. Their findings were extremely similar, the means are different by only 0.2. In this way, reporting the p-value retrieved is actually really important to make this distinction. Similarly, Jones' findings would have been significant at the 0.1 significance level, so rejecting or not rejecting the null hypothesis based on a p-value can be fairly arbitrary.
+
+## 6.
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+t.test(gas_taxes, mu=45.0, alternative="less")
+
+```
+
+Using a 95% confidence level we get a p-value of 0.038. We reject the null hypothesis. We have evidence that the average tax per gallon of gas in the U.S. is less than 45 cents.
