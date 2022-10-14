@@ -1,0 +1,243 @@
+---
+title: "Final Part 1"
+author: "Caleb Hill"
+desription: "Part 1 of the Final Project"
+date: "10/02/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart1
+  - caleb.hill
+
+---
+
+## Introduction, Research Question, and Hypothesis
+
+Multiple research reports state that there is a relationship between re-hospitalization rates and social characteristics, such as demographic and economic identifiers, (Barnett, Hsu & McWilliams, 2015; Murray, Allen, Clark, Daly & Jacobs, 2021). Specifically, racial characteristics play a large role in predicting re-hospitalization in a population (Li, Cai & Glance, 2015). While some articles examine economic and health factors contributing to these disparities, very few dig deep into environmental factors that influence this phenomenon, (Spatz, Bernheim, Horwitz & Herrin, 2020). With your zipcode affecting up to 60% of your health outcomes, this research is relevant to better improving one of our most costly health expenditures: hospitalization.
+
+This paper aims to explore how different environmental variables impact re-hospitalization rates on a county-by-county level, controlling for racial, ethnic, and sex variables (maybe). These environmental factors will include both common environmental concerns, such as heat index, average temperature, precipitation, and natural disasters, along with the built environment, population density.
+
+The data-set chosen for this analysis is taken from the Agency for Healthcare Research and Quality, Social Determinants of Health (SDOH) Database. This data-set has over 300 variables to explore each SDOH domain: social context, economic context, education, healthcare, and the environment. We shall pull data from three of these five domains: social, economic, and environmental.
+
+To further reduce data bloat, we shall limit the geographic review to Texas counties -- my home state! That should provide us with 200+ observations.
+
+The hypothesis for this research report is: \*Environmental factors increase rates of re-hospitalization in Texas counties.
+
+Therefore, the null hypothesis is: \*Environmental factors do not increase rates of re-hospitalization in Texas counties.
+
+Multiple regression analyses shall be employed to determine the relationship -- or lack thereof -- between these variables.
+
+First I'll import the relevant libraries.
+
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(corrplot)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Then I'll import the dataset and view the first six rows.
+
+```{r}
+df <- SDOH_2020_COUNTY_1_0 <- read_excel("_data/SDOH_2020_COUNTY_1_0.xlsx", sheet = "Data")
+head(df)
+```
+
+Next I want to verify the class is a dataframe. Otherwise, I'll need to transform the data to make it easier to work with.
+
+```{r}
+class(df)
+```
+
+All good here.
+
+Now on to data transformation. We will need to select only the relevant columns for this analysis and filter by Texas, bringing the observations (rows) down to 254.
+
+```{r}
+df_new <- df %>%
+  select(COUNTYFIPS,
+         STATE,
+         COUNTY,
+         ACS_TOT_POP_WT,
+         ACS_PCT_MALE,
+         ACS_PCT_FEMALE,
+         ACS_PCT_AIAN,
+         ACS_PCT_ASIAN,
+         ACS_PCT_BLACK,
+         ACS_PCT_HISPANIC,
+         ACS_PCT_MULT_RACE,
+         ACS_PCT_NHPI,
+         ACS_PCT_OTHER_RACE,
+         ACS_PCT_WHITE,
+         CEN_POPDENSITY_COUNTY,
+         NEPHTN_HEATIND_105,
+         NOAAC_AVG_TEMP_YEARLY,
+         NOAAC_PRECIPITATION_AVG_YEARLY,
+         NOAAS_TOT_NATURAL_DISASTERS,
+         SAIPE_MEDIAN_HH_INCOME,
+         SAIPE_PCT_POV,
+         LTC_AVG_OBS_REHOSP_RATE) %>%
+  filter(STATE == "Texas")
+head(df_new)
+```
+
+Out of 300+ variables, we've whittled them down to 22. Of those 22, we have three (3) that are unique identifiers (FIPS, State, and County), 11 that are potential control variables (population, gender, and race / ethnicity), and eight (8) that we can explore (Population Density to Re-hospitalization Rate).
+
+Before we launch into exploring these eight variables via descriptive statistics, first we need to determine where the NAs are and see if any of the variables will have a substantial amount of missing data.
+
+```{r}
+colSums(is.na(df_new))
+```
+
+This is not ideal, as that's our dependent variable. However, 44 / 254 is not bad. That still leaves us with plenty of counties to review.
+
+```{r}
+df_new %>%
+  drop_na() %>%
+  print(nrow(df_new))
+```
+
+210 x 22 is a good place to start. We'll need to re-do this step for the descriptive statistics section, but we can carry over this object when we fit the linear models.
+
+## Descriptive Statistics
+
+For our preliminary analysis, we're going to provide summary statistics analyzing the 8 variables relevant to our research question, from Population Density to the end of the data-set, and a visualization for each. Re-hospitalization rates will be the dependent variable in future models, with the 11 demographic variables as potential controls for the regression(s).
+
+```{r}
+data <- df_new %>%
+  select(CEN_POPDENSITY_COUNTY,
+         NEPHTN_HEATIND_105,
+         NOAAC_AVG_TEMP_YEARLY,
+         NOAAC_PRECIPITATION_AVG_YEARLY,
+         NOAAS_TOT_NATURAL_DISASTERS,
+         SAIPE_MEDIAN_HH_INCOME,
+         SAIPE_PCT_POV,
+         LTC_AVG_OBS_REHOSP_RATE) %>%
+  drop_na()
+summary(data)
+```
+
+### Population Density
+
+```{r}
+ggplot(data, aes(CEN_POPDENSITY_COUNTY)) +
+  geom_histogram(binwidth = 50)
+```
+
+We see quite a number of counties have a low population density. This is no surprise, as over 80% of counties in Texas are labeled as "rural" by multiple federal agencies -- dependent upon low population density.
+
+This is further attested and we see a wide range between this variable's median (21.8) and mean (119.4). Lots of out-liers. If we had a urban/rural classification code, we could filter on only rural counties to help mitigate this spread. I may need to merge a data-set due to this wide range.
+
+### Heat Index Over 105F
+
+```{r}
+ggplot(data, aes(NEPHTN_HEATIND_105)) +
+  geom_boxplot()
+```
+
+Texas is a hot state, and this visualization is evidence of that. The median number of days Texas' counties experience a heat index of over 105F each year is 20 days per year. One county even reached 59 days!
+
+```{r}
+ggplot(data, aes(NEPHTN_HEATIND_105)) +
+  geom_histogram()
+```
+
+The data-set has a very normal distribution, centered around the 25/30 mark -- if the number of counties at 0 were removed. Yet because that's not so, this variable has a sharp bimodal distribution. We may have to separate the data into two bins: those with less than 10 days over 105F and those with more than 10 days over 105F. That's yet to be determined.
+
+### Average Yearly Temperature
+
+```{r}
+ggplot(data, aes(NOAAC_AVG_TEMP_YEARLY)) +
+  geom_histogram()
+```
+
+There's a good distribution. Average temperature each month is between 65 to 67 for most of the counties. The range (20) is also fairly small for a state with such a large area and multiple climates within its borders.
+
+### Average Yearly Precipitation
+
+```{r}
+ggplot(data, aes(NOAAC_PRECIPITATION_AVG_YEARLY)) +
+  geom_boxplot()
+```
+
+Average precipitation each month is fairly uniform, with the mean at 2.5 inches of rain, on average, each month. This variable will most likely provide less variation in the analysis compared to others, such as population density and heat index. This can be both a good and a bad thing, as variations in precipitation was one of the variables I was most interested in exploring for this project. Oh well.
+
+### Total Natural Disasters
+
+```{r}
+ggplot(data, aes(NOAAS_TOT_NATURAL_DISASTERS)) +
+  geom_boxplot()
+```
+
+Many high out-liers over 75. Let's plot a histogram to get a better look at the data's distribution.
+
+```{r}
+ggplot(data, aes(NOAAS_TOT_NATURAL_DISASTERS)) +
+  geom_histogram()
+```
+
+A right skewed variable, with observations dropping off dramatically once we reach 50 total recorded natural disasters.
+
+### Median Household Income
+
+```{r}
+ggplot(data, aes(SAIPE_MEDIAN_HH_INCOME)) +
+  geom_histogram()
+```
+
+A couple of high out-liers, hovering around \$90,000+ in median household income, but the mean holds at \$57,291.
+
+### Percent in Poverty
+
+```{r}
+ggplot(data, aes(SAIPE_PCT_POV)) +
+  geom_histogram()
+```
+
+Another close to normal distribution. Most counties have poverty rates ranging from 10% to 20%. There are of course out-liers, especially a good number below 10%, but those are rare.
+
+### Re-hospitalization Rate
+
+```{r} 
+ggplot(data, aes(LTC_AVG_OBS_REHOSP_RATE)) +   geom_histogram()
+```
+
+Another right skewed variable. Lots of counties with 0.00 rates of re-hospitalization, and few, if any, above 0.25 per 100,000 people. From a health perspective, this is good news! From a research perspective, that's going to make analysis a little trickier. However, the somewhat normal and/or bimodal distribution should be fairly easy to work with, needing little to no transformation for a linear regression.
+
+### Correlation
+
+Finally, let's plot a brief correlation matrix to see if there's any relationships we can explore as a simple linear regression in the next section.
+
+```{r}
+data %>%
+  cor(data) %>%
+  corrplot(is.corr = FALSE, method="number", tl.cex = .4)
+```
+
+The closer a box is to 1, the higher the correlation. Not particularly exciting news, as it shows there's not a high correlation between re-hospitalization rates and any of the explanatory variables. This may throw a kink in our analysis -- and explain why others haven't delved deeply into this research!
+
+Perhaps this step should have been completed first, but nonetheless, we shall continue on with the report. I may pull two more environmental variables, to see if we can find a correlation somewhere. Even so, the sum total of all environmental variables might contribute to re-hospitalization rates as well. I'm just not sure if that -- along with control variables -- is outside the scope of this report.
+
+For Part 2, I'd like to rename the variables to more digestible phrases, and I would like to overhaul the code outputs, to make the tables and visualizations a little easier on the eyes. That's just polish work, though, and won't affect the analysis.
+
+Looking over the Spatz et. al. (2020) article again, the two most significant Built Environment variables (with the highest R2 value) are 1) Long Commute, Driving Alone and 2) Severe Housing Problems. I'm going to scour the SDOH data-set to see what relevant variables match these two and add them into Part 2.
+
+## References
+
+Barnett, M., Hsu, J. & McWilliams, M. (2015). "Patient Characteristics and Differences in Hospital Readmission Rates." JAMA Intern Med., 175(11): 1803-1812.
+
+Li, Y., Cai, X. & Glance, L. (2015). "Disparities in 30-day rehospitalization rates among Medicare skilled nursing facility residents by race and site of care." Med Care, 53(12): 1058-1065.
+
+Murray, F., Allen, M., Clark, C., Daly, C. & Jacobs, D. (2021). "Socio-demographic and -economic factors associated with 30-day readmission for conditions targeted by the hospital readmissions reduction program: a population-based study." BMC Public Health, 21.
+
+Spatz, E., Bernheim, S., Horwitz, L. & Herrin, J. (2020). Community factors and hospital wide readmission rates: Does context matter? PLoS One, 15(10).
