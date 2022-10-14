@@ -1,0 +1,149 @@
+---
+title: "Homework 2"
+author: "Saaradhaa M"
+date: "10/10/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - hw2
+---
+
+# Qn 1
+
+```{r}
+# calculate standard errors.
+SE_B <- 10/sqrt(539)
+SE_A <- 9/sqrt(847)
+
+# calculate t-values.
+CL <- 0.90  
+TA <- (1-CL)/2
+tvalue_b <- qt(p = 1-TA, df = 539-1)
+tvalue_a <- qt(p = 1-TA, df = 847-1)
+
+# calculate CI for bypass.
+CIB <- c(19 - tvalue_b * SE_B,
+        19 + tvalue_b * SE_B)
+CIB
+
+# calculate CI range for bypass.
+(19 + tvalue_b * SE_B) - (19 - tvalue_b * SE_B)
+        
+# calculate CI for angiography.
+CIA <- c(18 - tvalue_a * SE_A,
+        18 + tvalue_a * SE_A)
+CIA
+
+# calculate CI range for angiography.
+(18 + tvalue_a * SE_A) - (18 - tvalue_a * SE_A)
+```
+
+The 90% CI is narrower for angiography.
+
+# Qn 2
+
+```{r}
+set.seed(0)
+prop <- prop.test(x=567, n=1031)
+prop
+```
+
+The 95% CI is \[`r prop$conf.int`\], which includes the point estimate `r prop$estimate` and excludes 0.5. Hence, we can reject the null hypothesis that the true probability is 0.5 at the 5% significance level, *p* = `r prop$p.value`.
+
+# Qn 3
+
+```{r}
+# calculate population SD.
+PSD <- (200-30)/4
+
+# calculate sample size.
+n <- round(((1.96*PSD)/5)^2)
+```
+
+The minimum required sample size is `r n`.
+
+# Qn 4a
+
+Assumptions: H~0~ is true, observations are independent of one another, *y* is continuous and sample is approximately normally distributed. H~0~: μ = 500 H~a~: μ ≠ 500
+
+```{r}
+# calculate t-statistic.
+t <- (410-500)/(90/sqrt(9))
+
+# calculate p-value.
+p <- 2*pt(q=abs(t), df=8, lower.tail=FALSE)
+p
+```
+
+We can reject the null hypothesis at the 5% significance level, *t*(8) = `r abs(t)`, *p* = `r p`. Female employees' mean income significantly differs from \$500 per week.
+
+\[I have a question - I am confused on whether I was right to use the absolute value here, and when we should use absolute values.\]
+
+# Qn 4b
+
+```{r}
+# calculate p-value.
+p2 <- pt(q=t, df=8, lower.tail=TRUE)
+p2
+```
+
+We can reject the null hypothesis at the 5% significance level, *t*(8)= -3, *p* = `r p2`. Female employees' mean income is significantly less than \$500 per week.
+
+# Qn 4c
+
+```{r}
+# calculate p-value.
+p3 <- pt(q=t, df=8, lower.tail=FALSE)
+p3
+```
+
+We fail to reject the null hypothesis at the 5% significance level, *t*(8)= -3, *p* = `r p3`. Female employees' mean income is [**not**]{.underline} significantly more than \$500 per week.
+
+# Qn 5a
+
+```{r}
+# calculate SD for Jones and Smith.
+SD <- 10*sqrt(1000)
+
+# calculate t for Jones.
+t_j <- ((519.5-500)/SD) * sqrt(1000)
+t_j
+
+# calculate p-value for Jones.
+p_j <- 2*(pt(q=t_j, df=999, lower.tail=FALSE))
+p_j
+
+# calculate t for Smith.
+t_s <- ((519.7-500)/SD) * sqrt(1000)
+t_s
+
+# calculate p-value for Smith.
+p_s <- 2*(pt(q=t_s, df=999, lower.tail=FALSE))
+p_s
+```
+
+# Qn 5b
+
+The result is statistically significant for Smith, but not Jones.
+
+# Qn 5c
+
+It is useful to report the exact p-value in cases like this, when the p-value is very close to alpha. It helps the reader to understand (1) why it was/was not rejected, and (2) how much evidence there is against the null hypothesis.
+
+# Qn 6
+
+```{r}
+#create variable.
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+# do t-test.
+tax <- t.test(gas_taxes, alternative="less",mu=45)
+tax
+```
+
+The 95% CI is \[`r tax$conf.int`\], which includes the estimated mean `r tax$estimate` and excludes 45. Hence, we can reject the null hypothesis at the 5% significance level, *t*(`r tax$parameter`)= `r tax$statistic`, *p* = `r tax$p.value`. The average tax per gallon in the US in 2005 was significantly less than 45 cents.
