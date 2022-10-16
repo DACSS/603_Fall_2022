@@ -1,0 +1,251 @@
+---
+title: "Homework 2"
+author: "Ethan Campbell"
+description: "The second homework"
+date: "10/15/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+---
+
+# Question 1
+
+
+First, let's read in the data from the Excel file:
+
+```{r, echo=T}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+```
+
+
+# Question 1
+
+Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?
+
+```{r}
+# getting the values set up
+
+bypass_n = 539
+bypass_mean = 19
+bypass_sd = 10
+
+angio_n = 847
+angio_mean = 18
+angio_sd = 9
+
+# Creating the degree of freedom(-1 from sample size)
+
+bypass_n = bypass_n -1
+angio_n = angio_n - 1
+
+# t-score with a 90% CI
+bypass_Tscore <- qt(p=.90, df = bypass_n)
+angio_Tscore <- qt(p=.90, df = angio_n)
+
+
+# Calculate the standard error (standard deviation/square root of sample size)
+
+bypass_standarderror = bypass_sd/sqrt(bypass_n)
+angio_standarderror = angio_sd/sqrt(angio_n)
+
+# Calculate the margin of error(T-score times standard error)
+
+bypass_Me = bypass_Tscore*bypass_standarderror
+angio_Me = angio_Tscore*angio_standarderror
+
+# calculate the range (lower and upper by adding and subtracting the margin of error to the mean to get the range)
+
+Bypass_lower = bypass_mean - bypass_Me
+Bypass_upper = bypass_mean + bypass_Me
+bypass <- c(Bypass_lower, Bypass_upper)
+
+angio_lower = angio_mean - angio_Me
+angio_upper = angio_mean + angio_Me
+angio <- c(angio_lower, angio_upper)
+
+
+# Looking at the two ranges with 90 CI
+bypass
+diff(bypass)
+angio
+diff(angio)
+
+
+```
+The confidence interval is narrower for Angiograpy as it is only .79 while the bypass is 1.1 meanidng that patients who show up for the angiography surgery are more likely to get in faster. 
+
+# Question 2
+
+A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.
+
+```{r}
+# to calculate the point estimate it is S/T
+S = 567
+T = 1031
+
+Point_estimate = S/T
+
+# For the confidence interval the prop.test function will return the range for the point estimate at 95% CI. Here we can also pull P
+prop.test(S, T, Point_estimate)
+
+
+```
+
+After running this we can see that we have a confidence interval of 95 percent confidence interval which equals, 0.5194543-0.5800778 and a
+sample estimates: p that equals, 0.5499515. 
+
+# Question 3
+
+Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within 5 of the true population mean (i.e. they want the confidence interval to have a length of 10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between 30 and 200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?
+
+
+```{r}
+# Obtaining the standard deviation based on question
+Umass_sd = (200-30)*.25
+Umass_sd
+
+# Since we know that the CI is 95% we can get the z-score to calculate the sample size
+
+zscore = qnorm(.95)
+zscore
+
+# calculating the sample size needed, using 5 with z score since the estimate will be useful if its within $5 of true pop mean.
+
+sample = Umass_sd^2 * (zscore/5)^2
+
+sample
+```
+
+Umass financial aid office would need a sample size of roughly 195.
+
+# Question 4
+
+According to a union agreement, the mean income for all senior-level workers in a large service company equals 500 per week. A representative of a women’s group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = $410 and s = 90.
+
+## A 
+
+Test whether the mean income of female employees differs from $500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.
+
+Here we can get the t statistic since it will show us the difference in two means
+
+Null hypothesis mean = 500
+
+```{r}
+
+# Calculating the t statistic
+T_statistic = (410-500)/(90/(sqrt(9)))
+T_statistic
+
+# calculating the p value
+
+pvalue = 2* pt(T_statistic, df=8)
+
+pvalue
+
+# the p value is showing evidence that we would reject the null hypothesis here since it is < .05.
+```
+
+
+## B
+
+Testing to see p value of it being less than 500
+
+```{r}
+pvalue_left <- pt(T_statistic, df = 8, lower.tail = TRUE)
+pvalue_left
+
+# this is also showing a value smaller than the 5% given which means it is more evidence to reject the null hypothesis 
+```
+
+## C
+
+Testing to see the p value greater than 500
+
+```{r}
+pvalue_right <- pt(T_statistic, df = 8, lower.tail = FALSE)
+
+pvalue_right
+# Making sure the two values equal 1
+sum(pvalue_left, pvalue_right)
+
+```
+
+this is showing a 99.14% chance of observing if the population mean was less than that 500 mark. This is interesting and we would fail to reject the null hypothesis here since it exceeds the amount specified. This would indicate that they are not getting paid the same amount.
+
+
+# Question 5 
+
+Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7,
+with se = 10.0.
+
+
+## A
+
+Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.
+
+```{r}
+# Lets run the test and see whats going on
+
+Jones <- (519.5-500)/(10)
+Smith= (519.7-500)/(10)
+
+# Here we can see the t stat they are both getting so looking good so far
+Jones
+
+Smith
+
+# Now to get the P-value
+
+Jones_p <- 2*pt(Jones, df= 999, lower.tail = FALSE)
+Smith_p <- 2*pt(Smith, df= 999, lower.tail = FALSE)
+
+# Observing the p values
+
+Jones_p
+
+Smith_p
+
+
+```
+
+## B
+
+Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.
+
+Based on the basic test of this with a CI of 95% we could say that Jones would be unable to reject the null hypothesis since his exceeds .05. Smith on the other hand would barley be able to reject the null hypothesis with his equalling .049. 
+
+## C.
+
+Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.
+
+Both of these p values were extremely close to the actual cut off point which shows including them is important. If I would have saw these p scores I would have had doubts or questions regarding the data and would have ran my own test to validate the claims. I think that is reason it would be important to include them to allow other people to see how close the study was. 
+
+# Question 6
+
+Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.
+
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.
+
+
+```{r}
+# Generating the vector
+Taxes <- gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+Mean_taxes <- mean(Taxes)
+
+# The mean gas price is 40.86 cents
+
+t.test(Taxes, mu = 45, alternative = 'less')
+
+```
+
+Here we can see that the p value for this is .038 which means we can reject the null hypothesis that gas prices are equal to or greater than 45 cents. The mean sample that came up was also within the range of the confidence interval.
