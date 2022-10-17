@@ -1,0 +1,258 @@
+---
+title: "Homework 2 Solution"
+author: "Dane Shelton"
+desription: "Confidence Intervals and Hypothesis Testing"
+date: "10/16/2022"
+format:
+  html:
+    df-print: paged
+    callout-appearance: "simple"
+    callout-icon: FALSE
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - shelton
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(warning= FALSE, message=FALSE)
+```
+
+## Homework 2
+
+::: panel-tabset
+## Q1
+
+### 90% Confidence Intervals
+
+```{r}
+#| label: Q1
+#| output: TRUE
+
+# Bypass
+n_bp <- 539
+mean_bp <- 19
+sd_bp <- 10
+t_90 <- qt(.05, (n_bp-1), lower.tail=F)
+
+#CI
+upper_bp <- mean_bp + ((sd_bp/sqrt(539))*t_90)
+lower_bp <- mean_bp - ((sd_bp/sqrt(539))*t_90)
+
+ci90_bp <- c(lower_bp,upper_bp)
+print(c("90% CI For Mean Bypass Wait", ci90_bp))
+
+# Angiography
+n_ag <- 847
+mean_ag <- 18
+sd_ag <- 9
+t_90 <- qt(.05, (n_ag-1), lower.tail=F)
+
+#CI
+upper_ag <- mean_ag + (sd_ag/sqrt(539)*t_90)
+lower_ag <- mean_ag - (sd_ag/sqrt(539)*t_90)
+
+ci90_ag <- c(lower_ag,upper_ag)
+
+print(c("90% CI For Angiography Wait", ci90_ag))
+
+print(c("Width Bypass", upper_bp-lower_bp))
+print(c("Width Angiography", upper_ag-lower_ag))
+
+
+```
+
+The 90% Confidence interval is narrower for the mean Angiography wait time (days) than mean Bypass wait due to the larger sample and smaller standard deviation.
+
+## Q2
+
+### One Prop Confidence Interval
+
+```{r}
+#| label: Q2
+#| output: true
+
+# College 95% CI
+prop.test(567,1031,conf.level = .95)
+```
+
+The 95% confidence interval for the true proportion of Americans who believe a college education is essential for success is (0.52,0.58). 95% confidence is not a comment on the proportion itself, rather our method. If we took several samples and created a confidence interval for proportion `p`, 95% of the intervals would contain the true population proportion.
+
+Because our confidence interval does not include .5, we can conclude that at .05 significance, the majority (\>0.5) of Americans believe that a college educcation is essential for success.
+
+## Q3
+
+### Margin of Error Calculation
+
+```{r}
+#| label: Q3
+#| output: true
+
+# Margin of Error Calculation
+
+ci_95 <- qnorm(.025, lower.tail=F)
+
+# 5 = (170*.25)/sqrt(x)*1.96
+
+(x <- ((170*.25)/5)*ci_95)^2
+
+
+```
+
+To estimate mean textbook cost per semester within \$5 of true value at .05 significance level the financial aid office would need 278 students in their sample.
+
+## Q4
+
+### One Sample T-Test
+
+::: callout-note
+## a 
+**H~0~:** mean income of female employees = \$500/wk 
+**H~1~:** mean income of female employees != \$500/wk
+
+```{r}
+#| label: Q4
+#| output: true
+
+# womens data
+w_xbar <- 410
+w_n <- 9
+w_sd <- 90
+w_se <- 90/sqrt(w_n)
+test_stat <- (w_xbar-500)/w_se
+crit_2sided <- abs(qt(.025,w_n-1))
+crit_less <- qt(.05, w_n-1,lower.tail=T)
+crit_greater <- qt(.95,w_n-1,lower.tail=T)
+p_value <- pt(test_stat, df=w_n-1, lower.tail=T)
+pval_greater <- pt(test_stat, df=w_n-1, lower.tail=F)
+
+# Two Sided 2 Test
+print('Two-Sided T-Test')
+print(c('test-statistic (use absolute value):', test_stat))
+print(c('rejection-region:', crit_2sided))
+print(c('p-value', 2*p_value))
+
+```
+
+p-value = .017; Reject the null, at alpha=.05 we have sufficient evidence to conclude female employees' wages differ from \$500/week. If female weekly income was equal to 500, we would expect 1.7% of samples to produce a sample mean of 410\$ or more extreme.
+:::
+
+::: callout-note
+## b
+
+**H~0~:** mean income of female employees = \$500/wk 
+**H~1~:** mean income of female employees is less than \$500/wk
+
+```{r}
+#| label: Left T Test
+#| output: true
+
+
+print('Left-Sided T-Test')
+print(c('test-statistic:', test_stat))
+print(c('rejection-region:',crit_less))
+print(c('p-value',p_value))
+```
+
+p-value = .009; Reject the null, at alpha=.05 we have sufficient evidence to conclude female employees' wages are less than \$500/week. If mean female weekly income was equal to 500 , we would expect less than one percent of samples to produce a mean equal to or more extreme (less) than 410.
+:::
+
+::: callout-note
+## c
+
+**H~0~:** mean income of female employees = \$500/wk 
+**H~1~:** mean income of female employees is greater than \$500/wk
+
+```{r}
+#| label: Right T Test
+#| output: true
+
+print('Right-Sided T-Test')
+print(c('test-statistic:', test_stat))
+print(c('rejection-region:',crit_greater))
+print(c('p-value',pval_greater))
+
+```
+
+p-value = .991; Fail to reject the null, at alpha=.05 we do **not**have sufficient evidence to conclude female employees' wages are greater than \$500/week. If female weekly income was equal to 500, we would expect 99 percent of samples to produce a mean equal to or greater than 410.
+:::
+
+## Q5
+
+::: callout-note
+## a & b 
+
+```{r}
+#| label: Q5
+#| output: true
+
+# jones data
+j_xbar <- 519.5
+j_n <- 1000
+j_se <- 10
+j_test_stat <- (j_xbar-500)/j_se
+crit_2sided <- abs(qt(.025,j_n-1))
+j_p_value <- pt(j_test_stat, df=j_n-1, lower.tail=F)
+
+
+# Jones Two Sided 2 Test
+print('Jones Two-Sided T-Test')
+print(c('test-statistic (use absolute value):', j_test_stat))
+print(c('rejection-region:', crit_2sided))
+print(c('p-value', 2*j_p_value))
+print(c('insignificant at alpha = 0.05'))
+                      
+
+# smith data
+s_xbar <- 519.7
+s_n <- 1000
+s_se <- 10
+s_test_stat <- (s_xbar-500)/s_se
+crit_2sided <- abs(qt(.025,j_n-1))
+s_p_value <- pt(s_test_stat, df=s_n-1, lower.tail=F)
+
+
+# Smith Two Sided 2 Test
+print('Smith Two-Sided T-Test')
+print(c('test-statistic (use absolute value):', s_test_stat))
+print(c('rejection-region:', crit_2sided))
+print(c('p-value', 2*s_p_value))
+print(c('significant at alpha = 0.05'))
+
+```
+:::
+
+:::callout-note
+## c
+
+By not reporting the p-value, we do not understand the strength of the test - *how* extreme are the findings? In in an example like this, we see nearly identical results produce opposite significance results; language like "statistically significant" can get especially dangerous here to someone who is unfamiliar with basic statistical theory.
+:::
+
+## Q6
+
+```{r}
+#| label: T-Test, Gas
+#| output: true
+
+gas_taxes <- c(51.27, 47.43, 38.89, 
+               41.95, 28.61, 41.29, 
+               52.19, 49.48, 35.02, 
+               48.13, 39.28, 54.41, 
+               41.66, 30.28, 18.49, 
+               38.72, 33.41, 45.02)
+t.test(gas_taxes, mu=45, alternative = 'less')
+
+```
+
+Yes; at the 95% confidence level, we have sufficient evidence to reject the null hypothesis mu=45. 45 is not included in our left sided confidence interval, favoring the alternative hypothesis that the average tax on gas in the United States in 2005 was less than 45 cents per gallon.
+:::
+
+
