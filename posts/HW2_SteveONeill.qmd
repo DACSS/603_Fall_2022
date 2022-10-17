@@ -1,0 +1,250 @@
+---
+title: "Homework 2"
+author: "Steve O'Neill"
+description: "Probability Distributions"
+date: "09/20/2022"
+df-paged: true
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+---
+
+### Question 1.
+
+> "The time between the date a patient was recommended for heart surgery and the surgery date for cardiac patients in Ontario was collected by the Cardiac Care Network ("Wait Times Data Guide," Ministry of Health and Long-Term Care, Ontario, Canada, 2006). The sample mean and sample standard deviation for wait times (in days) of patients for two cardiac procedures are given in the accompanying table. Assume that the sample is representative of the Ontario population"
+
+```{r}
+bypass <- data.frame(sample_size = 539,
+                     mean_wait_time = 19,
+                     standard_dev = 10)
+bypass 
+angiography <- data.frame(sample_size = 847,
+                     mean_wait_time = 18,
+                     standard_dev = 9)
+angiography
+```
+
+> Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?
+
+### Bypass
+
+Here is a manual way of doing so:
+
+```{r}
+# standard error
+standard_error <- bypass$standard_dev / sqrt(bypass$sample_size)
+standard_error
+
+#Specify a confidence level, calculate the area of the two tales:
+confidence_level <- 0.90  
+# how much area should be in each tail of the distribution for 95% to be in the middle?
+tail_area <- (1-confidence_level)/2
+tail_area
+
+# t-value
+t_score <- qt(p = 1-tail_area, df = bypass$sample_size-1)
+t_score
+
+# plug everything back in
+# computing above calculations in a formula to calculate confidence interval
+CI <- c(bypass$mean_wait_time - t_score * standard_error,
+        bypass$mean_wait_time + t_score * standard_error)
+print(CI)
+
+#margin of error
+print(t_score * standard_error)
+```
+
+The 90% confidence interval for `bypass` is `18.29029 19.70971`. So the estimated wait time is between those two values.
+
+### Angiography
+
+```{r}
+# standard error
+standard_error <- angiography$standard_dev / sqrt(angiography$sample_size)
+standard_error
+
+#Specify a confidence level, calculate the area of the two tales:
+confidence_level <- 0.90  
+# how much area should be in each tail of the distribution for 95% to be in the middle?
+tail_area <- (1-confidence_level)/2
+tail_area
+
+# t-value
+t_score <- qt(p = 1-tail_area, df = angiography$sample_size-1)
+t_score
+
+# plug everything back in
+# computing above calculations in a formula to calculate confidence interval
+CI <- c(angiography$mean_wait_time - t_score * standard_error,
+        angiography$mean_wait_time + t_score * standard_error)
+print(CI)
+
+#margin of error
+print(t_score * standard_error)
+```
+
+The 90% confidence interval for `bypass` is `17.49078 18.50922`
+
+The 90% confidence interval for angiography is narrower than that of bypass. Their margins of error are `0.5092182` and `0.7097107`, respectively.
+
+## Question 2
+
+> A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.
+
+```{r}
+college_n <- 1031
+college_k <- 567
+college_p <- college_k/college_n
+college_p
+```
+
+The point estimate for the proportion of all adult Americans who believe that a college education is essential for success is simply `0.5499515`.
+
+```{r}
+college_moe <- qnorm(0.975)*sqrt(college_p*(1-college_p)/college_n)
+college_moe
+
+college_CI_low <- college_p - college_moe
+college_CI_high <- college_p + college_moe
+college_CI_low
+college_CI_high
+```
+
+The 95% confidence interval for the point estimate is \[`0.5195839`, `0.5803191`\].
+
+## Question 3
+
+> Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within \$5 of the true population mean (i.e. they want the confidence interval to have a length of \$10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between \$30 and \$200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?
+
+```{r}
+#The estimate will be useful if it is within $5 of the true population mean
+books_moe <- 5
+#The financial aid office is pretty sure that the amount spent on books varies widely, with most values between $30 and $200.
+books_range <- (200-30)
+#They think that the population standard deviation is about a quarter of this range
+books_sd <- books_range / 4
+books_sd
+```
+
+A 5% alpha means a 95% confidence level. Conventionally we know the 'critical value' for the 95% confidence interval is 1.96
+
+Unfortunately, I'm missing the equation that lets us find the sample size from these values!
+
+## Question 4
+
+> According to a union agreement, the mean income for all senior-level workers in a large service company equals \$500 per week. A representative of a women's group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = \$410 and s = 90.Test whether the mean income of female employees differs from \$500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.
+
+```{r}
+#the mean income for all senior-level workers in a large service company equals $500 per week.
+union_pop_mean = 500
+#For a random sample of nine female employees,
+union_sample_size = 9
+# ȳ = $410
+union_sample_mean = 410
+# and s = 90
+union_sample_sd = 90
+```
+
+### T-statistic
+
+Assuming the sample is normally distributed, the formula for a t-statistic is: (sample mean - population mean) / (sample standard deviation / square root of sample size)
+
+```{r}
+tstatistic <- (union_sample_mean - union_pop_mean) / (union_sample_sd / sqrt(union_sample_size))
+tstatistic
+```
+The t-statistic is -3.
+
+### Hypotheses
+
+In this case, the null hypothesis is that the mean income for female employees matches \$500/wk. The alternate hypothesis is that it does not equal \$500/wk.
+
+`pt` takes the T-statistic and degrees of freedom and returns the p-value to the left. If we multiply it by two, it becomes 'two-tailed':
+
+```{r}
+2 * pt(-3, (union_sample_size - 1))
+```
+
+This two-tailed test returns a p-value of `0.01707168` his is well under the significance level of 5%, meaning that there is only a 1.7 percent chance of receiving as extreme a result as this under the null hypothesis. Therefore the null hypothesis is said to be rejected.
+
+# Alernate hypothesis of μ \< 500
+
+> Report the P-value for Ha : μ \< 500. Interpret.
+
+This is similar, except not multiplied by 2:
+
+```{r}
+pt(-3, (union_sample_size - 1))
+```
+
+There is only a .8 percent probability that we would observe our values if the mean income was 500, so the null hypothesis is rejected.
+
+# H a of μ \> 500
+
+> Report and interpret the P-value for H a: μ \> 500
+
+```{r}
+pt(-3, (union_sample_size - 1), lower.tail = FALSE)
+```
+
+If the alternative hypothesis is that the sample mean is greater than 500, we would see values like those we collected over 99% of the time, and fail to reject the null hypothesis.
+
+## Question 5
+
+> Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7, with se = 10.0
+
+```{r}
+jones_smith_pop_mean = 500
+jones_smith_sample_size = 10000
+
+jones_sample_mean = 519.5
+smith_sample_mean = 519.7
+
+jones_smith_se = 10
+```
+
+```{r}
+jones_t_statistic <- (jones_sample_mean - jones_smith_pop_mean) / jones_smith_se
+jones_t_statistic
+
+jones_p_value <- 2*pt(jones_t_statistic, (jones_smith_sample_size - 1), lower.tail = FALSE)
+jones_p_value
+
+smith_t_statistic <- (smith_sample_mean - jones_smith_pop_mean) / jones_smith_se
+smith_t_statistic
+
+smith_p_value <- 2*pt(smith_t_statistic, (jones_smith_sample_size - 1), lower.tail = FALSE)
+smith_p_value
+```
+
+> Using α = 0.05, for each study indicate whether the result is "statistically significant."
+
+Using an alpha of .05, Jones' p value is not 'statistically significant', but Smith's is.
+
+Both Jones and Smith's results should be presented with the P-values included so that knowledgeable people can see how borderline they are. Alternately, different significance levels could be adopted - or the sample size could be increased.
+
+## Question 6
+
+Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+```
+
+```{r}
+gas_mean <- gas_taxes %>% mean()
+```
+
+> Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.
+
+```{r}
+t.test(gas_taxes, mu = gas_mean, alternative = 'less')
+```
+
+With the information we have, I am not sure if we have enough evidence to conclude about the average tax per gallon **in 2005**. Otherwise, the p-value is within bounds at .5 and yes, this would be statistically significant.
