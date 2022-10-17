@@ -1,0 +1,158 @@
+---
+title: "DACSS 603: Final Part 1"
+author: "Tory Bartelloni"
+desription: "Why Societies Trust their Government"
+date: sys.date()
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+execute: 
+  echo: true
+  warning: false
+categories:
+  - finalpart1
+---
+
+# Introduction
+
+The concept of *political trust* has been researched in great depth for decades. That research indicates that a number of factors have at least some impact on a group's level of trust or confidence in their government. Most of the factors studied are related to the public’s perception of government performance including control over crime, the economy, and the appearance of corruption and scandal. To this point there has been no consensus or holistic model that produces a satisfactory answer to the question. In this project we will try to bring us one step closer by examining a model that takes into account several factors. 
+
+
+# Research Question and Hypothesis
+
+When seen as part of a social ecosystem a financially healthy and legitimate government is one pillar of a stable society. The level of confidence a population has in its government both provides the government with legitimacy and, likely as a direct consequence, allows the government to operate in the interest of the population being governed. To understand how to build and maintain legitimate and effect government we need to examine differing factors. 
+
+:::{.callout-tip}
+## Research Question
+What factors affect a population's confidence in their ruling government?
+:::
+
+Prior research has indicated that confidence in government is affected by factors that I will put in two broad categories: perception of government performance and social cultural values. There is strong evidence that socio-economic factors, economic performance, perceived corruption, and social capital have impacts on confidence in government. Using information available through the World Bank, Transparency International, and the World Values Survey I will examine a specific aspect of government influence: whether levels of political freedom and participation in government affect overall confidence in government.
+
+:::{.callout-tip}
+## Hypothesis
+H~0~: A population's confidence in their national government is not affected by the level of freedom and participation possible within the country.
+
+H~1~: A population confidence in their government will be positively related to the level of freedom and participation possible within the country. 
+:::
+
+# Descriptive Statistics
+
+To perform this analysis I will be using data collected from three sources: Transparency International's Corruption Perceptions Index, the World Bank's Development and Governance Indicators, and the World Values Survey and European Values Survey joint data set. First I will provide an overview of each data set and the key variables I expect to use from each.
+
+## Setup
+
+Loading packages and reading in the data.
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+
+data_final <- read.csv("_data/FinalPart1_ToryBartelloni_data.csv")
+
+```
+
+
+## Transparency International
+
+The Corruption Perceptions Index (CPI) is created by Transparency International by taking a combination of 13 different data sources including assessments and surveys. These sources are largely comprised of experts and business interests so are not a direct reflection of the general public. The scores from each of the sources are standardized, averaged, and then scaled to provide a score for each of the countries in the data sources. What we end up with is Corruption Perception score between 1-100 for each of the countries.
+
+```{r}
+data_final %>% ggplot(aes(x=CPI.Score.2018)) +
+  geom_histogram() +
+  geom_vline(xintercept=mean(data_final$CPI.Score.2018,na.rm=TRUE), 
+             size=2, color="red") +
+  geom_vline(xintercept=
+               c((mean(data_final$CPI.Score.2018,na.rm=TRUE)-
+                    sd(data_final$CPI.Score.2018,na.rm=TRUE)),
+                 mean(data_final$CPI.Score.2018,na.rm=TRUE)+
+                    sd(data_final$CPI.Score.2018,na.rm=TRUE))
+                 ,size=1.5, color="blue") +
+  labs(title="Corruption Perceptions Index",
+       subtitle="Distribution and Standard Deviation of CPI 2018",
+       x="CPI Score 2018")
+```
+
+## World Bank Development and Government Indicators
+
+The World Bank collects data from many different sources to obtain indicators for world development as well as the World Governance Indicators project.
+
+The Development Indicators are taken from a wide variety of sources. We will be using two primary indicators: GDP per Capita and Intentional Homicides per 100K people. GDP per capita is derived from the World Bank and OECD National Accounts data while Inentional Homicides are taken from the UN Office on Drugs and Crime's International Homicide Statistics database.
+
+```{r}
+data_final %>% ggplot(aes(x=GDP_per_Capita)) +
+  geom_histogram() +
+  geom_vline(xintercept=mean(data_final$GDP_per_Capita,na.rm=TRUE), 
+             size=2, color="red") +
+  geom_vline(xintercept=
+               c((mean(data_final$GDP_per_Capita,na.rm=TRUE)-
+                    sd(data_final$GDP_per_Capita,na.rm=TRUE)),
+                 mean(data_final$GDP_per_Capita,na.rm=TRUE)+
+                    sd(data_final$GDP_per_Capita,na.rm=TRUE))
+                 ,size=1.5, color="blue") +
+  labs(title="Gross Domestic Product per Capita",
+       subtitle="Distribution and Standard Deviation of GDP per Capita 2019",
+       x="GDP per Capita 2019")
+```
+
+```{r}
+data_final %>% ggplot(aes(x=Homicides_per_100K)) +
+  geom_histogram() +
+  geom_vline(xintercept=mean(data_final$Homicides_per_100K,na.rm=TRUE), 
+             size=2, color="red") +
+  geom_vline(xintercept=
+               c((mean(data_final$Homicides_per_100K,na.rm=TRUE)-
+                    sd(data_final$Homicides_per_100K,na.rm=TRUE)),
+                 mean(data_final$Homicides_per_100K,na.rm=TRUE)+
+                    sd(data_final$Homicides_per_100K,na.rm=TRUE))
+                 ,size=1.5, color="blue") +
+  labs(title="Intentional Homicides per 100K Residents",
+       subtitle="Distribution and Standard Deviation of Homicides per 100K 2019",
+       x="Homicides per 100K 2019")
+```
+
+The World Governance Indicators are a combination of enterprise, citizen, and expert survey respondents from around the world. They use more than 30 surveys to create their six indicators with each indicator using differnt surveys and different data from each survey to aggregate to the final indicator.
+
+```{r}
+data_final %>% ggplot(aes(x=WGI_Voice_Accountability)) +
+  geom_histogram() +
+  geom_vline(xintercept=mean(data_final$WGI_Voice_Accountability,na.rm=TRUE), 
+             size=2, color="red") +
+  geom_vline(xintercept=
+               c((mean(data_final$WGI_Voice_Accountability,na.rm=TRUE)-
+                    sd(data_final$WGI_Voice_Accountability,na.rm=TRUE)),
+                 mean(data_final$WGI_Voice_Accountability,na.rm=TRUE)+
+                    sd(data_final$WGI_Voice_Accountability,na.rm=TRUE))
+                 ,size=1.5, color="blue") +
+  labs(title="World Governance Indicators - Voice and Accountability",
+       subtitle="Distribution and Standard Deviation of Voice and Accountability 2019",
+       x="Voice and Accountability 2019")
+```
+
+## World Values Survey and European Values Survey
+
+The World Values Survey and European Values survey collect data by conducting representative surveys in around 100 countries every five years. Their surveys are specifically designed to gather opinions on values ranging from political to religious to social. One of the questions they consistently ask is for respondents to indicate what level of confidence they have in their government. This will be our dependent variable of interest, Confidence in Governance.
+
+```{r}
+data_final %>% ggplot(aes(x=Gov_Confidence)) +
+  geom_histogram() +
+  geom_vline(xintercept=mean(data_final$Gov_Confidence,na.rm=TRUE), 
+             size=2, color="red") +
+  geom_vline(xintercept=
+               c((mean(data_final$Gov_Confidence,na.rm=TRUE)-
+                    sd(data_final$Gov_Confidence,na.rm=TRUE)),
+                 mean(data_final$Gov_Confidence,na.rm=TRUE)+
+                    sd(data_final$Gov_Confidence,na.rm=TRUE))
+                 ,size=1.5, color="blue") +
+  labs(title="Confidence in Government",
+       subtitle="Distribution and Standard Deviation of Confidence in Government 2017-2020",
+       x="Confidence in Government 2017-2020")
+```
+
+# Summary and Conclusion
+
+We have now gone through the high level introduction to our hypothesis and data for data analysis. Moving forward we will focus on the factors that affect *confidence in government* using data related to corruption, crime, economics, and political freedom. 
