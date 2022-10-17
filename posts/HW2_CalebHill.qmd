@@ -1,0 +1,203 @@
+---
+title: "Homework 2"
+author: "Caleb Hill"
+desription: "The second homework on descriptive statistics and probability"
+date: "10/14/2022"
+format:
+  html: 
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - confidence interval
+  - probability
+---
+
+# Question 1
+
+First, let's load the relevant libraries.
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+df <- read_excel("_data/LungCapData.xls")
+```
+
+For question 1, we need to construct the 90% confident interval to estimate the actual mean wait time for eahc of the two procedures.
+
+```{r}
+s_mean_b <- 19
+s_sd_b <- 10
+s_size_b <- 539
+standard_error_b <- s_sd_b / sqrt(s_size_b)
+confidence_level <- 0.90
+tail_area <- (1-confidence_level)/2
+t_score_b <- qt(p = 1 - tail_area, df = s_size_b - 1)
+CI_b <- c(s_mean_b - t_score_b * standard_error_b,
+        s_mean_b + t_score_b * standard_error_b)
+print(CI_b)
+```
+
+This is the CI for bypass. The following code chunk is for angiography.
+
+```{r}
+s_mean_a <- 18
+s_sd_a <- 9
+s_size_a <- 847
+standard_error_a <- s_sd_a / sqrt(s_size_a)
+confidence_level <- 0.90
+tail_area <- (1-confidence_level)/2
+t_score_a <- qt(p = 1 - tail_area, df = s_size_a - 1)
+CI_a <- c(s_mean_a - t_score_a * standard_error_a,
+        s_mean_a + t_score_a * standard_error_a)
+print(CI_a)
+```
+
+Is the confidence interval narrower for angiograpy or bypass survey? Answer = angiography.
+
+# Question 2
+
+```{r}
+s_mean_NCPP <- sum(567/1031)
+s_sd_NCPP <- sd(567)
+s_size_NCPP <- 1039
+standard_error_NCPP <- s_sd_NCPP / sqrt(s_size_NCPP)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_NCPP <- qt(p = 1 - tail_area, df = s_size_NCPP - 1)
+CI_NCPP <- c(s_mean_NCPP - t_score_NCPP * standard_error_NCPP,
+        s_mean_NCPP + t_score_NCPP * standard_error_NCPP)
+print(CI_NCPP)
+```
+
+[I think it's pulling NAs because I'm not calculating the SD correctly. Will need to come back to this.]
+
+# Question 3
+
+```{r}
+s_mean_3 <- 50
+s_sd_3 <- 9
+s_size_3 <- 15
+standard_error_3 <- s_sd_3 / sqrt(s_size_3)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_3 <- qt(p = 1 - tail_area, df = s_size_3 - 1)
+CI_3 <- c(s_mean_3 - t_score_3 * standard_error_3,
+        s_mean_3 + t_score_3 * standard_error_3)
+print(CI_3)
+```
+
+After messing with random mean, sd, and size, the minimum sample size needs to be 15, if the CI will have to have a length of $10 or less. 14 or less provides a variances of $10+, so outside where the estimate could be useful.
+
+# Question 4
+## A
+
+```{r}
+s_mean_4a <- 410
+s_sd_4a <- 90
+s_size_4a <- 9
+standard_error_4a <- s_sd_4a / sqrt(s_size_4a)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_4a <- qt(p = 1 - tail_area, df = s_size_4a - 1)
+CI_4a <- c(s_mean_4a - t_score_4a * standard_error_4a,
+        s_mean_4a + t_score_4a * standard_error_4a)
+print(CI_4a)
+```
+
+Based upon the data provided, we can be within a 95% CI that mean income for female employees is less than $500 per week. If Ha : μ < 500, then we can accept the hypothesis, based upon the CI. However, for section B, we'll report the P-value via the t-score.
+
+## B
+
+```{r}
+t_score_4a <- qt(p = 1 - tail_area, df = s_size_4a - 1)
+p_value=pt(q = t_score_4a, df = 8, lower.tail = FALSE)
+print(p_value)
+```
+
+With a P-value of 0.025, we can accept the Ha : μ < 500. However, let's change the lower.tail value to TRUE to see about Ha : μ > 500.
+
+## C
+
+```{r}
+t_score_4a <- qt(p = 1 - tail_area, df = s_size_4a - 1)
+p_value = pt(q = t_score_4a, df = 8, lower.tail = TRUE)
+print(p_value)
+```
+
+Just as I thought. We have to reject the second hypothesis, that Ha : μ > 500, as the P-value is 0.975, outside of statistical significance minimum of 0.05.
+
+# Question 5
+## A
+
+For Jones:
+
+```{r}
+s_mean_5a <- 519.5
+standard_error_5a <- 10
+s_size_5a <- 1000
+s_sd_5a <- standard_error_5a * sqrt(s_size_5a)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_5a <- qt(p = 1 - tail_area, df = s_size_5a - 1)
+print(t_score_5a)
+
+t_score_5a <- qt(p = 1 - tail_area, df = s_size_5a - 1)
+p_value = pt(q = t_score_5a, df = 8, lower.tail = FALSE)
+print(p_value)
+
+CI_5a <- c(s_mean_5a - t_score_5a * standard_error_5a,
+        s_mean_5a + t_score_5a * standard_error_5a)
+print(CI_5a)
+```
+For Smith:
+
+```{r}
+s_mean_5a <- 519.7
+standard_error_5a <- 10
+s_size_5a <- 1000
+s_sd_5a <- standard_error_5a * sqrt(s_size_5a)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_5a <- qt(p = 1 - tail_area, df = s_size_5a - 1)
+print(t_score_5a)
+
+t_score_5a <- qt(p = 1 - tail_area, df = s_size_5a - 1)
+p_value = pt(q = t_score_5a, df = 8, lower.tail = FALSE)
+print(p_value)
+
+CI_5a <- c(s_mean_5a - t_score_5a * standard_error_5a,
+        s_mean_5a + t_score_5a * standard_error_5a)
+print(CI_5a)
+```
+
+## B
+
+Code for Section B are the P-values shown for each code chunk. Are they statistically significant? At 0.043 for both, yes as they are below 0.05.
+
+## C
+
+The P-value is the likelihood of finding the particular set of observations if the null hypothesis were true. As the P-value is traditionally use in frequentist statistics, we are only able to ascribe probability to this specific set of observations -- which are themselves a set amount of observations.
+
+Therefore, it can sometimes be misleading to report a P-value as 0.05. CI levels allow a range within the set of observations. We can see this problem best with the above results via Jones and Smith. They do not get the same sample mean, even with similar observations. 
+
+# Question 6
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+s_mean_g <- mean(gas_taxes)
+s_sd_g <- sd(gas_taxes)
+s_size_g <- length(gas_taxes)
+standard_error_g <- s_sd_g / sqrt(s_size_g)
+confidence_level <- 0.95
+tail_area <- (1-confidence_level)/2
+t_score_g <- qt(p = 1 - tail_area, df = s_size_g - 1)
+CI_g <- c(s_mean_g - t_score_g * standard_error_g,
+        s_mean_g + t_score_g * standard_error_g)
+print(CI_g)
+```
+
+There is enough information to conclude that at a 95% confidence interval that the average tax per gallon of gas in the US in 2005 was less than 45 cents. Why? The 95% CI tops out at 45.49, which is 0.49 of a cent higher than our cutoff -- 45 cents. Therefore, we must accept the null hypothesis.
