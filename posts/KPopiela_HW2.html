@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>- KPopiela HW2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="- KPopiela HW2">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#the-time-between-the-date-a-patient-was-recommended-for-heart-surgery-and-the-surgery-date-for-cardiac-patients-in-ontario-was-collected-by-the-cardiac-care-network-wait-times-data-guide-ministry-of-health-and-long-term-care-ontario-canada-2006.-the-sample-mean-and-sample-standard-deviation-for-wait-times-in-days-of-patients-for-two-cardiac-procedures-are-given-in-the-accompanying-table.-assume-that-the-sample-is-representative-of-the-ontario-population.-construct-the-90-confidence-interval-to-estimate-the-actual-mean-wait-time-for-each-of-the-two-procedures.-is-the-confidence-interval-narrower-for-angiography-or-bypass-surgery" id="toc-the-time-between-the-date-a-patient-was-recommended-for-heart-surgery-and-the-surgery-date-for-cardiac-patients-in-ontario-was-collected-by-the-cardiac-care-network-wait-times-data-guide-ministry-of-health-and-long-term-care-ontario-canada-2006.-the-sample-mean-and-sample-standard-deviation-for-wait-times-in-days-of-patients-for-two-cardiac-procedures-are-given-in-the-accompanying-table.-assume-that-the-sample-is-representative-of-the-ontario-population.-construct-the-90-confidence-interval-to-estimate-the-actual-mean-wait-time-for-each-of-the-two-procedures.-is-the-confidence-interval-narrower-for-angiography-or-bypass-surgery" class="nav-link" data-scroll-target="#the-time-between-the-date-a-patient-was-recommended-for-heart-surgery-and-the-surgery-date-for-cardiac-patients-in-ontario-was-collected-by-the-cardiac-care-network-wait-times-data-guide-ministry-of-health-and-long-term-care-ontario-canada-2006.-the-sample-mean-and-sample-standard-deviation-for-wait-times-in-days-of-patients-for-two-cardiac-procedures-are-given-in-the-accompanying-table.-assume-that-the-sample-is-representative-of-the-ontario-population.-construct-the-90-confidence-interval-to-estimate-the-actual-mean-wait-time-for-each-of-the-two-procedures.-is-the-confidence-interval-narrower-for-angiography-or-bypass-surgery">The time between the date a patient was recommended for heart surgery and the surgery date for cardiac patients in Ontario was collected by the Cardiac Care Network (“Wait Times Data Guide,” Ministry of Health and Long-Term Care, Ontario, Canada, 2006). The sample mean and sample standard deviation for wait times (in days) of patients for two cardiac procedures are given in the accompanying table. Assume that the sample is representative of the Ontario population. Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#a-survey-of-1031-adult-americans-was-carried-out-by-the-national-center-for-public-policy.-assume-that-the-sample-is-representative-of-adult-americans.-among-those-surveyed-567-believed-that-college-education-is-essential-for-success.-find-the-point-estimate-p-of-the-proportion-of-all-adult-americans-who-believe-that-a-college-education-is-essential-for-success.-construct-and-interpret-a-95-confidence-interval-for-p." id="toc-a-survey-of-1031-adult-americans-was-carried-out-by-the-national-center-for-public-policy.-assume-that-the-sample-is-representative-of-adult-americans.-among-those-surveyed-567-believed-that-college-education-is-essential-for-success.-find-the-point-estimate-p-of-the-proportion-of-all-adult-americans-who-believe-that-a-college-education-is-essential-for-success.-construct-and-interpret-a-95-confidence-interval-for-p." class="nav-link" data-scroll-target="#a-survey-of-1031-adult-americans-was-carried-out-by-the-national-center-for-public-policy.-assume-that-the-sample-is-representative-of-adult-americans.-among-those-surveyed-567-believed-that-college-education-is-essential-for-success.-find-the-point-estimate-p-of-the-proportion-of-all-adult-americans-who-believe-that-a-college-education-is-essential-for-success.-construct-and-interpret-a-95-confidence-interval-for-p.">A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#suppose-that-the-financial-aid-office-of-umass-amherst-seeks-to-estimate-the-mean-cost-of-textbooks-per-semester-for-students.-the-estimate-will-be-useful-if-it-is-within-5-of-the-true-population-mean-i.e.-they-want-the-confidence-interval-to-have-a-length-of-10-or-less.-the-financial-aid-office-is-pretty-sure-that-the-amount-spent-on-books-varies-widely-with-most-values-between-30-and-200.-they-think-that-the-population-standard-deviation-is-about-a-quarter-of-this-range-in-other-words-you-can-assume-they-know-the-population-standard-deviation.-assuming-the-significance-level-to-be-5-what-should-be-the-size-of-the-sample" id="toc-suppose-that-the-financial-aid-office-of-umass-amherst-seeks-to-estimate-the-mean-cost-of-textbooks-per-semester-for-students.-the-estimate-will-be-useful-if-it-is-within-5-of-the-true-population-mean-i.e.-they-want-the-confidence-interval-to-have-a-length-of-10-or-less.-the-financial-aid-office-is-pretty-sure-that-the-amount-spent-on-books-varies-widely-with-most-values-between-30-and-200.-they-think-that-the-population-standard-deviation-is-about-a-quarter-of-this-range-in-other-words-you-can-assume-they-know-the-population-standard-deviation.-assuming-the-significance-level-to-be-5-what-should-be-the-size-of-the-sample" class="nav-link" data-scroll-target="#suppose-that-the-financial-aid-office-of-umass-amherst-seeks-to-estimate-the-mean-cost-of-textbooks-per-semester-for-students.-the-estimate-will-be-useful-if-it-is-within-5-of-the-true-population-mean-i.e.-they-want-the-confidence-interval-to-have-a-length-of-10-or-less.-the-financial-aid-office-is-pretty-sure-that-the-amount-spent-on-books-varies-widely-with-most-values-between-30-and-200.-they-think-that-the-population-standard-deviation-is-about-a-quarter-of-this-range-in-other-words-you-can-assume-they-know-the-population-standard-deviation.-assuming-the-significance-level-to-be-5-what-should-be-the-size-of-the-sample">Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within $5 of the true population mean (i.e.&nbsp;they want the confidence interval to have a length of $10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between $30 and $200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?</a></li>
+  </ul></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a>
+  <ul class="collapse">
+  <li><a href="#according-to-a-union-agreement-the-mean-income-for-all-senior-level-workers-in-a-large-service-company-equals-500-per-week.-a-representative-of-a-womens-group-decides-to-analyze-whether-the-mean-income-μ-for-female-employees-matches-this-norm.-for-a-random-sample-of-nine-female-employees-y-410-and-s-90." id="toc-according-to-a-union-agreement-the-mean-income-for-all-senior-level-workers-in-a-large-service-company-equals-500-per-week.-a-representative-of-a-womens-group-decides-to-analyze-whether-the-mean-income-μ-for-female-employees-matches-this-norm.-for-a-random-sample-of-nine-female-employees-y-410-and-s-90." class="nav-link" data-scroll-target="#according-to-a-union-agreement-the-mean-income-for-all-senior-level-workers-in-a-large-service-company-equals-500-per-week.-a-representative-of-a-womens-group-decides-to-analyze-whether-the-mean-income-μ-for-female-employees-matches-this-norm.-for-a-random-sample-of-nine-female-employees-y-410-and-s-90.">According to a union agreement, the mean income for all senior-level workers in a large service company equals $500 per week. A representative of a women’s group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = $410 and s = 90.</a></li>
+  </ul></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a>
+  <ul class="collapse">
+  <li><a href="#jones-and-smith-separately-conduct-studies-to-test-h0-μ-500-against-ha-μ-500-each-with-n-1000.-jones-gets-y-519.5-with-se-10.0.-smith-gets-y-519.7-with-se-10.0" id="toc-jones-and-smith-separately-conduct-studies-to-test-h0-μ-500-against-ha-μ-500-each-with-n-1000.-jones-gets-y-519.5-with-se-10.0.-smith-gets-y-519.7-with-se-10.0" class="nav-link" data-scroll-target="#jones-and-smith-separately-conduct-studies-to-test-h0-μ-500-against-ha-μ-500-each-with-n-1000.-jones-gets-y-519.5-with-se-10.0.-smith-gets-y-519.7-with-se-10.0">Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7 ,with se = 10.0</a></li>
+  </ul></li>
+  <li><a href="#question-6" id="toc-question-6" class="nav-link" data-scroll-target="#question-6">Question 6</a>
+  <ul class="collapse">
+  <li><a href="#are-the-taxes-on-gasoline-very-high-in-the-united-states-according-to-the-american-petroleum-institute-the-per-gallon-federal-tax-that-was-levied-on-gasoline-was-18.4-cents-per-gallon.-however-state-and-local-taxes-vary-over-the-same-period.-the-sample-data-of-gasoline-taxes-for-18-large-cities-is-given-below-in-the-variable-called-gas_taxes." id="toc-are-the-taxes-on-gasoline-very-high-in-the-united-states-according-to-the-american-petroleum-institute-the-per-gallon-federal-tax-that-was-levied-on-gasoline-was-18.4-cents-per-gallon.-however-state-and-local-taxes-vary-over-the-same-period.-the-sample-data-of-gasoline-taxes-for-18-large-cities-is-given-below-in-the-variable-called-gas_taxes." class="nav-link" data-scroll-target="#are-the-taxes-on-gasoline-very-high-in-the-united-states-according-to-the-american-petroleum-institute-the-per-gallon-federal-tax-that-was-levied-on-gasoline-was-18.4-cents-per-gallon.-however-state-and-local-taxes-vary-over-the-same-period.-the-sample-data-of-gasoline-taxes-for-18-large-cities-is-given-below-in-the-variable-called-gas_taxes.">Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.</a></li>
+  <li><a href="#gas_taxes---c51.27-47.43-38.89-41.95-28.61-41.29-52.19-49.48-35.02-48.13-39.28-54.41-41.66-30.28-18.49-38.72-33.41-45.02" id="toc-gas_taxes---c51.27-47.43-38.89-41.95-28.61-41.29-52.19-49.48-35.02-48.13-39.28-54.41-41.66-30.28-18.49-38.72-33.41-45.02" class="nav-link" data-scroll-target="#gas_taxes---c51.27-47.43-38.89-41.95-28.61-41.29-52.19-49.48-35.02-48.13-39.28-54.41-41.66-30.28-18.49-38.72-33.41-45.02">gas_taxes &lt;- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)</a></li>
+  <li><a href="#is-there-enough-evidence-to-conclude-at-a-95-confidence-level-that-the-average-tax-per-gallon-of-gas-in-the-us-in-2005-was-less-than-45-cents-explain." id="toc-is-there-enough-evidence-to-conclude-at-a-95-confidence-level-that-the-average-tax-per-gallon-of-gas-in-the-us-in-2005-was-less-than-45-cents-explain." class="nav-link" data-scroll-target="#is-there-enough-evidence-to-conclude-at-a-95-confidence-level-that-the-average-tax-per-gallon-of-gas-in-the-us-in-2005-was-less-than-45-cents-explain.">Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">KPopiela HW2</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="the-time-between-the-date-a-patient-was-recommended-for-heart-surgery-and-the-surgery-date-for-cardiac-patients-in-ontario-was-collected-by-the-cardiac-care-network-wait-times-data-guide-ministry-of-health-and-long-term-care-ontario-canada-2006.-the-sample-mean-and-sample-standard-deviation-for-wait-times-in-days-of-patients-for-two-cardiac-procedures-are-given-in-the-accompanying-table.-assume-that-the-sample-is-representative-of-the-ontario-population.-construct-the-90-confidence-interval-to-estimate-the-actual-mean-wait-time-for-each-of-the-two-procedures.-is-the-confidence-interval-narrower-for-angiography-or-bypass-surgery" class="level3">
+<h3 class="anchored" data-anchor-id="the-time-between-the-date-a-patient-was-recommended-for-heart-surgery-and-the-surgery-date-for-cardiac-patients-in-ontario-was-collected-by-the-cardiac-care-network-wait-times-data-guide-ministry-of-health-and-long-term-care-ontario-canada-2006.-the-sample-mean-and-sample-standard-deviation-for-wait-times-in-days-of-patients-for-two-cardiac-procedures-are-given-in-the-accompanying-table.-assume-that-the-sample-is-representative-of-the-ontario-population.-construct-the-90-confidence-interval-to-estimate-the-actual-mean-wait-time-for-each-of-the-two-procedures.-is-the-confidence-interval-narrower-for-angiography-or-bypass-surgery">The time between the date a patient was recommended for heart surgery and the surgery date for cardiac patients in Ontario was collected by the Cardiac Care Network (“Wait Times Data Guide,” Ministry of Health and Long-Term Care, Ontario, Canada, 2006). The sample mean and sample standard deviation for wait times (in days) of patients for two cardiac procedures are given in the accompanying table. Assume that the sample is representative of the Ontario population. Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Bypass values</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_bypass <span class="ot">&lt;-</span> <span class="dv">539</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>x_bypass <span class="ot">&lt;-</span> <span class="dv">19</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>sd_bypass <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>df_bypass <span class="ot">&lt;-</span> n_bypass<span class="dv">-1</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#t-score  </span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>tscore_bypass <span class="ot">=</span> <span class="fu">qt</span>(<span class="at">p=</span>alpha<span class="sc">/</span><span class="dv">2</span>,<span class="at">df=</span>df_bypass,<span class="at">lower.tail =</span> F)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>tscore_bypass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.647691</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#standard error  </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>se_bypass <span class="ot">&lt;-</span> sd_bypass<span class="sc">/</span><span class="fu">sqrt</span>(n_bypass)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>se_bypass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4307305</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">#margin of error and confidence interval (bypass)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>margin_error <span class="ot">&lt;-</span> tscore_bypass<span class="sc">*</span>se_bypass</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>lower_CI <span class="ot">&lt;-</span> x_bypass <span class="sc">-</span> margin_error</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>upper_CI <span class="ot">&lt;-</span> lower_CI<span class="sc">+</span>margin_error</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(lower_CI,upper_CI))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.29029 19.00000</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Angiography values  </span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>n_angio <span class="ot">&lt;-</span> <span class="dv">847</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>x_angio <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>sd_angio <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>df_angio <span class="ot">&lt;-</span> n_angio<span class="dv">-1</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">#alpha value remains the same at 0.10 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#t-score</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>tscore_angio <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p=</span>alpha<span class="sc">/</span><span class="dv">2</span>,<span class="at">df=</span>df_angio,<span class="at">lower.tail =</span> F)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>tscore_angio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.646657</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#standard error</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>se_angio <span class="ot">&lt;-</span>sd_angio<span class="sc">/</span><span class="fu">sqrt</span>(n_angio)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>se_angio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3092437</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#margin of error and confidence interval (angiography)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>margin_error_angio <span class="ot">&lt;-</span> tscore_angio<span class="sc">*</span>se_angio</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>angio_lowerCI <span class="ot">&lt;-</span> x_angio <span class="sc">-</span> margin_error_angio</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>angio_upperCI <span class="ot">&lt;-</span> angio_lowerCI<span class="sc">+</span>margin_error_angio</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(angio_lowerCI,angio_upperCI))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17.49078 18.00000</code></pre>
+</div>
+</div>
+<p>The bypass confidence interval for the true mean wait time is 18.290, 19.000, or 0.710.<br>
+The angiography confidence interval the true mean wait time is 17.491, 18.000, or 0.509.</p>
+<p>The confidence interval is narrower for angiography.</p>
+</section>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<section id="a-survey-of-1031-adult-americans-was-carried-out-by-the-national-center-for-public-policy.-assume-that-the-sample-is-representative-of-adult-americans.-among-those-surveyed-567-believed-that-college-education-is-essential-for-success.-find-the-point-estimate-p-of-the-proportion-of-all-adult-americans-who-believe-that-a-college-education-is-essential-for-success.-construct-and-interpret-a-95-confidence-interval-for-p." class="level3">
+<h3 class="anchored" data-anchor-id="a-survey-of-1031-adult-americans-was-carried-out-by-the-national-center-for-public-policy.-assume-that-the-sample-is-representative-of-adult-americans.-among-those-surveyed-567-believed-that-college-education-is-essential-for-success.-find-the-point-estimate-p-of-the-proportion-of-all-adult-americans-who-believe-that-a-college-education-is-essential-for-success.-construct-and-interpret-a-95-confidence-interval-for-p.">A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Sample proportion/Point estimate</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1031</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">567</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>sample_prop <span class="ot">&lt;-</span> x<span class="sc">/</span>n</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>sample_prop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5499515</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Margin of error</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>margin_error2 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)<span class="sc">*</span><span class="fu">sqrt</span>(sample_prop<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>sample_prop)<span class="sc">/</span>n)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>margin_error2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.03036761</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#95% Confidence Interval</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>CI_lower <span class="ot">&lt;-</span> sample_prop <span class="sc">-</span> margin_error2</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>CI_upper <span class="ot">&lt;-</span> CI_lower <span class="sc">+</span> margin_error2</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(CI_lower,CI_upper))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.5195839 0.5499515</code></pre>
+</div>
+</div>
+<p>The point estimate p, of the proportion of all adult Americans who believe that college is essential for success is 0.549, or ~55%. The margin of error is 0.030, which lines up, since the confidence interval is 0.519, 0.549.</p>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<section id="suppose-that-the-financial-aid-office-of-umass-amherst-seeks-to-estimate-the-mean-cost-of-textbooks-per-semester-for-students.-the-estimate-will-be-useful-if-it-is-within-5-of-the-true-population-mean-i.e.-they-want-the-confidence-interval-to-have-a-length-of-10-or-less.-the-financial-aid-office-is-pretty-sure-that-the-amount-spent-on-books-varies-widely-with-most-values-between-30-and-200.-they-think-that-the-population-standard-deviation-is-about-a-quarter-of-this-range-in-other-words-you-can-assume-they-know-the-population-standard-deviation.-assuming-the-significance-level-to-be-5-what-should-be-the-size-of-the-sample" class="level3">
+<h3 class="anchored" data-anchor-id="suppose-that-the-financial-aid-office-of-umass-amherst-seeks-to-estimate-the-mean-cost-of-textbooks-per-semester-for-students.-the-estimate-will-be-useful-if-it-is-within-5-of-the-true-population-mean-i.e.-they-want-the-confidence-interval-to-have-a-length-of-10-or-less.-the-financial-aid-office-is-pretty-sure-that-the-amount-spent-on-books-varies-widely-with-most-values-between-30-and-200.-they-think-that-the-population-standard-deviation-is-about-a-quarter-of-this-range-in-other-words-you-can-assume-they-know-the-population-standard-deviation.-assuming-the-significance-level-to-be-5-what-should-be-the-size-of-the-sample">Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within $5 of the true population mean (i.e.&nbsp;they want the confidence interval to have a length of $10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between $30 and $200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Since most formulas require a value for sample size (n), whichever one I use will have to be reorganized: the confidence interval formula. But because I am looking for n, it has to read z*(s/5)^2=n.</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span><span class="cf">function</span>(n, <span class="at">z =</span> <span class="fl">1.96</span>, <span class="at">s =</span> <span class="fl">42.5</span>) {</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">&lt;-</span> z<span class="sc">*</span>s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(res)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">vapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">300</span>, <span class="at">FUN =</span> f, <span class="at">FUN.VALUE =</span> <span class="fl">5.0</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(vec <span class="sc">&lt;</span> <span class="dv">5</span>) [<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 278</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The sample contains at least 278 people.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<section id="according-to-a-union-agreement-the-mean-income-for-all-senior-level-workers-in-a-large-service-company-equals-500-per-week.-a-representative-of-a-womens-group-decides-to-analyze-whether-the-mean-income-μ-for-female-employees-matches-this-norm.-for-a-random-sample-of-nine-female-employees-y-410-and-s-90." class="level3">
+<h3 class="anchored" data-anchor-id="according-to-a-union-agreement-the-mean-income-for-all-senior-level-workers-in-a-large-service-company-equals-500-per-week.-a-representative-of-a-womens-group-decides-to-analyze-whether-the-mean-income-μ-for-female-employees-matches-this-norm.-for-a-random-sample-of-nine-female-employees-y-410-and-s-90.">According to a union agreement, the mean income for all senior-level workers in a large service company equals $500 per week. A representative of a women’s group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = $410 and s = 90.</h3>
+<section id="c.-report-and-interpret-the-p-value-for-h-a-μ-500." class="level4">
+<h4 class="anchored" data-anchor-id="c.-report-and-interpret-the-p-value-for-h-a-μ-500.">C. Report and interpret the P-value for H a: μ &gt; 500.</h4>
+<p>####(Hint: The P-values for the two possible one-sided tests must sum to 1.)</p>
+</section>
+<section id="a.-test-whether-the-mean-income-of-female-employees-differs-from-500-per-week.-include-assumptions-hypotheses-test-statistic-and-p-value.-interpret-the-result." class="level4">
+<h4 class="anchored" data-anchor-id="a.-test-whether-the-mean-income-of-female-employees-differs-from-500-per-week.-include-assumptions-hypotheses-test-statistic-and-p-value.-interpret-the-result.">A. Test whether the mean income of female employees differs from $500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#In order to test whether or not the mean income for female employees differs from $500/week, we must first condect a one-sample, two-sided significance test.</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#We can also assume the following:  </span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#1. The sample is random and the population has a normal distribution  </span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#2. The mean income for all senior-level workers = $500/week  </span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#3. From the random sample of 9 female employees, the mean income = $410/week  </span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">#4. Standard deviation = 90  </span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">#5. Null Hypothesis: H0: μ = 500  </span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">#6. Alternative Hypothesis: Ha: μ ≠ 500  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Test statistic</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>ybar <span class="ot">&lt;-</span> <span class="dv">410</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>mean <span class="ot">&lt;-</span> <span class="dv">500</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>(ybar <span class="sc">-</span> mean)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -3</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The test statistic value is -3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">9</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>df_n <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>)  </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> (<span class="dv">410</span> <span class="sc">-</span> <span class="dv">500</span>)<span class="sc">/</span>(<span class="dv">90</span><span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">9</span>))  </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="fu">pt</span>(t_test, df_n)<span class="sc">*</span><span class="dv">2</span>  </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.01707168</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value is 0.017. If we hold to the assumption that a=0.05, we can easily see that 0.017 &lt; 0.05, which means the null hypothesis can be rejected. Therefore, there is enough statistical evidence to support the claim that the mean income for female employees differs from the overall mean of $500/week.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-report-the-p-value-for-ha-μ-500.-interpret." class="level4">
+<h4 class="anchored" data-anchor-id="b.-report-the-p-value-for-ha-μ-500.-interpret.">B. Report the P-value for Ha : μ &lt; 500. Interpret.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Hypotheses</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#H0:mu = $500/week  </span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Ha:mu = &lt;$500/week  </span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#P-value = p(t&lt;t_test)*p(t&lt;-3)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value for Ha:my &gt; 500</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>left_p_value <span class="ot">&lt;-</span> <span class="fu">pt</span>(q,df_n,<span class="at">lower.tail=</span><span class="cn">TRUE</span>,<span class="at">log.p=</span><span class="cn">FALSE</span>)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>left_p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.008535841</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value for Ha:my &gt; 500 is 0.0085. This can be rounded up to 0.01, which indicates that there's strong evidence against the mean weekly income being $500+</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value for H0:mu &lt; 500</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>right_p_value <span class="ot">&lt;-</span> <span class="fu">pt</span>(q,df_n,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>,<span class="at">log.p=</span><span class="cn">FALSE</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>right_p_value</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9914642</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The p-value for H0:mu &lt; 500 is 0.99, indicating strong evidence in favor of the null hypothesis. This contradicts the claim that mean mu &gt; 500. To make sure my findings are correct, I must confrim that the sum of each p-value totals to 1. I could code this but it's not hard to tell that 0.01 + 0.99 = 1.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<section id="jones-and-smith-separately-conduct-studies-to-test-h0-μ-500-against-ha-μ-500-each-with-n-1000.-jones-gets-y-519.5-with-se-10.0.-smith-gets-y-519.7-with-se-10.0" class="level3">
+<h3 class="anchored" data-anchor-id="jones-and-smith-separately-conduct-studies-to-test-h0-μ-500-against-ha-μ-500-each-with-n-1000.-jones-gets-y-519.5-with-se-10.0.-smith-gets-y-519.7-with-se-10.0">Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7 ,with se = 10.0</h3>
+<section id="a.-show-that-t-1.95-and-p-value-0.051-for-jones.-show-that-t-1.97-and-p-value-0.049-for-smith." class="level4">
+<h4 class="anchored" data-anchor-id="a.-show-that-t-1.95-and-p-value-0.051-for-jones.-show-that-t-1.97-and-p-value-0.049-for-smith.">A. Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Let's start with Jones and confirming that t=1.95 and the p-value = 0.051</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#t-test</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>t_testj <span class="ot">&lt;-</span> (<span class="fl">519.5</span><span class="dv">-500</span>)<span class="sc">/</span><span class="fl">10.0</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>t_testj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.95</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The t-test value, is in fact 1.95</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>n5 <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>df_5 <span class="ot">&lt;-</span> (n5<span class="dv">-1</span>)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>pvaluej <span class="ot">&lt;-</span> <span class="fu">pt</span>(t_testj, df_5,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>,<span class="at">log.p =</span> <span class="cn">FALSE</span>)<span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>pvaluej</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05145555</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Like the t-test value, the p-value is also accurate to the question at 0.051.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Now lets move onto Smith with t = 1.97 and p-value = 0.049</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co">#t-test</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>t_testSmith <span class="ot">&lt;-</span> (<span class="fl">519.7</span> <span class="sc">-</span> <span class="dv">500</span>)<span class="sc">/</span><span class="fl">10.0</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>t_testSmith</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.97</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Smith's t-test value is 1.97.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#P-value</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#sample size n is the same as in the Jones section: n5 &lt;- 1000  </span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#df is also the same as the Jones section: df_5 &lt;- (n5-1)  </span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>p_valueSmith <span class="ot">&lt;-</span> <span class="fu">pt</span>(t_testSmith, df_5,<span class="at">lower.tail =</span> <span class="cn">FALSE</span>, <span class="at">log.p =</span> <span class="cn">FALSE</span>)<span class="sc">*</span><span class="dv">2</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>p_valueSmith</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.04911426</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Smith's p-value, like the t-test value, is accurate to what the question presents at 0.049</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="b.-using-α-0.05-for-each-study-indicate-whether-the-result-is-statistically-significant." class="level4">
+<h4 class="anchored" data-anchor-id="b.-using-α-0.05-for-each-study-indicate-whether-the-result-is-statistically-significant.">B. Using α = 0.05, for each study indicate whether the result is “statistically significant.”</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co">#In order for a p-value to be statistically significant, it must be greater than 0.05. Smith’s p-value is 0.049 which, while close, is still less than 0.05. Jones’s p-value, however, is statistically significant at 0.051.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="c.-using-this-example-explain-the-misleading-aspects-of-reporting-the-result-of-a-test-as-p-0.05-versus-p-0.05-or-as-reject-h0-versus-do-not-reject-h0-without-reporting-the-actual-p-value." class="level4">
+<h4 class="anchored" data-anchor-id="c.-using-this-example-explain-the-misleading-aspects-of-reporting-the-result-of-a-test-as-p-0.05-versus-p-0.05-or-as-reject-h0-versus-do-not-reject-h0-without-reporting-the-actual-p-value.">C. Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P &gt; 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Smith's and Jones's results were extremely similar, but the difference between the two lies right on the threshold of statistical significance; only Jones's results were statistically significant. But given the result values' closeness (0.051 and 0.049), there is moderate evidence against H0.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
+<section id="question-6" class="level2">
+<h2 class="anchored" data-anchor-id="question-6">Question 6</h2>
+<section id="are-the-taxes-on-gasoline-very-high-in-the-united-states-according-to-the-american-petroleum-institute-the-per-gallon-federal-tax-that-was-levied-on-gasoline-was-18.4-cents-per-gallon.-however-state-and-local-taxes-vary-over-the-same-period.-the-sample-data-of-gasoline-taxes-for-18-large-cities-is-given-below-in-the-variable-called-gas_taxes." class="level3">
+<h3 class="anchored" data-anchor-id="are-the-taxes-on-gasoline-very-high-in-the-united-states-according-to-the-american-petroleum-institute-the-per-gallon-federal-tax-that-was-levied-on-gasoline-was-18.4-cents-per-gallon.-however-state-and-local-taxes-vary-over-the-same-period.-the-sample-data-of-gasoline-taxes-for-18-large-cities-is-given-below-in-the-variable-called-gas_taxes.">Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.</h3>
+</section>
+<section id="gas_taxes---c51.27-47.43-38.89-41.95-28.61-41.29-52.19-49.48-35.02-48.13-39.28-54.41-41.66-30.28-18.49-38.72-33.41-45.02" class="level3">
+<h3 class="anchored" data-anchor-id="gas_taxes---c51.27-47.43-38.89-41.95-28.61-41.29-52.19-49.48-35.02-48.13-39.28-54.41-41.66-30.28-18.49-38.72-33.41-45.02">gas_taxes &lt;- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)</h3>
+</section>
+<section id="is-there-enough-evidence-to-conclude-at-a-95-confidence-level-that-the-average-tax-per-gallon-of-gas-in-the-us-in-2005-was-less-than-45-cents-explain." class="level3">
+<h3 class="anchored" data-anchor-id="is-there-enough-evidence-to-conclude-at-a-95-confidence-level-that-the-average-tax-per-gallon-of-gas-in-the-us-in-2005-was-less-than-45-cents-explain.">Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#I'm going to start by calculating the t-score to find the upper and lower values in the gas_taxes interval</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>gas_taxes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">51.27</span>, <span class="fl">47.43</span>, <span class="fl">38.89</span>, <span class="fl">41.95</span>, <span class="fl">28.61</span>, <span class="fl">41.29</span>, <span class="fl">52.19</span>, <span class="fl">49.48</span>, <span class="fl">35.02</span>, <span class="fl">48.13</span>, <span class="fl">39.28</span>, <span class="fl">54.41</span>, <span class="fl">41.66</span>, <span class="fl">30.28</span>, <span class="fl">18.49</span>, <span class="fl">38.72</span>, <span class="fl">33.41</span>, <span class="fl">45.02</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>gas_tax_sample <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>df_gt <span class="ot">&lt;-</span> gas_tax_sample <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>mean_gt <span class="ot">&lt;-</span> <span class="fu">mean</span>(gas_taxes)</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>tscore_gt <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="at">p=</span><span class="fl">0.05</span>,<span class="at">df=</span>df_gt,<span class="at">lower.tail=</span><span class="cn">FALSE</span>)</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>gas_sd <span class="ot">&lt;-</span> <span class="fu">sd</span>(gas_taxes)</span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>me_gas_taxes <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.05</span>,<span class="at">df =</span> df_gt)<span class="sc">*</span>gas_sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">18</span>)</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>lower_int_gt<span class="ot">&lt;-</span>(mean_gt<span class="sc">+</span>me_gas_taxes)</span>
+<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>lower_int_gt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37.0461</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The lower interval value is 37.046</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>upper_int_gt <span class="ot">&lt;-</span> (mean_gt<span class="sc">-</span> me_gas_taxes)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>upper_int_gt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 44.67946</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#The upper interval value is 44.679</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co">#The average tax/gallon of gas is less than $0.45, so it is within the upper and lower bounds of the confidence interval. However, we will test an alternate outcome via a t-test</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
