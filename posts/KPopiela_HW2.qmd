@@ -1,0 +1,288 @@
+---
+title: "KPopiela HW2"
+editor: visual
+---
+
+```{r,echo=TRUE}
+library(dplyr)
+library(ggplot2)
+library(stats)
+```
+
+## Question 1
+
+### The time between the date a patient was recommended for heart surgery and the surgery date for cardiac patients in Ontario was collected by the Cardiac Care Network ("Wait Times Data Guide," Ministry of Health and Long-Term Care, Ontario, Canada, 2006). The sample mean and sample standard deviation for wait times (in days) of patients for two cardiac procedures are given in the accompanying table. Assume that the sample is representative of the Ontario population. Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?
+
+```{r,echo=TRUE}
+#Bypass values
+n_bypass <- 539
+x_bypass <- 19
+sd_bypass <- 10
+df_bypass <- n_bypass-1
+alpha = 0.10
+```
+
+```{r,echo=TRUE}
+#t-score  
+tscore_bypass = qt(p=alpha/2,df=df_bypass,lower.tail = F)
+tscore_bypass
+```
+
+```{r,echo=TRUE}
+#standard error  
+se_bypass <- sd_bypass/sqrt(n_bypass)
+se_bypass
+```
+
+```{r,echo=TRUE}
+#margin of error and confidence interval (bypass)
+margin_error <- tscore_bypass*se_bypass
+lower_CI <- x_bypass - margin_error
+upper_CI <- lower_CI+margin_error
+print(c(lower_CI,upper_CI))
+```
+
+```{r,echo=TRUE}
+#Angiography values  
+n_angio <- 847
+x_angio <- 18
+sd_angio <- 9
+df_angio <- n_angio-1
+#alpha value remains the same at 0.10 
+```
+
+```{r}
+#t-score
+tscore_angio <- qt(p=alpha/2,df=df_angio,lower.tail = F)
+tscore_angio
+```
+
+```{r,echo=TRUE}
+#standard error
+se_angio <-sd_angio/sqrt(n_angio)
+se_angio
+```
+
+```{r,echo=TRUE}
+#margin of error and confidence interval (angiography)
+margin_error_angio <- tscore_angio*se_angio
+angio_lowerCI <- x_angio - margin_error_angio
+angio_upperCI <- angio_lowerCI+margin_error_angio
+print(c(angio_lowerCI,angio_upperCI))
+```
+
+The bypass confidence interval for the true mean wait time is 18.290, 19.000, or 0.710.\
+The angiography confidence interval the true mean wait time is 17.491, 18.000, or 0.509.
+
+The confidence interval is narrower for angiography.
+
+## Question 2
+
+### A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.
+
+```{r,echo=TRUE}
+#Sample proportion/Point estimate
+n <- 1031
+x <- 567
+sample_prop <- x/n
+sample_prop
+```
+
+```{r,echo=TRUE}
+#Margin of error
+margin_error2 <- qnorm(0.975)*sqrt(sample_prop*(1-sample_prop)/n)
+margin_error2
+```
+
+```{r,echo=TRUE}
+#95% Confidence Interval
+CI_lower <- sample_prop - margin_error2
+CI_upper <- CI_lower + margin_error2
+print(c(CI_lower,CI_upper))
+```
+
+The point estimate p, of the proportion of all adult Americans who believe that college is essential for success is 0.549, or \~55%. The margin of error is 0.030, which lines up, since the confidence interval is 0.519, 0.549.
+
+## Question 3
+
+### Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within \$5 of the true population mean (i.e. they want the confidence interval to have a length of \$10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between \$30 and \$200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?
+
+```{r,echo=TRUE}
+#Since most formulas require a value for sample size (n), whichever one I use will have to be reorganized: the confidence interval formula. But because I am looking for n, it has to read z*(s/5)^2=n.
+
+f <-function(n, z = 1.96, s = 42.5) {
+  res <- z*s/sqrt(n)
+  return(res)
+}
+
+vec <- vapply(1:300, FUN = f, FUN.VALUE = 5.0)
+which(vec < 5) [1]
+
+#The sample contains at least 278 people.
+```
+
+
+
+## Question 4  
+### According to a union agreement, the mean income for all senior-level workers in a large service company equals $500 per week. A representative of a women’s group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = $410 and s = 90.
+#### C. Report and interpret the P-value for H a: μ > 500.
+####(Hint: The P-values for the two possible one-sided tests must sum to 1.)
+
+
+#### A. Test whether the mean income of female employees differs from $500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result. 
+```{r,echo=TRUE}
+#In order to test whether or not the mean income for female employees differs from $500/week, we must first condect a one-sample, two-sided significance test.
+
+#We can also assume the following:  
+#1. The sample is random and the population has a normal distribution  
+#2. The mean income for all senior-level workers = $500/week  
+#3. From the random sample of 9 female employees, the mean income = $410/week  
+#4. Standard deviation = 90  
+#5. Null Hypothesis: H0: μ = 500  
+#6. Alternative Hypothesis: Ha: μ ≠ 500  
+```
+
+```{r,echo=TRUE}
+#Test statistic
+ybar <- 410
+mean <- 500
+s <- 90
+n <- 9
+(ybar - mean)/(s/sqrt(n))
+
+#The test statistic value is -3
+```
+
+```{r, echo=TRUE}
+#P-value
+n <- 9 
+df_n <- (n - 1)  
+t_test <- (410 - 500)/(90/sqrt(9))  
+p_value <- pt(t_test, df_n)*2  
+p_value
+
+#P-value is 0.017. If we hold to the assumption that a=0.05, we can easily see that 0.017 < 0.05, which means the null hypothesis can be rejected. Therefore, there is enough statistical evidence to support the claim that the mean income for female employees differs from the overall mean of $500/week.
+```
+
+
+#### B. Report the P-value for Ha : μ < 500. Interpret.
+```{r,echo=TRUE}
+#Hypotheses
+    #H0:mu = $500/week  
+    #Ha:mu = <$500/week  
+    #P-value = p(t<t_test)*p(t<-3)
+```
+
+```{r,echo=TRUE}
+#P-value for Ha:my > 500
+q <- -3
+left_p_value <- pt(q,df_n,lower.tail=TRUE,log.p=FALSE)
+left_p_value
+
+#P-value for Ha:my > 500 is 0.0085. This can be rounded up to 0.01, which indicates that there's strong evidence against the mean weekly income being $500+
+```
+
+```{r,echo=TRUE}
+#P-value for H0:mu < 500
+right_p_value <- pt(q,df_n,lower.tail = FALSE,log.p=FALSE)
+right_p_value
+
+#The p-value for H0:mu < 500 is 0.99, indicating strong evidence in favor of the null hypothesis. This contradicts the claim that mean mu > 500. To make sure my findings are correct, I must confrim that the sum of each p-value totals to 1. I could code this but it's not hard to tell that 0.01 + 0.99 = 1.
+```
+
+
+
+## Question 5
+### Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7 ,with se = 10.0
+
+#### A. Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.
+```{r,echo=TRUE}
+#Let's start with Jones and confirming that t=1.95 and the p-value = 0.051
+
+#t-test
+t_testj <- (519.5-500)/10.0
+t_testj
+
+#The t-test value, is in fact 1.95
+```
+
+```{r,echo=TRUE}
+#P-value
+n5 <- 1000
+df_5 <- (n5-1)
+
+pvaluej <- pt(t_testj, df_5,lower.tail = FALSE,log.p = FALSE)*2
+pvaluej
+
+#Like the t-test value, the p-value is also accurate to the question at 0.051.
+```
+
+```{r,echo=TRUE}
+#Now lets move onto Smith with t = 1.97 and p-value = 0.049
+
+#t-test
+t_testSmith <- (519.7 - 500)/10.0
+t_testSmith
+
+#Smith's t-test value is 1.97.
+```
+
+```{r,echo=TRUE}
+#P-value
+
+#sample size n is the same as in the Jones section: n5 <- 1000  
+#df is also the same as the Jones section: df_5 <- (n5-1)  
+
+p_valueSmith <- pt(t_testSmith, df_5,lower.tail = FALSE, log.p = FALSE)*2
+p_valueSmith
+
+#Smith's p-value, like the t-test value, is accurate to what the question presents at 0.049
+```
+
+
+#### B. Using α = 0.05, for each study indicate whether the result is “statistically significant.”
+```{r,echo=TRUE}
+#In order for a p-value to be statistically significant, it must be greater than 0.05. Smith’s p-value is 0.049 which, while close, is still less than 0.05. Jones’s p-value, however, is statistically significant at 0.051.
+```
+
+
+#### C. Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.
+```{r,echo=TRUE}
+#Smith's and Jones's results were extremely similar, but the difference between the two lies right on the threshold of statistical significance; only Jones's results were statistically significant. But given the result values' closeness (0.051 and 0.049), there is moderate evidence against H0.
+```
+
+
+
+## Question 6
+### Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.
+
+### gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+### Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.
+```{r,echo=TRUE}
+#I'm going to start by calculating the t-score to find the upper and lower values in the gas_taxes interval
+
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+gas_tax_sample <- 18
+df_gt <- gas_tax_sample - 1
+mean_gt <- mean(gas_taxes)
+tscore_gt <- qt(p=0.05,df=df_gt,lower.tail=FALSE)
+gas_sd <- sd(gas_taxes)
+me_gas_taxes <- qt(0.05,df = df_gt)*gas_sd/sqrt(18)
+
+lower_int_gt<-(mean_gt+me_gas_taxes)
+lower_int_gt
+
+#The lower interval value is 37.046
+```
+
+```{r,echo=TRUE}
+upper_int_gt <- (mean_gt- me_gas_taxes)
+upper_int_gt
+
+#The upper interval value is 44.679
+
+#The average tax/gallon of gas is less than $0.45, so it is within the upper and lower bounds of the confidence interval. However, we will test an alternate outcome via a t-test
+```
+
