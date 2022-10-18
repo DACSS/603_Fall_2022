@@ -1,8 +1,8 @@
 ---
-title: "Blog Post Template"
-author: "Your Name"
-desription: "Something to describe what I did"
-date: "08/02/2022"
+title: "HW 2"
+author: "Karen Detter"
+desription: "Second Homework On Hypothesis Testing"
+date: "10/17/2022"
 format:
   html:
     toc: true
@@ -10,67 +10,198 @@ format:
     code-copy: true
     code-tools: true
 categories:
-  - hw1
-  - challenge1
-  - my name
-  - dataset
-  - ggplot2
+  - hw2
 ---
 
 ```{r}
 #| label: setup
 #| warning: false
-
-library(tidyverse)
-
+#| 
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
-
-## Instructions
-
-This document provides yaml header inforamtion you will need to replicate each week to submit your homework or other blog posts. Please observe the following conventions:
-
--   Save your own copy of this template as a blog post in the `posts` folder, naming it `FirstLast_hwX.qmd`
--   Edit the yaml header to change your author name - use the same name each week
--   include a *description* that is reader friendly
--   update the *category* list to indicate the type of submission, the data used, the main packages or techniques, your name, or any thing else to make your document easy to find
--   edit as a normal qmd/rmd file
-
 
 ```{r}
-x <- c(2,3,4,5)
-mean(x)
+library(tidyverse)
 ```
 
-## Rendering your post
+## Q.1
+**-	Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures:**
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. 
+*Bypass -*
+```{r}
+#assign values
+Bs_sd <- 10
+Bs_size <- 539
+Bs_mean <- 19
+#calculate standard error
+Bstandard_error <- Bs_sd / sqrt(Bs_size)
+Bstandard_error
+```
+```{r}
+#calculate area of two tails
+confidence_level <- 0.90
+Btail_area <- (1-confidence_level)/2
+Btail_area
+```
+```{r}
+#calculate t-score
+Bt_score <- qt(p = 1-Btail_area, df = Bs_size-1)
+Bt_score
+```
+```{r}
+#calculate confidence interval
+BCI <- c(Bs_mean - Bt_score * Bstandard_error, Bs_mean + Bt_score * Bstandard_error)
+print(BCI)
+```
 
-:::{.callout-warning}
-Be sure that you have moved your `*.qmd` file into the `posts` folder **BEFORE** you render it, so that all files are stored in the correct location.
-:::
+*Angiography-*
+```{r}
+#assign values
+As_sd <- 9
+As_size <- 847
+As_mean <- 18
+#calculate standard error
+Astandard_error <- As_sd / sqrt(As_size)
+Astandard_error
+```
+```{r}
+#calculate area of two tails
+confidence_level <- 0.90
+Atail_area <- (1-confidence_level)/2
+Atail_area
+```
+```{r}
+#calculate t-score
+At_score <- qt(p = 1-Atail_area, df = As_size-1)
+At_score
+```
+```{r}
+#calculate confidence interval
+ACI <- c(As_mean - At_score * Astandard_error, As_mean + At_score * Astandard_error)
+print(ACI)
+```
 
-:::{.callout-important}
-Only render a single file - don't try to render the whole website!
-:::
+**-	Is the confidence interval narrower for angiography or bypass surgery?**
 
-:::{.callout-note}
-## Pilot Student Blogs
+```{r}
+#calculate differences in upper and lower bounds of both confidence intervals
+(Bs_mean + Bt_score * Bstandard_error) - (Bs_mean - Bt_score * Bstandard_error)
+(As_mean + At_score * Astandard_error) - (As_mean - At_score * Astandard_error)
+```
+Angiography has a narrower confidence interval.
 
-We are piloting a workflow including individual student websites with direted and limited pull requests back to course blogs. Please let us know if you would like to participate.
-:::
+## Q.2
+**-	Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success.**
+```{r}
+#assign values
+k <- 567
+n <- 1031
+#calculate sample proportion
+p <- k/n
+p
+```
 
-## Reading in data files
+**-	Construct and interpret a 95% confidence interval for p**
+```{r}
+#calculate margin of error
+margin <- qnorm(0.975) * sqrt(p*(1-p)/n)
+#calculate lower and upper bounds of confidence interval
+low <- p - margin
+high <- p + margin
+print(low)
+print(high)
+```
+The 95% confidence interval for the population proportion is [.52, .58]. Since 95% of confidence intervals calculated from point estimates of population proportions would contain the true mean population proportion, we can be reasonably confident that the true mean proportion of adult Americans who believe a college education is essential for success lies somewhere between 52 and 58%.
 
-The easiest data source to use - at least initially - is to choose something easily accessible, either from our `_data` folder provided, or from an online source that is publicly available.
+## Q.3
+**-	Assuming the significance level to be 5%, what should be the size of the sample?**
+```{r}
+#assign values
+z_score <- qnorm(.975) #assuming normal distribution and 95% confidence level
+margin_error <- 5 #half of confidence interval
+#calculate population standard deviation (one quarter of the range)
+pop_sd <- (200-30) / 4
+```
 
-:::{.callout-tip}
-## Using Other Data
-If you would like to use a source that you have access to and it is small enough and you don't mind making it public, you can copy it into the `_data` file and include in your *commit* and *pull request*.
-:::
+```{r}
+#calculate sampling size of population mean
+samp_size <- z_score^2 * pop_sd^2 / margin_error^2
+samp_size
+```
+The sample size should be 278.
 
-:::{.callout-tip}
-## Using Private Data
+## Q.4
+**A. Test whether the mean income of female employees differs from $500 per week.
+Include assumptions, hypotheses, test statistic, and P-value. 
+Interpret the result.**
 
-If you would like to use a proprietary source of data, that should be possible using the same process outlined above. There may initially be a few issues. We hope to have this feature working smoothly soon!
-:::
+*assumptions:* random sampling, normally distributed data, adequate sample size; 
+*hypotheses:* *$H_{0}$* : $\bar{y}$ = $\mu$ ; *$H_{\alpha}$* : $\bar{y}$ $\neq$ $\mu$ ;
+*test statistic:* t-statistic
+```{r}
+#calculate t-statistic
+t_stat <- (410 - 500) / (90 / (sqrt(9)))
+#calculate two-tailed p-value
+p_val <- 2 * (pt(q = t_stat, df=8))
+p_val
+```
+Assuming $\alpha$ = .05, we can reject $H_{0}$ because there is evidence to support $H_{\alpha}$.
+
+**B. Report the P-value for $H_{\alpha}$ : $\mu$ < 500. Interpret.**
+```{r}
+#calculate lower-tail p-value
+p_low <- pt(t_stat, df = 8, lower.tail = TRUE)
+p_low
+```
+This p-value is significantly lower than the .05 significance level, which means that we can reject $H_{0}$ because there is evidence to support $H_{\alpha}$ : $\mu$ < 500.  
+
+**C. Report and interpret the P-value for $H_{\alpha}$ : $\mu$ > 500.**
+```{r}
+#calculate lower-tail p-value
+p_high <- pt(t_stat, df = 8, lower.tail = FALSE)
+p_high
+```
+```{r}
+#double-check p-values
+check <- p_high + p_low
+check
+```
+This p-value is significantly higher than the .05 significance level, so in this case we fail to reject $H_{0}$ in favor of $H_{\alpha}$ : $\mu$ > 500.
+
+## Q.5
+**A. Show that t = 1.95 and P-value = 0.051 for Jones
+   Show that t = 1.97 and P-value = 0.049 for Smith**
+```{r}
+#calculate t-statistics
+Jones_t <- (519.5 - 500) / 10
+Jones_t
+Smith_t <- (519.7 - 500) / 10
+Smith_t
+```
+```{r}
+#calculate p-values
+Jones_p <- 2 * (pt(q = Jones_t, df=999, lower.tail = FALSE))
+Jones_p
+Smith_p <- 2 * (pt(q = Smith_t, df=999, lower.tail = FALSE))
+Smith_p
+```
+**B. Using α = 0.05, for each study indicate whether the result is “statistically      significant.”**
+
+At this significance level, Smith's study would be considered significant and allow for rejection of the null hypothesis. Jones' study, however, would fail to reject the null.
+
+**C. Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05”, or as “reject H0” versus “Do not reject  H0”, without reporting the actual P-value.**
+
+This example shows the importance of being specific and thorough in reporting the "significance" of study findings. Both Smith and Jones produced results very near the cutoff point for statistical significance, so it would be critical to know both the actual p-value AND the exact standard, $\leq$ or <, being used to interpret the results in order to assess the actual impact of the findings. Reporting only "reject" or "do not reject" the null hypothesis would also not provide the information needed to make a judgment of the meaning of the findings, as it would not provide any evidence in support of the claim.
+
+## Q.6
+**Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.**
+```{r}
+#assign values
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+#run one sample t-test
+t.test(gas_taxes, mu = 45, alternative = 'less')
+```
+
+At the 95% confidence level, the p-value of $H_{\alpha}$ : $\mu$ < 45 is .04, indicating that we can reject $H_{0}$. Additionally, 45 is above the upper bound of the confidence interval, which also supports the alternative hypothesis.
+
