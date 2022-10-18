@@ -1,0 +1,131 @@
+---
+title: "Homework 2"
+author: "Megha joseph"
+desription: "Homework 2 Assignment"
+date: "10//2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - challenge1
+  - my name
+  - dataset
+  - ggplot2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+```
+
+##QUESTION1
+```{r}
+procedure <- c('Bypass', 'Angiography')
+samplesize <- c(539, 847)
+meanwait <- c(19, 18)
+standev <- c(10, 9)
+
+surgdata <- data.frame(procedure, samplesize, meanwait, standev)
+
+surgdata
+     
+```
+##QUESTION2
+```{r}
+prop.test(567, 1031, conf.level = .95)
+
+```
+
+##QUESTION3
+  
+```{r}
+stdevBooks <- (200-30)/4
+margerrorBooks <- (10/2)
+zBooks <- 1.96
+
+stdevBooks^2 * (zBooks/margerrorBooks)^2
+```
+##QUESTION4
+##A
+
+  
+```{r}
+(410-500)/(90/sqrt(9))
+pt(-3, 8)*2 
+```
+##B
+
+  
+```{r}
+ pt(-3, 8, lower.tail = TRUE)
+```
+##C
+
+  
+```{r}
+ pt(-3, 8, lower.tail = FALSE)
+```
+##QUESTION5
+##A1
+  
+```{r}
+ JonesT <- (519.5-500)/10
+JonesT
+``` 
+##A2
+
+```{r}
+ JonesP <- pt(1.95, 999, lower.tail = FALSE)*2
+JonesP
+``` 
+##A3
+
+```{r}
+
+SmithT <- (519.7-500)/10
+SmithT
+``` 
+##A4
+
+```{r}
+
+SmithP <- pt(1.97, 999, lower.tail = FALSE)*2
+SmithP
+``` 
+##B
+
+With an α-level of .05, the p-values that both Jones (P=.051) and Smith (P=.049) found are very close to equivalent. Although Jones’ P-value is slightly greater than α=.05 and Smith’s P-value is slightly less than α=.05, the proximity of the results should yield the same conclusion. Both P-values provide moderate evidence to reject the null hypothesis and indicate that the mean is not equal to 500. If we were to technically interpret the P-values, then Jones’ test would fail to reject the null hypothesis, and Smith’s test would reject the null hypothesis.
+
+##C
+
+If we fail to report the P-value and simply state whether the P-value is less than/equal to or greater than the defined significance level of the test, one cannot determine the strength of the conclusion. For example, a P-value of .009 for a significance level of .05 provides much stronger evidence to reject the null than a P-value of .045, however both values allow for rejection of the null at the significance level .05. In the Jones/Smith example, reporting the results only as “P ≤ 0.05” versus “P > 0.05” will lead to different conclusions about very similar results (rejecting versus failing to reject the null).
+
+##QUESTION6
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+t.test(gas_taxes, mu = 18.4, conf.level = .95)
+
+``` 
+
+
+  
+  
+ 
+  
+  
+  
+
+
