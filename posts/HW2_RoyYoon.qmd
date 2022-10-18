@@ -1,0 +1,325 @@
+---
+title: "Homework 2"
+author: "Roy Yoon"
+desription: "DACSS 603 Home Work 2"
+date: "10/18/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - Roy Yoon
+  - dataset
+  - ggplot2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1
+
+Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?
+
+## Bypass Sample Size, Mean Wait Time, Standard Deviation
+
+```{r Bypass information}
+# Bypass information
+bypass_sample_size <- 539
+bypass_mean <- 19
+bypass_sd <- 10
+```
+
+## Standard Error for Bypass
+
+```{r Bypass standard error}
+bypass_standard_error <- bypass_sd / sqrt(bypass_sample_size)
+
+bypass_standard_error
+```
+
+## T-Value Steps for Bypass
+
+```{r t-value for Bypass}
+bypass_confidence_level <- 0.90
+bypass_tail_area <- (1 - bypass_confidence_level)/2
+
+bypass_tail_area
+
+bypass_t_score <- qt(p = 1 - bypass_tail_area, df = bypass_sample_size - 1)
+
+bypass_t_score
+```
+
+## Calculate Bypass Confidence Interval
+
+```{r Bypass Confidence Interval}
+bypass_confidence_interval <- c(bypass_mean - (bypass_t_score * bypass_standard_error),
+                                bypass_mean + (bypass_t_score * bypass_standard_error))
+
+bypass_confidence_interval
+```
+
+## Margin of Error for bypass
+
+```{r Bypass Margin of Error}
+bypass_margin_of_error <- bypass_t_score * bypass_standard_error
+
+bypass_margin_of_error
+```
+
+## Angiography Sample Size, Mean Wait Time, Standard Deviation
+
+```{r Angiography information}
+# Bypass information
+angiography_sample_size <- 847
+angiography_mean <- 18
+angiography_sd <- 9
+```
+
+## Standard Error for Angiography
+
+```{r Angiography standard error}
+angiography_standard_error <- angiography_sd / sqrt(angiography_sample_size)
+
+angiography_standard_error
+```
+
+## T-Value Steps for Angiography
+
+```{r t-value for Angiography}
+angiography_confidence_level <- 0.90
+angiography_tail_area <- (1 - angiography_confidence_level)/2
+
+angiography_tail_area
+
+angiography_t_score <- qt(p = 1 - angiography_tail_area, df = angiography_sample_size - 1)
+
+angiography_t_score
+```
+
+## Calculate Angiography Confidence Interval
+
+```{r Angiography Confidence Interval}
+angiography_confidence_interval <- c(angiography_mean - (angiography_t_score * angiography_standard_error),
+                                angiography_mean + (angiography_t_score * angiography_standard_error))
+
+angiography_confidence_interval
+```
+
+## Margin of Error for Angiography
+
+```{r Angiography Margin of Error}
+angiography_margin_of_error <- angiography_t_score * angiography_standard_error
+
+angiography_margin_of_error
+```
+
+## Comparing Bypass and Angiogrpahy Confidence Intervals
+
+```{r Comparing Confidence Intervals}
+angiography_confidence_interval
+18.50922 - 17.49078
+bypass_confidence_interval
+19.70971 - 18.29029
+```
+
+Angiography has a more narrow confidence interval
+
+# Question 2
+
+A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.
+
+## Point Estimate
+
+```{r Point Estimate}
+
+sample_size <- 1031
+
+education_essential <- 567
+
+point_estimate <- education_essential / sample_size
+
+point_estimate 
+
+prop.test(education_essential, sample_size)
+
+```
+
+The point estimate for adult Americans who believe college education is essential is 0.5499515. The 95 percent confidence interval is 0.5189682, 0.5805580. 95% of confidence intervals calculated with this procedure would contain the true mean. With the sampling method repeated, about 95% of the intervals would contain the true mean.
+
+# Question 3
+
+Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within \$5 of the true population mean (i.e. they want the confidence interval to have a length of \$10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between \$30 and \$200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?
+
+```{r Standard Deviation}
+standard_dev <- (200 - 30)/4
+standard_dev
+
+```
+
+The standard deviation from the data is 42.5. Now knowing the standard deviation we can look for the size of the sample by ways of the confidence interval.
+
+Solving for n, by ways of confidence interval.
+
+1.  5 = 1.96(42.5/sqrt(n))
+
+2.  5 = 83.3/sqrt(n)
+
+3.  5 \* sqrt(n) = 83.3
+
+4.  sqrt(n) = 83.3 / 5
+
+5.  n = (83.3/5)\^2
+
+6.  n = 278. 89
+
+# Question 4
+
+According to a union agreement, the mean income for all senior-level workers in a large service company equals \$500 per week. A representative of a women's group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = \$410 and s = 90.
+
+## A.
+
+Test whether the mean income of female employees differs from \$500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.
+
+Assumptions:
+
+-   Data is normally distributed; significance level is 5%
+
+-   Null Hypothesis (H0): μ = 500
+
+-   Alternative Hypothesis(H1): μ \< 500, μ \> 500
+
+## A: Standard Error
+
+```{r}
+female_standard_dev <- 90
+female_sample_size <- 9
+female_sample_mean <- 410 
+null_hypothesis_mean <- 500
+
+female_standard_error <- female_standard_dev / sqrt(female_sample_size)
+
+female_standard_error
+```
+
+## A: t-test
+
+```{r}
+t_stat <- (female_sample_mean - null_hypothesis_mean) / female_standard_error
+
+t_stat
+```
+
+## A: p-value
+
+```{r}
+
+p_value <- (pt(t_stat, df = 8)) * 2
+
+p_value
+```
+
+p-value (0.01707168) is smaller than the 5% significance level, so we are able to reject the null hypothesis and favor the alternative hypothesis.
+
+## B. Report the P-value for Ha : μ \< 500. Interpret.
+
+```{r lower tail p value}
+low_p_value <- (pt(t_stat, df = 8, lower.tail = TRUE))
+low_p_value
+```
+
+## C. Report and interpret the P-value for H a: μ \> 500. (Hint: The P-values for the two possible one-sided tests must sum to 1.)
+
+```{r upper tail p value}
+up_p_value <- (pt(t_stat, df = 8, lower.tail = FALSE))
+up_p_value
+
+#sanity check from hint: The P-values for the two possible one-sided tests must sum to 1
+low_p_value + up_p_value
+```
+
+# Question 5
+
+Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7, with se = 10.0.
+
+```{r r jones and smith study info}
+jones_sample_mean <- 519.5
+jones_standard_error <- 10
+smith_sample_mean <- 519.7
+smith_standard_error <- 10
+h0_mean <- 500
+```
+
+## A
+
+Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.
+
+```{r jones and smith study}
+#Jones
+
+jones_t_stat <- (jones_sample_mean - h0_mean) / jones_standard_error
+
+jones_t_stat
+
+jones_p_value <- (pt(jones_t_stat, df = 999, lower.tail=FALSE)) * 2
+
+jones_p_value
+
+#Smith
+
+smith_t_stat <- (smith_sample_mean - h0_mean) / smith_standard_error
+
+smith_t_stat
+
+smith_p_value <- (pt(smith_t_stat, df = 999, lower.tail=FALSE) ) * 2
+
+smith_p_value
+
+```
+
+## B
+
+Using α = 0.05, for each study indicate whether the result is "statistically significant."
+
+if the p value is less than the significance level, the null hypothesis is rejected.
+
+significance level: α = 0.05
+
+Jones p-value: 0.05145555; Jones p-value \> significance level, so the study is not statistically significant
+
+smith p-value: 0.04911426; Smith p-value \< significance level, so the study is statistically significant
+
+## C
+
+Using this example, explain the misleading aspects of reporting the result of a test as "P ≤ 0.05" versus "P \> 0.05," or as "reject H0" versus "Do not reject H0 ," without reporting the actual P-value.
+
+If the p value is less than the significance level, the null hypothesis is rejected and we can consider the finding/result statistically insignificant. So blanketing Jone's study as not statistically significant and and Smith's study as significant may make sense. However, when you look at the sample means from Jones and Smith, there is not an outstanding difference between them. By the way the mathematics of calculating the p-value worked out, it can seem as though there is a great difference between the numbers reported by Jones and Smith, when their reported numbers are actually very narrow to each other.
+
+## Question 6
+
+Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.
+
+gas_taxes \<- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.
+
+```{r gas_taxes}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+t.test(gas_taxes, mu = 45, alternative = 'less')
+
+
+```
+
+With a sample mean of 40.86278 and a p-value of 0.03827 which is less than the assumes 0.05 significance level, the null hypothesis is rejected and the alternative hypothesis is favored.
+
+Thus, there is enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents.
