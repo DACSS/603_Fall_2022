@@ -1,0 +1,197 @@
+---
+  title: "Homework 2 - Emily Duryea"
+author: "Emily Duryea"
+description: "The second homework assignment for DACSS 603"
+date: "10/17/2022"
+format:
+  html:
+  toc: true
+code-fold: true
+code-copy: true
+code-tools: true
+categories:
+- hw2
+- Emily Duryea
+---
+
+# Homework 2
+
+Uploading packages to be used for this assignment:
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+```
+
+## Question 1
+
+Below is the code used for setting up the degrees of freedom (df = sample size - 1). Thus, Bypass df would be 539 - 1 = 538, and, Angiography would be 847 - 1 = 846.
+
+```{r}
+Bypass_df = 538
+Angio_df = 846
+```
+
+Below is the code for setting up the mean and standard deviation.
+
+```{r}
+Bypass_mean = 19
+Bypass_sd = 10
+Angio_mean = 18
+Angio_sd = 9
+```
+
+The code for calculating t-score with 90% confidence interval is below.
+
+```{r}
+Bypass_tscore <- qt(p = 0.9, df = Bypass_df)
+Angio_tscore <- qt(p = 0.9, df = Angio_df)
+```
+
+The code for calculating the standard error (sd/sqrt(sample size)) is below.
+
+```{r}
+Bypass_se <- Bypass_sd/sqrt(539)
+Angio_se <- Angio_sd/sqrt(847)
+```
+
+The code for calculating the margin of error (T-score multiplied by the standard error) is below.
+
+```{r}
+Bypass_me <- Bypass_tscore*Bypass_se
+Angio_me <- Angio_tscore*Angio_se
+```
+
+Below is the code for calculating the upper and lower ranges (add mean to margin of error for upper, subtract for lower).
+
+```{r}
+Bypass_low <- Bypass_mean - Bypass_me
+Bypass_up <- Bypass_mean + Bypass_me
+Angio_low <- Angio_mean - Angio_me
+Angio_up <- Angio_mean + Angio_me
+Bypass <- c(Bypass_low, Bypass_up)
+Angio <- c(Angio_low, Angio_up)
+Bypass
+Angio
+```
+
+The 90% confidence interval for Bypass is \[18.45, 19.55\], and for Angio it is \[17.60, 18.40\]. Thus, Angio has the narrower confidence interval, which is logical to conclude because it has a larger sample size (847 \> 539), which reduces the margin of error. Additionally, the standard deviation is smaller (9\<10), which signifies less variance.
+
+## Question 2
+
+```{r}
+# Number who believed college ed is essential for success
+N <- 567
+
+# Total sample size
+S <- 1031
+
+# Calculating point estimate
+PE <- N/S
+
+# Using the function prop.test() to find the confidence interval range & p-value
+prop.test(N, S, PE)
+```
+
+The 95% confidence interval is \[0.519, 0.580\], with a p-value of 0.550.
+
+## Question 3
+
+```{r}
+# Calculating confidence interval of 95%
+CI95 <- qnorm(0.025, lower.tail = F)
+# Calculating sample size needed using confidence interval equation
+Student_sample <- ((170*0.25/5)*CI95)^2
+Student_sample
+```
+
+Based on these calculations, the needed sample size would be 278 students for a significance level of 5%.
+
+## Question 4
+
+### Part A
+
+```{r}
+# Calculating the standard error (sd = 90 sample = 9)
+company_se <- 90/sqrt(9)
+company_se
+
+# Calculating the t-score
+company_tscore <- (410-500)/company_se
+company_tscore
+
+# Calculating the p-value (df = 9-1 = 8)
+company_pvalue <- (pt(q=-3, df=8))*2
+company_pvalue
+```
+
+It is possible to reject the null hypothesis, as the p-value is statistically significant (0.017), less than 0.05.
+
+### Part B
+
+```{r}
+# Calculating the probability of a random sample with a mean of 410 or less
+less_company <- pt(-3, 8)
+less_company
+```
+
+The p-value for the lower tail is 0.00854.
+
+### Part B
+
+```{r}
+# Calculating the probability of a random sample with a mean of 410 or more
+more_company <- pt(-3, 8, lower.tail = F)
+more_company
+```
+
+The p-value for the upper tail is 0.991.
+
+```{r}
+total_company <- less_company + more_company
+total_company
+```
+
+The total of both tails is equal to 1.
+
+## Question 5
+
+### Part A
+
+```{r}
+# Calculating t-scores
+Jones_tscore <- (519.5-500)/10
+Jones_tscore
+Smith_tscore <- (519.7-500)/10
+Smith_tscore
+
+# Calculating p-values
+Jones_pvalue <- (pt(q=1.95, df=999, lower.tail=FALSE))*2
+Jones_pvalue
+Smith_pvalue <- (pt(q=1.97, df=999, lower.tail=FALSE))*2
+Smith_pvalue
+```
+
+### Part B
+
+If the significance level is 0.05, then Smith has statistically significant study findings, while Jones does not.
+
+### Part C
+
+Both of the studies could be statistically significant, depending on the significance level. For example, a 0.1 significance level would mean Jones also had statistically significant results. In this case, since the t-scores were so similar (0.2 off), it would not be unreasonable for both studies to reject the null hypothesis.
+
+## Question 6
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+# Getting the mean
+mean_gtaxes <- mean(gas_taxes)
+mean_gtaxes
+
+# Conducting t-test
+t.test(gas_taxes, mu=45.0, alternative="less")
+```
+
+Because the p-value is 0.03827 on a 95% confidence interval, on the 0.05 significance level, it is possible the null hypothesis that gas prices are equal to or greater than \$0.45.
