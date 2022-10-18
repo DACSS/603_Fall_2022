@@ -1,0 +1,158 @@
+---
+title: "DACSS 603: Homework 2"
+author: "Tory Bartelloni"
+desription: "Homework 2"
+date: sys.date()
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+execute: 
+  echo: true
+  warning: false
+categories:
+  - hw2
+---
+
+# Question 1
+
+*Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for angiography or bypass surgery?*
+
+```{r}
+surgery <- data.frame(Procedure=c("Bypass","Angiography"), 
+                      Sample_Size=c(539,847),
+                      Mean_Wait_Time=c(19,18),
+                      Standard_Deviation=c(10,9))
+
+bypass <- surgery %>% filter(Procedure == "Bypass")
+
+t_score_bypass <- qt(p=1-0.05, df=bypass$Sample_Size-1)
+
+se_bypass <- bypass$Standard_Deviation / sqrt(bypass$Sample_Size)
+
+CI_bypass <- c(bypass$Mean_Wait_Time - t_score_bypass * se_bypass,
+    bypass$Mean_Wait_Time + t_score_bypass * se_bypass)
+
+angio <- surgery %>% filter(Procedure == "Angiography")
+
+t_score_angio <- qt(p=1-0.05, df=angio$Sample_Size-1)
+
+se_angio <- angio$Standard_Deviation / sqrt(angio$Sample_Size)
+
+CI_angio <- c(angio$Mean_Wait_Time - t_score_angio * se_angio,
+    angio$Mean_Wait_Time + t_score_angio * se_angio)
+
+CI <- data.frame(Procedure = c("Bypass", "Angiography"),
+                 Lower_Limit = c(CI_bypass[1],CI_angio[1]),
+                 Upper_Limit = c(CI_bypass[2],CI_angio[2]))
+
+knitr::kable(CI, caption = "90% Confidence Levels for Cardiac Procedures")
+
+```
+The confidence interval is more narrow for angiogrphy because the larger sample size reduces t-score, and the larger sample and lower standard deviation together reduce the standard error. 
+
+# Question 2
+
+*Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.*
+
+```{r}
+
+df1 <- data.frame(x=c(rep(1,567),rep(0,1031-567)))
+df_test <- t.test(df1)
+df_test$estimate
+df_test$conf.int
+```
+The confidence interval is between 0.52 and 0.58 with a confidence level of 95% so we can say that 95% of the time when calculating this confidence interval the proportion of Americans who believe college is essential for success would lie within 52-58%.
+
+# Question 3
+
+*Assuming the significance level to be 5%, what should be the size of the sample?*
+
+```{r}
+
+range = 200-30
+sd = range/4
+n <- (1.96 * (sd/5))^2
+
+n
+
+
+```
+
+Given a significance level of 5% we can use the z-score to calculate the necessary sample size to obtain a confidence interval of $10, which would be approximately 278. 
+
+# Question 4
+
+*Test whether the mean income of female employees differs from $500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.*
+*Report the P-value for Ha : μ < 500. Interpret.*
+*Report and interpret the P-value for H a: μ > 500.*
+
+```{r}
+
+f_union <- data.frame(x=rnorm(9, mean=410, sd=90))
+
+t.test(f_union, mu = 500)
+
+greater <- t.test(f_union, mu = 500, alternative = "greater")
+greater$p.value
+
+less <- t.test(f_union, mu = 500, alternative = "less")
+less$p.value
+
+greater$p.value+less$p.value
+```
+
+Our main assumption is that the sample we took is representative of the female worker population.
+
+Our H~0~ is that female salary is not different than the average salary of $500.
+Our H~A~ is that female salary is different than the average salary of $500.
+
+The t-statistics for female salary was -3.5 which provided a p-value <.01 indicating a strong confidence that the mean female salary is not $500.
+
+Our p-value for female salary being greater than $500 was 0.996 and for less than it was 0.004.
+
+#Question 5
+
+*A. Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.*
+*B. Using α = 0.05, for each study indicate whether the result is “statistically significant.”*
+*C. Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.* 
+
+```{r}
+jones_tstat <- (519.5-500)/10
+smith_tstat <- (519.7-500)/10
+
+print(paste0("Jones t-statistic is ", jones_tstat))
+print(paste0("Smith t-statistic is ", smith_tstat))
+
+jones_pvalue <- pt(q=jones_tstat, df = 1000-1, lower.tail = FALSE)*2
+smith_pvalue <- pt(q=smith_tstat, df = 1000-1, lower.tail = FALSE)*2
+
+print(paste0("Jones p-value is ", round(jones_pvalue,3)))
+print(paste0("Smith p-value is ", round(smith_pvalue,3)))
+
+```
+## A.
+Above we have shown that the difference in the results leads to the t-statistics and p-values provided. 
+
+## B.
+The p-values observed show that at a 95% confidence level Jones' results are non-significant while Smith's results are significant.
+
+## C.
+This is a good example of why not reporting p-values can be insufficient or misleading because the results we observed are extremely close, but the arbitrary boundary we agreed upon prior to the test distinguishes them into different categories. This would not be so important if the difference between those categories were not important. Without the context of the specific results we could see the two extremely similar results treated and acted upon in starkly different ways.
+
+I would argue this is one good reason why we should be reporting p-values up until .001 so researchers and users of the data can fully understand the context they would be applying the result within. Good to note that reporting extremely small p-values (<.001) has it's drawbacks as well and we do not want to overemphasize results that may be the result of methodology rather than a real and important distinction for instance.
+
+# Question 6
+
+*Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.*
+
+```{r}
+
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+t.test(gas_taxes, mu=45, alternative = "less")
+
+```
+Based on the results of the t-test we can say that gas tax was likely below 45 cents in 2005. Assuming the gas tax rates from the 18 cities was all-inclusive (i.e. included federal taxes) and representative then the data suggests the average tax per gallon of gas in the US was indeed less than 45 cents, *t*(17) = -1.89, p = .038.
