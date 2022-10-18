@@ -1,0 +1,170 @@
+---
+title: "Homework 2"
+author: "Niyati Sharma"
+description: "The first homework on descriptive statistics and probability"
+date: "10/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - desriptive statistics 
+  - probability
+---
+
+
+```{r, echo=T}
+
+#| label: setup
+#| warning: false
+#| message: false
+ 
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+
+```
+
+## 1
+Creating the table with the given data.
+
+```{r}
+SP <- c('Bypass', 'Angiography')
+SS <- c(539, 847)
+MW <- c(19, 18)
+SD <- c(10, 9)
+
+ServeyData <- data.frame(SP, SS, MW, SD)
+ServeyData
+```
+Calculate Standard error
+```{r}
+SE <- SD / sqrt(SS)
+SE
+```
+calculate the area of the two tails
+```{r}
+CL <- 0.90  
+#area in each tail of the distribution for 90%
+tail_area <- (1-CL)/2
+tail_area
+```
+
+calculate t-values by using the qt() function
+```{r}
+t_score <- qt(p = 1-tail_area, df = SS-1)
+t_score
+```
+calculate the confidence interval
+```{r}
+CI <- c(MW - t_score * SE,
+        MW + t_score * SE)
+print(CI)
+```
+The 90% confidence interval for bypass is [18.29, 19.71] days and for angiography it is [17.49, 18.51] days. The confidence interval for angiography is narrower. 
+
+## 2
+Using prop.test() to calculate p and the 95% confidence interval.
+
+```{r}
+set.seed(0)
+prop.test(567, 1031, conf.level = .95)
+```
+The 95% confidence interval for the point estimate is 0.5195839 - 0.5803191.The point estimate for the proportion of all adult Americans who believe that a college education is essential for success is 0.55.
+
+## 3
+Calculate the min sample size
+```{r}
+# calculate population SD.
+SD <- (200-30)/4
+#margin of error
+ME <- (10/2)
+# calculate sample size.
+samplesize <- ((1.96*SD)/ME)^2
+samplesize
+```
+the size of the sample should be 278
+
+## 4 
+
+## a
+
+calculate t statistic since it will show us the difference in two means
+
+Null hypothesis mean = 500
+```{r}
+t_stats <- (410-500)/(90/sqrt(9))
+t_stats
+```
+Calculate P value
+
+```{r}
+p_value <- 2* pt(t_stats, df=8)
+p_value
+```
+The test statistic is -3 and the p-value is 0.01707168.The p-value is substantially less than .05 is the evidence that we can reject the null hypothesis. There is strong evidence that the mean income of female employees is not equal to $500.
+
+## b
+
+
+```{r}
+PL <- pt(t_stats, df = 8, lower.tail = TRUE)
+PL
+```
+Since  p-value is 0.0085 is less than the alpha level of 0.05, we can reject the null hypothesis. There is evidence that the mean income of female employees is less than $500.
+
+## c
+
+```{r}
+PL <- pt(t_stats, df = 8, lower.tail = FALSE)
+PL
+```
+Since  p-value is 0.991 is more than the alpha level of 0.05, we cannot reject the null hypothesis. There is evidence that the mean income of female employees is more than $500.
+
+## 5
+
+## a
+```{r}
+# calculate standard deviation 
+Std_Dev <- 10*sqrt(1000)
+
+# calculate t for Jones.
+t_jones <- ((519.5-500)/Std_Dev) * sqrt(1000)
+t_jones
+
+# calculate p-value for Jones.
+p_jones <- 2*(pt(q=t_jones, df=999, lower.tail=FALSE))
+p_jones
+
+# calculate t for Smith.
+t_smith <- ((519.7-500)/Std_Dev) * sqrt(1000)
+t_smith
+
+# calculate p-value for Smith.
+p_smith <- 2*(pt(q=t_smith, df=999, lower.tail=FALSE))
+p_smith
+```
+## b
+At the .05 significance level, we could say that Jones would be unable to reject the null hypothesis since his exceeds .05. Smith on the other hand would barley be able to reject the null hypothesis with his equalling .049. 
+
+## c
+Both of these p values were extremely close to the actual cut off point which shows including them is important. If I would have saw these p scores I would have had doubts or questions regarding the data and would have ran my own test to validate the claims. I think that is reason it would be important to include them to allow other people to see how close the study was. 
+
+## 6 
+
+
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+t.test(gas_taxes, mu = 45, alternative = 'less')
+```
+Here we can see that the p value for this is .038 which means we can reject the null hypothesis that gas prices are equal to or greater than 45 cents. The mean sample that came up was also within the range of the confidence interval.
+
+
+
