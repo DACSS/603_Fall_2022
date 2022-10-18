@@ -49,14 +49,21 @@ prop.test(pop,size)
 ```
 
 ### Question 4
-a) T test indicates that the income for females is not equal to 500$ a week
-b)
+The p value is .049, showing it is statisitcally significant and we can reject the null. Other aspects to this question are verified within the code
 
 ```{r}
-female_salary<-c(rnorm(9, mean = 410, sd = 90))
-t.test(female_salary, mu = 500)
-t.test(female_salary, mu = 500, alternative = "less")
-t.test(female_salary, mu = 500, alternative = "greater")
+fem_size<-9
+fem_mean<-410
+null<-500
+sd<-90
+
+SE<-sd/sqrt(fem_size)
+t_score<-(fem_mean-null)/SE
+p_value<-(pt(t_score, df=9))*2
+upper_p<-(pt(t_score, df=8, lower.tail = FALSE))
+upper_p
+lower_p<-(pt(t_score, df=8, lower.tail = FALSE))
+lower_p
 ```
 
 ### Question 5
