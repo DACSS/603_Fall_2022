@@ -1,0 +1,188 @@
+---
+title: "Homework 2 - Prahitha Movva"
+author: "Prahitha Movva"
+description: "The second homework"
+date: "10/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - p-value 
+  - confidence level
+---
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+library(stats)
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE)
+```
+
+# Question 1
+
+## Angiography
+
+```{r}
+sample.mean <- 18
+sample.n <- 847
+sample.sd <- 9
+sample.se <- sample.sd/sqrt(sample.n)
+
+alpha <- 0.10
+degrees.freedom <- sample.n - 1
+t.score <- qt(p=alpha/2, df=degrees.freedom,lower.tail=F)
+
+margin.error <- t.score * sample.se
+lower.bound <- sample.mean - margin.error
+upper.bound <- sample.mean + margin.error
+print(c(lower.bound,upper.bound))
+print(upper.bound - lower.bound)
+```
+## Bypass
+
+```{r}
+sample.mean <- 19
+sample.n <- 539
+sample.sd <- 10
+sample.se <- sample.sd/sqrt(sample.n)
+
+alpha <- 0.10
+degrees.freedom <- sample.n - 1
+t.score <- qt(p=alpha/2, df=degrees.freedom,lower.tail=F)
+
+margin.error <- t.score * sample.se
+lower.bound <- sample.mean - margin.error
+upper.bound <- sample.mean + margin.error
+print(c(lower.bound,upper.bound))
+print(upper.bound - lower.bound)
+```
+
+The 90% confidence interval for angiography is [17.49, 18.51] wait days (1.02) and for bypass is [18.29, 19.71] wait days (1.42). The confidence interval for angiography is slightly narrower (by 0.4).
+
+
+# Question 2
+
+```{r}
+sample.trials <- 1031
+sample.successes <- 567
+p <- sample.successes/sample.trials
+print(p)
+
+# Here both the mean and the standard deviation are unknown
+prop.test <- prop.test(sample.successes, sample.trials, p=p, conf.level=0.95)
+print(prop.test$conf.int)
+```
+
+The point estimate, p, is 0.55 and the 95% confidence interval for p is [0.52, 0.58]. We can say that we are 95% confident that the true proportion of all adult Americans who believe that a college education is essential for success lies between 0.52 and 0.58. In other words, 95% of confidence intervals will contain the true proportion.
+
+# Question 3
+
+```{r}
+range <- 200-30
+margin.error <- 5
+population.sd <- range/4
+alpha <- 0.05
+z_score <- qnorm(p=alpha/2, lower.tail=F)
+sample.n <- ((z_score*population.sd)/margin.error)^2
+print(sample.n)
+```
+
+The sample size should be 278.
+
+# Question 4
+
+```{r}
+population.mean <- 500
+sample.mean <- 410
+sample.s <- 90
+sample.n <- 9
+```
+## a
+Ho: The true mean income of female employees is $500/week
+
+Ha: The true mean income of female employees is not $500/week
+
+Assumptions:
+
+1. The data is normally distributed
+
+2. Ho is true
+
+3. 95% CI
+
+```{r}
+t.numerator <- sample.mean - population.mean
+t.denominator <- sample.s/sqrt(sample.n)
+t.statistic <- t.numerator/t.denominator
+
+p.value <- pt(q=abs(t.statistic), df=sample.n-1, lower.tail=F)*2
+print(t.statistic)
+print(p.value)
+```
+
+The t statistic is -3 and the p-value at 5% significance level is 0.017. Since the p-value is less than 0.05, it is evidence against Ho, i.e., the mean income of female employees differ significantly from $500 per week.
+
+## b
+```{r}
+p.value_less <- pt(q=t.statistic, df=sample.n-1, lower.tail=T)
+print(p.value_less)
+```
+
+Here too, the p-value at 5% significance level is less than 0.05. So we reject Ho and can say that the mean income of female employees is significantly less than $500 per week.
+
+## c
+```{r}
+p.value_greater <- pt(q=t.statistic, df=sample.n-1, lower.tail=F)
+print(p.value_greater)
+```
+
+Here, the p-value at 5% significance level is higher than 0.05 and we fail to reject Ho. This means, we do not have evidence that the mean income of female employees is more than $500 per week.
+
+```{r}
+p.value_greater + p.value_less
+```
+
+# Question 5
+
+```{r}
+sample.n <- 1000
+jones.mean <- 519.5
+jones.se <- 10
+smith.mean <- 519.7
+smith.se <- 10
+population.mean <- 500
+```
+
+## a
+```{r}
+jones.t <- ((jones.mean-population.mean)/jones.se)
+jones.t
+jones.p <- pt(q=abs(jones.t), df=sample.n-1, lower.tail=F)*2
+jones.p
+
+smith.t <- ((smith.mean-population.mean)/smith.se)
+smith.t
+smith.p <- pt(q=abs(smith.t), df=sample.n-1, lower.tail=F)*2
+smith.p
+```
+
+## b
+At 5% significance level, the result for Smith is statistically significant but that of Jones is not
+
+## c
+This example shows using P > 0.05 or P <= 0.05 to see if we can the reject the null hypothesis or not is misleading, if the actual p-value is not reported. Both the p-values are only 0.1 significance level away from 0.05 but only one is significant, so the experiment might not be meaningful without the actual p-values.
+
+# Question 6
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+t.test(gas_taxes, alternative = c("less"), mu = 45)
+```
+
+At a 95% confidence level, we see that the p-value of 0.038. Since this value is less than 0.05, we reject the null hypothesis and say that the average tax per gallon of gas in the US in 2005 was significantly less than 45 cents.
+
