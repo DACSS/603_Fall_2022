@@ -1,0 +1,278 @@
+---
+title: "HW2"
+author: "Ken Docekal"
+desription: "Homework 2"
+date: "10/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - Ken Docekal
+
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Q1
+
+
+90% Confidence Interval for Bypass:
+
+18.29 - 19.71
+
+```{r}
+
+n <- 539
+xbar <- 19 
+s <- 10
+
+margin <- qt(0.95,df=n-1)*s/sqrt(n)
+
+low <- xbar - margin
+low
+
+high <- xbar + margin
+high
+
+
+```
+
+
+90% Confidence Interval for Angiography:
+
+17.49 - 18.51
+
+```{r}
+
+n <- 847
+xbar <- 18 
+s <- 9
+
+margin <- qt(0.95,df=n-1)*s/sqrt(n)
+
+low <- xbar - margin
+low
+
+high <- xbar + margin
+high
+
+
+```
+The confidence interval is narrower for Angiography - 1.02 difference, compared to Bypass - 1.42 difference. 
+
+
+
+## Q2
+
+
+The proportion point estimate for adult Americans who believe that a college education is essential for success is .55, based on 567 out of the representative sample of 1031 adult Americans surveyed. 
+
+A 95% confidence interval shows that in 95% of cases the observed mean proportion of adult Americans who believe that a college education is essential for success will be between 52% and 58%. 
+
+```{r}
+
+prop.test(567,1031)
+
+```
+
+
+
+## Q3
+
+
+Based on the range of 30 to 200 we can determine the standard deviation using s = (Maximum – Minimum)/4 resulting in s=42.5.With a 95% significance level we will use 1.96 for the z score. To find the minimum sample size needed - n, we solve for (Zscore*s/margin of error)^2. Our sample size needs to be at least 277.56. 
+
+```{r}
+
+
+n <- ((1.96)*(42.5)/5)^2
+
+n
+
+
+```
+
+
+
+## Q4
+
+
+# A
+
+
+Create random normal distribution sample as a tibble for female employee wages using mean - 410, standard deviation - 90, and n - 9. Name column as "wage".
+
+```{r}
+
+
+set.seed(24)
+female <-tibble(
+  value=rnorm(n=9,mean=410,sd=90))
+
+
+names(female) <- c("wage")
+
+                   
+summary(female) 
+
+                   
+```
+
+
+Using a one sample t-test we observe a p-value of .001 meaning we can reject the null hypothesis where mean income equals 500 at the 95% confidence level. In this test Wages are assumed to be normally distributed; we observe the test statistic of -4.84, which measures how close our data matches the null hypothesis' expected distribution and informs the p-value.
+
+Results indicate that 95% of cases will not show an employee with 500 in wages. Furthermore, the mean of 410.70 and 95% confidence interval of 368.15 to 453.25 indicate wages will not be greater than 471 at most for most female employees.  
+
+```{r}
+
+t.test(female$wage, mu = 500)
+
+```
+
+
+# B
+
+
+Due to the small p-value of 0.0006 we are confident that the true mean must be less than 500, even at the 99% confidence level. 
+
+```{r}
+
+t.test(female$wage, mu = 500, alternative = 'less')
+
+```
+
+
+# C
+
+
+The opposite is true when looking at the p-value of .999 for when the true mean is greater than 500. This indicates that 99.9% of cases observed will not have a mean greater than 500. All results indicate strong likelihood that mean wage will be less than 500 for female employees.
+
+```{r}
+
+t.test(female$wage, mu = 500, alternative = 'greater')
+
+```
+
+
+
+
+## Q5
+
+
+# A
+
+
+First obtain standard deviation using standard error times square root of sample size.
+
+```{r}
+
+
+sd <- 10*(sqrt(1000))
+
+sd
+
+
+```
+
+
+We can then create samples as tibbles for Jones and Smith using respective means - 519.7 and 519.5, standard deviation - 316.23, and n - 1000.
+
+```{r}
+
+set.seed(65)
+jones <-tibble(
+  value= rnorm(n=1000,mean=519.7,sd=316.23))
+
+
+```
+
+
+```{r}
+
+
+
+set.seed(32)
+smith <-tibble(
+  value= rnorm(n=1000,mean=519.5,sd=316.23))
+
+
+
+```
+
+
+With two one sample t-tests we observe a t and p values of 1.859 and .063 for Jones and 2.015 and .044 for Smith. As the data set was randomly generated based on provided parameters results did not exactly match those in the prompt. 
+
+```{r}
+
+t.test(jones$value, mu = 500)
+
+t.test(smith$value, mu = 500)
+
+
+```
+
+
+# B
+
+
+Using a 95% confidence interval, p-values indicate that Jones' test is not statistically significant while Smith's test is significant. This is because Jones' p-value is .013 over the acceptable p-value score for results to be acceptable at the 95% confidence level. Smith's score is .006 under the same threshold and therefore still considered statistically significant. 
+
+
+# C
+
+
+This example illustrates the importance of reporting actual p-values as sometimes the margin of difference between p-values can be minor but still have a major impact on whether results are considered statistically significant. This can mislead readers as test results may be improperly discounted, due to the impact of minor differences in data, although results may otherwise be almost identical to a test done using a different comparable but non-identical sample. View the actual p-value allows readers to better understand the data studied by view the degree of difference results show from the confidence level used. 
+
+
+
+
+## Q6
+
+
+Create a data frame with a column for tax values.
+
+```{r}
+
+gas_taxes <-  data.frame (first_column  = c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)) 
+
+
+```
+
+
+```{r}
+
+gas_taxes
+
+
+names(gas_taxes) <- c("tax")
+
+
+```
+
+
+Using a one sample t-test where null hypothesis is mean tax is 45 and alternative hypothesis is true mean is less than 45 we are able to reject the null hypothesis at the 95% confidence level. Results indicate that mean tax was 40.86 and 95% of all observations will find a mean tax less than 44.68; therefore, while a few cities at the upper end of the range had prices near 45 cents per gallon, this was not usual and the average tax per gallon of gas in the US in 2005 was less than 45 cents. 
+
+```{r}
+
+t.test(gas_taxes$tax, mu = 45, alternative = 'less')
+
+```
+
+
+
+
+
+
