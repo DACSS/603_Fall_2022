@@ -1,0 +1,277 @@
+---
+title: "Homework 2"
+author: "Kaushika Potluri"
+desription: "Something to describe what I did"
+date: "10/16/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Loading in packages:
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stats)
+
+```
+
+##Question 1
+
+Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures. Is the confidence interval narrower for Angiography or Bypass surgery?
+
+### Angiography
+
+```{r}
+ang_mean <- 18
+ang_sd <- 9
+ang_ss <- 847
+
+ang_se <- ang_sd/sqrt(ang_ss)
+
+ang_cl <- 0.90  
+ang_tail <- (1-ang_cl)/2
+ang_tscore <- qt(p = 1-ang_tail, df = ang_ss-1)
+
+ang_ci <- c(ang_mean - ang_tscore * ang_se,
+        ang_mean + ang_tscore * ang_se)
+print(ang_ci)
+```
+
+```{r}
+#assessing Confidence interval
+18.50922 - 17.49078
+```
+
+####Margin of error
+
+```{r}
+Margin_of_error_ang <- ang_tscore * ang_se
+Margin_of_error_ang * 1.01
+```
+
+We can be 90% confident that the population mean wait time for the Angiography procedure is between 17.49078 and 18.50922 days with margin of error +/-0.51
+
+### Bypass
+
+```{r}
+bypass_mean <- 19
+bypass_sd <- 10
+bypass_ss <- 539
+
+bypass_se <- bypass_sd/sqrt(bypass_ss)
+
+bypass_cl <- 0.90  
+bypass_tail <- (1-bypass_cl)/2
+bypass_tscore <- qt(p = 1-bypass_tail, df = bypass_ss-1)
+
+bypass_ci <- c(bypass_mean - bypass_tscore * bypass_se,
+        bypass_mean + bypass_tscore * bypass_se)
+print(bypass_ci)
+```
+
+We can be 90% confident that the population mean wait time for the Bypass procedure is between 18.29029 and 19.70971 days.
+
+```{r}
+#assessing Confidence interval
+19.70971 - 18.29029
+```
+
+####Margin of error
+
+```{r}
+Margin_of_error_bypass <- bypass_tscore * bypass_se
+Margin_of_error_bypass * 1.41
+```
+
+Therefore, the confidence interval is more narrow for Angiographies.
+
+## Question 2
+
+A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success. Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success. Construct and interpret a 95% confidence interval for p.
+
+```{r}
+#n = Number of American adults (population), x = sample (surveyed)
+n = 1031
+x = 567 #(believed that college education is essential for success)
+
+#Using prop.test to find p (The CI is 95% by default)
+#This  function will return the range for the point estimate at 95% CI.
+prop.test(x, n)
+```
+
+The percentage of adult Americans who think a college education is necessary for success is p, which is 0.5499515. We have a confidence interval of 95 percent confidence interval that equals, \[0.5189682, 0.5805580\] which contains the true population mean.
+
+## Question 3
+
+Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within \$5 of the true population mean (i.e. they want the confidence interval to have a length of \$10 or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between \$30 and \$200. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation). Assuming the significance level to be 5%, what should be the size of the sample?
+
+```{r}
+#Evaluating standard deviation using the given values
+UMassSD <- (200-30)/4
+UMassSD
+```
+
+Since the significance level is at 5% our Confidence level is 95%. A 95% confidence level has a z-score of 1.96. With this ideal sample size can be calculated.
+
+```{r}
+#samplesize = ((UMassSD * zscore)/5)^2
+samplesize <- ((UMassSD * 1.96)/5)^2
+print(samplesize)
+```
+
+The size necessary for the sample is 278.
+
+## Question 4
+
+According to a union agreement, the mean income for all senior-level workers in a large service company equals \$500 per week. A representative of a women's group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = \$410 and s = 90.
+
+a)  Test whether the mean income of female employees differs from \$500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.
+
+Assuming that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ ≠ 500
+
+We will reject the null hypothesis at a p-value less than or equal to 0.05
+
+```{r}
+p_mean <- 500
+s_meanfemale <- 410
+s_sizefemale = 9
+sd = 90
+
+#find standard error
+standarderrorfemale<- sd/sqrt(s_sizefemale)
+standarderrorfemale
+
+```
+
+```{r}
+#calculating t-score
+t_stat<- (s_meanfemale-p_mean)/standarderrorfemale
+t_stat
+```
+
+```{r}
+#calculating p value
+df <- 9-1
+p_value<- (pt(t_stat, df=8)) *2
+p_value
+```
+
+Since the p value is less than .05 we can reject the null hypothesis
+
+b)  Report the P-value for Ha : μ \< 500. Interpret.
+
+Assuming that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ ≠ 500
+
+We will reject the null hypothesis at a p-value less than or equal to 0.05
+
+```{r}
+pvalue_lower <- pt(-t_stat, df, lower.tail = FALSE)
+pvalue_lower
+```
+
+As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the mean income of female employees is less than \$500.
+
+c)  Report and interpret the P-value for H a: μ \> 500.
+
+```{r}
+pvalue_upper <- pt(t_stat, df, lower.tail = FALSE)
+pvalue_upper
+```
+
+As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the mean income of female employees is greater than \$500.
+
+```{r}
+#checking if sum = 1
+pvalue_upper + pvalue_lower
+```
+
+## Question 5
+
+Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7, with se = 10.0.
+
+a)  Show that t = 1.95 and P-value = 0.051 for Jones. Show that t = 1.97 and P-value = 0.049 for Smith.
+
+### Jones
+
+```{r}
+#first calculating t-value for Jones
+t_stat_Jones <- (519.5 - 500)/(10)
+t_stat_Jones
+df <- 1000-1
+#now we calculate p value for Jones
+
+
+p_value_Jones <- 2*pt(t_stat_Jones,df, lower.tail = FALSE)
+p_value_Jones
+```
+
+### Smith
+
+```{r}
+#first calculating t-value for Smith
+t_stat_Smith <- (519.7 - 500)/(10)
+t_stat_Smith
+df <- 1000-1
+
+#now we calculate p value for Smith
+p_value_Smith <- 2*pt(t_stat_Smith,df, lower.tail = FALSE)
+p_value_Smith
+
+```
+
+b)Using α = 0.05, for each study indicate whether the result is "statistically significant."
+
+Answer : When they say 'statistically significant' it means the p-value is smaller than the 0.05. For Jones, the p-value is 0.051 which is greater than the 0.05 significance level. This means that it is not statistically significant and we cannot reject the null hypothesis.
+
+For Smith, the p-value is 0.049 which is smaller than the significance level. This means it is statistically significant and that we can reject the null hypothesis in favor of the alternative hypothesis.
+
+c)  Using this example, explain the misleading aspects of reporting the result of a test as "P ≤ 0.05" versus "P \> 0.05," or as "reject H0" versus "Do not reject H0 ," without reporting the actual P-value.
+
+Answer : One cannot assess the validity of the result if we do not provide the P-value and you cannot tell how close the p-value is to being significant. Since the values of Jones and Smith's is barely greater and lesser than 0.05 respectively, it is important to report the p-value because studies with very similar samples could report that the null should or should not be rejected. This could draw very different conclusions.
+
+## Question 6
+
+Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.
+
+gas_taxes \<- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.
+
+Answer :
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+```
+
+```{r}
+#Mean of taxes
+Mean_gastaxes <- mean(gas_taxes)
+Mean_gastaxes
+```
+
+```{r}
+t.test(gas_taxes, mu = 45, alternative = 'less')
+```
+
+The p-value is 0.03 at 95% confidence level. This is lesser than the 5% significance level. Therefore, this proves that we can reject the null hypothesis that the average tax per gallon was greater than or equal to 45 cents. We can say that the average tax per gallon of gas in the US in 2005 was less than 45 cents with 95% confidence.
