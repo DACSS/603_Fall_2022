@@ -4,7 +4,7 @@ author: "Steph Roberts"
 desription: "Final Project Draft 1. Introduction of research question, hypothesis, and descriptive statistics"
 date: "10/9/2022"
 format:
-  html:
+  pdf:
     toc: true
     code-fold: true
     code-copy: true
@@ -74,7 +74,7 @@ Outcome: 0(doesn't have diabetes) or 1 (has diabetes)
 
 
 ```{r}
-df<- read_csv("diabetes2.csv")
+df<- read_csv("_data/diabetes2.csv")
 dim(df)
 summary(df)
 head(df)
@@ -119,3 +119,13 @@ At a glance, this summary is more fitting after having cleaned our data. An aver
 
 ##Diagnostics
 
+
+
+
+notes
+from week 6 lecture video
+summary(lm(price ~ new + size, data = house)
+
+this is a multilinear regression that shows us when we control for house sie the influence of a new house on price is reduced. In other words, controlling for house sie, the "estimate" coefficient is smaller. It also tells us most new houses are larger, which means we should account for that when looking at new vs price. To check that correlation between sie and new, can use 
+cor.test(house$sie, house$new)
+it has a moderate positive correlation (0.38) and a very small p-value.
