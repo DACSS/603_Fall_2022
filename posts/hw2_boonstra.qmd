@@ -1,0 +1,196 @@
+---
+title: "Homework 2"
+author: "Nick Boonstra"
+date: "`r Sys.Date()`"
+editor: visual
+---
+
+# Question 1
+
+This question involves calculating 90% confidence intervals for data on mean wait time between heart surgery procedures being scheduled and the procedures being conducted for individuals in Ontario, Canada.
+
+The equation for calculating confidence intervals using the Student's t-distribution is as follows:
+
+$CI = \overline{x} \pm (t \times \frac{\sigma}{\sqrt{n}})$
+
+### Bypass subset
+
+Starting with the Bypass subset, we can fill in some of these values:
+
+$CI_{bypass} = 19 \pm (t \times \frac{10}{\sqrt{539}})$
+
+The t-quantile for the 90% confidence interval at 538 degrees of freedom is equal to `r qt(0.95,df=538)`, leaving us with the equation:
+
+$CI_{bypass} = 19 \pm (1.648 \times \frac{10}{\sqrt{539}})$
+
+This maths out to `r 19 - ( qt(0.95,df=538) * ( 10/sqrt(539) ) )` and `r 19 + ( qt(0.95,df=538) * ( 10/sqrt(539) ) )`.
+
+### Angiography subset
+
+Similarly, for the Angiography subset:
+
+$CI_{angiography} = 18 \pm (t \times \frac{9}{847} )$
+
+The t-quantile for the 90% confidence interval at 84 degrees of freedom is equal to `r qt(0.95,df=846)`, leaving us with the equation:
+
+$CI_{angiography} = 18 \pm (1.647 \times \frac{9}{847} )$
+
+This maths out to `r 18 - ( qt(0.95,df=846) * ( 9/sqrt(847) ) )` and `r 18 + ( qt(0.95,df=846) * ( 9/sqrt(847) ) )`.
+
+### Comparing subsets
+
+Between these two subsets, the 90% confidence interval is narrower for the Angiography subset:
+
+$CI_{bypass\_range} = CI_{bypass\_high} - CI_{bypass\_low}=$ `r (19 + ( qt(0.95,df=538) * ( 10/sqrt(539) ) )) - (19 - ( qt(0.95,df=538) * ( 10/sqrt(539) ) ))`
+
+$CI_{angiography\_range}=CI_{angiography\_high} - CI_{angiography\_low}=$ `r (18 + ( qt(0.95,df=846) * ( 9/sqrt(847) ) )) - (18 - ( qt(0.95,df=846) * ( 9/sqrt(847) ) ))`
+
+# Question 2
+
+### Point estimate
+
+The best point estimate that we can calculate, given that the sample can be considered to be representative, is the proportion of respondents who found a college education to be essential for success -- i.e. $\overline{x} = p = 567/1031 =$ `r 567/1031`, or roughly 55%.
+
+### 95% Confidence Interval
+
+In order to calculate a confidence interval, we must first calculate the standard deviation of the sample, since it is a component of the standard error calculation. We can do this fairly easily in `R` by creating a vector of the values of the survey responses, treating `1` as a response agreeing that a college education is essential for success, and a `0` as an opposite response.
+
+```{r essential vector}
+
+essential <- rep(c(1,0),times=c(567,(1031-567)))
+
+table_ess <- table(essential)
+table_ess
+
+mean_ess <- mean(essential)
+mean_ess
+
+sigma_ess <- sd(essential)
+sigma_ess
+
+```
+
+As sanity checks, I included a frequency table for the values, which matches the values given in the problem, and I also took the mean of the vector, which matches the point estimate given earlier. The last value, `r sd(essential)`, is the standard deviation of the vector.
+
+Once again, the equation for confidence intervals:
+
+$CI = \overline{x} \pm (t \times \frac{\sigma}{\sqrt{n}})$
+
+The t-quantile for the 95% confidence interval at 1030 degrees of freedom is equal to `r qt(0.975,df=1030)`, leaving us with the equation:
+
+$CI_{essential} = \frac{567}{1031} \pm (1.96 \times \frac{0.498}{\sqrt{1031}})$
+
+Solving this equation gives us lower and upper values of `r round(mean_ess - (qt(0.975,df=1030)*( sigma_ess / sqrt(1031) )),3)` and `r round(mean_ess + (qt(0.975,df=1030)*(sigma_ess/sqrt(1031))),3)`, respectively. The interpretation of this confidence interval is that, were we to representatively sample the U.S. adult population infinitely many times using the same methods that were used in conducting this survey, 95% of the sample means (i.e. the point estimates) we would obtain would be expected to fall between \~52% and \~58% of Americans believing that a college degree is essential for success.
+
+# Question 3
+
+This question involves solving the confidence interval equation -- or, more specifically, the standard error equation -- for an (ideal) sample size, given certain other parameters. The goal is to arrive at a sample size that will provide a confidence interval of $\pm \$5$ at a significance level of 5%. We can also think of this 5% significance level as a 95% confidence interval; the statements are equivalent.
+
+We start by taking the confidence interval equation:
+
+$CI = \overline{x} \pm (t \times \frac{\sigma}{\sqrt{n}})$
+
+We are going to focus our work on the $t \times \frac{\sigma}{\sqrt{n}}$ section of this equation. The fact that we do not have a population or sample mean to work with -- we have not even taken a sample yet! -- is a giveaway that we want to avoid the rest of the equation. All we know is that, whatever that mean *is*, we want its surrounding confidence interval to take on a value of $\pm \$5$ or less. Since $t \times \frac{\sigma}{\sqrt{n}}$ is the part of the confidence interval equation that takes the plus/minus, we can deduce that setting this expression equal to \$5 and solving for $n$ is the way to go. Put simply:
+
+$\$5 = t \times \frac{\sigma}{\sqrt{n}}$
+
+Solving this equation for n yields the following:
+
+$n = (\frac{\sigma t}{\$5})^2$
+
+The question tells us that the population standard deviation is believed to be one quarter of the difference between \$200 and \$30, or \$42.5. The exact t-quantile can't be solved for without knowing the degrees of freedom (n-1), but we can use 1.96 as a rough estimate of the value that the t-quantile approaches as degrees of freedom approach infinity. The resulting equation is:
+
+$n = (\frac{\$42.5 \times 1.96}{\$5})^2 = 277.56$
+
+Thus, we would want a sample size of at least 278 students to ensure a confidence interval of \$5 or less.
+
+# Question 4
+
+I am borrowing this `rnorm2` function form a very helpful StackOverflow post, [which can be found here](https://stackoverflow.com/questions/18919091/generate-random-numbers-with-fixed-mean-and-sd).
+
+```{r}
+
+set.seed(9)
+rnorm2 <- function(n,mean,sd) { mean+sd*scale(rnorm(n)) }
+fem_pay <- rnorm2(9,410,90)
+
+mean(fem_pay)
+sd(fem_pay)
+
+```
+
+## t-tests
+
+These tests operate under the assumption that female employees' pay data are randomly sampled and normally distributed.
+
+```{r}
+
+t.test(fem_pay,mu=500) # two-sided
+
+t.test(fem_pay,mu=500,alternative="less") # one-sided, H_0 mean is not less
+
+t.test(fem_pay,mu=500,alternative="greater") # one-sided, H_0 mean is not greater
+
+```
+
+### Part A
+
+From the first test, we can reject the null hypothesis that mean pay for female employees is equal to \$500 per week. This holds at the 5% significance level, with a p-value of less than 0.02, and a t-statistic of -3.
+
+### Part B
+
+From the second test, we get a p-value of less than 0.009, which enables us at the 5% significance level to reject the null hypothesis that mean pay for female employees is not less than \$500, and accept the alternative hypothesis that mean pay *is* less than \$500.
+
+### Part C
+
+From the third test, we get a p-value of greater than 0.99, which mean that we fail to reject the null hypothesis that mean pay for female employees is not greater than \$500.
+
+
+# Question 5
+
+### Part A
+```{r}
+
+#rnorm2 <- function(n,mean,sd) { mean+sd*scale(rnorm(n)) }
+
+sd <- 10.0 * sqrt(1000)
+sd
+
+jones <- rnorm2(1000,519.5,sd)
+smith <- rnorm2(1000,519.7,sd)
+
+
+
+t.test(jones,mu=500)
+t.test(smith,mu=500)
+
+
+```
+
+### Part B
+
+Jones' study would not be considered statistically significant at the 0.05 significance level, while Smith's would, because their p-values are greater than and less then 0.05, respectfully (if only by a small amount in both cases).
+
+
+### Part C
+
+Simply reporting whether or not $H_0$ is rejected in these cases would be very misleading without reporting the p-values themselves, as they would hide the fact that the two studies actually had very similar outcomes.
+
+
+# Question 6
+
+```{r}
+
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+t.test(gas_taxes,mu=45,alternative="less")
+
+
+```
+
+Based on these data, we would be able to reject the null hypothesis that gas taxes were not less than 45 cents per gallon, and accept the alternative hypothesis that they are less than 45 cents per gallon. This is because the p-value for the one-sided t-test above is less than 0.05.
+
+
+
+
+
