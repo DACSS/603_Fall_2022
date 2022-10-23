@@ -1,0 +1,189 @@
+---
+title: "Homework 2"
+author: "Kalimah Muhammad"
+desription: "CI and Hypothesis Testing"
+date: "10/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - Kalimah Muhammad
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Questions
+
+### 1.Cardiac Care Network - Wait Times for Cardiac Surgeries
+*Prompt: The time between the date a patient was recommended for heart surgery and the surgery date for cardiac patients in Ontario was collected by the Cardiac Care Network (“Wait Times Data Guide,” Ministry of Health and Long-Term Care, Ontario, Canada, 2006). The sample mean and sample standard deviation for wait times (in days) of patients for two cardiac procedures are given in the accompanying table. Assume that the sample is representative of the Ontario population.*
+
+**Construct the 90% confidence interval to estimate the actual mean wait time for each of the two procedures.** 
+
+#### Bypass Surgery Confidence Interval
+
+```{r}
+#calculate confidence interval for bypass surgery
+mean<- 19 #mean wait time
+sd<-10 #standard deviation
+n <-539 #sample size
+bypass_se <- (sd/sqrt(n)) # calculate sample standard error 
+conf_level <-0.9 #establish 90% confidence interval
+tail_area <- (1-conf_level)/2 #calculate tail area
+t_score<- qt(p=1-tail_area, df=n-1) #determine t-score
+bypass_CI <- c(mean - t_score* bypass_se,
+               mean + t_score* bypass_se) #calculate confidence interval
+print(bypass_CI)
+```
+
+The confidence interval (CI) for the average wait time for bypass surgery is between 18.29 and 19.71 days. 
+
+#### Angiography Confidence Interval
+
+```{r}
+#Calculate cofidence interval for angiography
+#mean= 18, sd=9, n=847
+mean_ag<- 18 #mean wait time
+sd_ag<-9 #standard deviation
+n_ag <-847 #sample size
+ag_se <- (sd_ag/sqrt(n)) # calculate sample standard error 
+conf_level <-0.9 #establish 90% confidence interval
+tail_area <- (1-conf_level)/2 #calculate tail area
+t_score_ag<- qt(p=1-tail_area, df=n-1) #determine t-score
+ag_CI <- c(mean_ag - t_score_ag* ag_se,
+               mean_ag + t_score_ag* ag_se) #calculate confidence interval
+print(ag_CI)
+```
+
+Meanwhile, the CI for the angiography mean wait time is between 17.36 and 18.63 days. 
+
+#### Is the confidence interval narrower for angiography or bypass surgery?
+
+```{r}
+19.70971-18.29029 #difference in bypass surgery CI range
+
+18.63874-17.36126 #difference in angiography CI range
+```
+
+The range in the confidence interval for angiography is 1.28 narrower than the bypass surgery, 1.42.
+
+***
+
+### 2. National Center for Public Policy - Is college essential for success?
+*Prompt: A survey of 1031 adult Americans was carried out by the National Center for Public Policy. Assume that the sample is representative of adult Americans. Among those surveyed, 567 believed that college education is essential for success.*
+**Find the point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success.Construct and interpret a 95% confidence interval for p.**
+
+```{r}
+#proportion of US adults who believe college is essential for success
+prop.test(567,1031,conf.level = 0.95)
+```
+The point estimate of the proportion of all adult Americans who believe that a college education is essential for success is 0.55. The confidence interval set at 95% ranges between 0.52 and 0.58.
+
+***
+
+### 3. Student Sample Size
+*Prompt: Suppose that the financial aid office of UMass Amherst seeks to estimate the mean cost of textbooks per semester for students. The estimate will be useful if it is within 5 dollars of the true population mean (i.e. they want the confidence interval to have a length of 10 dollars or less). The financial aid office is pretty sure that the amount spent on books varies widely, with most values between 30 dollars and 200 dollars. They think that the population standard deviation is about a quarter of this range (in other words, you can assume they know the population standard deviation).* **Assuming the significance level to be 5%, what should be the size of the sample?**
+
+```{r}
+#calculate the sample size
+pop_sd<-(200-30)/4
+critical_value<-1.96 #based off signigicance level of 5
+sample_size<- ((pop_sd*critical_value)/5)^2 
+print(sample_size)
+```
+The sample size should be 278 students to estimate the mean cost of textbooks per semester. 
+
+***
+
+### 4. Income for Union Workers
+*Prompt: According to a union agreement, the mean income for all senior-level workers in a large service company equals 500 per week. A representative of a women’s group decides to analyze whether the mean income μ for female employees matches this norm. For a random sample of nine female employees, ȳ = $410 and s = 90.*
+
+Test whether the mean income of female employees differs from $500 per week. Include assumptions, hypotheses, test statistic, and P-value. Interpret the result.
+Report the P-value for Ha : μ < 500. Interpret.
+Report and interpret the P-value for H a: μ > 500.
+(Hint: The P-values for the two possible one-sided tests must sum to 1.)
+
+
+```{r}
+sam_mean<-410
+mu<-500
+sam_sd<-90
+n<-9
+
+t_score<- (sam_mean-mu)/(sam_sd/(sqrt(n)))
+print(t_score)
+upper_tail<- pt(t_score, df=n-1, lower.tail = FALSE)
+print(upper_tail)
+lower_tail<- pt(t_score, df=n-1, lower.tail = TRUE)
+print(lower_tail)
+
+p_value<- upper_tail + lower_tail
+print(p_value)
+```
+
+***
+
+### 5. Jones and Smith
+*Prompt: Jones and Smith separately conduct studies to test H0: μ = 500 against Ha : μ ≠ 500, each with n = 1000. Jones gets ȳ = 519.5, with se = 10.0. Smith gets ȳ = 519.7 with se = 10.0.*
+
+```{r}
+mu<- 500 #hypothesized population mean
+j_mean<-519.5 #Jones's mean
+s_mean<-519.7 #Smith's mean
+n=1000 #sample size
+se<-10 #standard error
+```
+
+Show that t = 1.95 and P-value = 0.051 for Jones. 
+```{r}
+#calculate the t-score for Jones
+j_tscore<-(j_mean - mu)/se
+print(j_tscore)
+
+#calculate p-value for Jones
+j_pvalue<- pt(j_tscore, df=n-1, lower.tail = FALSE) *2
+print(j_pvalue)
+```
+
+Show that t = 1.97 and P-value = 0.049 for Smith.
+```{r}
+#calculate the t-score for Smith
+s_tscore<-(s_mean - mu)/se
+print(s_tscore)
+
+#calculate p-value for Smith
+s_pvalue<- pt(s_tscore, df=n-1, lower.tail = FALSE) *2
+print(s_pvalue)
+```
+
+**Using α = 0.05, for each study indicate whether the result is “statistically significant.” Using this example, explain the misleading aspects of reporting the result of a test as “P ≤ 0.05” versus “P > 0.05,” or as “reject H0” versus “Do not reject H0 ,” without reporting the actual P-value.**
+
+In Smith's test, the p-value of .049, less than 0.05, coupled with the significance level of 0.05 indicate a statistically significant result to reject the null hypothesis. However, the results from the Jones's test with a p-value of 0.052, greater than 0.05, indicates the results were not statistically significant and the null was retained. 
+
+Theses results can be misleading as the significance level impacts  how the p-values are referenced when under 0.05. P-values over 0.05 will typically retain the null, however p-values under 0.05 are influenced by the significance level to determine whether results are statistically significant to reject the null hypothesis.
+
+***
+
+### 6. US Gas Tax
+*Prompt:Are the taxes on gasoline very high in the United States? According to the American Petroleum Institute, the per gallon federal tax that was levied on gasoline was 18.4 cents per gallon. However, state and local taxes vary over the same period. The sample data of gasoline taxes for 18 large cities is given below in the variable called gas_taxes.*
+
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+**Is there enough evidence to conclude at a 95% confidence level that the average tax per gallon of gas in the US in 2005 was less than 45 cents? Explain.**
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+#t-test of average gas taxes from sample cities
+t.test(gas_taxes, alternative = c("less"), mu=45, conf.level = 0.95)
+```
+Yes, using the t-test to compare the sample mean (40.86) to the hypothesized population mean (45) at the confidence level of 95% resulted in a favorable conclusion that the sample average was less than 45 cents. 
