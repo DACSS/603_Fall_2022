@@ -293,56 +293,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>statedata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/correlatesofstatepolicyprojectv1_10.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning in file(file, "rt"): cannot open file '_data/
-correlatesofstatepolicyprojectv1_10.csv': No such file or directory</code></pre>
-</div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in file(file, "rt"): cannot open the connection</code></pre>
-</div>
 </div>
 <p>Specifying variables</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>statedata1 <span class="ot">=</span> <span class="fu">subset</span>(statedata, <span class="at">select =</span> <span class="fu">c</span>(policypriorityscore, econdev, pldvpag, urbrenen, year, state, poptotal, popfemale, nonwhite, soc_capital_ma, evangelical_pop, newimmig, popdensity, gsp_q, gini_coef, hsdiploma, educspend, nofelons, co2emissions, ideo, pollib_median,vst_ec, vst_soc, vavgec_low, vavgsoc_low))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>statedata1 <span class="ot">=</span> <span class="fu">subset</span>(statedata, <span class="at">select =</span> <span class="fu">c</span>(policypriorityscore, econdev, pldvpag, urbrenen, year, state, poptotal, popfemale, nonwhite, soc_capital_ma, evangelical_pop, newimmig, popdensity, gsp_q, gini_coef, hsdiploma, educspend, nofelons, co2emissions, ideo, pollib_median,vst_ec, vst_soc, vavgec_low, vavgsoc_low))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in subset(statedata, select = c(policypriorityscore, econdev, pldvpag, : object 'statedata' not found</code></pre>
-</div>
 </div>
 <p>Specifying date range</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">subset</span>(statedata1, year<span class="sc">&gt;</span><span class="dv">1934</span> <span class="sc">&amp;</span> year<span class="sc">&lt;</span><span class="dv">2001</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">subset</span>(statedata1, year<span class="sc">&gt;</span><span class="dv">1934</span> <span class="sc">&amp;</span> year<span class="sc">&lt;</span><span class="dv">2001</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in subset(statedata1, year &gt; 1934 &amp; year &lt; 2001, na.rm = TRUE): object 'statedata1' not found</code></pre>
-</div>
 </div>
 <p>Descriptive statistics</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>function (x, na.rm = FALSE)  </code></pre>
+<pre><code>'data.frame':   3366 obs. of  25 variables:
+ $ policypriorityscore: num  NA NA NA NA NA NA NA NA NA NA ...
+ $ econdev            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ pldvpag            : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ urbrenen           : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ year               : int  1935 1936 1937 1938 1939 1940 1941 1942 1943 1944 ...
+ $ state              : chr  "Alaska" "Alaska" "Alaska" "Alaska" ...
+ $ poptotal           : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ popfemale          : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ nonwhite           : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ soc_capital_ma     : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ evangelical_pop    : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ newimmig           : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ popdensity         : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ gsp_q              : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ gini_coef          : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ hsdiploma          : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ educspend          : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ nofelons           : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ co2emissions       : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ ideo               : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ pollib_median      : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ vst_ec             : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ vst_soc            : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ vavgec_low         : num  NA NA NA NA NA NA NA NA NA NA ...
+ $ vavgsoc_low        : num  NA NA NA NA NA NA NA NA NA NA ...</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>function (x, na.rm = FALSE)  </code></pre>
+<pre><code>Rows: 3,366
+Columns: 25
+$ policypriorityscore &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ econdev             &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ pldvpag             &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ urbrenen            &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+$ year                &lt;int&gt; 1935, 1936, 1937, 1938, 1939, 1940, 1941, 1942, 19…
+$ state               &lt;chr&gt; "Alaska", "Alaska", "Alaska", "Alaska", "Alaska", …
+$ poptotal            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ popfemale           &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ nonwhite            &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ soc_capital_ma      &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ evangelical_pop     &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ newimmig            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ popdensity          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ gsp_q               &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ gini_coef           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ hsdiploma           &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ educspend           &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ nofelons            &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ co2emissions        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ ideo                &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ pollib_median       &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ vst_ec              &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ vst_soc             &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ vavgec_low          &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+$ vavgsoc_low         &lt;dbl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in object[[i]]: object of type 'closure' is not subsettable</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code> policypriorityscore    econdev           pldvpag          urbrenen     
+ Min.   :-0.2296     Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:-0.0372     1st Qu.:0.00000   1st Qu.:1.0000   1st Qu.:0.0000  
+ Median : 0.0144     Median :0.00000   Median :1.0000   Median :1.0000  
+ Mean   : 0.0093     Mean   :0.09364   Mean   :0.7703   Mean   :0.5327  
+ 3rd Qu.: 0.0638     3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:1.0000  
+ Max.   : 0.1987     Max.   :1.00000   Max.   :1.0000   Max.   :1.0000  
+ NA's   :2416        NA's   :66        NA's   :66       NA's   :66      
+      year         state              poptotal          popfemale       
+ Min.   :1935   Length:3366        Min.   :  100000   Min.   :  236763  
+ 1st Qu.:1951   Class :character   1st Qu.:  960954   1st Qu.:  645293  
+ Median :1968   Mode  :character   Median : 2600000   Median : 1900000  
+ Mean   :1968                      Mean   : 3892303   Mean   : 2692111  
+ 3rd Qu.:1984                      3rd Qu.: 4700000   3rd Qu.: 3100000  
+ Max.   :2000                      Max.   :34000000   Max.   :17000000  
+                                   NA's   :30         NA's   :3009      
+    nonwhite      soc_capital_ma    evangelical_pop    newimmig     
+ Min.   :0.0048   Min.   :-2.9133   Min.   : 1.10   Min.   :   159  
+ 1st Qu.:0.0785   1st Qu.:-0.4193   1st Qu.: 9.60   1st Qu.:  1518  
+ Median :0.1360   Median : 0.2357   Median :14.10   Median :  3973  
+ Mean   :0.1752   Mean   : 0.3108   Mean   :18.83   Mean   : 18447  
+ 3rd Qu.:0.2586   3rd Qu.: 1.0615   3rd Qu.:26.00   3rd Qu.: 11424  
+ Max.   :0.7130   Max.   : 3.0868   Max.   :74.00   Max.   :732735  
+ NA's   :2016     NA's   :2550      NA's   :2066    NA's   :2703    
+   popdensity            gsp_q           gini_coef        hsdiploma    
+ Min.   :   0.6496   Min.   :    993   Min.   :0.3215   Min.   : 0.00  
+ 1st Qu.:  31.2611   1st Qu.:  12325   1st Qu.:0.4324   1st Qu.:73.90  
+ Median :  85.3188   Median :  31568   Median :0.4667   Median :76.80  
+ Mean   : 163.7982   Mean   :  74118   Mean   :0.4766   Mean   :75.94  
+ 3rd Qu.: 165.7868   3rd Qu.:  83769   3rd Qu.:0.5147   3rd Qu.:80.80  
+ Max.   :1082.7000   Max.   :1300000   Max.   :0.7172   Max.   :91.80  
+ NA's   :2116        NA's   :1428      NA's   :48       NA's   :2054   
+   educspend          nofelons       co2emissions         ideo        
+ Min.   :    0.0   Min.   :     0   Min.   :  4.00   Min.   :-0.5806  
+ 1st Qu.:  816.2   1st Qu.:  4668   1st Qu.: 24.00   1st Qu.:-0.2157  
+ Median : 1809.5   Median : 15733   Median : 60.00   Median :-0.1392  
+ Mean   : 3421.9   Mean   : 34844   Mean   : 88.28   Mean   :-0.1364  
+ 3rd Qu.: 4058.0   3rd Qu.: 41280   3rd Qu.:107.50   3rd Qu.:-0.0625  
+ Max.   :35482.0   Max.   :499362   Max.   :669.00   Max.   : 0.4545  
+ NA's   :2054      NA's   :2805     NA's   :1275     NA's   :2129     
+ pollib_median          vst_ec          vst_soc         vavgec_low    
+ Min.   :-2.32065   Min.   :-0.367   Min.   :-0.379   Min.   :-0.387  
+ 1st Qu.:-0.66509   1st Qu.:-0.171   1st Qu.:-0.163   1st Qu.: 0.021  
+ Median :-0.07600   Median :-0.094   Median :-0.001   Median : 0.108  
+ Mean   :-0.01096   Mean   :-0.094   Mean   :-0.024   Mean   : 0.079  
+ 3rd Qu.: 0.68865   3rd Qu.:-0.047   3rd Qu.: 0.106   3rd Qu.: 0.174  
+ Max.   : 2.57199   Max.   : 0.147   Max.   : 0.357   Max.   : 0.290  
+ NA's   :114        NA's   :3319     NA's   :3319     NA's   :3319    
+  vavgsoc_low    
+ Min.   :-0.466  
+ 1st Qu.:-0.200  
+ Median :-0.093  
+ Mean   :-0.073  
+ 3rd Qu.: 0.052  
+ Max.   : 0.377  
+ NA's   :3319    </code></pre>
 </div>
 </div>
 
@@ -616,189 +709,189 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb15" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project 1"</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Ken Docekal"</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Final Project draft part 1"</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/10/2022"</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart1</span></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - desriptive statistics </span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - probability</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Research Question</span></span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>How much does state policy intervention impact future social and economic value preferences in residents?</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>While political values often explicitly inform social and economic policy actions taken by governments, policy actions themselves can also affect the development of the values of both program recipients and the greater public. Low-income recipients are assumed to benefit from, and therefore favor, state intervention and redistributive policies while upper income groups are assumed to be against but this is not always true, especially at the program level (Bueno et al.). Authors like Holland note that “the poor only have an economic interest in supporting social expenditures in contexts where they expect policies to redistribute resources or risks in their favor”. </span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>This study seeks to better understand the relationship between policy action and value formation at the sub-national level by looking at the effect of US state policy interventions on residents' subsequent policy preferences. By looking at how differences in US states’ social and economic policy intervention from 1936 to 2000 we can see how these factors may shape the subsequent policy values of residents. The dataset “Correlates of State Policy” includes variables which also allow us to better understand the role of differences in policy design and implementation by controlling for variables that may moderate impact, such as the length of policy implementation (Soss) and differences in economic interest (Ansell).</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>Sources:</span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>Ansell, Ben. 2014. “The Political Economy of Ownership." American Political Science Review</span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>108(02):383{402.</span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>Boehmke, Frederick J., and Paul Skinner. 2012. “State Policy Innovativeness Revisited.” State Politics and Policy Quarterly, 12(3):303-29.</span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>Bueno, Natalia and Nunes, Felipe and Zucco, Cesar, Making the bourgeoisie? Values, voice, and state-provided homeownership (January 7, 2022). SSRN. </span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>Caughey, Devin, and Christopher Warshaw. 2015. “The Dynamics of State Policy Liberalism, 1936–2014.” American Journal of Political Science, September. doi: 10.1111/ajps.12219.</span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>Holland, Alisha C. 2018. “Diminished Expectations: Redistributive preferences in truncated welfare states." World Politics 70(4):555{594</span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>Jacoby, William G., and Saundra K. Schneider. 2008. “A New Measure of Policy Spending Priorities in the American States.”  </span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>Jordan, Marty P. and Matt Grossmann. 2016. The Correlates of State Policy Project v.1.10. East Lansing, MI: Institute for Public Policy and Social Research (IPPSR).</span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>Rigby, Elizabeth and Gerald C. Wright. 2013. “Political Parties and Representation of the Poor in the American States.” American Journal of Political Science 57(3): 552-565.</span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>Soss, Joe. 1999. “Lessons of Welfare: Policy Design, Political Learning, and Political Action." The American Political Science Review 93(2):363{380.</span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis</span></span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>Increased state intervention increases US state residents’ preference for future interventions in social and economic policy.</span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>This study proposes to build on Bueno et al.’s exploration of the effects of state-provided home ownership on political values and policy preferences by exploring that relationship at the level of US states. Additionally, instead of focusing on a single social program, we will examine the cumulative effects of multiple policy interventions across 65 years in 50 US states. This will provide insights into the effect of public policy on value differences at the sub-national level and on different subgroups including program non-participants. We will be able to see how this relationship may vary according to state and population characteristics despite differences in policy design and implementation. </span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive Statistics</span></span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>This dataset is from the Correlates of State Policy Project by the Institute for Public Policy and Social Research at Michigan State University. The full dataset, which contains 928 variables and covers data from 1900 to 2016, draws from multiple sources including government agencies and peer-reviewed articles listed in the Sources section. Due to limited data coverage across all years however, this study will focus on the period from 1935 to 2000. We will examining the following 25 variables (listed with description and years available):</span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>Independent-</span>
-<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>Year  1935 - 2000</span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>State 1935 - 2000</span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>Econdev - Did State adopt Strategic Planning for Economic Development? 1981 – 1992</span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>Pldvpag - Did State adopt Planning/Development Agency? 1935 – 1978</span>
-<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a>Urbrenen - Did State adopt Urban Renewal ?  1941 – 1952 </span>
-<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>Pollib_median - State Policy Liberalism Score – Median  1936 – 2014</span>
-<span id="cb15-90"><a href="#cb15-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-91"><a href="#cb15-91" aria-hidden="true" tabindex="-1"></a>Policypriorityscore - State Policy Priority Score - collective goods (e.g., education and highways) v particularized benefits (e.g., health care and welfare)  1982-2005</span>
-<span id="cb15-92"><a href="#cb15-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-93"><a href="#cb15-93" aria-hidden="true" tabindex="-1"></a>Poptotal - Population Total  1900 – 2008 </span>
-<span id="cb15-94"><a href="#cb15-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-95"><a href="#cb15-95" aria-hidden="true" tabindex="-1"></a>Popfemale - Female Population  1994 – 2010 </span>
-<span id="cb15-96"><a href="#cb15-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-97"><a href="#cb15-97" aria-hidden="true" tabindex="-1"></a>Nonwhite - Proportion of the population that is nonwhite 1974 - 2011 </span>
-<span id="cb15-98"><a href="#cb15-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-99"><a href="#cb15-99" aria-hidden="true" tabindex="-1"></a>Soc_capital_ma - Hawes et al. Weighted Moving Average Measure of Social Capital 1984 - 2011</span>
-<span id="cb15-100"><a href="#cb15-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-101"><a href="#cb15-101" aria-hidden="true" tabindex="-1"></a>Evangelical_pop - Evangelical Population 1975 - 2013</span>
-<span id="cb15-102"><a href="#cb15-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-103"><a href="#cb15-103" aria-hidden="true" tabindex="-1"></a>Newimmig - New Immigrant Green Card Holders 1988 – 2011 </span>
-<span id="cb15-104"><a href="#cb15-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-105"><a href="#cb15-105" aria-hidden="true" tabindex="-1"></a>Popdensity - Population Density  1975 – 1999 </span>
-<span id="cb15-106"><a href="#cb15-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-107"><a href="#cb15-107" aria-hidden="true" tabindex="-1"></a>Gsp_q  -  Gross State Product Combined in Millions of 2016 Dollars   1963 – 2010</span>
-<span id="cb15-108"><a href="#cb15-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-109"><a href="#cb15-109" aria-hidden="true" tabindex="-1"></a>Gini_coef - Gini Coefficient 1917 - 2013</span>
-<span id="cb15-110"><a href="#cb15-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-111"><a href="#cb15-111" aria-hidden="true" tabindex="-1"></a>Hsdiploma  - High School Diploma 1975 – 2006</span>
-<span id="cb15-112"><a href="#cb15-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-113"><a href="#cb15-113" aria-hidden="true" tabindex="-1"></a>Educspend  - State Education Spending 1975 – 2001</span>
-<span id="cb15-114"><a href="#cb15-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-115"><a href="#cb15-115" aria-hidden="true" tabindex="-1"></a>Nofelons - Number of Felons Ineligible to Vote 1980 – 2010 </span>
-<span id="cb15-116"><a href="#cb15-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-117"><a href="#cb15-117" aria-hidden="true" tabindex="-1"></a>Co2emissions - Total CO2 emissions from fossil-fuels (metric tons)  1960 – 2001</span>
-<span id="cb15-118"><a href="#cb15-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-119"><a href="#cb15-119" aria-hidden="true" tabindex="-1"></a>Ideo - State Ideology Score 1976 – 2011</span>
-<span id="cb15-120"><a href="#cb15-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-121"><a href="#cb15-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-122"><a href="#cb15-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-123"><a href="#cb15-123" aria-hidden="true" tabindex="-1"></a>Dependent-</span>
-<span id="cb15-124"><a href="#cb15-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-125"><a href="#cb15-125" aria-hidden="true" tabindex="-1"></a>Vst_ec - Mean Economic Liberalism- All Voters 2000</span>
-<span id="cb15-126"><a href="#cb15-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-127"><a href="#cb15-127" aria-hidden="true" tabindex="-1"></a>Vst_soc - Mean Social Liberalism- All Voters 2000 </span>
-<span id="cb15-128"><a href="#cb15-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-129"><a href="#cb15-129" aria-hidden="true" tabindex="-1"></a>Vavgec_low -  Mean Economic Liberalism Score for Low Income Voting Citizens 2000</span>
-<span id="cb15-130"><a href="#cb15-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-131"><a href="#cb15-131" aria-hidden="true" tabindex="-1"></a>Vavgsoc_low  - Mean Social Liberalism Score for Low Income Voting Citizens 2000</span>
-<span id="cb15-132"><a href="#cb15-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-133"><a href="#cb15-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-134"><a href="#cb15-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-135"><a href="#cb15-135" aria-hidden="true" tabindex="-1"></a>Reading in dataset</span>
-<span id="cb15-136"><a href="#cb15-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-137"><a href="#cb15-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
-<span id="cb15-138"><a href="#cb15-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-139"><a href="#cb15-139" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb15-140"><a href="#cb15-140" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb15-141"><a href="#cb15-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-142"><a href="#cb15-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-143"><a href="#cb15-143" aria-hidden="true" tabindex="-1"></a>statedata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/correlatesofstatepolicyprojectv1_10.csv"</span>)</span>
-<span id="cb15-144"><a href="#cb15-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-145"><a href="#cb15-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-146"><a href="#cb15-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-147"><a href="#cb15-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-148"><a href="#cb15-148" aria-hidden="true" tabindex="-1"></a>Specifying variables</span>
-<span id="cb15-149"><a href="#cb15-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-150"><a href="#cb15-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
-<span id="cb15-151"><a href="#cb15-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-152"><a href="#cb15-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-153"><a href="#cb15-153" aria-hidden="true" tabindex="-1"></a>statedata1 <span class="ot">=</span> <span class="fu">subset</span>(statedata, <span class="at">select =</span> <span class="fu">c</span>(policypriorityscore, econdev, pldvpag, urbrenen, year, state, poptotal, popfemale, nonwhite, soc_capital_ma, evangelical_pop, newimmig, popdensity, gsp_q, gini_coef, hsdiploma, educspend, nofelons, co2emissions, ideo, pollib_median,vst_ec, vst_soc, vavgec_low, vavgsoc_low))</span>
-<span id="cb15-154"><a href="#cb15-154" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-155"><a href="#cb15-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-156"><a href="#cb15-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-157"><a href="#cb15-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-158"><a href="#cb15-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-159"><a href="#cb15-159" aria-hidden="true" tabindex="-1"></a>Specifying date range</span>
-<span id="cb15-160"><a href="#cb15-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-161"><a href="#cb15-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
-<span id="cb15-162"><a href="#cb15-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-163"><a href="#cb15-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-164"><a href="#cb15-164" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">subset</span>(statedata1, year<span class="sc">&gt;</span><span class="dv">1934</span> <span class="sc">&amp;</span> year<span class="sc">&lt;</span><span class="dv">2001</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ) </span>
-<span id="cb15-165"><a href="#cb15-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-166"><a href="#cb15-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-167"><a href="#cb15-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-168"><a href="#cb15-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-169"><a href="#cb15-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-170"><a href="#cb15-170" aria-hidden="true" tabindex="-1"></a>Descriptive statistics</span>
-<span id="cb15-171"><a href="#cb15-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-172"><a href="#cb15-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
-<span id="cb15-173"><a href="#cb15-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-174"><a href="#cb15-174" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sd)</span>
-<span id="cb15-175"><a href="#cb15-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-176"><a href="#cb15-176" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sd)</span>
-<span id="cb15-177"><a href="#cb15-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-178"><a href="#cb15-178" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sd)</span>
-<span id="cb15-179"><a href="#cb15-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-180"><a href="#cb15-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-181"><a href="#cb15-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb15-182"><a href="#cb15-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-183"><a href="#cb15-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-184"><a href="#cb15-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-185"><a href="#cb15-185" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project 1"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Ken Docekal"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Final Project draft part 1"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/10/2022"</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart1</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - desriptive statistics </span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - probability</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Research Question</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>How much does state policy intervention impact future social and economic value preferences in residents?</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>While political values often explicitly inform social and economic policy actions taken by governments, policy actions themselves can also affect the development of the values of both program recipients and the greater public. Low-income recipients are assumed to benefit from, and therefore favor, state intervention and redistributive policies while upper income groups are assumed to be against but this is not always true, especially at the program level (Bueno et al.). Authors like Holland note that “the poor only have an economic interest in supporting social expenditures in contexts where they expect policies to redistribute resources or risks in their favor”. </span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>This study seeks to better understand the relationship between policy action and value formation at the sub-national level by looking at the effect of US state policy interventions on residents' subsequent policy preferences. By looking at how differences in US states’ social and economic policy intervention from 1936 to 2000 we can see how these factors may shape the subsequent policy values of residents. The dataset “Correlates of State Policy” includes variables which also allow us to better understand the role of differences in policy design and implementation by controlling for variables that may moderate impact, such as the length of policy implementation (Soss) and differences in economic interest (Ansell).</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>Sources:</span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>Ansell, Ben. 2014. “The Political Economy of Ownership." American Political Science Review</span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>108(02):383{402.</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>Boehmke, Frederick J., and Paul Skinner. 2012. “State Policy Innovativeness Revisited.” State Politics and Policy Quarterly, 12(3):303-29.</span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>Bueno, Natalia and Nunes, Felipe and Zucco, Cesar, Making the bourgeoisie? Values, voice, and state-provided homeownership (January 7, 2022). SSRN. </span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>Caughey, Devin, and Christopher Warshaw. 2015. “The Dynamics of State Policy Liberalism, 1936–2014.” American Journal of Political Science, September. doi: 10.1111/ajps.12219.</span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>Holland, Alisha C. 2018. “Diminished Expectations: Redistributive preferences in truncated welfare states." World Politics 70(4):555{594</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>Jacoby, William G., and Saundra K. Schneider. 2008. “A New Measure of Policy Spending Priorities in the American States.”  </span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>Jordan, Marty P. and Matt Grossmann. 2016. The Correlates of State Policy Project v.1.10. East Lansing, MI: Institute for Public Policy and Social Research (IPPSR).</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a>Rigby, Elizabeth and Gerald C. Wright. 2013. “Political Parties and Representation of the Poor in the American States.” American Journal of Political Science 57(3): 552-565.</span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a>Soss, Joe. 1999. “Lessons of Welfare: Policy Design, Political Learning, and Political Action." The American Political Science Review 93(2):363{380.</span>
+<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis</span></span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a>Increased state intervention increases US state residents’ preference for future interventions in social and economic policy.</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>This study proposes to build on Bueno et al.’s exploration of the effects of state-provided home ownership on political values and policy preferences by exploring that relationship at the level of US states. Additionally, instead of focusing on a single social program, we will examine the cumulative effects of multiple policy interventions across 65 years in 50 US states. This will provide insights into the effect of public policy on value differences at the sub-national level and on different subgroups including program non-participants. We will be able to see how this relationship may vary according to state and population characteristics despite differences in policy design and implementation. </span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive Statistics</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a>This dataset is from the Correlates of State Policy Project by the Institute for Public Policy and Social Research at Michigan State University. The full dataset, which contains 928 variables and covers data from 1900 to 2016, draws from multiple sources including government agencies and peer-reviewed articles listed in the Sources section. Due to limited data coverage across all years however, this study will focus on the period from 1935 to 2000. We will examining the following 25 variables (listed with description and years available):</span>
+<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a>Independent-</span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a>Year  1935 - 2000</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a>State 1935 - 2000</span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a>Econdev - Did State adopt Strategic Planning for Economic Development? 1981 – 1992</span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a>Pldvpag - Did State adopt Planning/Development Agency? 1935 – 1978</span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a>Urbrenen - Did State adopt Urban Renewal ?  1941 – 1952 </span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>Pollib_median - State Policy Liberalism Score – Median  1936 – 2014</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>Policypriorityscore - State Policy Priority Score - collective goods (e.g., education and highways) v particularized benefits (e.g., health care and welfare)  1982-2005</span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>Poptotal - Population Total  1900 – 2008 </span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>Popfemale - Female Population  1994 – 2010 </span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a>Nonwhite - Proportion of the population that is nonwhite 1974 - 2011 </span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a>Soc_capital_ma - Hawes et al. Weighted Moving Average Measure of Social Capital 1984 - 2011</span>
+<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a>Evangelical_pop - Evangelical Population 1975 - 2013</span>
+<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a>Newimmig - New Immigrant Green Card Holders 1988 – 2011 </span>
+<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a>Popdensity - Population Density  1975 – 1999 </span>
+<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a>Gsp_q  -  Gross State Product Combined in Millions of 2016 Dollars   1963 – 2010</span>
+<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a>Gini_coef - Gini Coefficient 1917 - 2013</span>
+<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a>Hsdiploma  - High School Diploma 1975 – 2006</span>
+<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a>Educspend  - State Education Spending 1975 – 2001</span>
+<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a>Nofelons - Number of Felons Ineligible to Vote 1980 – 2010 </span>
+<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a>Co2emissions - Total CO2 emissions from fossil-fuels (metric tons)  1960 – 2001</span>
+<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a>Ideo - State Ideology Score 1976 – 2011</span>
+<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a>Dependent-</span>
+<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-125"><a href="#cb11-125" aria-hidden="true" tabindex="-1"></a>Vst_ec - Mean Economic Liberalism- All Voters 2000</span>
+<span id="cb11-126"><a href="#cb11-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-127"><a href="#cb11-127" aria-hidden="true" tabindex="-1"></a>Vst_soc - Mean Social Liberalism- All Voters 2000 </span>
+<span id="cb11-128"><a href="#cb11-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-129"><a href="#cb11-129" aria-hidden="true" tabindex="-1"></a>Vavgec_low -  Mean Economic Liberalism Score for Low Income Voting Citizens 2000</span>
+<span id="cb11-130"><a href="#cb11-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-131"><a href="#cb11-131" aria-hidden="true" tabindex="-1"></a>Vavgsoc_low  - Mean Social Liberalism Score for Low Income Voting Citizens 2000</span>
+<span id="cb11-132"><a href="#cb11-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-133"><a href="#cb11-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-134"><a href="#cb11-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-135"><a href="#cb11-135" aria-hidden="true" tabindex="-1"></a>Reading in dataset</span>
+<span id="cb11-136"><a href="#cb11-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-137"><a href="#cb11-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
+<span id="cb11-138"><a href="#cb11-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-139"><a href="#cb11-139" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb11-140"><a href="#cb11-140" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb11-141"><a href="#cb11-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-142"><a href="#cb11-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-143"><a href="#cb11-143" aria-hidden="true" tabindex="-1"></a>statedata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/correlatesofstatepolicyprojectv1_10.csv"</span>)</span>
+<span id="cb11-144"><a href="#cb11-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-145"><a href="#cb11-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-146"><a href="#cb11-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-147"><a href="#cb11-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-148"><a href="#cb11-148" aria-hidden="true" tabindex="-1"></a>Specifying variables</span>
+<span id="cb11-149"><a href="#cb11-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-150"><a href="#cb11-150" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
+<span id="cb11-151"><a href="#cb11-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-152"><a href="#cb11-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-153"><a href="#cb11-153" aria-hidden="true" tabindex="-1"></a>statedata1 <span class="ot">=</span> <span class="fu">subset</span>(statedata, <span class="at">select =</span> <span class="fu">c</span>(policypriorityscore, econdev, pldvpag, urbrenen, year, state, poptotal, popfemale, nonwhite, soc_capital_ma, evangelical_pop, newimmig, popdensity, gsp_q, gini_coef, hsdiploma, educspend, nofelons, co2emissions, ideo, pollib_median,vst_ec, vst_soc, vavgec_low, vavgsoc_low))</span>
+<span id="cb11-154"><a href="#cb11-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-155"><a href="#cb11-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-156"><a href="#cb11-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-157"><a href="#cb11-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-158"><a href="#cb11-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-159"><a href="#cb11-159" aria-hidden="true" tabindex="-1"></a>Specifying date range</span>
+<span id="cb11-160"><a href="#cb11-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-161"><a href="#cb11-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
+<span id="cb11-162"><a href="#cb11-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-163"><a href="#cb11-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-164"><a href="#cb11-164" aria-hidden="true" tabindex="-1"></a>sd <span class="ot">&lt;-</span> <span class="fu">subset</span>(statedata1, year<span class="sc">&gt;</span><span class="dv">1934</span> <span class="sc">&amp;</span> year<span class="sc">&lt;</span><span class="dv">2001</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span> ) </span>
+<span id="cb11-165"><a href="#cb11-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-166"><a href="#cb11-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-167"><a href="#cb11-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-168"><a href="#cb11-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-169"><a href="#cb11-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>Descriptive statistics</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=T}</span></span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sd)</span>
+<span id="cb11-175"><a href="#cb11-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-176"><a href="#cb11-176" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sd)</span>
+<span id="cb11-177"><a href="#cb11-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-178"><a href="#cb11-178" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sd)</span>
+<span id="cb11-179"><a href="#cb11-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-180"><a href="#cb11-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-181"><a href="#cb11-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-182"><a href="#cb11-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-183"><a href="#cb11-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-184"><a href="#cb11-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-185"><a href="#cb11-185" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -194,7 +194,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Final Project Part 1</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Final Project Part 1</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
   <div class="quarto-categories">
     <div class="quarto-category">finalpart1</div>
   </div>
@@ -224,15 +224,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </header>
 
 <div class="cell">
-<details>
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="research-question" class="level2">
 <h2 class="anchored" data-anchor-id="research-question">Research Question:</h2>
@@ -249,72 +248,158 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="descriptive-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive Statistics:</h2>
 <div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#set wd to change file path so I can access data on my computer without adding to posts folder</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/emmarasmussen/Documents"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in setwd("/Users/emmarasmussen/Documents"): cannot change working directory</code></pre>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading in the data from google sheets</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_deauth</span>()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span><span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1fmxoA_bibvsxsvgRdVPCgMA7DkmJNZfxiWgLgCLcsOY/edit#gid=937778872"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span><span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1Hy2O3HxhZGF_fhu6jgmoC2ibWwJTlI7pQOESBOd4hTU/edit#gid=787918384"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"countypres_2000-2020.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'countypres_2000-2020.csv' does not exist in current working directory ('/home/runner/work/603_Fall_2022/603_Fall_2022/posts').</code></pre>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Changing fips code to character format and adding in leading zeros</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span> <span class="ot">&lt;-</span> <span class="fu">as.character</span>(coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span><span class="fu">mutate</span>(coviddf, <span class="at">FIPSNEW=</span><span class="fu">str_pad</span>(coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span>, <span class="dv">5</span>, <span class="at">pad =</span> <span class="st">"0"</span>))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coviddf, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 22
+   `Data as of`        `Start Date`        `End Date`          State County Na…¹
+   &lt;dttm&gt;              &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt; &lt;chr&gt;      
+ 1 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Anchorage …
+ 2 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Anchorage …
+ 3 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Anchorage …
+ 4 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Fairbanks …
+ 5 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Fairbanks …
+ 6 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Fairbanks …
+ 7 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Matanuska-…
+ 8 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Matanuska-…
+ 9 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AK    Matanuska-…
+10 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AL    Autauga Co…
+11 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AL    Autauga Co…
+12 2022-10-05 00:00:00 2020-01-01 00:00:00 2022-10-01 00:00:00 AL    Autauga Co…
+# … with 17 more variables: `Urban Rural Code` &lt;dbl&gt;, `FIPS State` &lt;dbl&gt;,
+#   `FIPS County` &lt;dbl&gt;, `FIPS Code` &lt;chr&gt;, Indicator &lt;chr&gt;,
+#   `Total deaths` &lt;dbl&gt;, `COVID-19 Deaths` &lt;dbl&gt;, `Non-Hispanic White` &lt;dbl&gt;,
+#   `Non-Hispanic Black` &lt;dbl&gt;,
+#   `Non-Hispanic American Indian or Alaska Native` &lt;dbl&gt;,
+#   `Non-Hispanic Asian` &lt;dbl&gt;,
+#   `Non-Hispanic Native Hawaiian or Other Pacific Islander` &lt;dbl&gt;, …
+# ℹ Use `colnames()` to see all variable names</code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(votedf, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in head(votedf, 12): object 'votedf' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Provisional_COVID-19_Deaths_by_County__and_Race_and_Hispanic_Origin.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error: 'Provisional_COVID-19_Deaths_by_County__and_Race_and_Hispanic_Origin.csv' does not exist in current working directory ('/home/runner/work/603_Fall_2022/603_Fall_2022/posts').</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coviddf, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in head(coviddf, 12): object 'coviddf' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#counting the number of distinct counties in df</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(votedf<span class="sc">$</span>county_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in list2(...): object 'votedf' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(coviddf<span class="sc">$</span><span class="st">"County Name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in list2(...): object 'coviddf' not found</code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>votedf<span class="sc">$</span>county_fips <span class="ot">&lt;-</span> <span class="fu">as.character</span>(votedf<span class="sc">$</span>county_fips)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span><span class="fu">mutate</span>(votedf, <span class="at">county_fipsNEW=</span><span class="fu">str_pad</span>(votedf<span class="sc">$</span>county_fips, <span class="dv">5</span>, <span class="at">pad =</span> <span class="st">"0"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(votedf, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 13
+    year state   state_po county_…¹ count…² office candi…³ party candi…⁴ total…⁵
+   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  2000 ALABAMA AL       AUTAUGA   1001    US PR… AL GORE DEMO…    4942   17208
+ 2  2000 ALABAMA AL       AUTAUGA   1001    US PR… GEORGE… REPU…   11993   17208
+ 3  2000 ALABAMA AL       AUTAUGA   1001    US PR… RALPH … GREEN     160   17208
+ 4  2000 ALABAMA AL       AUTAUGA   1001    US PR… OTHER   OTHER     113   17208
+ 5  2000 ALABAMA AL       BALDWIN   1003    US PR… AL GORE DEMO…   13997   56480
+ 6  2000 ALABAMA AL       BALDWIN   1003    US PR… GEORGE… REPU…   40872   56480
+ 7  2000 ALABAMA AL       BALDWIN   1003    US PR… RALPH … GREEN    1033   56480
+ 8  2000 ALABAMA AL       BALDWIN   1003    US PR… OTHER   OTHER     578   56480
+ 9  2000 ALABAMA AL       BARBOUR   1005    US PR… AL GORE DEMO…    5188   10395
+10  2000 ALABAMA AL       BARBOUR   1005    US PR… GEORGE… REPU…    5096   10395
+11  2000 ALABAMA AL       BARBOUR   1005    US PR… RALPH … GREEN      46   10395
+12  2000 ALABAMA AL       BARBOUR   1005    US PR… OTHER   OTHER      65   10395
+# … with 3 more variables: version &lt;dbl&gt;, mode &lt;chr&gt;, county_fipsNEW &lt;chr&gt;, and
+#   abbreviated variable names ¹​county_name, ²​county_fips, ³​candidate,
+#   ⁴​candidatevotes, ⁵​totalvotes
+# ℹ Use `colnames()` to see all variable names</code></pre>
 </div>
 </div>
 <div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(votedf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in summary(votedf): object 'votedf' not found</code></pre>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(votedf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      year         state             state_po         county_name       
+ Min.   :2000   Length:72617       Length:72617       Length:72617      
+ 1st Qu.:2004   Class :character   Class :character   Class :character  
+ Median :2012   Mode  :character   Mode  :character   Mode  :character  
+ Mean   :2011                                                           
+ 3rd Qu.:2020                                                           
+ Max.   :2020                                                           
+ county_fips           office           candidate            party          
+ Length:72617       Length:72617       Length:72617       Length:72617      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+ candidatevotes      totalvotes         version             mode          
+ Min.   :      0   Min.   :      0   Min.   :20220315   Length:72617      
+ 1st Qu.:    115   1st Qu.:   5175   1st Qu.:20220315   Class :character  
+ Median :   1278   Median :  11194   Median :20220315   Mode  :character  
+ Mean   :  10782   Mean   :  42514   Mean   :20220315                     
+ 3rd Qu.:   5848   3rd Qu.:  29855   3rd Qu.:20220315                     
+ Max.   :3028885   Max.   :4264365   Max.   :20220315                     
+ county_fipsNEW    
+ Length:72617      
+ Class :character  
+ Mode  :character  
+                   
+                   
+                   </code></pre>
 </div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coviddf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in summary(coviddf): object 'coviddf' not found</code></pre>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coviddf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Data as of           Start Date            End Date         
+ Min.   :2022-10-05   Min.   :2020-01-01   Min.   :2022-10-01  
+ 1st Qu.:2022-10-05   1st Qu.:2020-01-01   1st Qu.:2022-10-01  
+ Median :2022-10-05   Median :2020-01-01   Median :2022-10-01  
+ Mean   :2022-10-05   Mean   :2020-01-01   Mean   :2022-10-01  
+ 3rd Qu.:2022-10-05   3rd Qu.:2020-01-01   3rd Qu.:2022-10-01  
+ Max.   :2022-10-05   Max.   :2020-01-01   Max.   :2022-10-01  
+                                                               
+    State           County Name        Urban Rural Code   FIPS State   
+ Length:3495        Length:3495        Min.   :1.000    Min.   : 1.00  
+ Class :character   Class :character   1st Qu.:2.000    1st Qu.:18.00  
+ Mode  :character   Mode  :character   Median :4.000    Median :33.00  
+                                       Mean   :3.645    Mean   :30.47  
+                                       3rd Qu.:5.000    3rd Qu.:42.00  
+                                       Max.   :6.000    Max.   :56.00  
+                                                                       
+  FIPS County      FIPS Code          Indicator          Total deaths   
+ Min.   :  1.00   Length:3495        Length:3495        Min.   :   621  
+ 1st Qu.: 31.00   Class :character   Class :character   1st Qu.:  1690  
+ Median : 71.00   Mode  :character   Mode  :character   Median :  3284  
+ Mean   : 99.37                                         Mean   :  7163  
+ 3rd Qu.:121.00                                         3rd Qu.:  6990  
+ Max.   :840.00                                         Max.   :220829  
+                                                                        
+ COVID-19 Deaths   Non-Hispanic White Non-Hispanic Black
+ Min.   :  101.0   Min.   :0.0270     Min.   :0.0010    
+ 1st Qu.:  176.0   1st Qu.:0.6677     1st Qu.:0.0230    
+ Median :  364.0   Median :0.8300     Median :0.0690    
+ Mean   :  852.7   Mean   :0.7742     Mean   :0.1242    
+ 3rd Qu.:  844.0   3rd Qu.:0.9290     3rd Qu.:0.1800    
+ Max.   :31013.0   Max.   :1.0000     Max.   :0.7610    
+                   NA's   :3          NA's   :592       
+ Non-Hispanic American Indian or Alaska Native Non-Hispanic Asian
+ Min.   :0.0000                                Min.   :0.0010    
+ 1st Qu.:0.0020                                1st Qu.:0.0070    
+ Median :0.0040                                Median :0.0130    
+ Mean   :0.0214                                Mean   :0.0261    
+ 3rd Qu.:0.0100                                3rd Qu.:0.0280    
+ Max.   :0.8610                                Max.   :0.5170    
+ NA's   :1701                                  NA's   :1360      
+ Non-Hispanic Native Hawaiian or Other Pacific Islander    Hispanic     
+ Min.   :0.0000                                         Min.   :0.0030  
+ 1st Qu.:0.0000                                         1st Qu.:0.0220  
+ Median :0.0010                                         Median :0.0480  
+ Mean   :0.0023                                         Mean   :0.0987  
+ 3rd Qu.:0.0010                                         3rd Qu.:0.1090  
+ Max.   :0.2000                                         Max.   :0.9870  
+ NA's   :2183                                           NA's   :740     
+     Other        Urban Rural Description   Footnote           FIPSNEW         
+ Min.   :0.0010   Length:3495             Length:3495        Length:3495       
+ 1st Qu.:0.0090   Class :character        Class :character   Class :character  
+ Median :0.0150   Mode  :character        Mode  :character   Mode  :character  
+ Mean   :0.0174                                                                
+ 3rd Qu.:0.0220                                                                
+ Max.   :0.2410                                                                
+ NA's   :1633                                                                  </code></pre>
 </div>
 </div>
 <p>This data is going to require some tidying before merging. In the coviddf, each county is listed 3 times, (once per indicator) so I will likely filter out just the indicator “Distribution of COVID-19 deaths (%)” so each county is listed only once. Similarly, the votedf contains extra years. For my research, I am only concerned with 2016 data so I will filter out % voting for Trump in 2016 as a measure of political affiliation/partisanship. Then I will merge the two dfs based on county names (will also require some data tidying).</p>
@@ -599,86 +684,96 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Emma Rasmussen"</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project Part 1"</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/11/2022"</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart1</span></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question: </span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>Does political partisanship correlate with COVID-19 death rates?</span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>The COVID-19 pandemic became a political matter. Behaviors associated with COVID-19 prevention were adopted on partisan lines (masking, social distancing, and vaccine uptake). Early in the pandemic, mask mandates were protested in some communities. My research question is have these behaviors affected COVID-19 death rates along partisan lines? If so, public health interventions could target communities that may be higher risk for COVID-19 deaths based on political partisanship. </span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>I am thinking death toll would make the most sense to measure than infection rates as infection rates are constantly changing (other studies have looked at infection rates over waves of the pandemic, see this study from the Pew Research Center (Jones 2022)). I also think that one way to measure partisanship will be the 2020 county-level election results (% voting for Trump). In other words, my research is looking to see if (county-level) Trump support correlates with COVID-19 death rates. Both these variables can be found in county-level data sets so I can join multiple dataset with county name (or FIPS code) as the "key".</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>Other variables to consider at the county-level (confounding variables): vaccine (and booster) uptake, average age of population</span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis: </span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>While I came up with this research idea on my own, other organizations such as NPR (Wood and Brumfiel 2021) and the Pew Research Center ()have already tested this. For this project, I will use the most recent data I can find. I was hoping to consider the confounding variable of population density, for instance I am guessing more urban populations will tend to vote democratic but these more densely populated places may also have higher infection rates. However, I cannot find any county level population density data sets, so I may use the "Urban Rural Description" variable in one of my datasets.</span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>H0: B1 (and all beta values) is zero. There is no correlation</span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>Ha: B1 (or any beta value) is not zero. There is a correlation between partisanship and COVID-19 death rates. </span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Statistics: </span></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a><span class="co">#set wd to change file path so I can access data on my computer without adding to posts folder</span></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/Users/emmarasmussen/Documents"</span>)</span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"countypres_2000-2020.csv"</span>)</span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(votedf, <span class="dv">12</span>)</span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"Provisional_COVID-19_Deaths_by_County__and_Race_and_Hispanic_Origin.csv"</span>)</span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coviddf, <span class="dv">12</span>)</span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a><span class="co">#counting the number of distinct counties in df</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(votedf<span class="sc">$</span>county_name)</span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="fu">n_distinct</span>(coviddf<span class="sc">$</span><span class="st">"County Name"</span>)</span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(votedf)</span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coviddf)</span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a>This data is going to require some tidying before merging. In the coviddf, each county is listed 3 times, (once per indicator) so I will likely filter out just the indicator "Distribution of COVID-19 deaths (%)" so each county is listed only once. Similarly, the votedf contains extra years. For my research, I am only concerned with 2016 data so I will filter out % voting for Trump in 2016 as a measure of political affiliation/partisanship. Then I will merge the two dfs based on county names (will also require some data tidying).</span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-72"><a href="#cb20-72" aria-hidden="true" tabindex="-1"></a>The votedf was compiled by the MIT Election Data and Science Lab. It was first published in 2018 and has been updated with the 2020 election. It contains county-level presidential election data beginning in 2000 and going up to the 2020 election. The data has 12 columns, and 72,617 rows (many of which I will filter out before conducting analysis.) There are 1,892 distinct county names in the data set. </span>
-<span id="cb20-73"><a href="#cb20-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a>The coviddf only has 857 unique county names in the data frame. This may be because not all counties reported COVID-19 death counts. When I join the data sets, I will join so as to only include observations that we have information from both data frames. The coviddf is provisional, meaning that it is consistently updated (I believe on a weekly basis) with current COVID-19 death toll data. It is likely compiled by counties/towns reporting these numbers to the CDC. This data has limitations, not all counties report this, and not all report it accurately/ attribute COVID-19 as the true cause of death in all circumstances. Using the summary function, we can see the "mean" COVID-19 deaths by county is 852.7, however this isn't super meaningful given each county has this reported 3 times in the data and the median is significantly lower. Statistics provided by the summary function will be more meaningful once the data is tidied.  </span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
-<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>Jones, B. (2022). The Changing Political Geography of COVID-19 Over the Last Two Years. Pew Research Center. March 3, 2022. https://www.pewresearch.org/politics/2022/03/03/the-changing-political-geography-of-covid-19-over-the-last-two-years/</span>
-<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a>MIT Election Data and Science Lab. (2021) County Presidential Election Returns 2000-2020. Accessed from the Harvard Dataverse <span class="co">[</span><span class="ot">October 11, 2022</span><span class="co">]</span>. https://doi.org/10.7910/DVN/VOQCHQ</span>
-<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a>National Center for Health Statistics. (2022). Provisional COVID-19 Deaths by County, and Race and Hispanic Origin. Accessed from the Centers for Disease Control <span class="co">[</span><span class="ot">October 11, 2022</span><span class="co">]</span>. https://data.cdc.gov/d/k8wy-p9cg</span>
-<span id="cb20-82"><a href="#cb20-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-83"><a href="#cb20-83" aria-hidden="true" tabindex="-1"></a>Wood, D. and Brumfiel, G. (2021). Pro-Trump counties now have far higher COVID death rates. Misinformation is to blame. NPR. December 5, 2021. https://www.npr.org/sections/health-shots/2021/12/05/1059828993/data-vaccine-misinformation-trump-counties-covid-death-rate</span>
-<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Need to add italics to references</span><span class="co">]</span></span>
+<div class="sourceCode" id="cb11" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Emma Rasmussen"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project Part 1"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/11/2022"</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart1</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4)</span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question: </span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>Does political partisanship correlate with COVID-19 death rates?</span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>The COVID-19 pandemic became a political matter. Behaviors associated with COVID-19 prevention were adopted on partisan lines (masking, social distancing, and vaccine uptake). Early in the pandemic, mask mandates were protested in some communities. My research question is have these behaviors affected COVID-19 death rates along partisan lines? If so, public health interventions could target communities that may be higher risk for COVID-19 deaths based on political partisanship. </span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>I am thinking death toll would make the most sense to measure than infection rates as infection rates are constantly changing (other studies have looked at infection rates over waves of the pandemic, see this study from the Pew Research Center (Jones 2022)). I also think that one way to measure partisanship will be the 2020 county-level election results (% voting for Trump). In other words, my research is looking to see if (county-level) Trump support correlates with COVID-19 death rates. Both these variables can be found in county-level data sets so I can join multiple dataset with county name (or FIPS code) as the "key".</span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>Other variables to consider at the county-level (confounding variables): vaccine (and booster) uptake, average age of population</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis: </span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>While I came up with this research idea on my own, other organizations such as NPR (Wood and Brumfiel 2021) and the Pew Research Center ()have already tested this. For this project, I will use the most recent data I can find. I was hoping to consider the confounding variable of population density, for instance I am guessing more urban populations will tend to vote democratic but these more densely populated places may also have higher infection rates. However, I cannot find any county level population density data sets, so I may use the "Urban Rural Description" variable in one of my datasets.</span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>H0: B1 (and all beta values) is zero. There is no correlation</span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>Ha: B1 (or any beta value) is not zero. There is a correlation between partisanship and COVID-19 death rates. </span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Statistics: </span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co">#Reading in the data from google sheets</span></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_deauth</span>()</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span><span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1fmxoA_bibvsxsvgRdVPCgMA7DkmJNZfxiWgLgCLcsOY/edit#gid=937778872"</span>)</span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span><span class="fu">read_sheet</span>(<span class="st">"https://docs.google.com/spreadsheets/d/1Hy2O3HxhZGF_fhu6jgmoC2ibWwJTlI7pQOESBOd4hTU/edit#gid=787918384"</span>)</span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="co">#Changing fips code to character format and adding in leading zeros</span></span>
+<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a>coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span> <span class="ot">&lt;-</span> <span class="fu">as.character</span>(coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span>)</span>
+<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a>coviddf<span class="ot">&lt;-</span><span class="fu">mutate</span>(coviddf, <span class="at">FIPSNEW=</span><span class="fu">str_pad</span>(coviddf<span class="sc">$</span><span class="st">"FIPS Code"</span>, <span class="dv">5</span>, <span class="at">pad =</span> <span class="st">"0"</span>))</span>
+<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(coviddf, <span class="dv">12</span>)</span>
+<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a>votedf<span class="sc">$</span>county_fips <span class="ot">&lt;-</span> <span class="fu">as.character</span>(votedf<span class="sc">$</span>county_fips)</span>
+<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a>votedf<span class="ot">&lt;-</span><span class="fu">mutate</span>(votedf, <span class="at">county_fipsNEW=</span><span class="fu">str_pad</span>(votedf<span class="sc">$</span>county_fips, <span class="dv">5</span>, <span class="at">pad =</span> <span class="st">"0"</span>))</span>
+<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(votedf, <span class="dv">12</span>)</span>
+<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(votedf)</span>
+<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(coviddf)</span>
+<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a>This data is going to require some tidying before merging. In the coviddf, each county is listed 3 times, (once per indicator) so I will likely filter out just the indicator "Distribution of COVID-19 deaths (%)" so each county is listed only once. Similarly, the votedf contains extra years. For my research, I am only concerned with 2016 data so I will filter out % voting for Trump in 2016 as a measure of political affiliation/partisanship. Then I will merge the two dfs based on county names (will also require some data tidying).</span>
+<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a>The votedf was compiled by the MIT Election Data and Science Lab. It was first published in 2018 and has been updated with the 2020 election. It contains county-level presidential election data beginning in 2000 and going up to the 2020 election. The data has 12 columns, and 72,617 rows (many of which I will filter out before conducting analysis.) There are 1,892 distinct county names in the data set. </span>
+<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a>The coviddf only has 857 unique county names in the data frame. This may be because not all counties reported COVID-19 death counts. When I join the data sets, I will join so as to only include observations that we have information from both data frames. The coviddf is provisional, meaning that it is consistently updated (I believe on a weekly basis) with current COVID-19 death toll data. It is likely compiled by counties/towns reporting these numbers to the CDC. This data has limitations, not all counties report this, and not all report it accurately/ attribute COVID-19 as the true cause of death in all circumstances. Using the summary function, we can see the "mean" COVID-19 deaths by county is 852.7, however this isn't super meaningful given each county has this reported 3 times in the data and the median is significantly lower. Statistics provided by the summary function will be more meaningful once the data is tidied.  </span>
+<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>Jones, B. (2022). The Changing Political Geography of COVID-19 Over the Last Two Years. Pew Research Center. March 3, 2022. https://www.pewresearch.org/politics/2022/03/03/the-changing-political-geography-of-covid-19-over-the-last-two-years/</span>
+<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a>MIT Election Data and Science Lab. (2021) County Presidential Election Returns 2000-2020. Accessed from the Harvard Dataverse <span class="co">[</span><span class="ot">October 11, 2022</span><span class="co">]</span>. https://doi.org/10.7910/DVN/VOQCHQ</span>
+<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a>National Center for Health Statistics. (2022). Provisional COVID-19 Deaths by County, and Race and Hispanic Origin. Accessed from the Centers for Disease Control <span class="co">[</span><span class="ot">October 11, 2022</span><span class="co">]</span>. https://data.cdc.gov/d/k8wy-p9cg</span>
+<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a>Wood, D. and Brumfiel, G. (2021). Pro-Trump counties now have far higher COVID death rates. Misinformation is to blame. NPR. December 5, 2021. https://www.npr.org/sections/health-shots/2021/12/05/1059828993/data-vaccine-misinformation-trump-counties-covid-death-rate</span>
+<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Need to add italics to references</span><span class="co">]</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
