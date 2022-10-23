@@ -5,7 +5,6 @@ date: "10/11/2022"
 format:
   html:
     toc: true
-    code-fold: true
     code-copy: true
     code-tools: true
 categories:
@@ -23,6 +22,8 @@ library(readxl)
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
+library(stringr)
+library(googlesheets4)
 ```
 
 ## Research Question: 
@@ -43,18 +44,27 @@ Ha: B1 (or any beta value) is not zero. There is a correlation between partisans
 
 ## Descriptive Statistics: 
 ```{r}
-#set wd to change file path so I can access data on my computer without adding to posts folder
-setwd("/Users/emmarasmussen/Documents")
-votedf<- read_csv("countypres_2000-2020.csv")
-head(votedf, 12)
+#Reading in the data from google sheets
+gs4_deauth()
 
-coviddf<- read_csv("Provisional_COVID-19_Deaths_by_County__and_Race_and_Hispanic_Origin.csv")
+votedf<-read_sheet("https://docs.google.com/spreadsheets/d/1fmxoA_bibvsxsvgRdVPCgMA7DkmJNZfxiWgLgCLcsOY/edit#gid=937778872")
+
+coviddf<-read_sheet("https://docs.google.com/spreadsheets/d/1Hy2O3HxhZGF_fhu6jgmoC2ibWwJTlI7pQOESBOd4hTU/edit#gid=787918384")
+```
+
+
+```{r}
+#Changing fips code to character format and adding in leading zeros
+coviddf$"FIPS Code" <- as.character(coviddf$"FIPS Code")
+coviddf<-mutate(coviddf, FIPSNEW=str_pad(coviddf$"FIPS Code", 5, pad = "0"))
 head(coviddf, 12)
 
-#counting the number of distinct counties in df
-n_distinct(votedf$county_name)
-n_distinct(coviddf$"County Name")
+votedf$county_fips <- as.character(votedf$county_fips)
+votedf<-mutate(votedf, county_fipsNEW=str_pad(votedf$county_fips, 5, pad = "0"))
+head(votedf, 12)
+
 ```
+
 
 ```{r}
 summary(votedf)
