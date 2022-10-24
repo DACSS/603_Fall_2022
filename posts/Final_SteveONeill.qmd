@@ -3,19 +3,20 @@ title: "Final Part 1"
 author: "Steve O'Neill"
 description: "Final Project - Check-in"
 date: "10/1/2022"
-df-print: paged
 format:
   html:
     toc: true
     code-fold: true
     code-copy: true
     code-tools: true
+    df-print: paged
 categories:
   - finalpart1
 ---
 
 ```{r echo=FALSE}
 #| label: setup
+#| output: false
 library(readxl)
 library(tidyverse)
 ```
@@ -36,7 +37,7 @@ Separately, two interesting studies have been done about racial disparities re: 
 
 I am not so much interested in the efficacy of the PPP or the racial make-up of PPP borrowers. But I am interested in their political affiliation, i.e. if they registered are Democrat or Republican. So, similarly to Chernenko & Scharfstein, I intend to use public-access data to cross-reference federal PPP data with state-level voter registration and corporation search data.
 
-A relevant paper I found after I started looking at this data - [*"Buying the Vote? The Economics of Electoral Politics and Small-Business Loans"*](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3) - does look at data from SBA and PPP loans and pit them against the hypothesis that "electoral considerations may have tilted the allocation of PPP funds toward firms in areas or industries that could have a significant impact on the results of the 2020 election".(Duchin & Hackney, 2021)
+A relevant paper I found after I started looking at this data - [*"Buying the Vote? The Economics of Electoral Politics and Small-Business Loans"*](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3) - does look at data from SBA and PPP loans and pit them against the hypothesis ====that "electoral considerations may have tilted the allocation of PPP funds toward firms in areas or industries that could have a significant impact on the results of the 2020 election".(Duchin & Hackney, 2021)
 
 That particular study measured political ad spending and FEC filings as indicators of electoral considerations and used the Partisan Voting Index (PVI) from the Cook Political National Report to find which states were "battleground" or solid-R states. PPP lending outcomes were compared with electoral considerations to find if the SBA (under Trump) preferred to give PPP loans to swing voters or members of the party "base" in anticipation of an upcoming general election.
 
@@ -75,20 +76,23 @@ ppp_data_dictionary
 
 ### PPP Data (Ohio)
 
-Importing the data of the actual PPP loans is pretty easy, although it gets clipped at 900k rows. This .csv contains just the PPP loans below \$150k - others are contained in a smaller spreadsheet that covers all 50 states, and will be part of my final project.
+Importing the data of the actual PPP loans is pretty easy. This .csv contains just the PPP loans below \$150k - others are contained in a smaller spreadsheet that covers all 50 states, and will be part of my final project.
 
 ```{r}
-ppp_all <- read_csv("_data/public_up_to_150k_9_220930.csv")
-ppp_all
+#ppp_all <- read_csv("_data/public_up_to_150k_9_220930.csv")
+#ppp_all
 ```
 
-It still seems to capture all of Ohio, because Ohio doesn't come last alphabetically:
+It still seems to capture all of Ohio, because Ohio doesn't come last alphabetically. But to manage it better I need to sample it to 200k rows. The code below is commented out because this is a one-time process. Henceforth, I will be working with the .csv I generated in this step.
 
 ```{r}
-ppp_ohio <- ppp_all %>% filter(BorrowerState == "OH")
-ppp_ohio
-```
+#ppp_ohio <- ppp_all %>% filter(BorrowerState == "OH")
+#ppp_ohio_sampled_10k <- ppp_ohio %>% sample_n(10000)
+#write_csv(ppp_ohio_sampled_10k, "_data/ppp_ohio_sampled_10k.csv")
 
+ppp_ohio <- read_csv("_data/ppp_ohio_sampled_10k.csv")
+
+```
 ### LLCs, Corporations
 
 Visually, you may notice that businesses and LLCs make up a majority of the loan recipients.
@@ -118,6 +122,8 @@ print(summarytools::dfSummary(ppp_ohio,
       table.classes = 'table-condensed')
 ```
 
+(Data below from unsampled, larger dataset)
+
 From a first look, most applicants reported only one employee needing coverage under the PPP. In fact, "Sole Proprietorship" was the highest category of `BusinessType`, above even LLCs, with 33.3%.
 
 19% of applicants were white, leading the race category, and 68% were unreported.
@@ -129,9 +135,15 @@ Median `ForgivenessAmount` was \$20,438.7, and most loans were forgiven in 2021.
 The Ohio voter registration data is easily read-in:
 
 ```{r}
-ohio_voters <- read_csv("_data/SWVF_1_22.txt")
-ohio_voters
+#ohio_voters <- read_csv("_data/SWVF_1_22.txt")
+#ohio_voters_sampled <- ohio_voters %>% sample_n(10000)
+#write_csv(ohio_voters_sampled, "_data/ohio_voters_sampled.csv")
+
+ohio_voters <- read_csv("_data/ohio_voters_sampled.csv")
+
 ```
+
+This is a 1gb+ file, which needs to be fully complete in order for the join of sampled PPP data. For the actual project, I will do that in a one-time process on my local computer. 
 
 Zip codes will let us know with high confidence that we are dealing with the same business owner even if names are duplicated.
 
@@ -152,9 +164,9 @@ print(summarytools::dfSummary(ohio_voters,
       table.classes = 'table-condensed')
 ```
 
-So - it seems like registered voters in our example of Ohio are slightly more Republican (by 2.8%), but a majority are undeclared.
+This sample of 10k is	46.3%	and 53.7% Republican.
 
-Ohio actually has open primaries which is a good reason to consider another state for this dataset. I'll be looking for others. But maybe, on the other hand, we can take `PARTY_AFFILIATION` to mean emphatic support for one party over another.
+Ohio actually has open primaries which is a good reason to consider another state for this dataset. I'll be looking for others.
 
 ## Next Steps
 
