@@ -1,0 +1,96 @@
+
+title: "HW 2 DACSS Eris Dodds"
+format:
+  html:
+    theme: default
+---
+
+### Question 1
+See Code
+
+```{r}
+bypass_mean<-19
+bypass_sd<-10
+bypass_size<-539
+standard_error_bypass<-bypass_sd/sqrt(bypass_size)
+confidence_level<-0.9
+tail_area<-(1-confidence_level)/2
+t_score<-qt(p = 1-tail_area, df = bypass_size-1)
+CI_bypass<-c(bypass_mean - t_score * standard_error_bypass, bypass_mean + t_score * standard_error_bypass)
+print(CI_bypass)
+anio_mean<-18
+anio_sd<-9
+anio_size<-847
+standard_error_anio<-anio_sd/sqrt(anio_size)
+tail_area_anio<-(1-confidence_level)/2
+t_score_anio<-qt(p = 1-tail_area_anio, df = anio_size)
+CI_anio<-c(anio_mean - t_score_anio * standard_error_anio, anio_mean + t_score_anio * standard_error_anio)
+print(CI_anio)
+```
+
+
+### Question 2
+PE<-.55
+Lower Limit = .52
+Upper Limit = .58
+
+```{r}
+pop<-567
+size<-1031
+PE<-pop/size
+prop.test(pop,size)
+```
+
+
+### Question 3
+
+```{r}
+(1.96)^2 *(42.5)^2/ (5)^2
+```
+
+### Question 4
+The p value is .049, showing it is statisitcally significant and we can reject the null. Other aspects to this question are verified within the code
+
+```{r}
+fem_size<-9
+fem_mean<-410
+null<-500
+sd<-90
+
+SE<-sd/sqrt(fem_size)
+t_score<-(fem_mean-null)/SE
+p_value<-(pt(t_score, df=9))*2
+upper_p<-(pt(t_score, df=8, lower.tail = FALSE))
+upper_p
+lower_p<-(pt(t_score, df=8, lower.tail = FALSE))
+lower_p
+```
+
+### Question 5
+a) see code
+b) Jones = .051 not significant, cannot reject null. Smith = .049 significant, reject null.
+c) Being broad about the direction of the p value, in this case, would overshadow how marginally significant and insignificant the p values actually came out to in this case. 
+
+```{r}
+jones_mean<-519.5
+smith_mean<-519.7
+jones_se<-10
+smith_se<-10
+null<-500
+jones_t<-(jones_mean-null)/jones_se
+jones_t
+smith_t<-(smith_mean-null)/smith_se
+smith_t
+jones_p<-pt(jones_t, df=999, lower.tail = FALSE)*2
+jones_p
+smith_p<-pt(smith_t, df=999, lower.tail = FALSE)*2
+smith_p
+```
+
+
+### Question 6
+The results of a t test show that the mean is less that 45, with a relatively small p value. We can have more confidence, then, that the average gas tax per gallon was less than .45 cents. 
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+t.test(gas_taxes, mu = 45, alternative = "less")
+```
