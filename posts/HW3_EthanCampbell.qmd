@@ -1,0 +1,236 @@
+---
+title: "Homework 3"
+author: "Ethan Campbell"
+desription: "Homework 3"
+date: "10/27/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+---
+
+---
+title: "Homework 3"
+format: html
+editor: visual
+---
+
+# Question 1
+
+United Nations (Data file: UN11in alr4) The data in the file UN11 contains several variables, including ppgdp, the gross national product per person in U.S. dollars, and fertility, the birth rate per 1000 females, both from the year 2009. The data are for 199 localities, mostly UN member countries, but also other areas such as Hong Kong that are not independent countries. The data were collected from the United Nations (2011). We will study the dependence of fertility on ppgdp.
+
+### 1.1.1. 
+
+Identify the predictor and the response.
+
+The predictor
+
+-   ppgdp
+
+The response
+
+-   Fertitlity
+
+The reason they are set up this way is because we are studying how ppgdp effects fertitlity this makes fertility dependent on ppgpd.
+
+## Reading in the data
+
+```{r}
+library(alr4)
+library(tidyverse)
+library(smss)
+library(ggplot2)
+
+
+# reading data
+data("UN11")
+
+# taking a quick look at data
+head(UN11)
+
+```
+
+### 1.1.2 
+
+Draw the scatterplot of fertility on the vertical axis versus ppgdp on the horizontal axis and summarize the information in this graph. Does a straight-line mean function seem to be plausible for a summary of this graph?
+
+```{r}
+# pulling the two variables that are needed
+UN <- UN11 %>%
+  select(c(ppgdp, fertility))
+
+head(UN)
+# Creating the graph comparing the two variables
+ggplot(data = UN, aes(x = ppgdp, y = fertility)) +
+geom_point(color = 'blue') +
+labs(title = "Fertility compared to PPGDP")
+
+
+# function for ggplot regression plotting
+
+ggplotRegression <- function (fit) {
+
+require(ggplot2)
+
+ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1])) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red") +
+  labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                     "Intercept =",signif(fit$coef[[1]],5 ),
+                     " Slope =",signif(fit$coef[[2]], 5),
+                     " P =",signif(summary(fit)$coef[2,4], 5)))
+}
+
+# regression with a log 
+A <- lm(fertility ~ ppgdp, data = UN)
+
+summary(A)
+
+# Here we can see why we would need to make adjustments as you can not go below 0 fertility
+
+ggplotRegression(lm(fertility ~ ppgdp, data = UN))
+
+
+
+```
+
+### Solution
+
+Based on the points on this graph it does not appear to be linear and there appears to be bend within this information. To determine if we could use that function it would be best to run a log function on the x and y axis. Looking at the regression plotted above we can see that the relationship shows a decrease as ppgdp grows however, it reaches a point where it goes negative in fertility which is impossible. This is why I would recommend using a log function.
+
+### 1.1.3 
+
+Draw the scatterplot of log(fertility) versus log(ppgdp) using natural logarithms. Does the simple linear regression model seem plausible for a summary of this graph? If you use a different base of logarithms, the shape of the graph won't change, but the values on the axes will change.
+
+```{r}
+# Creating the graph comparing the two variables
+ggplot(data = UN, aes(x = log(ppgdp), y = log(fertility))) +
+geom_point(color = 'blue') +
+  geom_smooth(method = lm) +
+labs(title = "Fertility compared to PPGDP")
+```
+
+### Solution
+
+Here we use the log on both of the variables and we notice that it allows us to utilize the regression correctly. Now we can show the relationship between these two variables and the line is linear.
+
+# Question 2
+
+Annual income, in dollars, is an explanatory variable in a regression analysis. For a British version of the report on the analysis, all responses are converted to British pounds sterling (1 pound equals about 1.33 dollars, as of 2016).
+
+### (a) 
+
+How, if at all, does the slope of the prediction equation change?
+
+Yes, the slope will change by 1.33 since this is rate at which it is changing and the conversion between the two values. The US version will increase by 1.33 times compared to the British version.
+
+### (b) 
+
+How, if at all, does the correlation change?
+
+The correlation should not change as the scale changes in relation to the amount.
+
+# Question 3
+
+Water runoff in the Sierras (Data file: water in alr4) Can Southern California's water supply in future years be predicted from past data? One factor affecting water availability is stream runoff. If runoff could be predicted, engineers, planners, and policy makers could do their jobs more efficiently. The data file contains 43 years' worth of precipitation measurements taken at six sites in the Sierra Nevada mountains (labeled APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE) and stream runoff volume at a site near Bishop, California, labeled BSAAM. Draw the scatterplot matrix for these data and summarize the information available from these plots. (Hint: Use the pairs() function.)
+
+```{r}
+data(water)
+
+head(water)
+
+# here is the pairs of each variable and we notice some correlation however, it is really hard to get a closer look here. 
+pairs(water,
+      bg = 'blue')
+
+# creating the regression to look closer 
+bsaam_water <- lm(BSAAM ~ APMAM + APSAB + APSLAKE + OPBPC + OPRC + OPSLAKE, data = water)
+
+# summary
+summary(bsaam_water)
+```
+
+### Solution
+
+Here we see that there are two variables that have a statistically significant relationship with BSAAM. These are OPRC and OPSLAKE each less than .05 however, questions regarding multicollinarity arise with this strong corrleation. The other variables such as the AP variables seem to also be correlated however, it does not appear as strongly as the two before. When looking at the range of residuals we notice a very large difference and this indicates that there may be some large and small outliers. This will effect the bests fitted line and lead to less robust analysis. When we are looking at the R\^2 we notice it is very high which means it is fairly well fitted as it is close to 1.00.
+
+# Question 4
+
+Professor ratings (Data file: Rateprof in alr4) In the website and online forum RateMyProfessors.com, students rate and comment on their instructors. Launched in 1999, the site includes millions of ratings on thousands of instructors. The data file includes the summaries of the ratings of 364 instructors at a large campus in the Midwest (Bleske-Rechek and Fritsch, 2011). Each instructor included in the data had at least 10 ratings over a several year period. Students provided ratings of 1--5 on quality, helpfulness, clarity, easiness of instructor's courses, and raterInterest in the subject matter covered in the instructor's courses. The data file provides the averages of these five ratings. Create a scatterplot matrix of these five variables. Provide a brief description of the relationships between the five ratings.
+
+```{r}
+data(Rateprof)
+head(Rateprof)
+
+Rates <- Rateprof %>%
+  select(quality, helpfulness, clarity, easiness, raterInterest)
+
+pairs(Rates)
+
+```
+
+### Solution
+
+Here we see a vary of different strengths of correlations these will be discussed one by one. These range from very weak correlation to very strong correlation which is interesting to see. These are all linear and positive.
+
+**Quality \~ Helpfulness -** Here we notice a strong correlation as the data is very linear. This data is also showing a very strong correlation in a positive direction.
+
+**Quality \~ Clarity-** Here we notice a strong correlation that is positive and linear.
+
+**Quality \~ Easiness-** Here we notice a weaker correlation compared to the last too but still a positive linear correlation.
+
+**Quality \~ RaterInterest-** Here we notice a weak correlation but still a positive linear correlation.
+
+**Easiness \~ RaterInterst -** Shows a very flat line which shows a very weak correlation.
+
+**Clarity \~ Easiness-** Shows a weak linear correlation.
+
+# Question 5
+
+For the student.survey data file in the smss package, conduct regression analyses relating (by convention, y denotes the outcome variable, x denotes the explanatory variable) (i) y = political ideology and x = religiosity, (ii) y = high school GPA and x = hours of TV watching.
+
+(You can use ?student.survey in the R console, after loading the package, to see what each variable means.)
+
+```{r}
+data(student.survey)
+SS <- student.survey
+head(SS)
+
+# getting the data that we will be working with and checking to see which each variable means
+#?student.survey
+
+SS <- SS %>%
+  select(hi, tv, pi, re)
+
+```
+
+### (a) Graphically portray how the explanatory variable relates to the outcome variable in each of the two cases
+
+```{r}
+# plotting the comparison between political ideology and religiosity
+SS_plot <- plot(pi~re, data = SS)
+
+
+# plotting the comparison between high school gpa and hours of tv watching
+
+ggplot(data = SS, aes(x = tv, y = hi)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+# making a table comparing these variabels
+xtabs(~pi+re, SS)
+
+summary(SS)
+```
+
+### (b) 
+
+Summarize and interpret results of inferential analyses.
+
+Here we notice that the more conservative you are the more likely you are to visit religious service on more occasions. However, this is not a very significant trend and it is hard to say with the graph alone. When looking into the xtabs comparing these two results we notice a similar shift there tends to be a higher number of liberals in the never and occasionally sections and then as it gets into most weeks and every week that number drops off quickly and slowly increases on the conservative side.
+
+We are also notice a very clear correlation with the hours of watching tv and the highschool gpa. Here we notice that the more hours spent watching tv the less likelu you are to have a higher gpa. There is a negative slope as it drops off between the 10-15 hour mark.
