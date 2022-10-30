@@ -1,0 +1,133 @@
+---
+title: "Homework 3"
+author: "Saaradhaa M"
+date: "10/28/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - hw3
+---
+
+# Qn 1.1.1
+
+The predictor is `ppgdp` and the response is `fertility`.
+
+# Qn 1.1.2
+
+```{r}
+# load libraries.
+library(tidyverse)
+library(alr4)
+library(smss)
+
+# load dataset.
+data(UN11)
+
+# draw scatterplot.
+scatterplot(fertility ~ ppgdp, UN11)
+```
+
+No, the graph seems curvilinear.
+
+# Qn 1.1.3
+
+```{r}
+# draw scatterplot.
+scatterplot (log(fertility) ~ log(ppgdp), UN11)
+```
+
+Yes, the simple linear regression model now seems plausible.
+
+# Qn 2a
+
+We can test this using the UN11 dataset since `ppgdp` is in US dollars.
+
+```{r}
+# create new variable.
+UN11$british <- 1.33*UN11$ppgdp
+
+# check slope.
+summary(lm(fertility ~ british, UN11))
+summary(lm(fertility ~ ppgdp, UN11))
+```
+
+The magnitude of the slope has reduced very slightly, although adjusted R\^2 has not.
+
+# Qn 2b
+
+We can test this too.
+
+```{r}
+# correlation with US dollars.
+cor(UN11$ppgdp, UN11$fertility)
+
+# correlation with British pounds.
+cor(UN11$british, UN11$fertility)
+```
+
+Since we multiplied by a constant, the correlation remains the same.
+
+# Qn 3
+
+```{r}
+# load dataset.
+data(water)
+
+# generate scatterplots.
+pairs(water)
+```
+
+Stream runoff (BSAAM) seems to have a positive linear relationship with precipitation at OPSLAKE, OPRC and OPBPC; but not with precipitation at APMAM, APSAB or APSLAKE. Stream runoff also seems to be fairly constant (?) over the years.
+
+# Qn 4
+
+```{r}
+# load dataset.
+data(Rateprof)
+
+# create subset.
+rateprof <- Rateprof %>% select(quality, helpfulness, clarity, easiness, raterInterest)
+
+# generate scatterplots.
+pairs(rateprof)
+```
+
+Quality, helpfulness and clarity have the clearest linear relationships with one another. Easiness and raterInterest do not seem to have linear relationships with the other variables.
+
+# Qn 5a
+
+```{r}
+# load dataset.
+data(student.survey)
+glimpse(student.survey)
+
+# generate plots.
+boxplot(pi ~ re, student.survey)
+scatterplot(hi ~ tv, student.survey)
+```
+
+-   Religiosity and conservatism seem to have a positive relationship.
+-   High school GPA and TV-watching seem to have a negative relationship.
+
+# Qn 5b
+
+```{r}
+# change pi to numeric variable.
+student.survey$pi <- as.numeric(student.survey$pi)
+
+# removing ordering in re and rename it.
+levels(student.survey$re) <- c("N", "O", "M", "E")
+student.survey$re <- factor(student.survey$re, ordered = FALSE)
+
+# run regression models.
+summary(lm(pi ~ re, student.survey))
+summary(lm(hi ~ tv, student.survey))
+```
+
+-   Those who attended religious services most weeks/every week were significantly more likely to be conservative than those who never did, *p* \< .001. There was no significant difference in political ideology between those who occasionally attended religious services and those who never did.
+-   Watching less hours of TV per week was associated with higher high-school GPAs, *p* \< .05. That being said, as the R^2^ is fairly low, hours of TV watching is not a great predictor of high school GPA.
