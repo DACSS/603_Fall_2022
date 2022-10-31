@@ -1,0 +1,146 @@
+---
+title: "Homework 3"
+author: "Caleb Hill"
+desription: "The third homework on regressions"
+date: "10/14/2022"
+format:
+  html: 
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - regression
+---
+
+# Question 1
+
+First, let's load the relevant libraries and set all the graph themes to minimal.
+
+```{r}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+library(alr4)
+library(smss)
+theme_minimal()
+```
+
+## 1.1.1
+
+For Question 1, let's load in the UN11 data-set and view the first few variables to verify we have loaded in the data.
+
+```{r}
+data(UN11)
+head(UN11)
+```
+
+For the sake of the following two subsections, the predictor is "ppgdp" and the response is "fertility." We are attempting to predict fertility but a country's PPGDP.
+
+## 1.1.2
+
+```{r}
+ggplot(UN11, aes(ppgdp, fertility)) +
+  geom_point()
+```
+
+A straight-line mean function does seem possible if you remove ppgdp that is less than $5,000. Otherwise, there is a sharp concentration of points at this range that might distort a straight-line mean.
+
+## 1.1.3
+
+```{r}
+ggplot(UN11, aes(log(ppgdp), log(fertility))) +
+  geom_point() + 
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE)
+```
+
+The simple linear regression would be much more plausible with this graph. We now see a negative association between fertility and ppgdp.The higher the fertility, the lower the ppgdp, and vice-versa.
+
+# Question 2
+## A
+
+```{r}
+ggplot(UN11, aes(log(ppgdp*1.33), log(fertility))) +
+  geom_point() +
+  stat_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE)
+```
+
+I don't think the slope has changed, but we can call a quick lm to see.
+
+```{r}
+lm(log(ppgdp) ~ log(fertility), UN11)
+lm(log(ppgdp*1.33) ~ log(fertility), UN11)
+```
+
+A little for the intercept, but not when mapped onto the outcome variable (ppgdp does not change its effect on fertility when currency changes).
+
+## B
+
+Therefore, the correlation does not change when adjusted from US dollars to British pounds.
+
+# Question 3
+
+Let's load in the water data-set.
+
+```{r}
+data(water)
+head(water)
+pairs(water)
+```
+
+As one can see on the last column, BSAAM, there are three highly positive correlations: OPBPC, OPRC, and OPSLAKE. The other four columns have a positive relationship, but nowhere near as correlated as these three. Indeed, from APSLAKE back, each variable becomes less and less correlated to BSAAM when moving from right to left.
+
+# Question 4
+
+```{r}
+data(Rateprof)
+head(Rateprof)
+Rateprof_new <- Rateprof %>%
+  select(quality,
+         helpfulness,
+         clarity,
+         easiness,
+         raterInterest)
+pairs(Rateprof_new)
+```
+
+Quality is highly correlated with helpfulness and clarity. Less so but still positive with easiness and raterInterest.
+
+# Question 5
+## A
+
+```{r}
+data(student.survey)
+head(student.survey)
+
+ggplot(student.survey, aes(re, pi)) +
+  geom_point() +
+  stat_smooth(method="lm", se=FALSE)
+
+ggplot(student.survey, aes(tv, hi)) +
+  geom_point() +
+  stat_smooth(method="lm", se=FALSE)
+```
+
+Due to the categorical nature for (i), it is very difficult to draw conclusions from this graph on how the explanatory variable relates to the outcome variable. There is a hint of a positive relationship, but that is just how the graph is coded. If political ideology was flipped (liberal to conservative from top to bottom), we would see an inverse relationship. Conservatives seem more likely to attend every week, while liberals never do.
+
+
+For (ii), we see that as an individual observes more tv per week, the lower the high school GPA is. If we removed the outliers, we might see a regression line where the explanatory variable explains more for the outcome variable, but that is not within the scope of this homework, nor is it immediately a best practice.
+
+## B
+
+```{r}
+lm(re ~ pi, student.survey)
+lm (tv ~ hi, student.survey)
+```
+
+The LM models are a little difficult to interpret, but I shall attempt to explain.
+
+For (i), the outcome variable (pi), is explained by the intercept codes. So a change in re (religiosity), accounts for varying differences for pi (political ideology). This can be a massive change, such as 2.05 for L or -0.30 for pi^5. I attempted to switch the variables in the LM model, as I was unsure if this was correct, and the issue persisted due to the categorical nature of the simple linear regression. Either I am still completing this wrong or the model is incorrect for the data provided - better a logistic regression perhaps.
+
+For (ii), one hour of TV on average explains a change of -3.91 in high school GPA. This shows a strong negative association between the two variables.
