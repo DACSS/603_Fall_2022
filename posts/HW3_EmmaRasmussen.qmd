@@ -1,0 +1,104 @@
+---
+title: "HW3_EmmaRasmussen"
+author: "Emma Rasmussen"
+date: "10/31/2022"
+format:
+  html:
+    toc: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(alr4)
+library(smss)
+library(stargazer)
+```
+## 1.1.1 
+The predictor is ppgdp, and the response variable is fertility. 
+## 1.1.2 
+```{r}
+data(list="UN11")
+
+plot(x=UN11$ppgdp, y=UN11$fertility)
+```
+A straight line function would not be a good model for this graph. It appears that ppgdp has the biggest impact on fertility towards the left side of the graph (closer to x=0). In other words, ppgd has the biggest impact on fertility in lower ppgdp values and then does not change as drastically as ppgdp gets even larger (right side of the graph).
+## 1.1.3 
+```{r}
+plot(x=log(UN11$ppgdp), y=log(UN11$fertility))
+
+```
+A logarithmic function makes a lot more sense for this data frame in order to apply a linear regression model. When both variables are logged, the data appears more linear and has a negative trend.
+
+## 2a 
+I created an example data frame to explore this question. According to the output of the lm() function, the slopes are different (the one multiplied by 1.33 has a greater slope). The plots appear to have the same slope, however the y scale is different which likely explains why the lm() function gives different slopes.
+```{r}
+dfexample<-data.frame(col1=c(2004, 2005, 2006, 2007, 2008, 2009, 2010),
+col2=c(50000, 56000, 70000, 68000, 58000, 72000, 80000),
+col3=col2*1.33)
+dfexample
+
+lm(col2~ col1, data=dfexample)
+lm(col3~ col1, data=dfexample)
+
+fit2<-lm(col2~ col1, data=dfexample)
+fit3<-lm(col3~ col1, data=dfexample)
+summary(fit2)
+summary(fit3)
+
+
+plot(x=dfexample$col1, y=dfexample$col2)
+plot(x=dfexample$col1, y=dfexample$col3)
+
+```
+
+## 2b  
+The correlation (adjusted R squared) is the same for both models. See above. 
+
+## 3 
+```{r}
+data(list="water")
+pairs(water[2:8])
+```
+I don't know if I am interpreting this correctly but using this matrix we can see which site correlates most closely with stream runoff (BSAAM). Using this matrix, we see there is a strong correlation between OPSLAKE, OPRC and OPBPC site precipitation and runoff. Perhaps precipitation measured at these sites could predict runoff. Moving forward, I might fit a models using those three sites to predict runoff at the site near bishop and figure out which model creates the best prediction (has the highest F statistic).
+
+## 4 
+```{r}
+data(list="Rateprof")
+pairs(Rateprof[8:12])
+```
+There is a strong positive correlation between quality and helpfulness, quality and clarity, and clarity and helpfulness. In other words, professors that rate high in one of these areas are likely to rate high in the others. easiness is less strongy correlated with quality, helpfulness and clarity, but there is still a positive relationship (i.e. professors with "easy" courses are more likely to rate higher in other categories but this trend is less strong). Finally, raterInterest does not predict the other ratings very well. Easiness does not appears to have much of a correlation with rater interest. There is a positive relationship between rater interest and quality, helpfulness, and clarity, but again it is not a strong relationship. 
+
+##5a
+```{r}
+data(list="student.survey")
+ggplot(student.survey, aes(x=re, y=pi)) +geom_point()
+
+ggplot(student.survey, aes(x= tv, y=hi))+geom_point()+geom_smooth(method="lm")
+```
+Political Affiliation and Religiosity: This graph is not super useful given there are multiple observations contained in each point on the graph but even so, it appears that more frequently attending religious services correlates with more conservative political ideology.
+
+TV and GPA: There appears to be a negative correlation between time spent watching tv and high school gpa. 
+
+##5b 
+```{r}
+student.survey
+lm(pi ~ re, data=student.survey)
+
+lm(formula= hi ~ tv, data=student.survey)
+```
+Political Affiliation and Religiosity: I have no idea what re.Q re.L and re.C is. Both categorical variables take on more than three possible values so I am guessing I have the wrong code. 
+
+TV and GPA: For every +1 hr spend watching tv per week, gpa decreases by 0.018. For a student that watches no tv in the week, their predicted gpa is 3.44.
