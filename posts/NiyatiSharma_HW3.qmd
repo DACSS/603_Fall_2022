@@ -1,0 +1,146 @@
+---
+title: "Homework 3"
+author: "Niyati Sharma"
+description: "Homework 3 - Regression Analysis"
+date: "10/31/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - Niyati Sharma
+  
+---
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(smss)
+library(alr4)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Answer 1
+```{r}
+# Load dataset
+data(UN11) 
+UN11
+# Select variables of focus
+UN11 <- UN11 %>%
+select(c(ppgdp, fertility)) 
+
+# Preview data
+head(UN11)
+```
+#a.
+ Predictor variable = ppgdp (gross national product per person, in US dollars) 
+ Response variable = fertility (birth rate per 1000 females).
+
+#b.
+```{r}
+mm1<-lm((UN11$fertility)~(UN11$ppgdp))
+
+```
+
+```{r}
+plot((UN11$fertility) ~ (UN11$ppgdp), data=UN11)
+abline(mm1,col="blue")
+```
+The graph shows there is a negative relation betweeb fertility and ppgdp. It is not exactly linear because increasing ppgdp only decreases fertility about the 10,000 point.
+#c.
+```{r}
+```
+
+
+```{r}
+mm2<-lm(log(UN11$fertility)~log(UN11$ppgdp))
+summary(mm1)
+```
+
+
+```{r}
+```
+
+```{r}
+plot(log(UN11$fertility) ~ log(UN11$ppgdp), data=UN11)
+abline(mm2,col="blue")
+```
+The log scatterplot shows a relationship that also looks negative slop but a bit closer to the linear regression.
+
+## Answer 2
+
+#a
+Change the currency from American dollars to British pounds i.e 1.66 * American dollar shifts the mean of the x-axis (explanatory variable) to increase while the mean of the y-axis (response variable) remains the same shows that the slope of the prediction equation would change.
+
+#b
+The correlation doesn't change,as the relative values of the variables remain unchanged.
+ 
+## Answer 3
+
+```{r}
+# load dataset 
+data(water)
+#create scatterplot matrix
+pairs(water)
+#calculate the summary
+summary(water)
+```
+Looking at scatterplots , we can say that APMAN,APSLAKE,APSAB lakes shows positive linear relationship with precipitation while the OPBPC,OPRC,OPSLAKE lakes seems to have one as well with each other. Also, it seems that the stream run-off variable BSAAM has a postive relationship to the OPBPC,OPRC,OPSLAKE lakes but no real notable relationship to the APMAN,APSLAKE,APSAB lakes.
+
+## Answer 4
+```{r}
+# load dataset and review
+data(Rateprof)
+head(Rateprof)
+# select the columns
+RP <- Rateprof %>% select(quality, helpfulness, clarity, easiness, raterInterest)
+# generate scatterplots.
+pairs(RP)
+```
+Referring to the scatterplot matrix of the average professor ratings for Quality, helpfulness and clarity have the positive have strong positive correlations with each other. Easiness and raterInterest do not seem to have linear relationships with the other variables.
+
+## Answer 5
+```{r}
+# load and preview data
+data(student.survey)
+head(student.survey)
+```
+# a
+```{r}
+# graph: x=religiosity, y=political ideology
+Student_survey <- select(student.survey,re, pi)
+  
+
+ggplot(data = Student_survey) +
+  geom_bar(mapping = aes(x = re, fill=pi)) +
+  labs(title = "Relationship between Religiosity and Political Ideology", x = "Religiosity (how often you attend services)", y = "Political Ideology (pi)") 
+
+```
+
+```{r}
+# graph: x=tv, y=hi
+Student_survey2 <- select(student.survey,tv, hi)
+
+ggplot(data = Student_survey2) +
+  geom_point(mapping = aes(x = tv, y = hi)) +
+  labs(title = "Relationship between Hours Watching TV and GPA", x = "Average Hours of TV watched per Week", y = "High School GPA")
+```
+# b
+
+```{r}
+# summary of both cases
+summary(Student_survey)
+
+summary(Student_survey2)
+```
+# interpretation of re and pi
+People attending religious services every week were significantly more likely to be conservative than those who never did. Both the religiosity and political ideology variables are skewed right, with significantly higher counts for “never” and “occasional” service attendance.
+
+# interpretation of tv and hi
+ The summary for the high school gpa suggests a relatively normal distribution, as the mean and median are similar and lie relatively in the center of the range.Watching less hours of TV per week was associated with higher high-school GPAs.There is a negative slope as it drops off between the 10-15 hour mark.
