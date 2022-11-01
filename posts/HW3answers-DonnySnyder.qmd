@@ -1,0 +1,142 @@
+---
+title: "Homework 3"
+author: "Donny Snyder"
+desription: "Homework 3 Submission"
+date: "10/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - regression
+---
+
+```{r}
+library(tidyverse)
+library(alr4)
+library(smss)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+```
+
+# Question 1
+
+```{r, echo=T}
+data <- UN11
+
+ggplot(data, aes(x = ppgdp, y = fertility)) + geom_point()
+ggplot(data, aes(x = log(ppgdp), y = log(fertility))) + geom_point()
+
+```
+
+#Question 1.1
+The predictor is ppgdp and the response is fertility.
+
+#Question 1.2
+A straight-line mean function does not seem to be plausible for this graph.
+
+#Question 1.3
+A simple linear regression model does seem plausible for a summary of the log log graph.
+
+```{r, echo=T}
+data$ppgdp2 <- data$ppgdp*0.75
+
+model1 <- lm(fertility ~ ppgdp, data)
+summary(model1)
+
+model2 <- lm(fertility ~ ppgdp2, data)
+summary(model2)
+
+cor(data$fertility, data$ppgdp)
+cor(data$fertility, data$ppgdp2)
+```
+
+# Question 2(a)
+The slope of the prediction equation will increase, as the units of the explanatory variable are decreased.
+
+# Question 2(b)
+The correlation will stay the same.
+
+# Question 3
+
+```{r, echo=T}
+watData <- water
+pairs(watData)
+ggpairs(watData)
+
+```
+OPBPC, OPRC, and OPSLAKE all seem to be highly correlated with BSAAM.
+
+# Question 4
+
+```{r, echo=T}
+profData <- Rateprof
+profData <- data.frame(profData$quality, profData$helpfulness, profData$clarity, profData$easiness, profData$raterInterest)
+pairs(profData)
+
+```
+It seems as if quality, helpfulness and clarity are all highly interrelated. easiness and raterInterest are not as highly correlated.
+
+#Question 5
+```{r, echo=T}
+stud <- as.data.frame(student.survey)
+
+stud$piNum <- NA
+stud$reNum <- NA
+
+x = 1
+while(x <= 60){
+  if(stud$pi[x] == "very liberal"){
+    stud$piNum[x] = -3
+  }
+  if(stud$pi[x] == "liberal"){
+    stud$piNum[x] = -2
+  }
+  if(stud$pi[x] == "slightly liberal"){
+    stud$piNum[x] = -1
+  }
+  if(stud$pi[x] == "moderate"){
+    stud$piNum[x] = 0
+  }
+  if(stud$pi[x] == "very conservative"){
+    stud$piNum[x] = 3
+  }
+  if(stud$pi[x] == "conservative"){
+    stud$piNum[x] = 2
+  }
+  if(stud$pi[x] == "slightly liberal"){
+    stud$piNum[x] = 1
+  }
+  
+  
+  if(stud$re[x] == "never"){
+    stud$reNum[x] = 0
+  }
+  if(stud$re[x] == "occasionally"){
+    stud$reNum[x] = 1
+  }
+  if(stud$re[x] == "most weeks"){
+    stud$reNum[x] = 2
+  }
+  if(stud$re[x] == "every week"){
+    stud$reNum[x] = 3
+  }
+  x = x + 1
+}
+
+model3 <- lm(piNum~reNum, stud)
+summary(model3)
+
+model4 <- lm(hi~tv, stud)
+summary(model4)
+
+ggplot(stud, aes(x = reNum, y = piNum)) + geom_jitter()
+
+ggplot(stud, aes(x = tv, y = hi)) + geom_jitter()
+
+```
+It seems like the results are that political ideology tends to be more right-leaning as religiosity increases. As hours of tv watching tends to go down, high school GPA tends to go up. These relationships are both statistically significant.
