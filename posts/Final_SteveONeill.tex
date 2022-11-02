@@ -1,0 +1,4238 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Final Part 1},
+  pdfauthor={Steve O'Neill},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Final Part 1}
+\author{Steve O'Neill}
+\date{10/1/2022}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[frame hidden, interior hidden, boxrule=0pt, breakable, sharp corners, enhanced, borderline west={3pt}{0pt}{shadecolor}]}{\end{tcolorbox}}\fi
+
+\renewcommand*\contentsname{Table of contents}
+{
+\hypersetup{linkcolor=}
+\setcounter{tocdepth}{3}
+\tableofcontents
+}
+\hypertarget{ppp-loans-party-affiliation-and-loan-forgiveness}{%
+\section{PPP Loans: Party Affiliation and Loan
+Forgiveness}\label{ppp-loans-party-affiliation-and-loan-forgiveness}}
+
+\hypertarget{introduction}{%
+\subsection{Introduction}\label{introduction}}
+
+By analyzing public Paycheck Protection Program data, I have the ability
+to examine correlations between PPP loan size, forgiveness status,
+business status, geographical location, and - most optimistically -
+political affiliation. In the United States, the PPP was introduced as
+an emergency economic measure in 2020 during the Covid-19 pandemic. As a
+massive direct-loan program, some have criticized it for lax oversight.
+
+PPP fraud is an important issue, but finding lawbreakers is probably
+better left to the Feds. Instead, I think there is room in the academic
+body of work to study political affiliation for loan recipients.
+
+\hypertarget{existing-work}{%
+\subsubsection{Existing Work}\label{existing-work}}
+
+There have already been many studies about the PPP focusing on overall
+economic impact and the emergence of non-traditional, non-bank lenders.
+
+Separately, two interesting studies have been done about racial
+disparities re: access to PPP loans, with one
+\href{https://www.nber.org/system/files/working_papers/w29748/w29748.pdf}{finding
+that Black-owned businesses in Florida were 25\% less likely to receive
+PPP funds} (Chernenko \& Scharfstein, 2022), and another finding even
+higher of a disparity (50\%) but taking note of mitigating factors
+(e.g.~access to ``fintech'' lending instead of traditional banks)
+\href{https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3774992}{(Atkins,
+Cook \& Seamans)}
+
+I am not so much interested in the efficacy of the PPP or the racial
+make-up of PPP borrowers. But I am interested in their political
+affiliation, i.e.~if they registered are Democrat or Republican. So,
+similarly to Chernenko \& Scharfstein, I intend to use public-access
+data to cross-reference federal PPP data with state-level voter
+registration and corporation search data.
+
+A relevant paper I found after I started looking at this data -
+\href{https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3}{\emph{``Buying
+the Vote? The Economics of Electoral Politics and Small-Business
+Loans''}} - does look at data from SBA and PPP loans and pit them
+against the hypothesis ====that ``electoral considerations may have
+tilted the allocation of PPP funds toward firms in areas or industries
+that could have a significant impact on the results of the 2020
+election''.(Duchin \& Hackney, 2021)
+
+That particular study measured political ad spending and FEC filings as
+indicators of electoral considerations and used the Partisan Voting
+Index (PVI) from the Cook Political National Report to find which states
+were ``battleground'' or solid-R states. PPP lending outcomes were
+compared with electoral considerations to find if the SBA (under Trump)
+preferred to give PPP loans to swing voters or members of the party
+``base'' in anticipation of an upcoming general election.
+
+Rather than aggregate-level state data, my analysis will compare
+individuals' \emph{personal} voter affiliation - if they are registered,
+and to which party - with their loan amount, forgiveness status, and
+other metrics.
+
+\hypertarget{research-question}{%
+\subsection{Research Question}\label{research-question}}
+
+I am still developing my research question, but a simple one could be:
+
+\textbf{How does political affiliation affect PPP loan forgiveness
+status?}
+
+The data for PPP loans is current available on
+\href{https://projects.propublica.org/coronavirus/bailouts/}{ProPublica},
+but not in a queryable way.
+
+Fortunately, the underlying data has been made public at
+https://data.sba.gov/dataset/ppp-foia.
+
+My hypotheses could be that:
+
+\textbf{\emph{Hypothesis 1 (H1): PPP loan forgiveness was given to
+registered Republicans more often than registered Democrats}}
+
+\textbf{\emph{Null Hypothesis (H0): There is no difference in loan
+forgiveness given to registered Democrats vs registered Republicans.}}
+
+In some ways this is similar to Duchin \& Hackney, but this benefits
+from a narrower look at who actually received PPP stimulus rather than
+eventual outcomes on the state level.
+
+Clearly a few effects that would need to be controlled for. For example,
+Republicans could be more likely to be \emph{in} any kind of business in
+the first place, confounding my results.
+
+Ideally, I would have focused on my home state of Massachusetts.
+However, although voter registration data is personally available in MA,
+you can't download it all in one .csv, and scraping the Commonwealth's
+website is not allowed. The National Conference of State Legislatures
+\href{https://www.ncsl.org/research/elections-and-campaigns/access-to-and-use-of-voter-registration-lists.aspx}{keeps
+track of which states have full voter registration data for download}.
+For now, I will use
+\href{https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD:::\#stwdVtrFiles}{Ohio}
+as an example (although later on I will explain why I could have chosen
+better):
+
+\hypertarget{ppp-data-dictionary}{%
+\subsubsection{PPP Data Dictionary}\label{ppp-data-dictionary}}
+
+To help understand which fields mean what, the PPP data comes with a
+``Data Dictionary'' with an explanation of columns {[}scroll right to
+see explanation{]}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ppp\_data\_dictionary }\OtherTok{\textless{}{-}} \FunctionTok{read\_excel}\NormalTok{(}\StringTok{"\_data/ppp{-}data{-}dictionary.xlsx"}\NormalTok{)}
+\NormalTok{ppp\_data\_dictionary}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.1783}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8217}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Field Name
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Field Description
+\end{minipage} \\
+\midrule()
+\endhead
+LoanNumber & Loan Number (unique identifier) \\
+DateApproved & Loan Funded Date \\
+SBAOfficeCode & SBA Origination Office Code \\
+ProcessingMethod & Loan Delivery Method (PPP for first draw; PPS for
+second draw) \\
+BorrowerName & Borrower Name \\
+BorrowerAddress & Borrower Street Address \\
+BorrowerCity & Borrower City \\
+BorrowerState & Borrower State \\
+BorrowerZip & Borrower Zip Code \\
+LoanStatusDate & Loan Status Date \\
+- Loan Status Date is blank when the loan is disbursed but not Paid In
+Full or Charged Off & \\
+LoanStatus & Loan Status Description \\
+- Loan Status is replaced by `Exemption 4' when the loan is disbursed
+but not Paid in Full or Charged Off & \\
+Term & Loan Maturity in Months \\
+SBAGuarantyPercentage & SBA Guaranty Percentage \\
+InitialApprovalAmount & Loan Approval Amount(at origination) \\
+CurrentApprovalAmount & Loan Approval Amount (current) \\
+UndisbursedAmount & Undisbursed Amount \\
+FranchiseName & Franchise Name \\
+ServicingLenderLocationID & Lender Location ID (unique identifier) \\
+ServicingLenderName & Servicing Lender Name \\
+ServicingLenderAddress & Servicing Lender Street Address \\
+ServicingLenderCity & Servicing Lender City \\
+ServicingLenderState & Servicing Lender State \\
+ServicingLenderZip & Servicing Lender Zip Code \\
+RuralUrbanIndicator & Rural or Urban Indicator (R/U) \\
+HubzoneIndicator & Hubzone Indicator (Y/N) \\
+LMIIndicator & LMI Indicator (Y/N) \\
+BusinessAgeDescription & Business Age Description \\
+ProjectCity & Project City \\
+ProjectCountyName & Project County Name \\
+ProjectState & Project State \\
+ProjectZip & Project Zip Code \\
+CD & Project Congressional District \\
+JobsReported & Number of Employees \\
+NAICSCode & NAICS 6 digit code \\
+Race & Borrower Race Description \\
+Ethnicity & Borrower Ethnicity Description \\
+UTILITIES\_PROCEED & Note: Proceed data is lender reported at
+origination. On the PPP application the proceeds fields were check
+boxes. \\
+PAYROLL\_PROCEED & NA \\
+MORTGAGE\_INTEREST\_PROCEED & NA \\
+RENT\_PROCEED & NA \\
+REFINANCE\_EIDL\_PROCEED & NA \\
+HEALTH\_CARE\_PROCEED & NA \\
+DEBT\_INTEREST\_PROCEED & NA \\
+BusinessType & Business Type Description \\
+OriginatingLenderLocationID & Originating Lender ID (unique
+identifier) \\
+OriginatingLender & Originating Lender Name \\
+OriginatingLenderCity & Originating Lender City \\
+OriginatingLenderState & Originating Lender State \\
+Gender & Gender Indicator \\
+Veteran & Veteran Indicator \\
+NonProfit & `Yes' if Business Type = Non-Profit Organization or
+Non-Profit Childcare Center or 501(c) Non Profit \\
+ForgivenessAmount & Forgiveness Amount \\
+ForgivenessDate & Forgiveness Paid Date \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{ppp-data-ohio}{%
+\subsubsection{PPP Data (Ohio)}\label{ppp-data-ohio}}
+
+Importing the data of the actual PPP loans is pretty easy. This .csv
+contains just the PPP loans below \$150k - others are contained in a
+smaller spreadsheet that covers all 50 states, and will be part of my
+final project.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ppp\_all \textless{}{-} read\_csv("\_data/public\_up\_to\_150k\_9\_220930.csv")}
+\CommentTok{\#ppp\_all}
+\end{Highlighting}
+\end{Shaded}
+
+It still seems to capture all of Ohio, because Ohio doesn't come last
+alphabetically. But to manage it better I need to sample it to 200k
+rows. The code below is commented out because this is a one-time
+process. Henceforth, I will be working with the .csv I generated in this
+step.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ppp\_ohio \textless{}{-} ppp\_all \%\textgreater{}\% filter(BorrowerState == "OH")}
+\CommentTok{\#ppp\_ohio\_sampled\_10k \textless{}{-} ppp\_ohio \%\textgreater{}\% sample\_n(10000)}
+\CommentTok{\#write\_csv(ppp\_ohio\_sampled\_10k, "\_data/ppp\_ohio\_sampled\_10k.csv")}
+
+\NormalTok{ppp\_ohio }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"\_data/ppp\_ohio\_sampled\_10k.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 10000 Columns: 53
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+chr (35): DateApproved, SBAOfficeCode, ProcessingMethod, BorrowerName, Borro...
+dbl (18): LoanNumber, Term, SBAGuarantyPercentage, InitialApprovalAmount, Cu...
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\hypertarget{llcs-corporations}{%
+\subsubsection{LLCs, Corporations}\label{llcs-corporations}}
+
+Visually, you may notice that businesses and LLCs make up a majority of
+the loan recipients.
+
+When I was preparing to do this project for Massachusetts - before I
+knew about the limitation of voter registration data in that state - I
+contacted the Secretary of the Commonwealth and they sent me a document
+with the entire ``Corporation Search'' data in tabular format, with the
+name of the founder, every board member, business type, year
+established, etc. I anticipated I would be able to match those
+individuals with the voter registration data, but that data was
+unfortunately available.
+
+The Corporation Search data would be essential to the successful
+completion of the project.
+
+I have not inquired yet, but assume Ohio will provide the same
+Corporation Search data. And if they do not, I will just pick another
+state that 1.) has public voter registration information, and 2.) can
+supply the Corporation Search data in .csv or .xlsx (as Massachusetts
+did).
+
+\hypertarget{deeper-looks}{%
+\subsubsection{Deeper Looks}\label{deeper-looks}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(ppp\_ohio)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 10,000
+Columns: 53
+$ LoanNumber                  <dbl> 8316258510, 2043838906, 2695968905, 786696~
+$ DateApproved                <chr> "03/09/2021", "04/26/2021", "04/27/2021", ~
+$ SBAOfficeCode               <chr> "0593", "0549", "0593", "0593", "0593", "0~
+$ ProcessingMethod            <chr> "PPS", "PPP", "PPS", "PPP", "PPP", "PPS", ~
+$ BorrowerName                <chr> "JASON MILLER", "JOHN HOLLY", "SHELLESSA D~
+$ BorrowerAddress             <chr> "1008 Gateway Dr", "3977 E 186th St", "42 ~
+$ BorrowerCity                <chr> "Dayton", "Cleveland", "Dayton", "HARRISON~
+$ BorrowerState               <chr> "OH", "OH", "OH", "OH", "OH", "OH", "OH", ~
+$ BorrowerZip                 <chr> "45404-2281", "44122-6757", "45417-3723", ~
+$ LoanStatusDate              <chr> "11/19/2021", "01/31/2022", "09/25/2021", ~
+$ LoanStatus                  <chr> "Paid in Full", "Paid in Full", "Paid in F~
+$ Term                        <dbl> 60, 60, 60, 24, 60, 60, 24, 60, 24, 60, 60~
+$ SBAGuarantyPercentage       <dbl> 100, 100, 100, 100, 100, 100, 100, 100, 10~
+$ InitialApprovalAmount       <dbl> 61859.00, 20833.33, 11414.00, 57540.00, 20~
+$ CurrentApprovalAmount       <dbl> 61859.00, 20833.33, 11414.00, 57540.00, 20~
+$ UndisbursedAmount           <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ~
+$ FranchiseName               <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ ServicingLenderLocationID   <dbl> 58322, 530223, 509316, 66851, 529472, 5803~
+$ ServicingLenderName         <chr> "Civista Bank", "American Lending Center",~
+$ ServicingLenderAddress      <chr> "100 E Water St", "1 World Trade Center, S~
+$ ServicingLenderCity         <chr> "SANDUSKY", "Long Beach", "Laguna Hills", ~
+$ ServicingLenderState        <chr> "OH", "CA", "CA", "TN", "TX", "OH", "PA", ~
+$ ServicingLenderZip          <chr> "44870-2524", "90831", "92653", "37030-120~
+$ RuralUrbanIndicator         <chr> "U", "U", "U", "U", "U", "U", "U", "U", "U~
+$ HubzoneIndicator            <chr> "N", "Y", "Y", "N", "N", "N", "N", "N", "N~
+$ LMIIndicator                <chr> "Y", "N", "Y", "N", "N", "N", "N", "N", "N~
+$ BusinessAgeDescription      <chr> "Existing or more than 2 years old", "Exis~
+$ ProjectCity                 <chr> "Dayton", "Cleveland", "Dayton", "HARRISON~
+$ ProjectCountyName           <chr> "MONTGOMERY", "CUYAHOGA", "MONTGOMERY", "H~
+$ ProjectState                <chr> "OH", "OH", "OH", "OH", "OH", "OH", "OH", ~
+$ ProjectZip                  <chr> "45404-2281", "44122-6757", "45417-3723", ~
+$ CD                          <chr> "OH-10", "OH-11", "OH-10", "OH-01", "OH-01~
+$ JobsReported                <dbl> 12, 1, 1, 14, 1, 1, 17, 1, 2, 1, 2, 1, 1, ~
+$ NAICSCode                   <dbl> 722410, 722320, 624110, 721110, 531210, 56~
+$ Race                        <chr> "White", "Unanswered", "Unanswered", "Unan~
+$ Ethnicity                   <chr> "Not Hispanic or Latino", "Unknown/NotStat~
+$ UTILITIES_PROCEED           <dbl> 1, NA, NA, NA, NA, 1, NA, NA, NA, 1, 1, NA~
+$ PAYROLL_PROCEED             <dbl> 61853.00, 20833.33, 11414.00, 57540.00, 20~
+$ MORTGAGE_INTEREST_PROCEED   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ RENT_PROCEED                <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ REFINANCE_EIDL_PROCEED      <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ HEALTH_CARE_PROCEED         <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ DEBT_INTEREST_PROCEED       <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ BusinessType                <chr> "Limited  Liability Company(LLC)", "Sole P~
+$ OriginatingLenderLocationID <dbl> 58322, 530223, 509316, 66851, 529472, 5803~
+$ OriginatingLender           <chr> "Civista Bank", "American Lending Center",~
+$ OriginatingLenderCity       <chr> "SANDUSKY", "Long Beach", "Laguna Hills", ~
+$ OriginatingLenderState      <chr> "OH", "CA", "CA", "TN", "TX", "OH", "PA", ~
+$ Gender                      <chr> "Male Owned", "Unanswered", "Unanswered", ~
+$ Veteran                     <chr> "Non-Veteran", "Unanswered", "Unanswered",~
+$ NonProfit                   <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA~
+$ ForgivenessAmount           <dbl> 62252.49, 20924.77, 11447.46, 57990.86, 20~
+$ ForgivenessDate             <chr> "10/26/2021", "10/06/2021", "08/20/2021", ~
+\end{verbatim}
+
+\texttt{ForgivenessAmount}, \texttt{ForgivenessDate}, and
+\texttt{BorrowerName} promise to be the most useful variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(summarytools}\SpecialCharTok{::}\FunctionTok{dfSummary}\NormalTok{(ppp\_ohio,}
+                        \AttributeTok{varnumbers =} \ConstantTok{FALSE}\NormalTok{,}
+                        \AttributeTok{plain.ascii  =} \ConstantTok{FALSE}\NormalTok{, }
+                        \AttributeTok{style        =} \StringTok{"grid"}\NormalTok{, }
+                        \AttributeTok{graph.magnif =} \FloatTok{0.70}\NormalTok{, }
+                        \AttributeTok{valid.col    =} \ConstantTok{FALSE}\NormalTok{),}
+      \AttributeTok{method =} \StringTok{\textquotesingle{}render\textquotesingle{}}\NormalTok{,}
+      \AttributeTok{table.classes =} \StringTok{\textquotesingle{}table{-}condensed\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+\textbf{Variable}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Stats / Values}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Freqs (\% of Valid)}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Graph}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Missing}
+\end{minipage} \\
+\midrule()
+\endhead
+LoanNumber {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 5492418880 (2600653757) \\
+min ≤ med ≤ max: \\
+1000358703 ≤ 5564758604 ≤ 9997128810 \\
+IQR (CV) : 4509922449 (0.5) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 10000 distinct values & & 0 (0.0\%) \\
+DateApproved {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 05/01/2020 \\
+2. 04/28/2020 \\
+3. 04/15/2020 \\
+4. 04/27/2020 \\
+5. 04/14/2020 \\
+6. 05/12/2021 \\
+7. 04/30/2020 \\
+8. 04/29/2020 \\
+9. 04/22/2021 \\
+10. 03/23/2021 \\
+{[} 212 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+724 & ( & 7.2\% & ) \\
+312 & ( & 3.1\% & ) \\
+265 & ( & 2.6\% & ) \\
+240 & ( & 2.4\% & ) \\
+179 & ( & 1.8\% & ) \\
+164 & ( & 1.6\% & ) \\
+155 & ( & 1.6\% & ) \\
+154 & ( & 1.5\% & ) \\
+150 & ( & 1.5\% & ) \\
+149 & ( & 1.5\% & ) \\
+7508 & ( & 75.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+SBAOfficeCode {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 0101 \\
+2. 0549 \\
+3. 0593 \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1 & ( & 0.0\% & ) \\
+4830 & ( & 48.3\% & ) \\
+5169 & ( & 51.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ProcessingMethod {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. PPP \\
+2. PPS \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+7835 & ( & 78.3\% & ) \\
+2165 & ( & 21.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BorrowerName {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. MICHAEL JOHNSON \\
+2. 16ELEVEN LLC \\
+3. ALL SERVICE AERATION \\
+4. ANDREW BRUSH \\
+5. ANTONIO JONES \\
+6. ASHLEY JACKSON \\
+7. BLUE FITNESS INC \\
+8. BRITTANY JONES \\
+9. BRITTNEY HAYWARD \\
+10. CAMERON JOHNSON \\
+{[} 9924 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+9979 & ( & 99.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BorrowerAddress {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 24 E North St \\
+2. 24455 Lake Shore Blvd \\
+3. 4503 Marburg Ave \\
+4. 4910 Tiedeman Dr \\
+5. 1 E Campus View Blvd \\
+6. 100 E Campus View Blvd St \\
+7. 100 E Wilson Bridge Rd \\
+8. 1005 W 3rd Ave \\
+9. 109 Elm St \\
+10. 11271 Reading Rd \\
+{[} 9911 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+2 & ( & 0.0\% & ) \\
+9976 & ( & 99.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BorrowerCity {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Cleveland \\
+2. Columbus \\
+3. Cincinnati \\
+4. Toledo \\
+5. Dayton \\
+6. CINCINNATI \\
+7. COLUMBUS \\
+8. Akron \\
+9. CLEVELAND \\
+10. Youngstown \\
+{[} 1299 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+693 & ( & 6.9\% & ) \\
+622 & ( & 6.2\% & ) \\
+493 & ( & 4.9\% & ) \\
+311 & ( & 3.1\% & ) \\
+255 & ( & 2.5\% & ) \\
+247 & ( & 2.5\% & ) \\
+225 & ( & 2.2\% & ) \\
+206 & ( & 2.1\% & ) \\
+123 & ( & 1.2\% & ) \\
+112 & ( & 1.1\% & ) \\
+6713 & ( & 67.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BorrowerState {[}character{]} & 1. OH &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+10000 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BorrowerZip {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 44145 \\
+2. 44124 \\
+3. 43215 \\
+4. 45011 \\
+5. 43017 \\
+6. 43065 \\
+7. 45238 \\
+8. 44095 \\
+9. 44139 \\
+10. 45242 \\
+{[} 8358 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+21 & ( & 0.2\% & ) \\
+20 & ( & 0.2\% & ) \\
+17 & ( & 0.2\% & ) \\
+17 & ( & 0.2\% & ) \\
+16 & ( & 0.2\% & ) \\
+16 & ( & 0.2\% & ) \\
+15 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+9836 & ( & 98.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+LoanStatusDate {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 03/22/2022 \\
+2. 11/17/2021 \\
+3. 01/06/2022 \\
+4. 08/17/2021 \\
+5. 09/28/2021 \\
+6. 09/25/2021 \\
+7. 10/21/2021 \\
+8. 11/20/2021 \\
+9. 10/20/2021 \\
+10. 10/15/2021 \\
+{[} 380 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+392 & ( & 4.5\% & ) \\
+258 & ( & 2.9\% & ) \\
+243 & ( & 2.8\% & ) \\
+240 & ( & 2.7\% & ) \\
+166 & ( & 1.9\% & ) \\
+159 & ( & 1.8\% & ) \\
+131 & ( & 1.5\% & ) \\
+130 & ( & 1.5\% & ) \\
+121 & ( & 1.4\% & ) \\
+102 & ( & 1.2\% & ) \\
+6844 & ( & 77.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 1214 (12.1\%) \\
+LoanStatus {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Exemption 4 \\
+2. Paid in Full \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1214 & ( & 12.1\% & ) \\
+8786 & ( & 87.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+Term {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 47.7 (17.2) \\
+min ≤ med ≤ max: \\
+0 ≤ 60 ≤ 75 \\
+IQR (CV) : 36 (0.4) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 28 distinct values & & 0 (0.0\%) \\
+SBAGuarantyPercentage {[}numeric{]} & 1 distinct value &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrlrl@{}}
+\toprule()
+\endhead
+100 & : & 10000 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+InitialApprovalAmount {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 26700 (28548) \\
+min ≤ med ≤ max: \\
+105 ≤ 20207 ≤ 252947 \\
+IQR (CV) : 16700 (1.1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 5789 distinct values & & 0 (0.0\%) \\
+CurrentApprovalAmount {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 26570.5 (28170.1) \\
+min ≤ med ≤ max: \\
+105 ≤ 20207 ≤ 149700 \\
+IQR (CV) : 16654.9 (1.1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 5803 distinct values & & 0 (0.0\%) \\
+UndisbursedAmount {[}numeric{]} & 1 distinct value &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrlrl@{}}
+\toprule()
+\endhead
+0 & : & 9998 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 2 (0.0\%) \\
+FranchiseName {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Subway \\
+2. Comfort Inn by Choice Hot \\
+3. H\&R Block - Franchise Lic \\
+4. Hot Head Burritos \\
+5. Vision Source \\
+6. Dunkin' Donuts \\
+7. Holiday Inn Express (Lice \\
+8. Orange Leaf Frozen Yogurt \\
+9. Wild Birds Unlimited \\
+10. Zoup! \\
+{[} 79 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+9 & ( & 8.2\% & ) \\
+3 & ( & 2.7\% & ) \\
+3 & ( & 2.7\% & ) \\
+3 & ( & 2.7\% & ) \\
+3 & ( & 2.7\% & ) \\
+2 & ( & 1.8\% & ) \\
+2 & ( & 1.8\% & ) \\
+2 & ( & 1.8\% & ) \\
+2 & ( & 1.8\% & ) \\
+2 & ( & 1.8\% & ) \\
+79 & ( & 71.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9890 (98.9\%) \\
+ServicingLenderLocationID {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 214404.3 (203525.1) \\
+min ≤ med ≤ max: \\
+4282 ≤ 79184 ≤ 538160 \\
+IQR (CV) : 441813 (0.9) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 327 distinct values & & 0 (0.0\%) \\
+ServicingLenderName {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. The Huntington National B \\
+2. Harvest Small Business Fi \\
+3. Prestamos CDFI, LLC \\
+4. Capital Plus Financial, L \\
+5. Fifth Third Bank \\
+6. Benworth Capital \\
+7. PNC Bank, National Associ \\
+8. JPMorgan Chase Bank, Nati \\
+9. U.S. Bank, National Assoc \\
+10. Cross River Bank \\
+{[} 314 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+846 & ( & 8.5\% & ) \\
+718 & ( & 7.2\% & ) \\
+624 & ( & 6.2\% & ) \\
+484 & ( & 4.8\% & ) \\
+442 & ( & 4.4\% & ) \\
+427 & ( & 4.3\% & ) \\
+377 & ( & 3.8\% & ) \\
+364 & ( & 3.6\% & ) \\
+352 & ( & 3.5\% & ) \\
+306 & ( & 3.1\% & ) \\
+5060 & ( & 50.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ServicingLenderAddress {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 17 S High St. \\
+2. 24422 Avenida de la Carlo \\
+3. 1024 East Buckeye Road Su \\
+4. 2247 Central Drive \\
+5. 38 Fountain Sq Plz \\
+6. 7000 SW 97th Avenue Suite \\
+7. 222 Delaware Ave \\
+8. 1111 Polaris Pkwy \\
+9. 425 Walnut St \\
+10. 885 Teaneck Rd \\
+{[} 315 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+846 & ( & 8.5\% & ) \\
+718 & ( & 7.2\% & ) \\
+624 & ( & 6.2\% & ) \\
+484 & ( & 4.8\% & ) \\
+442 & ( & 4.4\% & ) \\
+427 & ( & 4.3\% & ) \\
+377 & ( & 3.8\% & ) \\
+364 & ( & 3.6\% & ) \\
+352 & ( & 3.5\% & ) \\
+306 & ( & 3.1\% & ) \\
+5060 & ( & 50.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ServicingLenderCity {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. COLUMBUS \\
+2. CINCINNATI \\
+3. Laguna Hills \\
+4. Phoenix \\
+5. Bedford \\
+6. Miami \\
+7. WILMINGTON \\
+8. TEANECK \\
+9. CLEVELAND \\
+10. LAKE MARY \\
+{[} 255 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1275 & ( & 12.8\% & ) \\
+975 & ( & 9.8\% & ) \\
+718 & ( & 7.2\% & ) \\
+624 & ( & 6.2\% & ) \\
+484 & ( & 4.8\% & ) \\
+427 & ( & 4.3\% & ) \\
+382 & ( & 3.8\% & ) \\
+306 & ( & 3.1\% & ) \\
+302 & ( & 3.0\% & ) \\
+248 & ( & 2.5\% & ) \\
+4259 & ( & 42.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ServicingLenderState {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OH \\
+2. CA \\
+3. FL \\
+4. AZ \\
+5. TX \\
+6. NJ \\
+7. DE \\
+8. PA \\
+9. NY \\
+10. RI \\
+{[} 29 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5178 & ( & 51.8\% & ) \\
+907 & ( & 9.1\% & ) \\
+681 & ( & 6.8\% & ) \\
+625 & ( & 6.2\% & ) \\
+515 & ( & 5.1\% & ) \\
+379 & ( & 3.8\% & ) \\
+378 & ( & 3.8\% & ) \\
+362 & ( & 3.6\% & ) \\
+243 & ( & 2.4\% & ) \\
+216 & ( & 2.2\% & ) \\
+516 & ( & 5.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ServicingLenderZip {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 43215-3413 \\
+2. 92653 \\
+3. 85034 \\
+4. 76021 \\
+5. 45263 \\
+6. 33173 \\
+7. 19801-1621 \\
+8. 43240-2031 \\
+9. 45202-3956 \\
+10. 07666-4546 \\
+{[} 316 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+846 & ( & 8.5\% & ) \\
+718 & ( & 7.2\% & ) \\
+624 & ( & 6.2\% & ) \\
+484 & ( & 4.8\% & ) \\
+442 & ( & 4.4\% & ) \\
+427 & ( & 4.3\% & ) \\
+377 & ( & 3.8\% & ) \\
+364 & ( & 3.6\% & ) \\
+352 & ( & 3.5\% & ) \\
+306 & ( & 3.1\% & ) \\
+5060 & ( & 50.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+RuralUrbanIndicator {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. R \\
+2. U \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2381 & ( & 23.8\% & ) \\
+7619 & ( & 76.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+HubzoneIndicator {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. N \\
+2. Y \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+6935 & ( & 69.3\% & ) \\
+3065 & ( & 30.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+LMIIndicator {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. N \\
+2. Y \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+6823 & ( & 68.2\% & ) \\
+3177 & ( & 31.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+BusinessAgeDescription {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Existing or more than 2 y \\
+2. New Business or 2 years o \\
+3. Startup, Loan Funds will \\
+4. Unanswered \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+9005 & ( & 90.0\% & ) \\
+433 & ( & 4.3\% & ) \\
+1 & ( & 0.0\% & ) \\
+561 & ( & 5.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ProjectCity {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Cleveland \\
+2. Columbus \\
+3. Cincinnati \\
+4. Toledo \\
+5. Dayton \\
+6. CINCINNATI \\
+7. COLUMBUS \\
+8. Akron \\
+9. CLEVELAND \\
+10. Youngstown \\
+{[} 1298 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+693 & ( & 6.9\% & ) \\
+622 & ( & 6.2\% & ) \\
+493 & ( & 4.9\% & ) \\
+311 & ( & 3.1\% & ) \\
+255 & ( & 2.5\% & ) \\
+247 & ( & 2.5\% & ) \\
+225 & ( & 2.2\% & ) \\
+206 & ( & 2.1\% & ) \\
+123 & ( & 1.2\% & ) \\
+112 & ( & 1.1\% & ) \\
+6713 & ( & 67.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ProjectCountyName {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. CUYAHOGA \\
+2. FRANKLIN \\
+3. HAMILTON \\
+4. SUMMIT \\
+5. LUCAS \\
+6. MONTGOMERY \\
+7. STARK \\
+8. BUTLER \\
+9. MAHONING \\
+10. LORAIN \\
+{[} 78 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1810 & ( & 18.1\% & ) \\
+1277 & ( & 12.8\% & ) \\
+800 & ( & 8.0\% & ) \\
+491 & ( & 4.9\% & ) \\
+473 & ( & 4.7\% & ) \\
+473 & ( & 4.7\% & ) \\
+273 & ( & 2.7\% & ) \\
+237 & ( & 2.4\% & ) \\
+224 & ( & 2.2\% & ) \\
+197 & ( & 2.0\% & ) \\
+3745 & ( & 37.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ProjectState {[}character{]} & 1. OH &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+10000 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+ProjectZip {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 44145-0001 \\
+2. 43215-0001 \\
+3. 44124-0001 \\
+4. 45011-0001 \\
+5. 43065-0001 \\
+6. 45242-0001 \\
+7. 43017-0001 \\
+8. 44122-0001 \\
+9. 44139-0001 \\
+10. 43015-0001 \\
+{[} 8476 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+21 & ( & 0.2\% & ) \\
+19 & ( & 0.2\% & ) \\
+19 & ( & 0.2\% & ) \\
+15 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+12 & ( & 0.1\% & ) \\
+9847 & ( & 98.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+CD {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OH-11 \\
+2. OH-03 \\
+3. OH-05 \\
+4. OH-01 \\
+5. OH-09 \\
+6. OH-14 \\
+7. OH-12 \\
+8. OH-08 \\
+9. OH-10 \\
+10. OH-13 \\
+{[} 7 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1352 & ( & 13.5\% & ) \\
+832 & ( & 8.3\% & ) \\
+699 & ( & 7.0\% & ) \\
+679 & ( & 6.8\% & ) \\
+646 & ( & 6.5\% & ) \\
+613 & ( & 6.1\% & ) \\
+610 & ( & 6.1\% & ) \\
+555 & ( & 5.6\% & ) \\
+555 & ( & 5.6\% & ) \\
+541 & ( & 5.4\% & ) \\
+2918 & ( & 29.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+JobsReported {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 4.1 (11.9) \\
+min ≤ med ≤ max: \\
+1 ≤ 1 ≤ 500 \\
+IQR (CV) : 3 (2.9) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 69 distinct values & & 0 (0.0\%) \\
+NAICSCode {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 540071.1 (202394.1) \\
+min ≤ med ≤ max: \\
+111110 ≤ 541511 ≤ 999990 \\
+IQR (CV) : 267779.5 (0.4) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 686 distinct values & & 113 (1.1\%) \\
+Race {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. American Indian or Alaska \\
+2. Asian \\
+3. Black or African American \\
+4. Native Hawaiian or Other \\
+5. Unanswered \\
+6. White \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+23 & ( & 0.2\% & ) \\
+129 & ( & 1.3\% & ) \\
+1103 & ( & 11.0\% & ) \\
+7 & ( & 0.1\% & ) \\
+6905 & ( & 69.0\% & ) \\
+1833 & ( & 18.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+Ethnicity {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Hispanic or Latino \\
+2. Not Hispanic or Latino \\
+3. Unknown/NotStated \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+119 & ( & 1.2\% & ) \\
+3279 & ( & 32.8\% & ) \\
+6602 & ( & 66.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+UTILITIES\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 513.4 (3183.8) \\
+min ≤ med ≤ max: \\
+0 ≤ 1 ≤ 134700 \\
+IQR (CV) : 0 (6.2) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 345 distinct values & & 6802 (68.0\%) \\
+PAYROLL\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 26102.4 (27604.3) \\
+min ≤ med ≤ max: \\
+0 ≤ 20052 ≤ 149700 \\
+IQR (CV) : 16222 (1.1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 6362 distinct values & & 10 (0.1\%) \\
+MORTGAGE\_INTEREST\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 2901 (7033.4) \\
+min ≤ med ≤ max: \\
+0 ≤ 1210.7 ≤ 86712 \\
+IQR (CV) : 2737.8 (2.4) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 140 distinct values & & 9805 (98.0\%) \\
+RENT\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 5396.7 (5788.6) \\
+min ≤ med ≤ max: \\
+0 ≤ 3700 ≤ 36502 \\
+IQR (CV) : 5746.7 (1.1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 263 distinct values & & 9632 (96.3\%) \\
+REFINANCE\_EIDL\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 1550.9 (3835.3) \\
+min ≤ med ≤ max: \\
+0 ≤ 0 ≤ 25200 \\
+IQR (CV) : 1000 (2.5) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 13 distinct values & & 9931 (99.3\%) \\
+HEALTH\_CARE\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 4122 (5865.4) \\
+min ≤ med ≤ max: \\
+0 ≤ 2070 ≤ 32900 \\
+IQR (CV) : 4600 (1.4) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 86 distinct values & & 9871 (98.7\%) \\
+DEBT\_INTEREST\_PROCEED {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 1349.6 (4310.4) \\
+min ≤ med ≤ max: \\
+0 ≤ 150 ≤ 36100 \\
+IQR (CV) : 1186.5 (3.2) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 34 distinct values & & 9924 (99.2\%) \\
+BusinessType {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Sole Proprietorship \\
+2. Limited Liability Compan \\
+3. Corporation \\
+4. Independent Contractors \\
+5. Subchapter S Corporation \\
+6. Self-Employed Individuals \\
+7. Non-Profit Organization \\
+8. Single Member LLC \\
+9. Partnership \\
+10. Limited Liability Partner \\
+{[} 7 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3250 & ( & 32.5\% & ) \\
+2545 & ( & 25.5\% & ) \\
+1285 & ( & 12.9\% & ) \\
+865 & ( & 8.7\% & ) \\
+790 & ( & 7.9\% & ) \\
+760 & ( & 7.6\% & ) \\
+227 & ( & 2.3\% & ) \\
+89 & ( & 0.9\% & ) \\
+70 & ( & 0.7\% & ) \\
+60 & ( & 0.6\% & ) \\
+52 & ( & 0.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7 (0.1\%) \\
+OriginatingLenderLocationID {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 213535.4 (203054.8) \\
+min ≤ med ≤ max: \\
+4282 ≤ 78723 ≤ 531105 \\
+IQR (CV) : 430853.2 (1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 331 distinct values & & 0 (0.0\%) \\
+OriginatingLender {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. The Huntington National B \\
+2. Prestamos CDFI, LLC \\
+3. Harvest Small Business Fi \\
+4. Capital Plus Financial, L \\
+5. Fifth Third Bank \\
+6. Benworth Capital \\
+7. PNC Bank, National Associ \\
+8. JPMorgan Chase Bank, Nati \\
+9. U.S. Bank, National Assoc \\
+10. KeyBank National Associat \\
+{[} 317 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+846 & ( & 8.5\% & ) \\
+624 & ( & 6.2\% & ) \\
+497 & ( & 5.0\% & ) \\
+484 & ( & 4.8\% & ) \\
+442 & ( & 4.4\% & ) \\
+427 & ( & 4.3\% & ) \\
+377 & ( & 3.8\% & ) \\
+364 & ( & 3.6\% & ) \\
+352 & ( & 3.5\% & ) \\
+292 & ( & 2.9\% & ) \\
+5295 & ( & 52.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+OriginatingLenderCity {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. COLUMBUS \\
+2. CINCINNATI \\
+3. Phoenix \\
+4. Laguna Hills \\
+5. Bedford \\
+6. Miami \\
+7. WILMINGTON \\
+8. CLEVELAND \\
+9. TEANECK \\
+10. LAKE MARY \\
+{[} 259 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1275 & ( & 12.8\% & ) \\
+975 & ( & 9.8\% & ) \\
+624 & ( & 6.2\% & ) \\
+497 & ( & 5.0\% & ) \\
+484 & ( & 4.8\% & ) \\
+427 & ( & 4.3\% & ) \\
+382 & ( & 3.8\% & ) \\
+302 & ( & 3.0\% & ) \\
+268 & ( & 2.7\% & ) \\
+247 & ( & 2.5\% & ) \\
+4519 & ( & 45.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+OriginatingLenderState {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OH \\
+2. CA \\
+3. FL \\
+4. AZ \\
+5. TX \\
+6. DE \\
+7. NJ \\
+8. PA \\
+9. RI \\
+10. UT \\
+{[} 29 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5183 & ( & 51.8\% & ) \\
+849 & ( & 8.5\% & ) \\
+681 & ( & 6.8\% & ) \\
+625 & ( & 6.2\% & ) \\
+519 & ( & 5.2\% & ) \\
+378 & ( & 3.8\% & ) \\
+349 & ( & 3.5\% & ) \\
+311 & ( & 3.1\% & ) \\
+216 & ( & 2.2\% & ) \\
+209 & ( & 2.1\% & ) \\
+680 & ( & 6.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+Gender {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Female Owned \\
+2. Male Owned \\
+3. Unanswered \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1604 & ( & 16.0\% & ) \\
+2753 & ( & 27.5\% & ) \\
+5643 & ( & 56.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+Veteran {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. Non-Veteran \\
+2. Unanswered \\
+3. Veteran \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3701 & ( & 37.0\% & ) \\
+6096 & ( & 61.0\% & ) \\
+203 & ( & 2.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+NonProfit {[}character{]} & 1. Y &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+251 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9749 (97.5\%) \\
+ForgivenessAmount {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 27785.1 (29446.5) \\
+min ≤ med ≤ max: \\
+12.6 ≤ 20307.2 ≤ 150842.8 \\
+IQR (CV) : 20463.8 (1.1) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 8422 distinct values & & 1145 (11.5\%) \\
+ForgivenessDate {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 06/15/2021 \\
+2. 10/06/2021 \\
+3. 01/07/2021 \\
+4. 09/07/2021 \\
+5. 09/29/2021 \\
+6. 09/01/2021 \\
+7. 06/23/2021 \\
+8. 09/22/2021 \\
+9. 11/10/2021 \\
+10. 10/14/2021 \\
+{[} 432 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+164 & ( & 1.9\% & ) \\
+147 & ( & 1.7\% & ) \\
+132 & ( & 1.5\% & ) \\
+98 & ( & 1.1\% & ) \\
+96 & ( & 1.1\% & ) \\
+92 & ( & 1.0\% & ) \\
+91 & ( & 1.0\% & ) \\
+91 & ( & 1.0\% & ) \\
+82 & ( & 0.9\% & ) \\
+79 & ( & 0.9\% & ) \\
+7783 & ( & 87.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 1145 (11.5\%) \\
+\bottomrule()
+\end{longtable}
+
+(Data below from unsampled, larger dataset)
+
+From a first look, most applicants reported only one employee needing
+coverage under the PPP. In fact, ``Sole Proprietorship'' was the highest
+category of \texttt{BusinessType}, above even LLCs, with 33.3\%.
+
+19\% of applicants were white, leading the race category, and 68\% were
+unreported.
+
+Median \texttt{ForgivenessAmount} was \$20,438.7, and most loans were
+forgiven in 2021.
+
+\hypertarget{voter-registration}{%
+\subsection{Voter Registration}\label{voter-registration}}
+
+The Ohio voter registration data is easily read-in:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#ohio\_voters \textless{}{-} read\_csv("\_data/SWVF\_1\_22.txt")}
+\CommentTok{\#ohio\_voters\_sampled \textless{}{-} ohio\_voters \%\textgreater{}\% sample\_n(10000)}
+\CommentTok{\#write\_csv(ohio\_voters\_sampled, "\_data/ohio\_voters\_sampled.csv")}
+
+\NormalTok{ohio\_voters }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"\_data/ohio\_voters\_sampled.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 10000 Columns: 116
+-- Column specification --------------------------------------------------------
+Delimiter: ","
+chr  (91): SOS_VOTERID, COUNTY_NUMBER, LAST_NAME, FIRST_NAME, MIDDLE_NAME, S...
+dbl   (4): COUNTY_ID, RESIDENTIAL_ZIP, MAILING_ZIP, STATE_REPRESENTATIVE_DIS...
+lgl  (19): RESIDENTIAL_COUNTRY, RESIDENTIAL_POSTALCODE, MAILING_SECONDARY_AD...
+date  (2): DATE_OF_BIRTH, REGISTRATION_DATE
+
+i Use `spec()` to retrieve the full column specification for this data.
+i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+This is a 1gb+ file, which needs to be fully complete in order for the
+join of sampled PPP data. For the actual project, I will do that in a
+one-time process on my local computer.
+
+Zip codes will let us know with high confidence that we are dealing with
+the same business owner even if names are duplicated.
+
+The historical information tells us if they have changed their party
+affiliation from year-to-year, which can be useful in determining if
+political rent-seeking was successful - we can even see `D' or `R' going
+back 22 years:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{glimpse}\NormalTok{(ohio\_voters)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Rows: 10,000
+Columns: 116
+$ SOS_VOTERID                   <chr> "OH0010417183", "OH0024878858", "OH00159~
+$ COUNTY_NUMBER                 <chr> "19", "18", "18", "12", "18", "03", "10"~
+$ COUNTY_ID                     <dbl> 9500876, 2859748, 73683, 122609458, 2158~
+$ LAST_NAME                     <chr> "COLLINS", "SAFO", "WHELAN", "OVERHOLT",~
+$ FIRST_NAME                    <chr> "SHANNON", "SHAREEF", "PATRICK", "ADDISO~
+$ MIDDLE_NAME                   <chr> "AMY", "RESHAUN", "HOWARD", "ELIZABETH",~
+$ SUFFIX                        <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ DATE_OF_BIRTH                 <date> 1977-02-22, 1998-12-18, 1969-07-21, 200~
+$ REGISTRATION_DATE             <date> 1995-05-19, 2021-09-01, 2022-08-02, 202~
+$ VOTER_STATUS                  <chr> "ACTIVE", "ACTIVE", "ACTIVE", "ACTIVE", ~
+$ PARTY_AFFILIATION             <chr> "D", NA, NA, NA, NA, NA, "D", NA, "R", "~
+$ RESIDENTIAL_ADDRESS1          <chr> "372 S MAIN ST", "1629 CARLYON RD", "232~
+$ RESIDENTIAL_SECONDARY_ADDR    <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ RESIDENTIAL_CITY              <chr> "NEW MADISON", "EAST CLEVELAND", "NORTH ~
+$ RESIDENTIAL_STATE             <chr> "OH", "OH", "OH", "OH", "OH", "OH", "OH"~
+$ RESIDENTIAL_ZIP               <dbl> 45346, 44112, 44070, 45502, 44109, 44805~
+$ RESIDENTIAL_ZIP_PLUS4         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ RESIDENTIAL_COUNTRY           <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ RESIDENTIAL_POSTALCODE        <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_ADDRESS1              <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_SECONDARY_ADDRESS     <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_CITY                  <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_STATE                 <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_ZIP                   <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_ZIP_PLUS4             <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_COUNTRY               <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ MAILING_POSTAL_CODE           <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ CAREER_CENTER                 <chr> "MIAMI VALLEY CAREER TECH", NA, "POLARIS~
+$ CITY                          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ CITY_SCHOOL_DISTRICT          <chr> NA, "EAST CLEVELAND CITY SD", "NORTH OLM~
+$ COUNTY_COURT_DISTRICT         <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ CONGRESSIONAL_DISTRICT        <chr> "08", "11", "07", "15", "11", "04", "06"~
+$ COURT_OF_APPEALS              <chr> "02", "08", "08", "02", "08", "05", "07"~
+$ EDU_SERVICE_CENTER_DISTRICT   <chr> "DARKE COUNTY ESC", NA, NA, "CLARK COUNT~
+$ EXEMPTED_VILL_SCHOOL_DISTRICT <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ LIBRARY                       <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ LOCAL_SCHOOL_DISTRICT         <chr> "TRI-VILLAGE LOCAL SD (DARKE)", NA, NA, ~
+$ MUNICIPAL_COURT_DISTRICT      <chr> "DARKE-CO", "EAST-CLEVELAND", "ROCKY-RIV~
+$ PRECINCT_NAME                 <chr> "PRECINCT HARRISON EAST & NEW MADISON", ~
+$ PRECINCT_CODE                 <chr> "19AAZ", "18-P-BMR", "18-P-CDT", "12ADJ"~
+$ STATE_BOARD_OF_EDUCATION      <chr> "03", "10", "11", "10", "11", "05", "08"~
+$ STATE_REPRESENTATIVE_DISTRICT <dbl> 80, 22, 16, 74, 15, 67, 79, 71, 47, 14, ~
+$ STATE_SENATE_DISTRICT         <chr> "05", "21", "24", "10", "24", "22", "33"~
+$ TOWNSHIP                      <chr> "HARRISON TWP", NA, NA, "BETHEL TOWNSHIP~
+$ VILLAGE                       <chr> "NEW MADISON VILLAGE", NA, NA, NA, NA, N~
+$ WARD                          <chr> NA, "EAST CLEVELAND WARD 2", "NORTH OLMS~
+$ `PRIMARY-03/07/2000`          <chr> NA, NA, NA, NA, NA, NA, NA, "R", "X", NA~
+$ `GENERAL-11/07/2000`          <chr> NA, NA, NA, NA, NA, NA, "X", "X", NA, NA~
+$ `SPECIAL-05/08/2001`          <chr> NA, NA, NA, NA, NA, NA, NA, "R", "X", NA~
+$ `GENERAL-11/06/2001`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-05/07/2002`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, "X", NA~
+$ `GENERAL-11/05/2002`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, "X", NA~
+$ `SPECIAL-05/06/2003`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `GENERAL-11/04/2003`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-03/02/2004`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, "X", NA~
+$ `GENERAL-11/02/2004`          <chr> "X", NA, "X", NA, NA, NA, "X", NA, "X", ~
+$ `SPECIAL-02/08/2005`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-05/03/2005`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-09/13/2005`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/08/2005`          <chr> NA, NA, NA, NA, "X", NA, "X", NA, NA, NA~
+$ `SPECIAL-02/07/2006`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-05/02/2006`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, NA, NA,~
+$ `GENERAL-11/07/2006`          <chr> NA, NA, "X", NA, "X", NA, "X", NA, "X", ~
+$ `PRIMARY-05/08/2007`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/11/2007`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/06/2007`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-11/06/2007`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-12/11/2007`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-03/04/2008`          <chr> NA, NA, NA, NA, "D", NA, "D", NA, "R", N~
+$ `PRIMARY-10/14/2008`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/04/2008`          <chr> "X", NA, "X", NA, "X", NA, "X", NA, "X",~
+$ `GENERAL-11/18/2008`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-05/05/2009`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/08/2009`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/15/2009`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/29/2009`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/03/2009`          <chr> NA, NA, "X", NA, "X", NA, "X", NA, "X", ~
+$ `PRIMARY-05/04/2010`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, NA, NA,~
+$ `PRIMARY-07/13/2010`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/07/2010`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/02/2010`          <chr> "X", NA, NA, NA, "X", NA, "X", NA, "X", ~
+$ `PRIMARY-05/03/2011`          <chr> "X", NA, NA, NA, NA, NA, NA, NA, NA, NA,~
+$ `PRIMARY-09/13/2011`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/08/2011`          <chr> "X", NA, "X", NA, NA, NA, NA, NA, "X", N~
+$ `PRIMARY-03/06/2012`          <chr> NA, NA, NA, NA, "R", NA, "D", NA, NA, NA~
+$ `GENERAL-11/06/2012`          <chr> "X", NA, "X", NA, "X", "X", "X", NA, "X"~
+$ `PRIMARY-05/07/2013`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-09/10/2013`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-10/01/2013`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/05/2013`          <chr> "X", NA, "X", NA, "X", "X", "X", NA, "X"~
+$ `PRIMARY-05/06/2014`          <chr> "L", NA, NA, NA, NA, NA, "D", NA, NA, NA~
+$ `GENERAL-11/04/2014`          <chr> NA, NA, NA, NA, NA, "X", "X", NA, "X", N~
+$ `PRIMARY-05/05/2015`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `PRIMARY-09/15/2015`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/03/2015`          <chr> "X", NA, NA, NA, NA, "X", "X", NA, "X", ~
+$ `PRIMARY-03/15/2016`          <chr> "D", NA, NA, NA, NA, "R", "D", NA, "R", ~
+$ `GENERAL-06/07/2016`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/13/2016`          <lgl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/08/2016`          <chr> "X", NA, "X", NA, "X", "X", "X", "X", "X~
+$ `PRIMARY-05/02/2017`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/12/2017`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/07/2017`          <chr> "X", NA, NA, NA, NA, "X", "X", NA, "X", ~
+$ `PRIMARY-05/08/2018`          <chr> "D", NA, NA, NA, NA, NA, "D", NA, NA, "R~
+$ `GENERAL-08/07/2018`          <chr> NA, NA, NA, NA, NA, NA, "X", NA, NA, NA,~
+$ `GENERAL-11/06/2018`          <chr> "X", "X", NA, NA, NA, "X", "X", "X", "X"~
+$ `PRIMARY-05/07/2019`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/10/2019`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/05/2019`          <chr> NA, NA, NA, NA, NA, NA, "X", "X", NA, "X~
+$ `PRIMARY-03/17/2020`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, NA, "R"~
+$ `GENERAL-11/03/2020`          <chr> "X", "X", "X", NA, "X", "X", "X", "X", "~
+$ `PRIMARY-05/04/2021`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, "X",~
+$ `PRIMARY-08/03/2021`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `PRIMARY-09/14/2021`          <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+$ `GENERAL-11/02/2021`          <chr> "X", NA, NA, NA, NA, "X", "X", "X", NA, ~
+$ `PRIMARY-05/03/2022`          <chr> "D", NA, NA, NA, NA, NA, "D", NA, "R", "~
+$ `PRIMARY-08/02/2022`          <chr> NA, NA, NA, NA, NA, NA, "D", NA, NA, NA,~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(summarytools}\SpecialCharTok{::}\FunctionTok{dfSummary}\NormalTok{(ohio\_voters,}
+                        \AttributeTok{varnumbers =} \ConstantTok{FALSE}\NormalTok{,}
+                        \AttributeTok{plain.ascii  =} \ConstantTok{FALSE}\NormalTok{, }
+                        \AttributeTok{style        =} \StringTok{"grid"}\NormalTok{, }
+                        \AttributeTok{graph.magnif =} \FloatTok{0.70}\NormalTok{, }
+                        \AttributeTok{valid.col    =} \ConstantTok{FALSE}\NormalTok{),}
+      \AttributeTok{method =} \StringTok{\textquotesingle{}render\textquotesingle{}}\NormalTok{,}
+      \AttributeTok{table.classes =} \StringTok{\textquotesingle{}table{-}condensed\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+\textbf{Variable}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Stats / Values}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Freqs (\% of Valid)}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Graph}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Missing}
+\end{minipage} \\
+\midrule()
+\endhead
+SOS\_VOTERID {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OH0010000330 \\
+2. OH0010000344 \\
+3. OH0010000867 \\
+4. OH0010001297 \\
+5. OH0010002261 \\
+6. OH0010002802 \\
+7. OH0010002817 \\
+8. OH0010002898 \\
+9. OH0010002979 \\
+10. OH0010003129 \\
+{[} 9990 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+1 & ( & 0.0\% & ) \\
+9990 & ( & 99.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+COUNTY\_NUMBER {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 18 \\
+2. 09 \\
+3. 21 \\
+4. 13 \\
+5. 12 \\
+6. 15 \\
+7. 02 \\
+8. 04 \\
+9. 22 \\
+10. 07 \\
+{[} 12 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+4086 & ( & 40.9\% & ) \\
+1187 & ( & 11.9\% & ) \\
+685 & ( & 6.9\% & ) \\
+683 & ( & 6.8\% & ) \\
+392 & ( & 3.9\% & ) \\
+346 & ( & 3.5\% & ) \\
+326 & ( & 3.3\% & ) \\
+286 & ( & 2.9\% & ) \\
+249 & ( & 2.5\% & ) \\
+208 & ( & 2.1\% & ) \\
+1552 & ( & 15.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+COUNTY\_ID {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 4804609 (14312683) \\
+min ≤ med ≤ max: \\
+30 ≤ 1939790 ≤ 122614854 \\
+IQR (CV) : 2624441 (3) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 9992 distinct values & & 0 (0.0\%) \\
+LAST\_NAME {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. SMITH \\
+2. JOHNSON \\
+3. WILLIAMS \\
+4. MILLER \\
+5. JONES \\
+6. BROWN \\
+7. THOMPSON \\
+8. DAVIS \\
+9. JACKSON \\
+10. MOORE \\
+{[} 6190 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+91 & ( & 0.9\% & ) \\
+81 & ( & 0.8\% & ) \\
+72 & ( & 0.7\% & ) \\
+63 & ( & 0.6\% & ) \\
+59 & ( & 0.6\% & ) \\
+58 & ( & 0.6\% & ) \\
+38 & ( & 0.4\% & ) \\
+35 & ( & 0.4\% & ) \\
+33 & ( & 0.3\% & ) \\
+33 & ( & 0.3\% & ) \\
+9437 & ( & 94.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+FIRST\_NAME {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. MICHAEL \\
+2. ROBERT \\
+3. JOHN \\
+4. DAVID \\
+5. WILLIAM \\
+6. JAMES \\
+7. MARY \\
+8. THOMAS \\
+9. CHRISTOPHER \\
+10. RICHARD \\
+{[} 2495 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+160 & ( & 1.6\% & ) \\
+143 & ( & 1.4\% & ) \\
+130 & ( & 1.3\% & ) \\
+126 & ( & 1.3\% & ) \\
+125 & ( & 1.2\% & ) \\
+123 & ( & 1.2\% & ) \\
+94 & ( & 0.9\% & ) \\
+88 & ( & 0.9\% & ) \\
+78 & ( & 0.8\% & ) \\
+74 & ( & 0.7\% & ) \\
+8859 & ( & 88.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+MIDDLE\_NAME {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. A \\
+2. M \\
+3. L \\
+4. J \\
+5. E \\
+6. D \\
+7. R \\
+8. C \\
+9. S \\
+10. ANN \\
+{[} 1186 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+713 & ( & 7.8\% & ) \\
+696 & ( & 7.6\% & ) \\
+677 & ( & 7.4\% & ) \\
+496 & ( & 5.4\% & ) \\
+322 & ( & 3.5\% & ) \\
+314 & ( & 3.4\% & ) \\
+302 & ( & 3.3\% & ) \\
+227 & ( & 2.5\% & ) \\
+220 & ( & 2.4\% & ) \\
+216 & ( & 2.4\% & ) \\
+4975 & ( & 54.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 842 (8.4\%) \\
+SUFFIX {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. I \\
+2. II \\
+3. III \\
+4. IV \\
+5. JR \\
+6. SR \\
+7. V \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2 & ( & 0.5\% & ) \\
+35 & ( & 8.4\% & ) \\
+57 & ( & 13.6\% & ) \\
+8 & ( & 1.9\% & ) \\
+259 & ( & 61.8\% & ) \\
+56 & ( & 13.4\% & ) \\
+2 & ( & 0.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9581 (95.8\%) \\
+DATE\_OF\_BIRTH {[}Date{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+min : 1922-07-17 \\
+med : 1972-01-18 \\
+max : 2004-10-25 \\
+range : 82y 3m 8d \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 8207 distinct values & & 0 (0.0\%) \\
+REGISTRATION\_DATE {[}Date{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+min : 1900-01-01 \\
+med : 2015-12-31 \\
+max : 2022-10-07 \\
+range : 122y 9m 6d \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 4484 distinct values & & 0 (0.0\%) \\
+VOTER\_STATUS {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. ACTIVE \\
+2. CONFIRMATION \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+8534 & ( & 85.3\% & ) \\
+1466 & ( & 14.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+PARTY\_AFFILIATION {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. L \\
+3. R \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1431 & ( & 45.7\% & ) \\
+2 & ( & 0.1\% & ) \\
+1697 & ( & 54.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6870 (68.7\%) \\
+RESIDENTIAL\_ADDRESS1 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 2201 ACACIA PARK DR \\
+2. 1055 OLD RIVER RD \\
+3. 11050 FANCHER RD \\
+4. 112 S CLINTON ST \\
+5. 12900 LAKE AVE \\
+6. 16700 LAKE SHORE BLVD \\
+7. 18221 EUCLID AVE \\
+8. 19101 VAN AKEN BLVD \\
+9. 19201 EUCLID AVE \\
+10. 2020 TAYLOR RD \\
+{[} 9834 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+4 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+3 & ( & 0.0\% & ) \\
+9969 & ( & 99.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+RESIDENTIAL\_SECONDARY\_ADDR {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. APT 1 \\
+2. UPPR \\
+3. APT 2 \\
+4. APT 3 \\
+5. LOWR \\
+6. APT 4 \\
+7. APT B \\
+8. APT 7 \\
+9. APT 201 \\
+10. APT A \\
+{[} 565 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+54 & ( & 4.4\% & ) \\
+43 & ( & 3.5\% & ) \\
+39 & ( & 3.2\% & ) \\
+34 & ( & 2.8\% & ) \\
+32 & ( & 2.6\% & ) \\
+27 & ( & 2.2\% & ) \\
+22 & ( & 1.8\% & ) \\
+17 & ( & 1.4\% & ) \\
+16 & ( & 1.3\% & ) \\
+16 & ( & 1.3\% & ) \\
+923 & ( & 75.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8777 (87.8\%) \\
+RESIDENTIAL\_CITY {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. CLEVELAND \\
+2. HAMILTON \\
+3. SPRINGFIELD \\
+4. PARMA \\
+5. MIDDLETOWN \\
+6. LIMA \\
+7. WEST CHESTER \\
+8. LAKEWOOD \\
+9. DELAWARE \\
+10. CLEVELAND HTS \\
+{[} 324 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1166 & ( & 11.7\% & ) \\
+429 & ( & 4.3\% & ) \\
+286 & ( & 2.9\% & ) \\
+244 & ( & 2.4\% & ) \\
+235 & ( & 2.4\% & ) \\
+225 & ( & 2.2\% & ) \\
+191 & ( & 1.9\% & ) \\
+181 & ( & 1.8\% & ) \\
+180 & ( & 1.8\% & ) \\
+177 & ( & 1.8\% & ) \\
+6686 & ( & 66.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+RESIDENTIAL\_STATE {[}character{]} & 1. OH &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+10000 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+RESIDENTIAL\_ZIP {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 44459.3 (713.5) \\
+min ≤ med ≤ max: \\
+43003 ≤ 44138 ≤ 45896 \\
+IQR (CV) : 949 (0) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 338 distinct values & & 0 (0.0\%) \\
+RESIDENTIAL\_ZIP\_PLUS4 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 1101 \\
+2. 1638 \\
+3. 9608 \\
+4. 1030 \\
+5. 1052 \\
+6. 1112 \\
+7. 1201 \\
+8. 1241 \\
+9. 1320 \\
+10. 1325 \\
+{[} 531 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3 & ( & 0.5\% & ) \\
+3 & ( & 0.5\% & ) \\
+3 & ( & 0.5\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+2 & ( & 0.3\% & ) \\
+568 & ( & 96.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9409 (94.1\%) \\
+RESIDENTIAL\_COUNTRY {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+RESIDENTIAL\_POSTALCODE {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+MAILING\_ADDRESS1 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. PO BOX 3 \\
+2. PO BOX 41052 \\
+3. 10 CHRISTOPHER WAY APT 4 \\
+4. 100 ELM AV \\
+5. 10072A HORIZON ST \\
+6. 10115 VANDERBILT CIRCLE \\
+7. 1012 PROSPECT AVE APT 102 \\
+8. 10919 GLENVIEW AVENUE \\
+9. 11 N FISHER DR ROOM 221 \\
+10. 1121 W COLUMBIA AVE APT \\
+{[} 201 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2 & ( & 0.9\% & ) \\
+2 & ( & 0.9\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+201 & ( & 94.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9787 (97.9\%) \\
+MAILING\_SECONDARY\_ADDRESS {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+MAILING\_CITY {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OXFORD \\
+2. CLEVELAND \\
+3. ANDOVER \\
+4. LIMA \\
+5. BETHESDA \\
+6. CLARKSVILLE \\
+7. DELAWARE \\
+8. FELICITY \\
+9. GENEVA \\
+10. GETTYSBURG \\
+{[} 133 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+15 & ( & 7.0\% & ) \\
+8 & ( & 3.8\% & ) \\
+6 & ( & 2.8\% & ) \\
+4 & ( & 1.9\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+162 & ( & 76.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9787 (97.9\%) \\
+MAILING\_STATE {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. OH \\
+2. CA \\
+3. IL \\
+4. VA \\
+5. AE \\
+6. IN \\
+7. MA \\
+8. WA \\
+9. AL \\
+10. BC \\
+{[} 4 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+189 & ( & 89.2\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+3 & ( & 1.4\% & ) \\
+2 & ( & 0.9\% & ) \\
+2 & ( & 0.9\% & ) \\
+2 & ( & 0.9\% & ) \\
+2 & ( & 0.9\% & ) \\
+1 & ( & 0.5\% & ) \\
+1 & ( & 0.5\% & ) \\
+4 & ( & 1.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9788 (97.9\%) \\
+MAILING\_ZIP {[}numeric{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 44768.7 (10335.5) \\
+min ≤ med ≤ max: \\
+1821 ≤ 44731 ≤ 98433 \\
+IQR (CV) : 1355.2 (0.2) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 150 distinct values & & 9790 (97.9\%) \\
+MAILING\_ZIP\_PLUS4 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 0062 \\
+2. 0109 \\
+3. 0133 \\
+4. 0165 \\
+5. 0173 \\
+6. 0181 \\
+7. 0208 \\
+8. 0270 \\
+9. 0282 \\
+10. 0367 \\
+{[} 15 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+1 & ( & 4.0\% & ) \\
+15 & ( & 60.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9975 (99.8\%) \\
+MAILING\_COUNTRY {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+MAILING\_POSTAL\_CODE {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+CAREER\_CENTER {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. GREAT OAKS CAREER CAMPUSE \\
+2. POLARIS CAREER CENTER \\
+3. DELAWARE AREA CAREER CENT \\
+4. SPRINGFIELD-CLARK COUNTY \\
+5. CUYAHOGA VALLEY CAREER CE \\
+6. APOLLO CAREER CENTER \\
+7. COLUMBIANA COUNTY CAREER \\
+8. BELMONT-HARRISON CAREER C \\
+9. EHOVE CAREER CENTER \\
+10. ASHLAND COUNTY-WEST HOLME \\
+{[} 21 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+691 & ( & 15.9\% & ) \\
+571 & ( & 13.2\% & ) \\
+553 & ( & 12.7\% & ) \\
+392 & ( & 9.0\% & ) \\
+356 & ( & 8.2\% & ) \\
+281 & ( & 6.5\% & ) \\
+197 & ( & 4.5\% & ) \\
+196 & ( & 4.5\% & ) \\
+162 & ( & 3.7\% & ) \\
+147 & ( & 3.4\% & ) \\
+794 & ( & 18.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 5660 (56.6\%) \\
+CITY {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. HAMILTON CITY \\
+2. SPRINGFIELD CITY \\
+3. MIDDLETOWN CITY \\
+4. FAIRFIELD CITY \\
+5. DELAWARE CITY \\
+6. LIMA CITY \\
+7. SANDUSKY CITY \\
+8. ASHLAND CITY \\
+9. ATHENS CITY \\
+10. OXFORD CITY \\
+{[} 32 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+172 & ( & 8.7\% & ) \\
+171 & ( & 8.7\% & ) \\
+137 & ( & 6.9\% & ) \\
+124 & ( & 6.3\% & ) \\
+120 & ( & 6.1\% & ) \\
+95 & ( & 4.8\% & ) \\
+79 & ( & 4.0\% & ) \\
+67 & ( & 3.4\% & ) \\
+62 & ( & 3.1\% & ) \\
+56 & ( & 2.8\% & ) \\
+892 & ( & 45.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8025 (80.2\%) \\
+CITY\_SCHOOL\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. CLEVELAND MUNICIPAL CITY \\
+2. PARMA CITY SD \\
+3. FAIRFIELD CITY SD \\
+4. CLEVELAND HTS-UNIV HTS CI \\
+5. LAKEWOOD CITY SD \\
+6. HAMILTON CITY SD \\
+7. SPRINGFIELD CITY SD \\
+8. EUCLID CITY SD \\
+9. BEREA CITY SD \\
+10. STRONGSVILLE CITY SD \\
+{[} 55 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1167 & ( & 18.4\% & ) \\
+343 & ( & 5.4\% & ) \\
+218 & ( & 3.4\% & ) \\
+214 & ( & 3.4\% & ) \\
+181 & ( & 2.8\% & ) \\
+173 & ( & 2.7\% & ) \\
+166 & ( & 2.6\% & ) \\
+153 & ( & 2.4\% & ) \\
+148 & ( & 2.3\% & ) \\
+148 & ( & 2.3\% & ) \\
+3442 & ( & 54.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 3647 (36.5\%) \\
+COUNTY\_COURT\_DISTRICT {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+CONGRESSIONAL\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 11 \\
+2. 07 \\
+3. 08 \\
+4. 04 \\
+5. 02 \\
+6. 06 \\
+7. 12 \\
+8. 09 \\
+9. 10 \\
+10. 14 \\
+{[} 2 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2522 & ( & 25.2\% & ) \\
+1564 & ( & 15.6\% & ) \\
+1358 & ( & 13.6\% & ) \\
+1274 & ( & 12.7\% & ) \\
+1006 & ( & 10.1\% & ) \\
+641 & ( & 6.4\% & ) \\
+445 & ( & 4.4\% & ) \\
+374 & ( & 3.7\% & ) \\
+294 & ( & 2.9\% & ) \\
+286 & ( & 2.9\% & ) \\
+236 & ( & 2.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+COURT\_OF\_APPEALS {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 02 \\
+2. 03 \\
+3. 04 \\
+4. 05 \\
+5. 06 \\
+6. 07 \\
+7. 08 \\
+8. 11 \\
+9. 12 \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+683 & ( & 6.8\% & ) \\
+725 & ( & 7.2\% & ) \\
+244 & ( & 2.4\% & ) \\
+961 & ( & 9.6\% & ) \\
+249 & ( & 2.5\% & ) \\
+641 & ( & 6.4\% & ) \\
+4086 & ( & 40.9\% & ) \\
+286 & ( & 2.9\% & ) \\
+2125 & ( & 21.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+EDU\_SERVICE\_CENTER\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. ESC OF CENTRAL OHIO \\
+2. BUTLER COUNTY ESC \\
+3. CLARK COUNTY ESC \\
+4. ALLEN COUNTY ESC \\
+5. ASHTABULA COUNTY ESC \\
+6. BROWN COUNTY ESC \\
+7. NORTH POINT ESC \\
+8. COLUMBIANA COUNTY ESC \\
+9. SOUTHERN OHIO ESC \\
+10. DARKE COUNTY ESC \\
+{[} 23 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+503 & ( & 18.8\% & ) \\
+496 & ( & 18.6\% & ) \\
+226 & ( & 8.5\% & ) \\
+202 & ( & 7.6\% & ) \\
+124 & ( & 4.6\% & ) \\
+120 & ( & 4.5\% & ) \\
+120 & ( & 4.5\% & ) \\
+116 & ( & 4.3\% & ) \\
+116 & ( & 4.3\% & ) \\
+80 & ( & 3.0\% & ) \\
+569 & ( & 21.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7328 (73.3\%) \\
+EXEMPTED\_VILL\_SCHOOL\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. MILFORD EX VILL SD (CLERM \\
+2. CARROLLTON EX VILL SD (CA \\
+3. NEW RICHMOND EX VILL SD ( \\
+4. COLUMBIANA EX VILL SD (CO \\
+5. BARNESVILLE EX VILL SD (B \\
+6. CHAGRIN FALLS EX VILL SD \\
+7. VERSAILLES EX VILL SD (DA \\
+8. MECHANICSBURG EX VILL SD \\
+9. BLUFFTON EX VILL SD (ALLE \\
+10. HICKSVILLE EX VILL SD (DE \\
+{[} 7 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+176 & ( & 32.8\% & ) \\
+57 & ( & 10.6\% & ) \\
+43 & ( & 8.0\% & ) \\
+32 & ( & 6.0\% & ) \\
+28 & ( & 5.2\% & ) \\
+25 & ( & 4.7\% & ) \\
+24 & ( & 4.5\% & ) \\
+21 & ( & 3.9\% & ) \\
+20 & ( & 3.7\% & ) \\
+19 & ( & 3.5\% & ) \\
+91 & ( & 17.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9464 (94.6\%) \\
+LIBRARY {[}logical{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+LOCAL\_SCHOOL\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. LAKOTA LOCAL SD (BUTLER) \\
+2. OLENTANGY LOCAL SD (DELAW \\
+3. WEST CLERMONT LOCAL SD (C \\
+4. ELIDA LOCAL SD (ALLEN) \\
+5. ROSS LOCAL SD (BUTLER) \\
+6. SHAWNEE LOCAL SD (ALLEN) \\
+7. NORTHEASTERN LOCAL SD (CL \\
+8. WESTERN BROWN LOCAL SD (B \\
+9. BUCKEYE VALLEY LOCAL SD ( \\
+10. BIG WALNUT LOCAL SD (DELA \\
+{[} 103 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+347 & ( & 11.2\% & ) \\
+324 & ( & 10.4\% & ) \\
+220 & ( & 7.1\% & ) \\
+68 & ( & 2.2\% & ) \\
+67 & ( & 2.2\% & ) \\
+66 & ( & 2.1\% & ) \\
+63 & ( & 2.0\% & ) \\
+60 & ( & 1.9\% & ) \\
+58 & ( & 1.9\% & ) \\
+56 & ( & 1.8\% & ) \\
+1782 & ( & 57.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6889 (68.9\%) \\
+MUNICIPAL\_COURT\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. CLEVELAND \\
+2. DELAWARE \\
+3. PARMA \\
+4. ROCKY-RIVER \\
+5. BEREA \\
+6. LIMA \\
+7. BEDFORD \\
+8. GARFIELD-HEIGHTS \\
+9. COLUMBIANA-CO \\
+10. SHAKER-HEIGHTS \\
+{[} 16 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1175 & ( & 19.1\% & ) \\
+685 & ( & 11.1\% & ) \\
+562 & ( & 9.1\% & ) \\
+427 & ( & 6.9\% & ) \\
+364 & ( & 5.9\% & ) \\
+326 & ( & 5.3\% & ) \\
+280 & ( & 4.5\% & ) \\
+276 & ( & 4.5\% & ) \\
+260 & ( & 4.2\% & ) \\
+200 & ( & 3.2\% & ) \\
+1605 & ( & 26.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 3840 (38.4\%) \\
+PRECINCT\_NAME {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. PRECINCT GOSHEN \\
+2. HAM2WD3 \\
+3. PRECINCT TWIN TWP. GORDON \\
+4. PRECINCT E LIVERPOOL 2-A \\
+5. CLEVELAND-03-I \\
+6. FAIRVIEW PARK-05-A \\
+7. NORTH ROYALTON-06-D \\
+8. PRECINCT UNION CITY VILLA \\
+9. BATAVIA TOWNSHIP A \\
+10. BAY VILLAGE-02-C \\
+{[} 2373 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+16 & ( & 0.2\% & ) \\
+15 & ( & 0.1\% & ) \\
+15 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+12 & ( & 0.1\% & ) \\
+12 & ( & 0.1\% & ) \\
+9864 & ( & 98.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+PRECINCT\_CODE {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 09-P-ACR \\
+2. 19ABP \\
+3. 11AAW \\
+4. 15AAF \\
+5. 18-P-AYX \\
+6. 18-P-BSM \\
+7. 18-P-CGK \\
+8. 19ABD \\
+9. 09-P-AIT \\
+10. 09-P-AJL \\
+{[} 2378 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+15 & ( & 0.1\% & ) \\
+15 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+14 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+13 & ( & 0.1\% & ) \\
+12 & ( & 0.1\% & ) \\
+12 & ( & 0.1\% & ) \\
+9866 & ( & 98.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+STATE\_BOARD\_OF\_EDUCATION {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 01 \\
+2. 02 \\
+3. 03 \\
+4. 05 \\
+5. 07 \\
+6. 08 \\
+7. 09 \\
+8. 10 \\
+9. 11 \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+959 & ( & 9.6\% & ) \\
+249 & ( & 2.5\% & ) \\
+1244 & ( & 12.4\% & ) \\
+1176 & ( & 11.8\% & ) \\
+685 & ( & 6.9\% & ) \\
+803 & ( & 8.0\% & ) \\
+406 & ( & 4.1\% & ) \\
+2119 & ( & 21.2\% & ) \\
+2359 & ( & 23.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+STATE\_REPRESENTATIVE\_DISTRICT {[}numeric{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+Mean (sd) : 48.2 (28.4) \\
+min ≤ med ≤ max: \\
+13 ≤ 47 ≤ 99 \\
+IQR (CV) : 55 (0.6) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & 40 distinct values & & 0 (0.0\%) \\
+STATE\_SENATE\_DISTRICT {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. 21 \\
+2. 24 \\
+3. 23 \\
+4. 04 \\
+5. 14 \\
+6. 19 \\
+7. 12 \\
+8. 10 \\
+9. 18 \\
+10. 33 \\
+{[} 8 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1259 & ( & 12.6\% & ) \\
+1192 & ( & 11.9\% & ) \\
+1173 & ( & 11.7\% & ) \\
+1134 & ( & 11.3\% & ) \\
+889 & ( & 8.9\% & ) \\
+791 & ( & 7.9\% & ) \\
+696 & ( & 7.0\% & ) \\
+509 & ( & 5.1\% & ) \\
+462 & ( & 4.6\% & ) \\
+433 & ( & 4.3\% & ) \\
+1462 & ( & 14.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 0 (0.0\%) \\
+TOWNSHIP {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. WEST CHESTER TWP \\
+2. MIAMI TWP \\
+3. UNION TWP \\
+4. LIBERTY TOWNSHIP \\
+5. ORANGE TWP \\
+6. LIBERTY TWP \\
+7. GENOA TWP \\
+8. FAIRFIELD TOWNSHIP \\
+9. PERRY TWP \\
+10. BATAVIA TWP \\
+{[} 232 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+224 & ( & 4.9\% & ) \\
+164 & ( & 3.6\% & ) \\
+157 & ( & 3.4\% & ) \\
+130 & ( & 2.8\% & ) \\
+121 & ( & 2.6\% & ) \\
+116 & ( & 2.5\% & ) \\
+101 & ( & 2.2\% & ) \\
+94 & ( & 2.1\% & ) \\
+86 & ( & 1.9\% & ) \\
+84 & ( & 1.8\% & ) \\
+3295 & ( & 72.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 5428 (54.3\%) \\
+VILLAGE {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. MT. ORAB VILLAGE \\
+2. EAST PALESTINE VILLAGE \\
+3. CRESTLINE VILLAGE \\
+4. UNION CITY VILLAGE \\
+5. BETHEL VILLAGE \\
+6. BLUFFTON VILLAGE \\
+7. NEW RICHMOND VILLAGE \\
+8. BARNESVILLE VILLAGE \\
+9. BELLAIRE VILLAGE \\
+10. CARROLLTON VILLAGE \\
+{[} 119 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+15 & ( & 2.9\% & ) \\
+14 & ( & 2.7\% & ) \\
+13 & ( & 2.5\% & ) \\
+13 & ( & 2.5\% & ) \\
+12 & ( & 2.3\% & ) \\
+12 & ( & 2.3\% & ) \\
+12 & ( & 2.3\% & ) \\
+11 & ( & 2.1\% & ) \\
+10 & ( & 1.9\% & ) \\
+10 & ( & 1.9\% & ) \\
+400 & ( & 76.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9478 (94.8\%) \\
+WARD {[}character{]} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. DELAWARE CITY - WARD \\
+2. HAMILTON CTY WARD 1 \\
+3. CLEVELAND WARD 3 \\
+4. CLEVELAND WARD 4 \\
+5. CLEVELAND WARD 11 \\
+6. CLEVELAND WARD 9 \\
+7. CLEVELAND WARD 8 \\
+8. CLEVELAND WARD 10 \\
+9. CLEVELAND WARD 15 \\
+10. CLEVELAND WARD 16 \\
+{[} 262 others {]} \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+120 & ( & 2.4\% & ) \\
+91 & ( & 1.9\% & ) \\
+84 & ( & 1.7\% & ) \\
+83 & ( & 1.7\% & ) \\
+76 & ( & 1.5\% & ) \\
+75 & ( & 1.5\% & ) \\
+74 & ( & 1.5\% & ) \\
+71 & ( & 1.4\% & ) \\
+70 & ( & 1.4\% & ) \\
+68 & ( & 1.4\% & ) \\
+4095 & ( & 83.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 5093 (50.9\%) \\
+PRIMARY-03/07/2000 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. E \\
+3. R \\
+4. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+598 & ( & 35.9\% & ) \\
+1 & ( & 0.1\% & ) \\
+697 & ( & 41.8\% & ) \\
+371 & ( & 22.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8333 (83.3\%) \\
+GENERAL-11/07/2000 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3328 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6672 (66.7\%) \\
+SPECIAL-05/08/2001 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+6 & ( & 1.6\% & ) \\
+44 & ( & 11.9\% & ) \\
+320 & ( & 86.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9630 (96.3\%) \\
+GENERAL-11/06/2001 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1866 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8134 (81.3\%) \\
+PRIMARY-05/07/2002 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+401 & ( & 36.5\% & ) \\
+308 & ( & 28.0\% & ) \\
+390 & ( & 35.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8901 (89.0\%) \\
+GENERAL-11/05/2002 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2454 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7546 (75.5\%) \\
+SPECIAL-05/06/2003 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+44 & ( & 12.4\% & ) \\
+38 & ( & 10.7\% & ) \\
+272 & ( & 76.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9646 (96.5\%) \\
+GENERAL-11/04/2003 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1312 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8688 (86.9\%) \\
+PRIMARY-03/02/2004 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+924 & ( & 45.5\% & ) \\
+468 & ( & 23.1\% & ) \\
+637 & ( & 31.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7971 (79.7\%) \\
+GENERAL-11/02/2004 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+4737 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 5263 (52.6\%) \\
+SPECIAL-02/08/2005 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+304 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9696 (97.0\%) \\
+PRIMARY-05/03/2005 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+19 & ( & 2.0\% & ) \\
+33 & ( & 3.5\% & ) \\
+884 & ( & 94.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9064 (90.6\%) \\
+PRIMARY-09/13/2005 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/08/2005 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2617 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7383 (73.8\%) \\
+SPECIAL-02/07/2006 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+71 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9929 (99.3\%) \\
+PRIMARY-05/02/2006 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+707 & ( & 44.4\% & ) \\
+572 & ( & 35.9\% & ) \\
+314 & ( & 19.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8407 (84.1\%) \\
+GENERAL-11/07/2006 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. R \\
+2. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2 & ( & 0.1\% & ) \\
+3559 & ( & 99.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6439 (64.4\%) \\
+PRIMARY-05/08/2007 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+71 & ( & 16.4\% & ) \\
+73 & ( & 16.8\% & ) \\
+290 & ( & 66.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9566 (95.7\%) \\
+PRIMARY-09/11/2007 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/06/2007 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1346 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8654 (86.5\%) \\
+PRIMARY-11/06/2007 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+13 & ( & 19.1\% & ) \\
+19 & ( & 27.9\% & ) \\
+36 & ( & 52.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9932 (99.3\%) \\
+GENERAL-12/11/2007 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+53 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9947 (99.5\%) \\
+PRIMARY-03/04/2008 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2073 & ( & 64.4\% & ) \\
+965 & ( & 30.0\% & ) \\
+182 & ( & 5.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6780 (67.8\%) \\
+PRIMARY-10/14/2008 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/04/2008 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5352 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 4648 (46.5\%) \\
+GENERAL-11/18/2008 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+PRIMARY-05/05/2009 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+41 & ( & 7.3\% & ) \\
+5 & ( & 0.9\% & ) \\
+517 & ( & 91.8\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9437 (94.4\%) \\
+PRIMARY-09/08/2009 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5 & ( & 3.9\% & ) \\
+2 & ( & 1.6\% & ) \\
+120 & ( & 94.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9873 (98.7\%) \\
+PRIMARY-09/15/2009 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+PRIMARY-09/29/2009 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/03/2009 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1 & ( & 0.0\% & ) \\
+3175 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6824 (68.2\%) \\
+PRIMARY-05/04/2010 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. C \\
+2. D \\
+3. G \\
+4. L \\
+5. R \\
+6. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2 & ( & 0.1\% & ) \\
+756 & ( & 43.3\% & ) \\
+1 & ( & 0.1\% & ) \\
+3 & ( & 0.2\% & ) \\
+812 & ( & 46.5\% & ) \\
+172 & ( & 9.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8254 (82.5\%) \\
+PRIMARY-07/13/2010 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+PRIMARY-09/07/2010 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+319 & ( & 65.5\% & ) \\
+153 & ( & 31.4\% & ) \\
+15 & ( & 3.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9513 (95.1\%) \\
+GENERAL-11/02/2010 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3868 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6132 (61.3\%) \\
+PRIMARY-05/03/2011 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+89 & ( & 12.9\% & ) \\
+61 & ( & 8.9\% & ) \\
+539 & ( & 78.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9311 (93.1\%) \\
+PRIMARY-09/13/2011 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/08/2011 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3639 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6361 (63.6\%) \\
+PRIMARY-03/06/2012 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. G \\
+3. L \\
+4. R \\
+5. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+790 & ( & 38.3\% & ) \\
+1 & ( & 0.0\% & ) \\
+4 & ( & 0.2\% & ) \\
+1195 & ( & 57.9\% & ) \\
+73 & ( & 3.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7937 (79.4\%) \\
+GENERAL-11/06/2012 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5794 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 4206 (42.1\%) \\
+PRIMARY-05/07/2013 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+24 & ( & 5.2\% & ) \\
+15 & ( & 3.2\% & ) \\
+423 & ( & 91.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9538 (95.4\%) \\
+PRIMARY-09/10/2013 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+PRIMARY-10/01/2013 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/05/2013 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2347 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7653 (76.5\%) \\
+PRIMARY-05/06/2014 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. G \\
+3. L \\
+4. R \\
+5. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+668 & ( & 43.8\% & ) \\
+2 & ( & 0.1\% & ) \\
+9 & ( & 0.6\% & ) \\
+703 & ( & 46.1\% & ) \\
+144 & ( & 9.4\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8474 (84.7\%) \\
+GENERAL-11/04/2014 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3433 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6567 (65.7\%) \\
+PRIMARY-05/05/2015 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+15 & ( & 4.4\% & ) \\
+43 & ( & 12.6\% & ) \\
+282 & ( & 82.9\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9660 (96.6\%) \\
+PRIMARY-09/15/2015 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/03/2015 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+3543 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6457 (64.6\%) \\
+PRIMARY-03/15/2016 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. G \\
+3. R \\
+4. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1497 & ( & 40.0\% & ) \\
+2 & ( & 0.1\% & ) \\
+2199 & ( & 58.7\% & ) \\
+46 & ( & 1.2\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 6256 (62.6\%) \\
+GENERAL-06/07/2016 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+80 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9920 (99.2\%) \\
+PRIMARY-09/13/2016 {[}logical{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+All NA's \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & & 10000 (100.0\%) \\
+GENERAL-11/08/2016 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+6412 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 3588 (35.9\%) \\
+PRIMARY-05/02/2017 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1 & ( & 0.2\% & ) \\
+13 & ( & 3.2\% & ) \\
+388 & ( & 96.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9598 (96.0\%) \\
+PRIMARY-09/12/2017 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+4 & ( & 2.4\% & ) \\
+163 & ( & 97.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9833 (98.3\%) \\
+GENERAL-11/07/2017 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2874 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7126 (71.3\%) \\
+PRIMARY-05/08/2018 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. G \\
+3. R \\
+4. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+954 & ( & 46.1\% & ) \\
+6 & ( & 0.3\% & ) \\
+1006 & ( & 48.6\% & ) \\
+105 & ( & 5.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7929 (79.3\%) \\
+GENERAL-08/07/2018 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+246 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9754 (97.5\%) \\
+GENERAL-11/06/2018 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+5287 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 4713 (47.1\%) \\
+PRIMARY-05/07/2019 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+12 & ( & 2.4\% & ) \\
+105 & ( & 21.0\% & ) \\
+383 & ( & 76.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9500 (95.0\%) \\
+PRIMARY-09/10/2019 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+7 & ( & 35.0\% & ) \\
+13 & ( & 65.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9980 (99.8\%) \\
+GENERAL-11/05/2019 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2364 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7636 (76.4\%) \\
+PRIMARY-03/17/2020 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. L \\
+3. R \\
+4. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+1152 & ( & 52.2\% & ) \\
+2 & ( & 0.1\% & ) \\
+937 & ( & 42.5\% & ) \\
+116 & ( & 5.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7793 (77.9\%) \\
+GENERAL-11/03/2020 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+7230 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 2770 (27.7\%) \\
+PRIMARY-05/04/2021 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2 & ( & 0.6\% & ) \\
+25 & ( & 7.9\% & ) \\
+289 & ( & 91.5\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9684 (96.8\%) \\
+PRIMARY-08/03/2021 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+355 & ( & 91.3\% & ) \\
+34 & ( & 8.7\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9611 (96.1\%) \\
+PRIMARY-09/14/2021 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+7 & ( & 2.4\% & ) \\
+285 & ( & 97.6\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 9708 (97.1\%) \\
+GENERAL-11/02/2021 {[}character{]} & 1. X &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+2546 & ( & 100.0\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7454 (74.5\%) \\
+PRIMARY-05/03/2022 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+732 & ( & 35.8\% & ) \\
+1291 & ( & 63.1\% & ) \\
+23 & ( & 1.1\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 7954 (79.5\%) \\
+PRIMARY-08/02/2022 {[}character{]} &
+\begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}l@{}}
+\toprule()
+\endhead
+1. D \\
+2. R \\
+3. X \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & \begin{minipage}[t]{\linewidth}\raggedright
+\begin{longtable}[]{@{}rlrl@{}}
+\toprule()
+\endhead
+474 & ( & 47.3\% & ) \\
+525 & ( & 52.4\% & ) \\
+3 & ( & 0.3\% & ) \\
+\bottomrule()
+\end{longtable}
+\end{minipage} & & 8998 (90.0\%) \\
+\bottomrule()
+\end{longtable}
+
+This sample of 10k is 46.3\% and 53.7\% Republican.
+
+Ohio actually has open primaries which is a good reason to consider
+another state for this dataset. I'll be looking for others.
+
+\hypertarget{next-steps}{%
+\subsection{Next Steps}\label{next-steps}}
+
+Next, I will find the most advantageous state with a closed primary.
+Ideally, it will be a battleground or solid-Republican state with freely
+available voter registration data and a downloadable Corporation Search
+database (or available upon request).
+
+I look forward to any feedback or refinements to the hypotheses above.
+
+
+
+\end{document}
