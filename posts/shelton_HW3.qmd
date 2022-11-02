@@ -1,0 +1,214 @@
+---
+title: "HW 3 Solution"
+author: "Dane Shelton"
+desription: "Linear Regression"
+date: "08/02/2022"
+format:
+  html:
+    df-print: paged
+    callout-appearance: simple
+    callout-icon: false
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - shelton
+  - ggplot2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(alr4)
+library(smss)
+library(GGally)
+
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message = FALSE)
+```
+
+## Homework 3
+
+::: panel-tabset
+## Q1
+
+We are using `UN11` data:
+
+::: {.callout-note collapse="\"true'"}
+## UN11
+
+```{r}
+#| label: load-in UN11
+#| output: true
+
+data("UN11")
+
+head(UN11, n=5)
+```
+:::
+
+::: callout-note
+## 1.1.1
+
+**Predictor/Explanatory/IV -** `ppgdp` Per Person GDP
+
+**Response/DV -** `fertility` Fertility Rate per 1000
+:::
+
+::: {.callout-note collapse="true"}
+## 1.1.2
+
+```{r}
+#| label: scatter fertility x gdp
+#| output: true
+
+scatter <- UN11 %>% ggplot(aes(x=ppgdp, y=fertility))+
+              geom_point(shape=20)+
+                geom_smooth(method='lm', se=TRUE)+
+                scale_y_continuous(breaks=seq(1,6,by=1))+
+                  scale_x_continuous(breaks=seq(0,100000,by=25000))+
+                    coord_cartesian(ylim=c(0,7))
+                theme_minimal()+
+                  labs(title='Fertility Rate x ppGDP', x = 'Per Person GDP (USD)', y='Fertility   Rate per 1000', caption='Fig 1.1.2')
+
+scatter
+```
+
+No, our scatter plot appears to have a negative exponential relationship; as `ppgdp` increase, `fertility` decreases at a nonlinear rate.
+
+**NOTE:** If anyone knows why it is printing the above output as well as the graph please send a comment on Google Classroom or Piazza!
+:::
+
+::: {.callout-note collapse="true"}
+## 1.1.3
+
+```{r}
+#| label: scatter log(fertility) x log(gdp)
+#| output: true
+
+scatter_log <- UN11 %>%
+                  mutate(ppgdp=log(ppgdp), fertility=log(fertility))%>%
+                    ggplot(aes(x=ppgdp, y=fertility))+
+                      geom_point(shape=20)+
+                         geom_smooth(method='lm', se=TRUE)+
+                                 theme_minimal()+
+                                   labs(title='Log Fertility Rate x Log ppGDP', x = 'Log Per Person GDP (USD)', y='Fertility   Rate per 1000', caption='Fig 1.1.3')
+
+scatter_log
+```
+
+Now, after using a log transformation on both x and y, our scatter plot appears to have a negative linear relationship; as `ppgdp` increase, `fertility` decreases at a linear rate. This transformation makes these variabels appropriate for linear regression.
+:::
+
+## Q2
+
+::: callout-note
+## USD to GBP
+
+**a)** The slope of the regression line will be divided by 1.33 to represent the adjustment to GBP. $1 USD * (1 GBP/1.33 USD)$ leaves us with just GBP. The slope is reduced by approximately 25 percent.
+
+**b)** The correlation between the explanatory variable and the response will not change.
+:::
+
+## Q3
+
+::: {.callout-note collapse="true"}
+## `Water` Scatterplot Matrix
+
+```{r}
+#| label: Q3
+#| output: true
+
+water <- alr4::water
+
+head(water, n=5)
+
+pairs(water)
+```
+:::
+
+The rightmost column uses `BSAAM` as a response variable to the preciptation values at the various sites over the years 1948-1990. Inspecting the plots on this column closer, we can see that `BSAAM` has a strong positive correlation with `OPSLAKE`, `OPRC`, and `OBPBC`. There is a much weaker positive relationship between `BSAAM` and `APSLAKE`, `APSAB`, and `APSMAM`. If we were attempting to predict stream runoff volume, it would be best to observe and use the values of `OPSLAKE`, `OPRC`, and `OBPBC` to create our model. These locations' precipitation values are highly correlated with stream runoff volume each year.
+
+## Q4
+
+::: {.callout-note collapse="true"}
+## Scatterplot Matrix `Rateprof`
+
+```{r}
+#| label: q4
+#| output: true
+
+prof <- alr4::Rateprof
+
+head(prof)
+prof %>% GGally::ggpairs(columns = 8:12)
+
+```
+:::
+
+Using `ggpairs` of the `GGally` package, we can see the variables that correlate the highest with `quality` are `helpfulness` and `clarity`. `Clarity` and `helpfulness` have the third highest correlation with each other. If we were attempting to predict the `quality` rating of a course, we would strongly consider both `clarity` and `helpfulness` ratings.
+
+## Q5
+
+```{r}
+#| label: q5
+#| output: true
+
+data("student.survey")
+
+# 5i
+# Cannot run lm() with categorical response & ordered expl
+pi_num <- as.numeric(student.survey$pi)
+re_no <- factor(student.survey$re, ordered=F)
+            
+no_pi_ren <-  lm(data=student.survey, pi_num ~ re_no)
+
+
+# 5ii
+gpa_tv <- lm(data=student.survey, hi~tv)
+```
+
+::: {.callout-note collapse="true"}
+## Political Ideology x Religiosity
+
+```{r}
+#| label: q5 pi_re
+#| output: true
+box_pire <- student.survey%>% ggplot(aes(x=pi_num, y=re_no))+
+              geom_boxplot(fill='dimgrey', color='blue', outlier.shape = 8)+
+                theme_minimal()+
+                  labs(title = 'Boxplot: Religiosity and Political Ideology', x='Political Ideology', y='Service Attendance', caption='Political Ideology score of 4 is "moderate"; full range: "very liberal" to "very conservative"')
+                
+box_pire
+
+summary(no_pi_ren)
+```
+
+First using a box plot to visualize the relationship between a numeric and a nominal variable, it's clear the distributions of those that attend church more frequently skew towards conservative values on the 7-point scale provided by the data. This is confirmed by inspecting the summary of the linear regression model relating Political Ideology to Religiosity. Both group means' coefficients (scores) for those attending church "most weeks" and "weekly" are approximately 2 times greater that the intercept value that respresents those that attend "never".
+:::
+
+::: {.callout-note collapse="true"}
+## High School GPA x TV
+
+```{r}
+#| label: q5 gpa_tv
+#| output: true
+scatter_gpatv <- student.survey%>% ggplot(aes(x=tv, y=hi))+
+              geom_point(shape=20)+
+                geom_smooth(method='lm',se=TRUE)+
+                    theme_minimal()+
+                  labs(title = 'Scatterplot: TV and GPA', x='TV: Hrs/Wk', y='GPA (4.0 scale)')
+                  
+scatter_gpatv
+
+summary(gpa_tv)
+
+```
+
+Observing the results of the linear regression model relating high-school GPA to hours spent watching TV, we see that for every one hour increase in hours of TV/wk, our model predicts high-school GPA to decrease by 0.018305 points. We see the weak negative linear relationship using both `geom_point` and `geom_smooth` to depict the regression line and the original data points.
+:::
+:::
