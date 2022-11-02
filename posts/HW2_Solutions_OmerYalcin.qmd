@@ -1,0 +1,203 @@
+---
+title: "Homework 2"
+author: "Omer Yalcin"
+description: "The second homework on hypothesis testing and confidence intervals"
+date: "11/01/2022"
+format:
+  html:
+    toc: true
+    code-fold: false 
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+  - hypothesis testing
+  - confidence intervals
+---
+
+Please check your answers against the solutions.
+
+## Question 1
+
+```{r, echo=TRUE}
+bypass_n = 539
+angio_n = 847
+
+bypass_sample_mean = 19
+angio_sample_mean = 18
+
+bypass_sample_sd = 10
+angio_sample_sd = 9
+
+bypass_se = bypass_sample_sd/sqrt(bypass_n)
+angio_se = angio_sample_sd/sqrt(angio_n)
+
+bypass_me = qt(0.95, df = bypass_n - 1)*bypass_se
+angio_me = qt(0.95, df = angio_n - 1)*angio_se
+```
+
+The confidence intervals:
+
+```{r, echo=TRUE}
+print(bypass_sample_mean + c(-bypass_me, bypass_me))
+print(angio_sample_mean + c(-angio_me, angio_me))
+```
+
+The size of the confidence intervals, which is twice the margin of error:
+
+```{r, echo=TRUE}
+2 * bypass_me
+2 * angio_me
+```
+
+The confidence interval for angiography is narrower.
+
+## Question 2
+
+one-step solution:
+
+```{r, echo=TRUE}
+n = 1031
+k = 567
+prop.test(k, n)
+```
+
+Alternatively:
+
+```{r, echo=TRUE}
+p_hat <- k/n # point estimate
+se = sqrt((p_hat*(1-p_hat))/n) # standard error
+e = qnorm(0.975)*se # margin of error
+p_hat + c(-e, e) # confidence interval 
+```
+
+Alternatively, we can use the exact binomial test. In large samples like the one we have, the results should essentially be the same as prop.test().
+
+```{r, echo=TRUE}
+binom.test(k, n)
+```
+## Question 3
+
+
+```{r, echo=TRUE}
+range = 200-30
+population_sd = range/4
+```
+
+Remember:
+
+$$CI_{95} = \bar x \pm z \frac{s}{\sqrt n}$$
+(We can use $z$ because we assume population standard deviation is known.)
+
+We want the number $n$ that ensures:
+
+$$ z \frac{s}{\sqrt n} = 5 $$
+$$ zs = 5 \sqrt n$$
+$$ \frac{zs}{5} = \sqrt n$$
+$$  (\frac{zs}{5})^2 = n$$
+
+In our case:
+
+```{r, echo = T}
+z = qnorm(.975)
+s = population_sd
+n = ((z *s) / 5)^2
+print(n)
+```
+
+Rounding up, we need a sample of 278.
+
+
+## Question 4
+
+We can write a function to find the t-statistic, and then do all the tests in a, b, and c using that.
+
+$$t = \frac{\bar x - \mu}{s / \sqrt n}$$
+
+where $\bar x$ is them sample mean, $\mu$ is the hypothesizes population mean, $s$ is the sample standard deviation, and $n$ is the sample size.
+
+Writing this in R:
+
+```{r, echo=TRUE}
+get_t_stat <- function(x_bar, mu, sd, n){
+  return((x_bar - mu) / (sd / sqrt(n)))
+}
+
+```
+
+
+Find the t-statistic:
+
+```{r, echo=TRUE}
+t_stat <- get_t_stat(x_bar = 410, mu = 500, sd = 90, n = 9)
+```
+
+### A
+
+Two-tailed test
+
+```{r, echo=TRUE}
+n = 9
+pval_two_tail = 2*pt(t_stat, df = n-1)
+pval_two_tail
+```
+
+We can reject the hypothesis that population mean is 500.
+
+### B
+
+```{r, echo=TRUE}
+pval_lower_tail = pt(t_stat, df = n-1)
+pval_lower_tail
+```
+
+We can reject the hypothesis that population mean is greater than 500.
+
+### C
+
+```{r, echo=TRUE}
+pval_upper_tail = pt(t_stat, df = n-1, lower.tail=FALSE)
+pval_upper_tail
+```
+
+We fail to reject the hypothesis that population mean is less than 500.
+
+Alternatively for C, we could just subtract the answer in B from 1:
+
+```{r, echo=TRUE}
+1 - pval_lower_tail
+```
+
+
+## Question 5
+
+```{r, echo=TRUE}
+t_jones = ((519.5 - 500)/ 10)
+t_smith = ((519.7 - 500)/ 10)
+cat("t value for Jones:", t_jones, '\n')
+cat("t value for Smith:", t_smith, '\n')
+cat('p value for Jones:', round(2*pt(t_jones, df = 999, lower.tail=FALSE), 4), '\n')
+cat('p value for Smith:', round(2*pt(t_smith, df = 999, lower.tail=FALSE), 4), '\n')
+```
+
+At 0.05 level Smith's result is statistically significant but Jones's is not.
+The result show the arbitrariness of the 0.05 demarcation line and the importance of reporting actual p-values to better make sense of results.
+
+## Question 6:
+
+```{r, echo=TRUE}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+t.test(gas_taxes, mu = 45, alternative = 'less')
+```
+
+
+In the one sided test, we are able to reject the null in favor of the alternative that the gas taxes are less than 45 cents.
+
+Note that a two-sided test at the same level would not have resulted in the rejection of the null.
+
+However, a two-sided 90% confidence interval gives the same upper bound, since now there is a 5% rejection are on two sides: 
+
+```{r, echo=TRUE}
+t.test(gas_taxes, mu = 45, alternative = 'two.sided', conf.level = 0.9)
+```
