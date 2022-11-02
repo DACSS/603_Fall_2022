@@ -1,0 +1,240 @@
+---
+title: "HW3"
+author: "Ken Docekal"
+desription: "Homework 3"
+date: "10/31/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - Ken Docekal
+
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Q1
+
+
+Loading in data
+
+
+
+```{r}
+
+library(alr4) 
+
+library(smss) 
+
+```
+
+
+```{r}
+
+data('UN11', package = 'alr4')
+
+```
+
+
+```{r}
+
+head(UN11)
+
+```
+
+
+
+# 1.1.1
+
+The predictor variable is ppgdp (Per Person Gross National Product) and the response variable is fertility (Birth Rate Per 1000 Females).
+
+
+# 1.1.2
+
+Plotting the scatterplot of fertility versus ppgdp shows a large initial reduction in fertility as GDP increase which quickly levels out with little subsequent change in fertility as GDP continues to increase.A straight-line mean function seems like an implausible fit. 
+
+```{r}
+
+plot(x = UN11$ppgdp, y = UN11$fertility)
+
+```
+
+
+# 1.1.3
+
+A simple liner regression model seems more plausible when using natural log, the plot now seems like a good fit for a negative linear regression line.  
+
+```{r}
+
+plot(x = log(UN11$ppgdp), y = log(UN11$fertility))
+
+```
+
+
+
+## Q2
+
+# a
+
+Changing the unit of the explanatory variable from currency in dollars to pound, which is worth more than the equivalent amount in dollars in 2016, leads to a smaller coefficient for annual income and therefore decrease the slope in a linear regression.
+
+
+# b
+
+Correlation, as a standardized version of the slope, does not rely on unit of measurement however and will not be affected by an change in currency denomination.  
+
+
+
+## Q3
+
+Loading in water data.
+
+```{r}
+
+data('water', package = 'alr4')
+
+
+```
+
+
+Looking at the scatter plot matrix shows relationships between variables for year, precipitation at six Sierra Nevada mountain sites - APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE, and stream runoff volume near Bishop CA - BSAAM. 
+
+First column shows precipitation then runoff (y-axis) by year(x-axis). We can see that for most sites precipitation has a somewhat wide distribution confined towards the lower end of the range with some outliners. OPRC precipitation is has greater spread while OPSLAKE and BSAAM show somewhat of a convex relationship.
+
+Looking at the last row comparing runoff (y-axis) to precipitation (x-axis); there is minimal correlation between precipitation from APMAM, APSAB, and APSLAKE and runoff levels but a strong positive linear correlation with precipitation from OPBPC, OPRC, and OPSLAKE sites. OPBPC, OPRC, and OPSLAKE sites' greater correlation with BSAAM implies that these sites may be closer or more influential to stream runoff volume near Bishop CA.
+
+When focusing on the relationships between precipitation across sites there seems to be two groupings with high correlations; APMAM, APSAB, and APSLAKE all show fairly strong positive linear relationships with each other as do OPBPC, OPRC, and OPSLAKE. Across these groups of variables however the relationship is less clear and values are generally clustered among the lower values.This implies that sites based on these two groupings may share closer geographic proximity and are therefore more similarly affected by precipitation levels.
+
+```{r}
+
+pairs(water)
+
+```
+
+
+
+## Q4
+
+Loading in Rateprof data.
+
+```{r}
+
+data('Rateprof', package = 'alr4')
+
+
+```
+
+
+Specifying rating variables - quality, helpfulness, clarity, easiness, raterInterest.
+
+```{r}
+
+Rateprof1 = subset(Rateprof, select = c(quality, helpfulness, clarity, easiness, raterInterest))
+
+head(Rateprof1)
+
+
+```
+
+
+The scatter plot matrix shows very strong positive linear relationships between quality, helpfulness, and clarity. Easiness is also positively correlated with these three variables but less strongly. raterInterest is even less strongly correlated with quality, helpfulness, clarity, and easiness (especially with easiness) but there still seems to be a slightly positive linear relationship. 
+
+```{r}
+
+pairs(Rateprof1)
+
+```
+
+
+
+## Q5
+
+Loading in student.survey data.
+
+```{r}
+
+data('student.survey', package = 'smss')
+
+```
+
+
+Reviewing variables; pi is political ideology, re is religiosity, hi is high school GPA, and tv is average hours of TV watching per week.
+
+```{r}
+
+?student.survey
+
+view(student.survey)
+
+```
+
+
+# i
+
+Regression analysis of y = political ideology and x = religiosity. 
+
+```{r}
+
+lm(pi ~ re, data = student.survey)
+
+```
+
+
+# ii
+
+Regression analysis of y = high school GPA and x = hours of TV watching.
+
+```{r}
+
+lm(hi ~ tv, data = student.survey)
+
+```
+
+
+# a
+
+Plot of y = political ideology and x = religiosity. 
+
+```{r}
+
+ggplot(data = student.survey, aes(x = re, y = pi)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+```
+
+
+Plot of y = high school GPA and x = hours of TV watching.
+
+```{r}
+
+ggplot(data = student.survey, aes(x = tv, y = hi)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+```
+
+
+# b
+
+Analysis of the relationship between political ideology and religiosity shows a weak positive linear relationship between the two variables. As religious service attendance increases political conservatism also increases while greater political liberalism is associated with lower attendance. 
+
+The relationship between high school GPA and hours of TV watching shows a slightly negative linear relationship. Increased hours watching TV is correlated with a small decrease in high school GPA. 
+
+
+
+
+
