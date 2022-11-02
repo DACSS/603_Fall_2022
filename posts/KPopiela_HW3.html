@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Katie Popiela">
+
+<title>- HW3</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="- HW3">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../index.html">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="">
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#question-1" id="toc-question-1" class="nav-link active" data-scroll-target="#question-1">Question 1</a>
+  <ul class="collapse">
+  <li><a href="#united-nations-data-file-un11-in-alr4-the-data-in-the-file-un11-contains-several-variables-including-ppgdp-the-gross-national-product-per-person-in-u.s.-dollars-and-fertility-the-birth-rate-per-1000-females-both-from-the-year-2009.-the-data-are-for-199-localities-mostly-un-member-countries-but-also-other-areas-such-as-hong-kong-that-are-not-independent-countries.-the-data-were-collected-from-the-united-nations-2011.-we-will-study-the-dependence-of-fertility-on-ppgdp." id="toc-united-nations-data-file-un11-in-alr4-the-data-in-the-file-un11-contains-several-variables-including-ppgdp-the-gross-national-product-per-person-in-u.s.-dollars-and-fertility-the-birth-rate-per-1000-females-both-from-the-year-2009.-the-data-are-for-199-localities-mostly-un-member-countries-but-also-other-areas-such-as-hong-kong-that-are-not-independent-countries.-the-data-were-collected-from-the-united-nations-2011.-we-will-study-the-dependence-of-fertility-on-ppgdp." class="nav-link" data-scroll-target="#united-nations-data-file-un11-in-alr4-the-data-in-the-file-un11-contains-several-variables-including-ppgdp-the-gross-national-product-per-person-in-u.s.-dollars-and-fertility-the-birth-rate-per-1000-females-both-from-the-year-2009.-the-data-are-for-199-localities-mostly-un-member-countries-but-also-other-areas-such-as-hong-kong-that-are-not-independent-countries.-the-data-were-collected-from-the-united-nations-2011.-we-will-study-the-dependence-of-fertility-on-ppgdp.">United Nations (Data file: UN11 in alr4) The data in the file UN11 contains several variables, including ppgdp, the gross national product per person in U.S. dollars, and fertility, the birth rate per 1000 females, both from the year 2009. The data are for 199 localities, mostly UN member countries, but also other areas such as Hong Kong that are not independent countries. The data were collected from the United Nations (2011). We will study the dependence of fertility on ppgdp.</a></li>
+  </ul></li>
+  <li><a href="#question-2" id="toc-question-2" class="nav-link" data-scroll-target="#question-2">Question 2</a>
+  <ul class="collapse">
+  <li><a href="#annual-income-in-dollars-is-an-explanatory-variable-in-a-regression-analysis.-for-a-british-version-of-the-report-on-the-analysis-all-responses-are-converted-to-british-pounds-sterling-1-pound-equals-about-1.33-dollars-as-of-2016." id="toc-annual-income-in-dollars-is-an-explanatory-variable-in-a-regression-analysis.-for-a-british-version-of-the-report-on-the-analysis-all-responses-are-converted-to-british-pounds-sterling-1-pound-equals-about-1.33-dollars-as-of-2016." class="nav-link" data-scroll-target="#annual-income-in-dollars-is-an-explanatory-variable-in-a-regression-analysis.-for-a-british-version-of-the-report-on-the-analysis-all-responses-are-converted-to-british-pounds-sterling-1-pound-equals-about-1.33-dollars-as-of-2016.">Annual income, in dollars, is an explanatory variable in a regression analysis. For a British version of the report on the analysis, all responses are converted to British pounds sterling (1 pound equals about 1.33 dollars, as of 2016).</a></li>
+  </ul></li>
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a>
+  <ul class="collapse">
+  <li><a href="#water-runoff-in-the-sierras-data-file-water-in-alr4-can-southern-californias-water-supply-in-future-years-be-predicted-from-past-data-one-factor-affecting-water-availability-is-stream-runoff.-if-runoff-could-be-predicted-engineers-planners-and-policy-makers-could-do-their-jobs-more-efficiently.-the-data-file-contains-43-years-worth-of-precipitation-measurements-taken-at-six-sites-in-the-sierra-nevada-mountains-labeled-apmam-apsab-apslake-opbpc-oprc-and-opslake-and-stream-runoff-volume-at-a-site-near-bishop-california-labeled-bsaam.-draw-the-scatterplot-matrix-for-these-data-and-summarize-the-information-available-from-these-plots.-hint-use-the-pairs-function." id="toc-water-runoff-in-the-sierras-data-file-water-in-alr4-can-southern-californias-water-supply-in-future-years-be-predicted-from-past-data-one-factor-affecting-water-availability-is-stream-runoff.-if-runoff-could-be-predicted-engineers-planners-and-policy-makers-could-do-their-jobs-more-efficiently.-the-data-file-contains-43-years-worth-of-precipitation-measurements-taken-at-six-sites-in-the-sierra-nevada-mountains-labeled-apmam-apsab-apslake-opbpc-oprc-and-opslake-and-stream-runoff-volume-at-a-site-near-bishop-california-labeled-bsaam.-draw-the-scatterplot-matrix-for-these-data-and-summarize-the-information-available-from-these-plots.-hint-use-the-pairs-function." class="nav-link" data-scroll-target="#water-runoff-in-the-sierras-data-file-water-in-alr4-can-southern-californias-water-supply-in-future-years-be-predicted-from-past-data-one-factor-affecting-water-availability-is-stream-runoff.-if-runoff-could-be-predicted-engineers-planners-and-policy-makers-could-do-their-jobs-more-efficiently.-the-data-file-contains-43-years-worth-of-precipitation-measurements-taken-at-six-sites-in-the-sierra-nevada-mountains-labeled-apmam-apsab-apslake-opbpc-oprc-and-opslake-and-stream-runoff-volume-at-a-site-near-bishop-california-labeled-bsaam.-draw-the-scatterplot-matrix-for-these-data-and-summarize-the-information-available-from-these-plots.-hint-use-the-pairs-function.">Water runoff in the Sierras (Data file: water in alr4) Can Southern California’s water supply in future years be predicted from past data? One factor affecting water availability is stream runoff. If runoff could be predicted, engineers, planners, and policy makers could do their jobs more efficiently. The data file contains 43 years’ worth of precipitation measurements taken at six sites in the Sierra Nevada mountains (labeled APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE) and stream runoff volume at a site near Bishop, California, labeled BSAAM. Draw the scatterplot matrix for these data and summarize the information available from these plots. (Hint: Use the pairs() function.)</a></li>
+  </ul></li>
+  <li><a href="#question-4" id="toc-question-4" class="nav-link" data-scroll-target="#question-4">Question 4</a>
+  <ul class="collapse">
+  <li><a href="#professor-ratings-data-file-rateprof-in-alr4-in-the-website-and-online-forum-ratemyprofessors.com-students-rate-and-comment-on-their-instructors.-launched-in-1999-the-site-includes-millions-of-ratings-on-thousands-of-instructors.-the-data-file-includes-the-summaries-of-the-ratings-of-364-instructors-at-a-large-campus-in-the-midwest-bleske-rechek-and-fritsch-2011.-each-instructor-included-in-the-data-had-at-least-10-ratings-over-a-several-year-period.-students-provided-ratings-of-15-on-quality-helpfulness-clarity-easiness-of-instructors-courses-and-raterinterest-in-the-subject-matter-covered-in-the-instructors-courses.-the-data-file-provides-the-averages-of-these-five-ratings.-create-a-scatterplot-matrix-of-these-five-variables.-provide-a-brief-description-of-the-relationships-between-the-five-ratings." id="toc-professor-ratings-data-file-rateprof-in-alr4-in-the-website-and-online-forum-ratemyprofessors.com-students-rate-and-comment-on-their-instructors.-launched-in-1999-the-site-includes-millions-of-ratings-on-thousands-of-instructors.-the-data-file-includes-the-summaries-of-the-ratings-of-364-instructors-at-a-large-campus-in-the-midwest-bleske-rechek-and-fritsch-2011.-each-instructor-included-in-the-data-had-at-least-10-ratings-over-a-several-year-period.-students-provided-ratings-of-15-on-quality-helpfulness-clarity-easiness-of-instructors-courses-and-raterinterest-in-the-subject-matter-covered-in-the-instructors-courses.-the-data-file-provides-the-averages-of-these-five-ratings.-create-a-scatterplot-matrix-of-these-five-variables.-provide-a-brief-description-of-the-relationships-between-the-five-ratings." class="nav-link" data-scroll-target="#professor-ratings-data-file-rateprof-in-alr4-in-the-website-and-online-forum-ratemyprofessors.com-students-rate-and-comment-on-their-instructors.-launched-in-1999-the-site-includes-millions-of-ratings-on-thousands-of-instructors.-the-data-file-includes-the-summaries-of-the-ratings-of-364-instructors-at-a-large-campus-in-the-midwest-bleske-rechek-and-fritsch-2011.-each-instructor-included-in-the-data-had-at-least-10-ratings-over-a-several-year-period.-students-provided-ratings-of-15-on-quality-helpfulness-clarity-easiness-of-instructors-courses-and-raterinterest-in-the-subject-matter-covered-in-the-instructors-courses.-the-data-file-provides-the-averages-of-these-five-ratings.-create-a-scatterplot-matrix-of-these-five-variables.-provide-a-brief-description-of-the-relationships-between-the-five-ratings.">Professor ratings (Data file: Rateprof in alr4) In the website and online forum RateMyProfessors.com, students rate and comment on their instructors. Launched in 1999, the site includes millions of ratings on thousands of instructors. The data file includes the summaries of the ratings of 364 instructors at a large campus in the Midwest (Bleske-Rechek and Fritsch, 2011). Each instructor included in the data had at least 10 ratings over a several year period. Students provided ratings of 1–5 on quality, helpfulness, clarity, easiness of instructor’s courses, and raterInterest in the subject matter covered in the instructor’s courses. The data file provides the averages of these five ratings. Create a scatterplot matrix of these five variables. Provide a brief description of the relationships between the five ratings.</a></li>
+  </ul></li>
+  <li><a href="#question-5" id="toc-question-5" class="nav-link" data-scroll-target="#question-5">Question 5</a>
+  <ul class="collapse">
+  <li><a href="#for-the-student.survey-data-file-in-the-smss-package-conduct-regression-analyses-relating-by-convention-y-denotes-the-outcome-variable-x-denotes-the-explanatory-variable.-you-can-use-student.survey-in-the-r-console-after-loading-the-package-to-see-what-each-variable-means." id="toc-for-the-student.survey-data-file-in-the-smss-package-conduct-regression-analyses-relating-by-convention-y-denotes-the-outcome-variable-x-denotes-the-explanatory-variable.-you-can-use-student.survey-in-the-r-console-after-loading-the-package-to-see-what-each-variable-means." class="nav-link" data-scroll-target="#for-the-student.survey-data-file-in-the-smss-package-conduct-regression-analyses-relating-by-convention-y-denotes-the-outcome-variable-x-denotes-the-explanatory-variable.-you-can-use-student.survey-in-the-r-console-after-loading-the-package-to-see-what-each-variable-means.">For the student.survey data file in the smss package, conduct regression analyses relating (by convention, y denotes the outcome variable, x denotes the explanatory variable). (You can use ?student.survey in the R console, after loading the package, to see what each variable means.)</a></li>
+  <li><a href="#i-y-political-ideology-and-x-religiosity" id="toc-i-y-political-ideology-and-x-religiosity" class="nav-link" data-scroll-target="#i-y-political-ideology-and-x-religiosity">(i) y = political ideology and x = religiosity</a></li>
+  <li><a href="#ii-y-high-school-gpa-and-x-hours-of-tv-watching" id="toc-ii-y-high-school-gpa-and-x-hours-of-tv-watching" class="nav-link" data-scroll-target="#ii-y-high-school-gpa-and-x-hours-of-tv-watching">(ii) y = high school GPA and x = hours of TV watching</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">HW3</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Katie Popiela </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: car</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: effects</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>lattice theme set by effectsTheme()
+See ?effectsTheme for details.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'smss' was built under R version 4.2.2</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:car':
+
+    recode</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="question-1" class="level2">
+<h2 class="anchored" data-anchor-id="question-1">Question 1</h2>
+<section id="united-nations-data-file-un11-in-alr4-the-data-in-the-file-un11-contains-several-variables-including-ppgdp-the-gross-national-product-per-person-in-u.s.-dollars-and-fertility-the-birth-rate-per-1000-females-both-from-the-year-2009.-the-data-are-for-199-localities-mostly-un-member-countries-but-also-other-areas-such-as-hong-kong-that-are-not-independent-countries.-the-data-were-collected-from-the-united-nations-2011.-we-will-study-the-dependence-of-fertility-on-ppgdp." class="level3">
+<h3 class="anchored" data-anchor-id="united-nations-data-file-un11-in-alr4-the-data-in-the-file-un11-contains-several-variables-including-ppgdp-the-gross-national-product-per-person-in-u.s.-dollars-and-fertility-the-birth-rate-per-1000-females-both-from-the-year-2009.-the-data-are-for-199-localities-mostly-un-member-countries-but-also-other-areas-such-as-hong-kong-that-are-not-independent-countries.-the-data-were-collected-from-the-united-nations-2011.-we-will-study-the-dependence-of-fertility-on-ppgdp.">United Nations (Data file: UN11 in alr4) The data in the file UN11 contains several variables, including ppgdp, the gross national product per person in U.S. dollars, and fertility, the birth rate per 1000 females, both from the year 2009. The data are for 199 localities, mostly UN member countries, but also other areas such as Hong Kong that are not independent countries. The data were collected from the United Nations (2011). We will study the dependence of fertility on ppgdp.</h3>
+<section id="identify-the-predictor-and-the-response." class="level4">
+<h4 class="anchored" data-anchor-id="identify-the-predictor-and-the-response.">1.1. Identify the predictor and the response.</h4>
+<p>Predictor: ppgdp<br>
+Response: fertility</p>
+</section>
+<section id="draw-the-scatterplot-of-fertility-on-the-vertical-axis-versus-ppgdp-on-the-horizontal-axis-and-summarize-the-information-in-this-graph.-does-a-straight-line-mean-function-seem-to-be-plausible-for-a-summary-of-this-graph" class="level4">
+<h4 class="anchored" data-anchor-id="draw-the-scatterplot-of-fertility-on-the-vertical-axis-versus-ppgdp-on-the-horizontal-axis-and-summarize-the-information-in-this-graph.-does-a-straight-line-mean-function-seem-to-be-plausible-for-a-summary-of-this-graph">1.2 Draw the scatterplot of fertility on the vertical axis versus ppgdp on the horizontal axis and summarize the information in this graph. Does a straight-line mean function seem to be plausible for a summary of this graph?</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(UN11)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>UN11, <span class="fu">aes</span>(<span class="at">x=</span>ppgdp,<span class="at">y=</span>fertility))<span class="sc">+</span><span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>,<span class="at">se=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A straight-line mean function would not be plausible here as the data is not presented linearly</p>
+</section>
+<section id="draw-the-scatterplot-of-logfertility-versus-logppgdp-using-natural-logarithms.-does-the-simple-linear-regression-model-seem-plausible-for-a-summary-of-this-graph-if-you-use-a-different-base-of-logarithms-the-shape-of-the-graph-wont-change-but-the-values-on-the-axes-will-change" class="level4">
+<h4 class="anchored" data-anchor-id="draw-the-scatterplot-of-logfertility-versus-logppgdp-using-natural-logarithms.-does-the-simple-linear-regression-model-seem-plausible-for-a-summary-of-this-graph-if-you-use-a-different-base-of-logarithms-the-shape-of-the-graph-wont-change-but-the-values-on-the-axes-will-change">1.3 Draw the scatterplot of log(fertility) versus log(ppgdp) using natural logarithms. Does the simple linear regression model seem plausible for a summary of this graph? If you use a different base of logarithms, the shape of the graph won’t change, but the values on the axes will change</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> UN11, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">log</span>(ppgdp),<span class="at">y=</span><span class="fu">log</span>(fertility))) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>,<span class="at">se=</span><span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A simple linear regression model would be much more appropriate</p>
+</section>
+</section>
+</section>
+<section id="question-2" class="level2">
+<h2 class="anchored" data-anchor-id="question-2">Question 2</h2>
+<section id="annual-income-in-dollars-is-an-explanatory-variable-in-a-regression-analysis.-for-a-british-version-of-the-report-on-the-analysis-all-responses-are-converted-to-british-pounds-sterling-1-pound-equals-about-1.33-dollars-as-of-2016." class="level3">
+<h3 class="anchored" data-anchor-id="annual-income-in-dollars-is-an-explanatory-variable-in-a-regression-analysis.-for-a-british-version-of-the-report-on-the-analysis-all-responses-are-converted-to-british-pounds-sterling-1-pound-equals-about-1.33-dollars-as-of-2016.">Annual income, in dollars, is an explanatory variable in a regression analysis. For a British version of the report on the analysis, all responses are converted to British pounds sterling (1 pound equals about 1.33 dollars, as of 2016).</h3>
+<section id="how-if-at-all-does-the-slope-of-the-prediction-equation-change" class="level4">
+<h4 class="anchored" data-anchor-id="how-if-at-all-does-the-slope-of-the-prediction-equation-change">2.1 How, if at all, does the slope of the prediction equation change?</h4>
+<p>To account for the conversion rate from USD to GBP, the response and the slope must be divided by 1.33</p>
+</section>
+<section id="how-if-at-all-does-the-correlation-change" class="level4">
+<h4 class="anchored" data-anchor-id="how-if-at-all-does-the-correlation-change">2.2 How, if at all, does the correlation change?</h4>
+<p>Correlation wouldn’t change in this scenario since it isn’t affected by units of measurement</p>
+</section>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<section id="water-runoff-in-the-sierras-data-file-water-in-alr4-can-southern-californias-water-supply-in-future-years-be-predicted-from-past-data-one-factor-affecting-water-availability-is-stream-runoff.-if-runoff-could-be-predicted-engineers-planners-and-policy-makers-could-do-their-jobs-more-efficiently.-the-data-file-contains-43-years-worth-of-precipitation-measurements-taken-at-six-sites-in-the-sierra-nevada-mountains-labeled-apmam-apsab-apslake-opbpc-oprc-and-opslake-and-stream-runoff-volume-at-a-site-near-bishop-california-labeled-bsaam.-draw-the-scatterplot-matrix-for-these-data-and-summarize-the-information-available-from-these-plots.-hint-use-the-pairs-function." class="level3">
+<h3 class="anchored" data-anchor-id="water-runoff-in-the-sierras-data-file-water-in-alr4-can-southern-californias-water-supply-in-future-years-be-predicted-from-past-data-one-factor-affecting-water-availability-is-stream-runoff.-if-runoff-could-be-predicted-engineers-planners-and-policy-makers-could-do-their-jobs-more-efficiently.-the-data-file-contains-43-years-worth-of-precipitation-measurements-taken-at-six-sites-in-the-sierra-nevada-mountains-labeled-apmam-apsab-apslake-opbpc-oprc-and-opslake-and-stream-runoff-volume-at-a-site-near-bishop-california-labeled-bsaam.-draw-the-scatterplot-matrix-for-these-data-and-summarize-the-information-available-from-these-plots.-hint-use-the-pairs-function.">Water runoff in the Sierras (Data file: water in alr4) Can Southern California’s water supply in future years be predicted from past data? One factor affecting water availability is stream runoff. If runoff could be predicted, engineers, planners, and policy makers could do their jobs more efficiently. The data file contains 43 years’ worth of precipitation measurements taken at six sites in the Sierra Nevada mountains (labeled APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE) and stream runoff volume at a site near Bishop, California, labeled BSAAM. Draw the scatterplot matrix for these data and summarize the information available from these plots. (Hint: Use the pairs() function.)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(water)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(water)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<ul>
+<li><p>The following variables appear to be correlated with each other: OPBPC, OPRC, OPSLAKE. All parts of the matrix with 2 of these variables exhibit a dependence among themselves that is not present between OPBPC, OPRC, and OPSLAKE and APMAM, APSAB, APSLAKE. That being said, though, there also appears to be a correlation among APMAM, APSAB, APSLAKE.</p></li>
+<li><p>BSAAM is more closely related to OPBPC, OPRC, and OPSLAKE than to APMAM, APSAB, APSLAKE.</p></li>
+</ul>
+</section>
+</section>
+<section id="question-4" class="level2">
+<h2 class="anchored" data-anchor-id="question-4">Question 4</h2>
+<section id="professor-ratings-data-file-rateprof-in-alr4-in-the-website-and-online-forum-ratemyprofessors.com-students-rate-and-comment-on-their-instructors.-launched-in-1999-the-site-includes-millions-of-ratings-on-thousands-of-instructors.-the-data-file-includes-the-summaries-of-the-ratings-of-364-instructors-at-a-large-campus-in-the-midwest-bleske-rechek-and-fritsch-2011.-each-instructor-included-in-the-data-had-at-least-10-ratings-over-a-several-year-period.-students-provided-ratings-of-15-on-quality-helpfulness-clarity-easiness-of-instructors-courses-and-raterinterest-in-the-subject-matter-covered-in-the-instructors-courses.-the-data-file-provides-the-averages-of-these-five-ratings.-create-a-scatterplot-matrix-of-these-five-variables.-provide-a-brief-description-of-the-relationships-between-the-five-ratings." class="level3">
+<h3 class="anchored" data-anchor-id="professor-ratings-data-file-rateprof-in-alr4-in-the-website-and-online-forum-ratemyprofessors.com-students-rate-and-comment-on-their-instructors.-launched-in-1999-the-site-includes-millions-of-ratings-on-thousands-of-instructors.-the-data-file-includes-the-summaries-of-the-ratings-of-364-instructors-at-a-large-campus-in-the-midwest-bleske-rechek-and-fritsch-2011.-each-instructor-included-in-the-data-had-at-least-10-ratings-over-a-several-year-period.-students-provided-ratings-of-15-on-quality-helpfulness-clarity-easiness-of-instructors-courses-and-raterinterest-in-the-subject-matter-covered-in-the-instructors-courses.-the-data-file-provides-the-averages-of-these-five-ratings.-create-a-scatterplot-matrix-of-these-five-variables.-provide-a-brief-description-of-the-relationships-between-the-five-ratings.">Professor ratings (Data file: Rateprof in alr4) In the website and online forum RateMyProfessors.com, students rate and comment on their instructors. Launched in 1999, the site includes millions of ratings on thousands of instructors. The data file includes the summaries of the ratings of 364 instructors at a large campus in the Midwest (Bleske-Rechek and Fritsch, 2011). Each instructor included in the data had at least 10 ratings over a several year period. Students provided ratings of 1–5 on quality, helpfulness, clarity, easiness of instructor’s courses, and raterInterest in the subject matter covered in the instructor’s courses. The data file provides the averages of these five ratings. Create a scatterplot matrix of these five variables. Provide a brief description of the relationships between the five ratings.</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Rateprof)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(Rateprof[<span class="fu">c</span>(<span class="st">"quality"</span>,<span class="st">"clarity"</span>,<span class="st">"helpfulness"</span>,<span class="st">"easiness"</span>,<span class="st">"raterInterest"</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There is a strong positive relationship among the variables “quality”, “clarity”, and “helpfulness.” There appears to be some correlation between “helpfulness” and “easiness”, but the data is more dispersed.</p>
+</section>
+</section>
+<section id="question-5" class="level2">
+<h2 class="anchored" data-anchor-id="question-5">Question 5</h2>
+<section id="for-the-student.survey-data-file-in-the-smss-package-conduct-regression-analyses-relating-by-convention-y-denotes-the-outcome-variable-x-denotes-the-explanatory-variable.-you-can-use-student.survey-in-the-r-console-after-loading-the-package-to-see-what-each-variable-means." class="level3">
+<h3 class="anchored" data-anchor-id="for-the-student.survey-data-file-in-the-smss-package-conduct-regression-analyses-relating-by-convention-y-denotes-the-outcome-variable-x-denotes-the-explanatory-variable.-you-can-use-student.survey-in-the-r-console-after-loading-the-package-to-see-what-each-variable-means.">For the student.survey data file in the smss package, conduct regression analyses relating (by convention, y denotes the outcome variable, x denotes the explanatory variable). (You can use ?student.survey in the R console, after loading the package, to see what each variable means.)</h3>
+</section>
+<section id="i-y-political-ideology-and-x-religiosity" class="level3">
+<h3 class="anchored" data-anchor-id="i-y-political-ideology-and-x-religiosity">(i) y = political ideology and x = religiosity</h3>
+</section>
+<section id="ii-y-high-school-gpa-and-x-hours-of-tv-watching" class="level3">
+<h3 class="anchored" data-anchor-id="ii-y-high-school-gpa-and-x-hours-of-tv-watching">(ii) y = high school GPA and x = hours of TV watching</h3>
+<section id="graphically-portray-how-the-explanatory-variable-relates-to-the-outcome-variable-in-each-of-the-two-cases" class="level4">
+<h4 class="anchored" data-anchor-id="graphically-portray-how-the-explanatory-variable-relates-to-the-outcome-variable-in-each-of-the-two-cases">5.1 Graphically portray how the explanatory variable relates to the outcome variable in each of the two cases</h4>
+</section>
+<section id="summarize-and-interpret-results-of-inferential-analyses" class="level4">
+<h4 class="anchored" data-anchor-id="summarize-and-interpret-results-of-inferential-analyses">5.2 Summarize and interpret results of inferential analyses</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"student.survey"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(student.survey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "subj" "ge"   "ag"   "hi"   "co"   "dh"   "dr"   "tv"   "sp"   "ne"  
+[11] "ah"   "ve"   "pa"   "pi"   "re"   "ab"   "aa"   "ld"  </code></pre>
+</div>
+</div>
+<p>As per the question, I will be focusing on the following variables: “re” (religiosity) and “pi” (political ideology) for subsection i, and “hi” (high school GPA) and “tv” (hours watching TV) for subsection ii.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subsection i</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>student.survey,<span class="fu">aes</span>(<span class="at">x=</span>re,<span class="at">fill=</span>pi))<span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Religiosity"</span>, <span class="at">fill =</span><span class="st">"Political Ideology"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The above graph is one of several that could have been used; I just used a bar graph with fill colors since it was simple and suited my purposes. I didn’t know how to get additional information about what the variables actually mean, but I’m assuming “religiosity” refers to how often respondents attend religious services or practice their religion. As “religiousness” increases, conservatism does as well. While not a majority by any means, it is still significant to note that those who identify as very conservative only appear in the bar labelled “every week,” whereas those who identify as very liberal are not even present on the graph to the right of “occasionally.” This, therefore, indicates that those who are heavily liberal-leaning in political ideology are far less likely to go to church/temple/mosque/etc. regularly/frequently than those who are more conservative.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#subsection ii</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>student.survey,<span class="fu">aes</span>(<span class="at">x=</span>hi, <span class="at">y=</span>tv)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"High School GPA"</span>, <span class="at">y=</span><span class="st">"Hours Watching TV"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="KPopiela_HW3_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Once again, this graph is just one of several visualizations that could be used. I chose a scatterplot to reflect individual responses and lessen the visual impact of outliers. While this graph does not show a linear relationship between the two variables, there is a higher concentration of responses with higher GPA’s and lower # of hours watching TV. I will conduct a simple regression model to test whether a linear relationship exists.</p>
+<p>And here are some summary statistics for context:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(student.survey[,<span class="fu">c</span>(<span class="st">'pi'</span>, <span class="st">'re'</span>, <span class="st">'hi'</span>, <span class="st">'tv'</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     pi                re           hi              tv        
+ very liberal         : 8   never       :15   Min.   :2.000   Min.   : 0.000  
+ liberal              :24   occasionally:29   1st Qu.:3.000   1st Qu.: 3.000  
+ slightly liberal     : 6   most weeks  : 7   Median :3.350   Median : 6.000  
+ moderate             :10   every week  : 9   Mean   :3.308   Mean   : 7.267  
+ slightly conservative: 6                     3rd Qu.:3.625   3rd Qu.:10.000  
+ conservative         : 4                     Max.   :4.000   Max.   :37.000  
+ very conservative    : 2                                                     </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
