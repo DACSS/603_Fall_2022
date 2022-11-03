@@ -1,0 +1,149 @@
+---
+title: "Homework 3"
+author: "Shoshana Buck"
+desription: "Third homework"
+date: "10/31/22"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - Shoshana Buck
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+library(ggplot2)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+**United Nations** (Data file: UN11in alr4) The data in the file UN11 contains several variables, including ppgdp, the gross national product per person in U.S. dollars, and fertility, the birth rate per 1000 females, both from the year 2009. The data are for 199 localities, mostly UN member countries, but also other areas such as Hong Kong that are not independent countries. The data were collected from the United Nations (2011). We will study the dependence of fertility on ppgdp.
+
+```{r}
+UN11
+```
+
+### 1.1.1
+
+The predictor is the *ppgdp* and the response is *fertility*.
+
+### 1.1.2
+
+Draw the scatterplot of fertility on the vertical axis versus ppgdp on the horizontal axis and summarize the information in this graph. Does a straight-line mean function seem to be plausible for a summary of this graph?
+
+```{r}
+fertility_ppgdp<- ggplot(data = UN11, aes(x=ppgdp, y= fertility)) + geom_point() + labs(title = "Fertility vs. ppgdp,United Nations (2011)")
+fertility_ppgdp
+```
+
+The scatterplot shows the relationship between *fertility* and the *ppgdp*. There is a strong correlation between fertility and *ppgdp* when *fertility* is high, however, the more *ppgdp* increases fertility decreases. As a result, a straight-line mean function doesn't seem plausible for a summary of this graph.
+
+### 1.1.3
+
+Draw the scatterplot of *log(fertility)* versus *log(ppgdp)* using natural logarithms. Does the simple linear regression model seem plausible for a summary of this graph? If you use a different base of logarithms, the shape of the graph won't change, but the values on the axes will change.
+
+```{r}
+log_ppgdp<- ggplot(data = UN11, aes(x = log(ppgdp), y= fertility)) + geom_point() + labs(title = "Natural Log of fertility vs. ppgdp, United Nations (2011)")
+log_ppgdp
+```
+
+Now using the log() function with ppgdp the relationship between ppgdp vs. fertility seems to look more like a straight line, making plausible to use a straight-line mean function to summarize the graph.
+
+```{r}
+log_fertility<- ggplot(data = UN11, aes(x =ppgdp, y= log(fertility))) + geom_point() + labs(title = "Natural Log of fertility vs. ppgdp, United Nations (2011)")
+log_fertility
+```
+
+Using the log() function for fertility shows a similar relationship to the first graph, not making it plausible to use a straight-line mean function to summarize the graph.
+
+## Question 2
+
+Annual income, in dollars, is an explanatory variable in a regression analysis. For a British version of the report on the analysis, all responses are converted to British pounds sterling (1 pound equals about 1.33 dollars, as of 2016).
+
+### A
+
+How, if at all, does the slope of the prediction equation change?
+
+The slope of the prediction equation would increase by 1.33 because that is the conversion rate between British pounds sterling and US dollars.
+
+### B
+
+How, if at all, does the correlation change?
+
+No, the correlation does not change because it is the standardized version of the slope and the unit of measurement does not affect the slope.
+
+## Question 3
+
+**Water runoff in the Sierras** (Data file: water in alr4) Can Southern California's water supply in future years be predicted from past data? One factor affecting water availability is stream runoff. If runoff could be predicted, engineers, planners, and policy makers could do their jobs more efficiently. The data file contains 43 years' worth of precipitation measurements taken at six sites in the Sierra Nevada mountains (labeled APMAM, APSAB, APSLAKE, OPBPC, OPRC, and OPSLAKE) and stream runoff volume at a site near Bishop, California, labeled BSAAM. **Draw the scatterplot matrix for these data and summarize the information available from these plots. (Hint: Use the pairs() function.)**
+
+```{r}
+water
+```
+
+```{r}
+pairs(water)
+```
+
+There seems to be a positive correlation between the stream runoff (*BSAAM)* and water availability in three of the perceptitaion measurement sites (*OPSLAKE*, *OPRC*, and *OPBPC).* The other three precipitation measurement sites- (*APSLAKE, APSAB,* and *APMAM* ) show a distribution of values without having a positive or negative correlation between the stream runoff and water availability as the graph .
+
+## Question 4
+
+**Professor ratings** (Data file: Rateprof in alr4) In the website and online forum RateMyProfessors.com, students rate and comment on their instructors. Launched in 1999, the site includes millions of ratings on thousands of instructors. The data file includes the summaries of the ratings of 364 instructors at a large campus in the Midwest (Bleske-Rechek and Fritsch, 2011). Each instructor included in the data had at least 10 ratings over a several year period. Students provided ratings of 1--5 on quality, helpfulness, clarity, easiness of instructor's courses, and raterInterest in the subject matter covered in the instructor's courses. The data file provides the averages of these five ratings. **Create a scatterplot matrix of these five variables. Provide a brief description of the relationships between the five ratings**.
+
+```{r}
+Rateprof
+```
+
+```{r}
+ratemyprof<- Rateprof %>% select(quality, helpfulness, clarity, easiness, raterInterest)
+ratemyprof
+```
+
+```{r}
+pairs(ratemyprof)
+```
+
+Quality, helpfulness, and clarity all have a positive correlation with one another which show that these rating have the most influence on how a professor is rated. The other variables easiness and raterInterest have dispersed data and seem to effect the other variables in a similar way which shows that they don't have much a sway with rating a professor.
+
+## Question 5
+
+For the student.survey data file in the smss package, conduct regression analyses relating (by convention, y denotes the outcome variable, x denotes the explanatory variable) (i) y = political ideology and x = religiosity, (ii) y = high school GPA and x = hours of TV watching.*You can use student.survey in the R console, after loading the package, to see what each variable means.*
+
+### A
+
+Graphically portray how the explanatory variable relates to the outcome variable in each of the two cases.
+
+```{r}
+student.survey
+
+```
+
+## (i) y = political ideology and x = religiosity
+
+```{r}
+
+s<- ggplot(data = student.survey, aes( x= as.numeric(pi), y= as.numeric(re))) + geom_smooth()
+s
+```
+
+## (ii) y = high school GPA and x = hours of TV watching
+
+```{r}
+p<- ggplot(data = student.survey, aes( x= tv, y= hi)) + geom_smooth()
+p
+```
+
+### B
+
+The first graph that shows a positive correlation with political ideology and religiosity, the stronger political beliefs one has the more religious they are. The second graph shows that the more tv people watch the lower ones high school GPA will be.
