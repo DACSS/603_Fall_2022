@@ -1,0 +1,136 @@
+---
+title: "Homework 3"
+author: "Quinn He"
+desription: "603"
+date: "10/31/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+
+library(tidyverse)
+library(alr4)
+library(smss)
+library(fastDummies)
+library(GGally)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1.1.1
+
+The predictor variable is ppgdp and the response variable is fertility.
+
+## 1.1.2
+A straight line doesn't totally fit for this graph.
+```{r}
+
+
+ggplot(UN11, mapping = aes(x = UN11$ppgdp, y = UN11$fertility))+
+  geom_point()+
+  geom_smooth(method = lm, se = F)
+
+```
+
+
+## 1.1.3
+
+I do not think this is practical way to view the data. While it has a similar trend line to the previous graph, I still do not think viewing the data with logs is an accurate way to represent the relationship between the two variables.
+
+Although I suppose it would be practical on second thought because it's clearly showing what the above graph is trying to display. This is a more drastic negative correlation.
+```{r}
+
+ggplot(UN11, mapping = aes(x = log(UN11$ppgdp), y = log(UN11$fertility)))+
+  geom_point()+
+  geom_smooth(method = lm, se = F)
+
+```
+
+
+## 2a
+
+This question is a bit challenge but I think the slope would decrease because the exchange rate decreases with conversion. 
+
+## 2b
+
+The correlation wouldn't change because the strength of the relationship isn't affected.
+
+## 3
+
+```{r}
+
+summary(pairs(water[2:8]))
+
+```
+BSAAM to OPBPC seem to be positively correlated with each other. This leads me to think that OPBPC, OPRC and OPSLAKE have significant runoff because the high level of precipitation is positively correlated with the volume of runoff measured by BSAAM.
+
+
+## 4
+
+```{r}
+
+pairs(Rateprof[8:12])
+
+
+```
+According to the scatter plot matrix, we can observe a few relationships of the various entries. Helpfulness and quality have a strong positive correlation. Clarity and quality and helpfulness and clarity also have a very strong positive correlation, all of which is expected. It's when easiness comes it there is less positive correlation. I would imagine easiness and clarity would have a stronger correlation but here there appears to be less of a positive relationship. 
+
+raterInterest is the variable with the least correlation with any of the other variables. 
+
+## 5
+Creating dummy variables. So now there are many different columns as dummy variables but now it's impossible to run a regression analysis.
+```{r}
+
+student.survey <-dummy_cols(student.survey, select_columns = "pi")
+student.survey <-dummy_cols(student.survey, select_columns = "re")
+
+#ifelse(student.survey$pi == 'conservative', )
+
+#conservative <- ifelse(student.survey$pi == 'conservative', 1,0)
+#sl_conser <- ifelse(student.survey$pi == 'slightly conservative', 2,0)
+
+```
+
+```{r}
+
+num_pi <- model.matrix(~pi, data = student.survey)
+
+num_re <- model.matrix(~re, data = student.survey)
+
+```
+
+```{r}
+summary(lm(num_pi ~ num_re))
+
+```
+
+```{r}
+summary(lm(student.survey$hi ~ student.survey$tv))
+
+```
+## 5a
+
+```{r}
+
+ggplot(student.survey, aes(re, ..count..)) + geom_bar(aes(fill = pi), position = "dodge")+
+  labs(title = "Relationship between political ideology and religiosity", x = "Religiosity", fill = "Political Ideology")
+
+```
+Students who occasionally go to church tend to be very liberal, while students who lean conservative go to church more frequently. Overall, students who lean closer to the liberal ideology go to church less, if at all, and students who move right on the political spectrum tend to attend church more frequently.
+```{r}
+
+plot(student.survey$hi, student.survey$tv)
+
+```
+
+According to the linear model and by visualizing the trend, it appears there is not much of a correlation between hours of TV watched and high school GPA.
