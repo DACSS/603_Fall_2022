@@ -1,0 +1,429 @@
+---
+title: "Final Project"
+author: "Ethan Campbell"
+description: "Temperature and Humidity impact on number of bike users"
+date: "11/11/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - finalpart2
+---
+
+# Introduction
+
+Climate has always been a topic that sparks debate and there is continuous research being done on it every day. I wanted to contribute to this research and analyze the impacts climate factors like temperature and humidity have on bike users. There has been study related to weather conditions and biking and whether or not it results in more accidents which concluded in an increase in accidents. "It suggests that weather conditions should be considered in every analysis where bicycle volume data is needed" (Pazdan, 2020). The paper describes the importance of weather condition and how they should be used in any analysis regarding biking data. Here, I thought about if we know that these factors are important, how important are they? I can find this data online somewhere however, I would like to conduct my own study and determine the results from that and then compare it to results online.
+
+::: callout-note
+## Research Questions
+
+A. How has temperature and humidity impacted bike users?
+:::
+
+My motivation is driven by my own interest in biking and climate factors and the study of how the climate is impacting human movement. I think it is interesting how significant climate factors can impact certain human activities and I want to learn more about which ones are presenting the largest impact on human activity. The reason this study is different is that it is based on normalized data and is focusing how bikers are impacted by weather condition.
+
+# Hypothesis
+
+My hypothesis is testing how and if climate factors like temperature and humidity have an impact on bike users. I am hypothesizing that temperature will have the largest impact on bike sales. I believe temperature will mostly cause it to increase as nicer weather would be good for a ride. However, I believe at a certain point it will dip down and no longer be as positive. I hypothesize that as humidity increases then the number of bike users drop since the biking conditions will grow away from the ideal conditions. This study will use normalized feeling temperature and normalized humidity compared to daily and hourly bike users. This study is using new data compared to the research documents that have been observed online and presents a new view to either support or reject their claims.
+
+The hypothesis will be tested as follows:
+
+::: callout-tip
+## H~0A~
+
+Temperature does not impact bike users
+:::
+
+::: callout-tip
+## H~1A~
+
+Temperature does impact bike users
+:::
+
+::: callout-tip
+## H~0A~
+
+Humidity does not impact bike users
+:::
+
+::: callout-tip
+## H~1A~
+
+Humidity does impact bike users
+:::
+
+# Analytic Planning
+
+```{mermaid}
+flowchart LR
+  A[Importing Data] --> B(Data Cleaning)
+  B --> C[Descriptive Statistics]
+  C --> D(Hypothesis testing)
+  D --> E[Backward Elimination]
+  E --> F[Regression Analysis 1]
+  F --> G[Research Question 1]
+  G --> H(Conclusion)
+  E --> I[Regression Analysis 2]
+  I --> J[Research Question 2]
+  J --> H(Conclusion)
+```
+
+# Library
+
+```{r}
+#| warning: false
+library(tidyverse)
+library(plyr)
+library(dplyr)
+library(kableExtra)
+library(lubridate)
+library(lmtest)
+library(sandwich)
+library(GGally)
+library(caret)
+library(ggthemes)
+library(plotly)
+library(hrbrthemes)
+
+```
+
+# Descriptive statistics
+
+## Reading in the data
+
+```{r}
+bike <- read.csv("_data/hour.csv")
+bike2 <- read.csv("_data/day.csv")
+
+dim(bike)
+dim(bike2)
+summary(bike)
+```
+
+## Data
+
+The data was collected from UCI machine learning repository. Where I collected for both daily and hourly information for 17 variables. Each variable is described below. Important variables will be in **bold**. Their relationship towards the analysis will be described underneath this section.
+
+-   instant - This is the record index. This is the count of how many rows there are. This object will not be utilized in this study
+-   dteday - This is the date. The date is currently in year-day-month format. This will be used to observe change over time
+-   **season** - This is the 4 seasons. This is expressed as: 1-Winter, 2-Spring, 3-Summer, 4- Fall. This will be used as a control variable since this could impact the sales of bikes and the independent variables
+-   yr - This is the year ranging from 2011-2012. This will be used analyze change over each year.
+-   mnth - This is the month 1-12. This will be used to analyze the change over months.
+-   hr - This is hour 0-23. This will be used to analyze the change by the hour.
+-   **holiday** - This is the holidays so whether or not it is a holiday. This will be used as an independent variable in conjunction with another
+-   weekday - Day of the week.
+-   workingday - if day is neither weekend nor holiday is 1, otherwise is 0.
+-   **weathersit** -
+    -   1: Clear, Few clouds, Partly cloudy, Partly cloudy
+    -   2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+    -   3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
+    -   4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
+-   **temp** - Normalized temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (only in hourly scale)
+-   **atemp** - Normalized feeling temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (only in hourly scale)
+-   **hum** - Normalized humidity. The values are divided to 100 (max)
+-   windspeed - Normalized wind speed. The values are divided to 67 (max)
+-   casual - count of casual users
+-   registered - count of registered users
+-   **cnt** - count of total rental bikes including both casual and registered
+
+**Regression 1**
+
+-   **Explanatory** - normalized temperature feeling
+-   **Outcome** - cnt
+-   **Control** - Season, holiday, weekday, weathersit
+
+**Regression 2**
+
+-   **Explanatory** - Normalized humidity
+-   **Outcome -** cnt
+-   **Control -** temperature(normalized and normalized feeling), wind speed, weekday, holiday, weathersit
+
+**Regression Model**
+
+**Interaction Terms**
+
+I do not believe I need to use a quardratic or anything like that however, there is heteroskedascity so using a log may help with the funneling? 
+
+$$
+\hat{Y} = b0 + b1X1+b2X2
+$$
+
+**Regression Model 1**
+
+$$
+Cnt = FeelingTemperature + Humidity + Season + Week Day + Hour + Year + Holiday + Windspeed
+$$ **Regression Model 2**
+
+$$
+Cnt = FeelingTemperature + Humidity + Season + Week Day + Weather Type + Year + Holiday + Windspeed
+$$
+
+## Cleaning the data
+
+```{r}
+
+bike <- bike %>%
+  dplyr::rename('Date' = dteday) %>%
+  dplyr::rename('Year' = yr) %>%
+  dplyr::rename('Month' = mnth) %>%
+  dplyr::rename('Hour' = hr) %>%
+  dplyr::rename('Normalized_temperature_C' = temp) %>%
+  dplyr::rename('Normalized_feeling_temperature_C' = atemp) %>%
+  dplyr::rename('Normalized_Humidity' = hum) %>%
+  dplyr::rename("Total_bike_users" = cnt)
+
+bike2 <- bike2 %>%
+  dplyr::rename('Date' = dteday) %>%
+  dplyr::rename('Year' = yr) %>%
+  dplyr::rename('Month' = mnth) %>%
+  dplyr::rename('Normalized_temperature_C' = temp) %>%
+  dplyr::rename('Normalized_feeling_temperature_C' = atemp) %>%
+  dplyr::rename('Normalized_Humidity' = hum) %>%
+  dplyr::rename("Total_bike_users" = cnt)
+
+bike2$Date <- ymd(bike2$Date)
+
+# Checking for multicollinearity (We notice that temp and feeling temp are almost identical) so we removed the normalized temperature form the study since I want to focus on feeling temperature. Also removing instant since it is just the count of rows.
+
+bike <- bike[,-11]
+bike2 <- bike2[,-10]
+
+cor(bike[3:16])
+```
+
+# Model Evaluation - Backward Elimination
+
+Here we are aiming for anything with 95% significance.
+
+This method works by creating a linear model and then analyzing the results and determining which values are not significant and you remove them from the linear regression to drive a more fitted regression. Below I have created this with creating a seed for reproduction and then set the train control with the method cross validation and set the k-folds to 10. Next I tested that on the regression model with everything included and this will test each variable one by one and tell you how many variables are needed to have the most fit model. Here it states that the model with 8 variables is the most fit with both the RMSE and MAE method showing this below, This results in an R squared of 38.8%. This is for the bike data set and when we do it on bike2 data set we see that the number of variables remains the same. They both operate the best at 8 variables anything past that would over fit the data and would result in worse information. This one is showing an r squared at 79.79% which is a pretty good fit for the data. The only variable that does get changed is hour is removed and weather type gets added in. The regression have already been checked for significance but have been placed within the regression section and they are explained there.
+
+```{r}
+#| label: fig-cap-margin
+#| fig-cap: "Table shows the 9th variable being a better fit however, it is wanting to include the instant variable which is just a count of rows and thus has been rejected and I have accepted the 8 variable count"
+#| cap-location: margin
+
+# Setting for reproducibility
+set.seed(1)
+
+# setting repeated k-fold cross validation
+train.control <- trainControl(method = "cv", number = 10)
+
+# testing it on bike2 table
+Backward_temp2 <- train(Total_bike_users ~. -Date -casual -registered, data = bike2,
+                    method = "leapBackward", 
+                    tuneGrid = data.frame(nvmax = 1:10),
+                    trControl = train.control
+                    )
+results_bike2 <- Backward_temp2$results
+
+kable(results_bike2, digits = 4, align = "ccccccc", col.names = c("nvmax", "RMSE", "Rsquared", "MAE", "RMSESD", "RsquaredSD", "MAESD"), caption = "Bike2 Data set Model Evaluation") %>%
+  kable_styling(font_size = 16) %>%
+  row_spec(c(8,8,8), background = "cadetblue")
+
+# Here are the 12 variables in order
+summary(Backward_temp2$finalModel)
+
+# Training my model with backward elimination. Removed Date since there are other variables in here that accomplish time and removed 
+# Casual and registered since those two combined create total bike users. 
+Backward_temp1 <- train(Total_bike_users ~. -Date -casual -registered, data = bike,
+                    method = "leapBackward", 
+                    tuneGrid = data.frame(nvmax = 1:10),
+                    trControl = train.control
+                    )
+
+# Here it shows the RMSE and MAE saying 8 variables is the best fit 
+results_bike <- Backward_temp1$results
+
+kable(results_bike, digits = 4, align = "ccccccc", col.names = c("nvmax", "RMSE", "Rsquared", "MAE", "RMSESD", "RsquaredSD", "MAESD"), caption = "Bike Data set Model Evaluation") %>%
+  kable_styling(font_size = 16) %>%
+  row_spec(c(8,8,8), background = "cadetblue")
+
+# Here are the 8 variables in order
+summary(Backward_temp1$finalModel)
+
+```
+
+# Regression
+
+Within the first test we notice a fairly low R squared but we also know they are all statistically significant meaning that we can reject the null hypothesis and say yes there appears to be some effect here. Once we implement the model evaluation to the regression we notice a large difference in the r squared.
+
+Here we are looking at two different regression on two different scales. One is on hourly time and the other is on daily time which causes the variables to impact the outcome differently. Here we notice both temperature and humidity are statistically significant in both situations which is further evidence that we can really reject the null.
+
+```{r}
+# Regression 1 both temperature and humidity
+lm(Total_bike_users ~  Normalized_feeling_temperature_C + Normalized_Humidity + season + weekday + Hour, data = bike) %>% summary()
+# This was the first regression I made based on my own knowledge and will be used to compare against the one created by the model
+
+# We notice that the original had an r squared of 33.8% while this one has a 38.8% which is a large difference and shows the importance of finding the best fitted model
+
+Regression1 <- lm(Total_bike_users ~ Normalized_feeling_temperature_C + Normalized_Humidity + Hour + Year + season + holiday + weekday + windspeed, data = bike)
+
+summary(Regression1)
+
+# Regression two on bike2 data set both temperature and humidity. Comparing original regression on bike2 data set here we have an r squared of 50.58%
+lm(Total_bike_users ~ Normalized_feeling_temperature_C + Normalized_Humidity + weathersit + season, data = bike2) %>% summary()
+
+
+# Here we have an r squared of 79.74% which is a MAJOR difference this has changed the coefficient of temperature by ~600. This goes to show how inaccurate the first model was. 
+Regression2 <- lm(Total_bike_users ~ Normalized_feeling_temperature_C + Normalized_Humidity + weathersit + Year + season + holiday + weekday + windspeed, data = bike2)
+summary(Regression2)
+
+
+```
+
+## Residuals vs Fitted(Will need to be adjusted)
+
+This shows signs of heteroskedasticity and this is when standard deviations of a predicated variable being monitored over different values of an independent variable are non-constant. The problems that arise from this issue is, the standard error is wrong and thus the confidence intervals and hypothesis tests can not be relied on. This issues needs to be resolved before declaring the conclusion.
+
+```{r}
+
+mod <- lm(Total_bike_users ~ .-Date -casual -registered, data = bike)
+plot(mod)
+summary(mod)
+```
+
+### Resolving Heteroskedasticity
+
+::: callout-tip
+### H~0A~
+
+There is no Heteroskedasticity
+:::
+
+::: callout-tip
+### H~1A~
+
+There is Heteroskedasticity
+:::
+
+Here we will conduct the Breusch-Pagan test using the lmtest package and bptest() function. This will let us know if there is heteroskedascity if the P < .05. Here we see that both meet this standard and thus we have evidence to reject the null hypothesis
+
+```{r}
+# Breusch-Pagan test to determine if Heteroskedasticity exist
+bptest(Regression1)
+bptest(Regression2)
+# both of these are p<.05 meaning that we reject the null hypothesis and say yes there is heteroskedacity 
+
+```
+
+## Visualizations
+
+Here we see as temperature increases we can expect bike users to increase while as humidity increases we expect the opposite.
+
+```{r}
+#| warning: false
+
+plot(Regression1)
+plot(regression2)
+
+Bike_users_plot <- bike2 %>%
+  ggplot(aes(x=Date, y=Total_bike_users)) +
+    geom_area(fill="#69b3a2", alpha=0.5) +
+    geom_line(color="#69b3a2") +
+    ylab("total bike user") +
+    theme_ipsum()
+# Making it interactive
+Bike_users_plot <- ggplotly(Bike_users_plot)
+Bike_users_plot
+
+
+
+# Value used to transform the data
+coeff <- 10000
+
+# A few constants
+temperatureColor <- "#69b3a2"
+priceColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(bike2, aes(x=Date)) +
+  
+  geom_line( aes(y=Normalized_feeling_temperature_C), size=2, color=temperatureColor) + 
+  geom_line( aes(y=Total_bike_users / coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Temperature (Normalized)",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="Bike users")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("Temperature correlation with bikes users")
+
+
+# Value used to transform the data
+coeff <- 10000
+
+# A few constants
+humidityColor <- "#69b3a2"
+bikeColor <- rgb(0.2, 0.6, 0.9, 1)
+
+ggplot(bike2, aes(x=Date)) +
+  
+  geom_line( aes(y=Normalized_Humidity), size=2, color=temperatureColor) + 
+  geom_line( aes(y=Total_bike_users / coeff), size=2, color=priceColor) +
+  
+  scale_y_continuous(
+    
+    # Features of the first axis
+    name = "Humidity (Normalized)",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~.*coeff, name="Bike users")
+  ) + 
+  
+  theme_ipsum() +
+
+  theme(
+    axis.title.y = element_text(color = temperatureColor, size=13),
+    axis.title.y.right = element_text(color = priceColor, size=13)
+  ) +
+
+  ggtitle("Humidity correlation with bikes users")
+
+# plotting the data to visualize 
+ggplot(data = bike2, aes(x=Normalized_feeling_temperature_C, y = Total_bike_users)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  theme_fivethirtyeight(base_size = 10, base_family = 'serif') +
+  theme(axis.title = element_text(family = 'serif', size = 15)) + ylab('Total Bike Users') + xlab('Normalized Feeling Temperature') +
+  labs(title = "Relationship between Temerpature and Bike users", caption = "")
+
+ggplot(data = bike2, aes(x=Normalized_Humidity, y = Total_bike_users)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  theme_fivethirtyeight(base_size = 10, base_family = 'serif') +
+  theme(axis.title = element_text(family = 'serif', size = 15)) + ylab('Total Bike Users') + xlab('Normalized Humidity') +
+  labs(title = "Relationship between Humidity and Bike users", caption = "")
+
+
+ggpairs(bike2, columns = c(10, 11, 15), ggplot2::aes(colour='red'))
+```
+
+## Conclusions
+
+In conclusion, for hypothesis one we reject the null hypothesis with evidence of the extremely significant p-value of 2e-16. This give us evidence that we can accept the alternative and say yes temperature has an impact on bike sales. There were two different tests done here, we did the daily data compared to the hourly data. Both were significant and we controlled for 7 variables which are specified at the top. The reason we controlled these variables is that they could impact the outcome variable and thus we controlled them to make sure that they were not impacting the results. So in conclusion, normalized feeling temperature Celsius has an impact on bike users. Looking at our correlation graph we can see that it has a positive correlation with bike users at .631.
+
+For the second questions we can also reject the null hypothesis as humidity is significant with a p-value of < 2e-16 in data set one and 0.000323 in data set two. This is further evidence that we can reject the null as in both scales is what significant. This data held the same control variables as temperature and thus we can yes humidity has an impact on bike users and looking at our correlation we see a negative correlation of -.101.
+
+Once I correct the heteroskedascity then I am curious as to how the information is altered as of right now I am unable to fully accept my claims until these are removed. 
+
+# References
+
+::: {#refs}
+-   Fanaee-T, H. (n.d.). Bike Sharing Dataset . Retrieved from UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset
+-   Pazdan, Sylwia. (2020). The impact of weather on bicycle risk exposure. Archives of Transport. 56. 89-105. 10.5604/01.3001.0014.5629.
+:::
