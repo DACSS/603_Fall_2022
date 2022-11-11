@@ -1,0 +1,156 @@
+---
+title: "Homework 3"
+author: "Mani Kanta "
+description: "Home work 3"
+date: "11/11/2022"
+format:
+  html:
+    df-print: paged
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3
+  - Mani Kanta Gogula
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(stats)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+```{r}
+data(UN11)
+UN11
+```
+
+## A
+
+The Predicted variable here is ppgdp.
+
+## B
+
+```{r}
+UN11 %>%
+  select(c(ppgdp,fertility)) %>%
+  ggplot(aes(x = ppgdp, y = fertility)) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+The graph show negative realtionship between ppgdp and fertility and here straight line mean function does not seem an appropriate measure for a summary of this graph.
+
+
+
+## C
+
+```{r}
+UN11 %>%
+  select(c(ppgdp,fertility)) %>%
+  ggplot(aes(x = log(ppgdp), y = log(fertility))) + 
+  geom_point()+
+  geom_smooth(method=lm)
+```
+
+The relationship between the variables appears to be negative throughout the graph. The simple linear regression seems plausible for summary of this graph. 
+
+## Question 2
+
+## A
+
+```{r}
+UN11$british <- 1.33 * UN11$ppgdp
+summary(lm(fertility ~ british, UN11))
+summary(lm(fertility ~ ppgdp, UN11))
+```
+
+
+# B
+
+```{r}
+cor(UN11$ppgdp, UN11$fertility)
+cor(UN11$british, UN11$fertility)
+```
+
+There is no change in correlation
+
+## Question 3
+
+```{r}
+data(water)
+pairs(water)
+```
+
+From the above plot, it seems that the stream run-off variable has a relationship to the ‘O’ named lakes but no real notable relationship to the ‘A’ named lakes.
+
+## Question 4
+
+```{r}
+data(Rateprof)
+rate <- Rateprof %>% select(quality, helpfulness, clarity, easiness, raterInterest)
+pairs(rate)
+```
+
+Interpreting to the scatter plot matrix of the average professor ratings for the topics of quality, clarity, helpfulness, easiness, and rater interest, the variables quality, clarity, and helpfulness appear to each have strong positive correlations with each other. The variable easiness appears to have a much weaker positive correlation with helpfulness, clarity, and quality. Rater interest does not appear to have much of a correlation to any of the other variables.So, we can say that Quality, helpfulness and clarity have the clearest linear relationships with one another and Easiness and raterInterest do not seem to have linear relationships with the other variables.
+
+## Question 5
+
+```{r}
+data(student.survey)
+student.survey
+```
+
+## A
+
+```{r}
+student.survey %>%
+  select(c(pi, re)) %>%
+  ggplot() + 
+  geom_bar(aes(x = re, fill = pi)) +
+  xlab("Religiosity") +
+  ylab("Political ideology") 
+```
+
+Religiosity and conservatism seem to have a positive relationship.
+
+```{r}
+student.survey %>%
+  select(c(tv, hi)) %>%
+  ggplot(aes(x = tv, y = hi)) + 
+  geom_point() +
+  geom_smooth(method=lm) +
+  xlab("Average Hours of TV watched per Week") +
+  ylab("High School GPA") 
+```
+
+High school GPA and TV-watching seem to have a negative relationship.
+
+## B
+
+```{r}
+summary(lm(data = student.survey, formula = as.numeric(pi) ~ as.numeric(re)))
+```
+
+At a significance level of 0.01, there is a statistically significant association between religiosity and political ideology (as p-value < .01). The correlation is moderate and positive, suggesting that as weekly church attendance increases, political ideology becomes more conservative leaning.
+
+```{r}
+summary(lm(data = student.survey, formula = hi ~ tv))
+```
+
+With a slope of -0.018, there is a negative association between hours of tv watched per week and high school GPA, meaning that as hours of tv viewing increase, a student’s GPA tends to decrease. There is a statistically significant relationship between hours of tv viewed per week and GPA at a significance level of 0.05. However, the R-squared value is close to 0, which suggests that the regression model does not provide a strong prediction for the observed variables. This is not suprising after looking at the scatter plot with hours of tv watched and GPA, since there does not appear to be a linear trend in the data.
+
+
+
+
