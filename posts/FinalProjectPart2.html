@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Emily Duryea">
+<meta name="dcterms.date" content="2022-11-11">
+
+<title>- Final Project Part 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="- Final Project Part 2">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#final-project-part-2" id="toc-final-project-part-2" class="nav-link active" data-scroll-target="#final-project-part-2">Final Project Part 2</a>
+  <ul class="collapse">
+  <li><a href="#research-question-1" id="toc-research-question-1" class="nav-link" data-scroll-target="#research-question-1">Research Question 1</a>
+  <ul class="collapse">
+  <li><a href="#simple-linear-regression-correlation-test" id="toc-simple-linear-regression-correlation-test" class="nav-link" data-scroll-target="#simple-linear-regression-correlation-test">Simple Linear Regression &amp; Correlation Test</a></li>
+  <li><a href="#multiple-regression-with-all-3-variables" id="toc-multiple-regression-with-all-3-variables" class="nav-link" data-scroll-target="#multiple-regression-with-all-3-variables">Multiple Regression with all 3 Variables</a></li>
+  <li><a href="#visualizing-the-data" id="toc-visualizing-the-data" class="nav-link" data-scroll-target="#visualizing-the-data">Visualizing the Data</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul></li>
+  <li><a href="#research-question-2" id="toc-research-question-2" class="nav-link" data-scroll-target="#research-question-2">Research Question 2</a>
+  <ul class="collapse">
+  <li><a href="#simple-linear-regression-correlation-test-1" id="toc-simple-linear-regression-correlation-test-1" class="nav-link" data-scroll-target="#simple-linear-regression-correlation-test-1">Simple Linear Regression &amp; Correlation Test</a></li>
+  <li><a href="#visualizing-the-data-1" id="toc-visualizing-the-data-1" class="nav-link" data-scroll-target="#visualizing-the-data-1">Visualizing the Data</a></li>
+  <li><a href="#conclusions-1" id="toc-conclusions-1" class="nav-link" data-scroll-target="#conclusions-1">Conclusions</a></li>
+  </ul></li>
+  <li><a href="#research-question-3" id="toc-research-question-3" class="nav-link" data-scroll-target="#research-question-3">Research Question 3</a>
+  <ul class="collapse">
+  <li><a href="#simple-linear-regression-correlation-test-2" id="toc-simple-linear-regression-correlation-test-2" class="nav-link" data-scroll-target="#simple-linear-regression-correlation-test-2">Simple Linear Regression &amp; Correlation Test</a></li>
+  <li><a href="#multiple-regression-analysis" id="toc-multiple-regression-analysis" class="nav-link" data-scroll-target="#multiple-regression-analysis">Multiple Regression Analysis</a></li>
+  <li><a href="#visualizing-the-data-2" id="toc-visualizing-the-data-2" class="nav-link" data-scroll-target="#visualizing-the-data-2">Visualizing the Data</a></li>
+  <li><a href="#conclusions-2" id="toc-conclusions-2" class="nav-link" data-scroll-target="#conclusions-2">Conclusions</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Final Project Part 2</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">final project</div>
+    <div class="quarto-category">Emily Duryea</div>
+    <div class="quarto-category">dataset</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Emily Duryea </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 11, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="final-project-part-2" class="level1">
+<h1>Final Project Part 2</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>studentsurvey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"student_prediction.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in file(file, "rt"): cannot open file 'student_prediction.csv': No such
+file or directory</code></pre>
+</div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in file(file, "rt"): cannot open the connection</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(studentsurvey): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+✔ purrr   0.3.5      
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+</div>
+<section id="research-question-1" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-1">Research Question 1</h2>
+<p>Question: Does classroom engagement (i.e., taking notes, attending class, listening) result in a higher GPA in university students?</p>
+<p>Hypothesis: Classroom engagement factors (i.e., taking notes, attending class, listening) will have a positive correlation with higher GPA.</p>
+<p>Explanatory Variable: Classroom engagement factors (1) taking notes, 2) attending class, 3) listening)</p>
+<p>Response Variable: University students’ GPA</p>
+<section id="simple-linear-regression-correlation-test" class="level3">
+<h3 class="anchored" data-anchor-id="simple-linear-regression-correlation-test">Simple Linear Regression &amp; Correlation Test</h3>
+<p>Notes &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>nfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(NOTES <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(nfit): object 'nfit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>NOTES, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$NOTES, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Attendance &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>afit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ATTEND <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(afit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(afit): object 'afit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>ATTEND, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$ATTEND, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Listening &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>lfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(LISTENS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(lfit): object 'lfit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>LISTENS, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$LISTENS, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-regression-with-all-3-variables" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-with-all-3-variables">Multiple Regression with all 3 Variables</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(CUML_GPA <span class="sc">~</span> NOTES <span class="sc">+</span> ATTEND <span class="sc">+</span> LISTENS, <span class="at">data =</span> studentsurvey))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-data">Visualizing the Data</h3>
+<p>Impact of Taking Notes on University Student GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> NOTES, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = NOTES, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Impact of Class Attendance on GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> ATTEND, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = ATTEND, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Impact of Listening in Class on GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> LISTENS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = LISTENS, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions">Conclusions</h3>
+<p>To analyze the influence of classroom engagement on student GPA, I chose to run a simple linear regression and a correlation test. I did also conduct a multiple regression analysis, but I preferred to separate the three variables within my definition of “classroom engagement” so I could analyze them individually.</p>
+<p>Taking notes did not appear to have a significant impact on cumulative GPA. The p-value (0.08499) was greater than 0.05, indicating the result was not statistically significant. Additionally, the correlation coefficient was positive, but only slightly (0.1435413). The adjusted r squared also indicated a low correlation (0.01376).</p>
+<p>Class attendance was found to be a statistically significant, as the p-value was less than 0.05 (0.0319). Interestingly, classroom attendance actually had a negative correlation with GPA, indicating that students who attended class less frequently obtained higher GPAs. This correlation is also slight, as indicated by the correlation coefficient (-0.1783047) and the adjusted r squared (0.02502).</p>
+<p>Students’ reported listening during class was not statistically significant on GPA, with a p-value higher than 0.05 (0.5079). The correlation was also extremely slight, with a positive correlation coefficient of 0.05542742 and an adjusted r squared value of -0.003899.</p>
+<p>Thus, my hypothesis that classroom engagement would have a positive influence on GPA would be rejected.</p>
+</section>
+</section>
+<section id="research-question-2" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-2">Research Question 2</h2>
+<p>Question: Does reported studying (i.e., weekly study hours) result in a higher GPA in university students?</p>
+<p>Hypothesis: More hours studied will have a positive impact on student cumulative GPA.</p>
+<p>Explanatory Variable: Hours reported studying a week</p>
+<p>Response Variable: Cumulative GPA</p>
+<section id="simple-linear-regression-correlation-test-1" class="level3">
+<h3 class="anchored" data-anchor-id="simple-linear-regression-correlation-test-1">Simple Linear Regression &amp; Correlation Test</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>shfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(STUDY_HRS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(shfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(shfit): object 'shfit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>STUDY_HRS, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$STUDY_HRS, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-data-1">Visualizing the Data</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> STUDY_HRS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = STUDY_HRS, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions-1" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions-1">Conclusions</h3>
+<p>Like with my previous research question, I chose to run a simple linear regression and a correlation test to analyze the data. The results indicated that hours spent studying had very little impact on cumulative GPA. The p-value was greater than 0.05 (0.9225), and both the correlation coefficient, although positive, and the adjusted r r squared values were extremely small (0.008144991 and -0.006926). Thus, my hypothesis would be refuted.</p>
+</section>
+</section>
+<section id="research-question-3" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-3">Research Question 3</h2>
+<p>Question: Does collaboration between students (i.e., studying together, positive class discussions) result in a higher GPA in university students?</p>
+<p>Hypothesis: Collaboration between students would have a positive impact on cumulative GPA.</p>
+<p>Explanatory Variable: Collaboration (Studying with peers, perceiving classroom discussions as positive)</p>
+<p>Response Variable: Cumulative GPA</p>
+<section id="simple-linear-regression-correlation-test-2" class="level3">
+<h3 class="anchored" data-anchor-id="simple-linear-regression-correlation-test-2">Simple Linear Regression &amp; Correlation Test</h3>
+<p>Studying with peers &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>studentsurvey<span class="sc">$</span>PREP_STUDY <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(studentsurvey<span class="sc">$</span>PREP_STUDY<span class="sc">==</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ifelse(studentsurvey$PREP_STUDY == 2, 2, 1): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>spfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(PREP_STUDY <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(spfit): object 'spfit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>PREP_STUDY, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$PREP_STUDY, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Positive discussions &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>studentsurvey<span class="sc">$</span>PREP_STUDY <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(studentsurvey<span class="sc">$</span>LIKES_DISCUSS<span class="sc">==</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ifelse(studentsurvey$LIKES_DISCUSS == 1, 1, 2): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>ldfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(LIKES_DISCUSS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ldfit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(ldfit): object 'ldfit' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>LIKES_DISCUSS, studentsurvey<span class="sc">$</span>CUML_GPA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in cor.test(studentsurvey$LIKES_DISCUSS, studentsurvey$CUML_GPA): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="multiple-regression-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-regression-analysis">Multiple Regression Analysis</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(CUML_GPA <span class="sc">~</span> PREP_STUDY <span class="sc">+</span> LIKES_DISCUSS, <span class="at">data =</span> studentsurvey))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-the-data-2" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-data-2">Visualizing the Data</h3>
+<p>Studying with peers &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> PREP_STUDY, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = PREP_STUDY, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+<p>Positive discussions &amp; GPA</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> LIKES_DISCUSS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = studentsurvey, aes(x = LIKES_DISCUSS, y = CUML_GPA)): object 'studentsurvey' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions-2" class="level3">
+<h3 class="anchored" data-anchor-id="conclusions-2">Conclusions</h3>
+<p>Students who study with their peers are more likely to have higher GPAs, according to the simple linear regression and correlation test. The p-value was less than 0.05 (0.01535). However, the correlation was not extremely high (0.2009882) and neither was the adjusted r-squared value (0.03369). That being said, the results were statistically significant.</p>
+<p>Additionally, students who found class discussions to be helpful (always or some of the time, compared to those who did not find class discussions to be a positive experience) to their education and learning were significantly more likely to have higher GPAs. The p-value was less than 0.01 (0.007804). Again the correlation was not extreme (0.2201251) as well as the adjusted r-squared (0.0418).</p>
+<p>The multiple regression analysis also found the combined two variables to be statistically significant (0.01666). Thus, it could be concluded that collaboration has a positive impact on GPA, supporting my hypothesis.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb64" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project Part 2"</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Emily Duryea"</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Final Project Part 2"</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "11/11/2022"</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - final project</span></span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - Emily Duryea</span></span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - dataset</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># Final Project Part 2</span></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a>studentsurvey <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"student_prediction.csv"</span>)</span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(studentsurvey)</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question 1</span></span>
+<span id="cb64-30"><a href="#cb64-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-31"><a href="#cb64-31" aria-hidden="true" tabindex="-1"></a>Question: Does classroom engagement (i.e., taking notes, attending class, listening) result in a higher GPA in university students?</span>
+<span id="cb64-32"><a href="#cb64-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-33"><a href="#cb64-33" aria-hidden="true" tabindex="-1"></a>Hypothesis: Classroom engagement factors (i.e., taking notes, attending class, listening) will have a positive correlation with higher GPA.</span>
+<span id="cb64-34"><a href="#cb64-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-35"><a href="#cb64-35" aria-hidden="true" tabindex="-1"></a>Explanatory Variable: Classroom engagement factors (1) taking notes, 2) attending class, 3) listening)</span>
+<span id="cb64-36"><a href="#cb64-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-37"><a href="#cb64-37" aria-hidden="true" tabindex="-1"></a>Response Variable: University students' GPA</span>
+<span id="cb64-38"><a href="#cb64-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-39"><a href="#cb64-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Linear Regression &amp; Correlation Test</span></span>
+<span id="cb64-40"><a href="#cb64-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-41"><a href="#cb64-41" aria-hidden="true" tabindex="-1"></a>Notes &amp; GPA</span>
+<span id="cb64-42"><a href="#cb64-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-45"><a href="#cb64-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-46"><a href="#cb64-46" aria-hidden="true" tabindex="-1"></a>nfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(NOTES <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-47"><a href="#cb64-47" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(nfit)</span>
+<span id="cb64-48"><a href="#cb64-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-49"><a href="#cb64-49" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>NOTES, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-50"><a href="#cb64-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-51"><a href="#cb64-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-52"><a href="#cb64-52" aria-hidden="true" tabindex="-1"></a>Attendance &amp; GPA</span>
+<span id="cb64-53"><a href="#cb64-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-56"><a href="#cb64-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-57"><a href="#cb64-57" aria-hidden="true" tabindex="-1"></a>afit <span class="ot">&lt;-</span> <span class="fu">lm</span>(ATTEND <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-58"><a href="#cb64-58" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(afit)</span>
+<span id="cb64-59"><a href="#cb64-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-60"><a href="#cb64-60" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>ATTEND, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-61"><a href="#cb64-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-62"><a href="#cb64-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-63"><a href="#cb64-63" aria-hidden="true" tabindex="-1"></a>Listening &amp; GPA</span>
+<span id="cb64-64"><a href="#cb64-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-67"><a href="#cb64-67" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-68"><a href="#cb64-68" aria-hidden="true" tabindex="-1"></a>lfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(LISTENS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-69"><a href="#cb64-69" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lfit)</span>
+<span id="cb64-70"><a href="#cb64-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-71"><a href="#cb64-71" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>LISTENS, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-72"><a href="#cb64-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-73"><a href="#cb64-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-74"><a href="#cb64-74" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple Regression with all 3 Variables</span></span>
+<span id="cb64-75"><a href="#cb64-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-78"><a href="#cb64-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-79"><a href="#cb64-79" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(CUML_GPA <span class="sc">~</span> NOTES <span class="sc">+</span> ATTEND <span class="sc">+</span> LISTENS, <span class="at">data =</span> studentsurvey))</span>
+<span id="cb64-80"><a href="#cb64-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-81"><a href="#cb64-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-82"><a href="#cb64-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualizing the Data</span></span>
+<span id="cb64-83"><a href="#cb64-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-84"><a href="#cb64-84" aria-hidden="true" tabindex="-1"></a>Impact of Taking Notes on University Student GPA</span>
+<span id="cb64-85"><a href="#cb64-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-88"><a href="#cb64-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-89"><a href="#cb64-89" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> NOTES, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-90"><a href="#cb64-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-91"><a href="#cb64-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-92"><a href="#cb64-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-93"><a href="#cb64-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-94"><a href="#cb64-94" aria-hidden="true" tabindex="-1"></a>Impact of Class Attendance on GPA</span>
+<span id="cb64-95"><a href="#cb64-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-98"><a href="#cb64-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-99"><a href="#cb64-99" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> ATTEND, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-100"><a href="#cb64-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-101"><a href="#cb64-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-102"><a href="#cb64-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-103"><a href="#cb64-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-104"><a href="#cb64-104" aria-hidden="true" tabindex="-1"></a>Impact of Listening in Class on GPA</span>
+<span id="cb64-105"><a href="#cb64-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-108"><a href="#cb64-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-109"><a href="#cb64-109" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> LISTENS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-110"><a href="#cb64-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-111"><a href="#cb64-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-112"><a href="#cb64-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-113"><a href="#cb64-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-114"><a href="#cb64-114" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusions</span></span>
+<span id="cb64-115"><a href="#cb64-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-116"><a href="#cb64-116" aria-hidden="true" tabindex="-1"></a>To analyze the influence of classroom engagement on student GPA, I chose to run a simple linear regression and a correlation test. I did also conduct a multiple regression analysis, but I preferred to separate the three variables within my definition of "classroom engagement" so I could analyze them individually.</span>
+<span id="cb64-117"><a href="#cb64-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-118"><a href="#cb64-118" aria-hidden="true" tabindex="-1"></a>Taking notes did not appear to have a significant impact on cumulative GPA. The p-value (0.08499) was greater than 0.05, indicating the result was not statistically significant. Additionally, the correlation coefficient was positive, but only slightly (0.1435413). The adjusted r squared also indicated a low correlation (0.01376).</span>
+<span id="cb64-119"><a href="#cb64-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-120"><a href="#cb64-120" aria-hidden="true" tabindex="-1"></a>Class attendance was found to be a statistically significant, as the p-value was less than 0.05 (0.0319). Interestingly, classroom attendance actually had a negative correlation with GPA, indicating that students who attended class less frequently obtained higher GPAs. This correlation is also slight, as indicated by the correlation coefficient (-0.1783047) and the adjusted r squared (0.02502).</span>
+<span id="cb64-121"><a href="#cb64-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-122"><a href="#cb64-122" aria-hidden="true" tabindex="-1"></a>Students' reported listening during class was not statistically significant on GPA, with a p-value higher than 0.05 (0.5079). The correlation was also extremely slight, with a positive correlation coefficient of 0.05542742 and an adjusted r squared value of -0.003899.</span>
+<span id="cb64-123"><a href="#cb64-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-124"><a href="#cb64-124" aria-hidden="true" tabindex="-1"></a>Thus, my hypothesis that classroom engagement would have a positive influence on GPA would be rejected.</span>
+<span id="cb64-125"><a href="#cb64-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-126"><a href="#cb64-126" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question 2</span></span>
+<span id="cb64-127"><a href="#cb64-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-128"><a href="#cb64-128" aria-hidden="true" tabindex="-1"></a>Question: Does reported studying (i.e., weekly study hours) result in a higher GPA in university students?</span>
+<span id="cb64-129"><a href="#cb64-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-130"><a href="#cb64-130" aria-hidden="true" tabindex="-1"></a>Hypothesis: More hours studied will have a positive impact on student cumulative GPA.</span>
+<span id="cb64-131"><a href="#cb64-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-132"><a href="#cb64-132" aria-hidden="true" tabindex="-1"></a>Explanatory Variable: Hours reported studying a week</span>
+<span id="cb64-133"><a href="#cb64-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-134"><a href="#cb64-134" aria-hidden="true" tabindex="-1"></a>Response Variable: Cumulative GPA</span>
+<span id="cb64-135"><a href="#cb64-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-136"><a href="#cb64-136" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Linear Regression &amp; Correlation Test</span></span>
+<span id="cb64-137"><a href="#cb64-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-140"><a href="#cb64-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-141"><a href="#cb64-141" aria-hidden="true" tabindex="-1"></a>shfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(STUDY_HRS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-142"><a href="#cb64-142" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(shfit)</span>
+<span id="cb64-143"><a href="#cb64-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-144"><a href="#cb64-144" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>STUDY_HRS, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-145"><a href="#cb64-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-146"><a href="#cb64-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-147"><a href="#cb64-147" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualizing the Data</span></span>
+<span id="cb64-148"><a href="#cb64-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-151"><a href="#cb64-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-152"><a href="#cb64-152" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> STUDY_HRS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-153"><a href="#cb64-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-154"><a href="#cb64-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-155"><a href="#cb64-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-156"><a href="#cb64-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-157"><a href="#cb64-157" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusions</span></span>
+<span id="cb64-158"><a href="#cb64-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-159"><a href="#cb64-159" aria-hidden="true" tabindex="-1"></a>Like with my previous research question, I chose to run a simple linear regression and a correlation test to analyze the data. The results indicated that hours spent studying had very little impact on cumulative GPA. The p-value was greater than 0.05 (0.9225), and both the correlation coefficient, although positive, and the adjusted r r squared values were extremely small (0.008144991 and -0.006926). Thus, my hypothesis would be refuted.</span>
+<span id="cb64-160"><a href="#cb64-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-161"><a href="#cb64-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question 3</span></span>
+<span id="cb64-162"><a href="#cb64-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-163"><a href="#cb64-163" aria-hidden="true" tabindex="-1"></a>Question: Does collaboration between students (i.e., studying together, positive class discussions) result in a higher GPA in university students?</span>
+<span id="cb64-164"><a href="#cb64-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-165"><a href="#cb64-165" aria-hidden="true" tabindex="-1"></a>Hypothesis: Collaboration between students would have a positive impact on cumulative GPA.</span>
+<span id="cb64-166"><a href="#cb64-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-167"><a href="#cb64-167" aria-hidden="true" tabindex="-1"></a>Explanatory Variable: Collaboration (Studying with peers, perceiving classroom discussions as positive)</span>
+<span id="cb64-168"><a href="#cb64-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-169"><a href="#cb64-169" aria-hidden="true" tabindex="-1"></a>Response Variable: Cumulative GPA</span>
+<span id="cb64-170"><a href="#cb64-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-171"><a href="#cb64-171" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simple Linear Regression &amp; Correlation Test</span></span>
+<span id="cb64-172"><a href="#cb64-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-173"><a href="#cb64-173" aria-hidden="true" tabindex="-1"></a>Studying with peers &amp; GPA</span>
+<span id="cb64-174"><a href="#cb64-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-177"><a href="#cb64-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-178"><a href="#cb64-178" aria-hidden="true" tabindex="-1"></a>studentsurvey<span class="sc">$</span>PREP_STUDY <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(studentsurvey<span class="sc">$</span>PREP_STUDY<span class="sc">==</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb64-179"><a href="#cb64-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-180"><a href="#cb64-180" aria-hidden="true" tabindex="-1"></a>spfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(PREP_STUDY <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-181"><a href="#cb64-181" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spfit)</span>
+<span id="cb64-182"><a href="#cb64-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-183"><a href="#cb64-183" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>PREP_STUDY, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-184"><a href="#cb64-184" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-185"><a href="#cb64-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-186"><a href="#cb64-186" aria-hidden="true" tabindex="-1"></a>Positive discussions &amp; GPA</span>
+<span id="cb64-187"><a href="#cb64-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-190"><a href="#cb64-190" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-191"><a href="#cb64-191" aria-hidden="true" tabindex="-1"></a>studentsurvey<span class="sc">$</span>PREP_STUDY <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(studentsurvey<span class="sc">$</span>LIKES_DISCUSS<span class="sc">==</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb64-192"><a href="#cb64-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-193"><a href="#cb64-193" aria-hidden="true" tabindex="-1"></a>ldfit <span class="ot">&lt;-</span> <span class="fu">lm</span>(LIKES_DISCUSS <span class="sc">~</span> CUML_GPA, <span class="at">data =</span> studentsurvey)</span>
+<span id="cb64-194"><a href="#cb64-194" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ldfit)</span>
+<span id="cb64-195"><a href="#cb64-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-196"><a href="#cb64-196" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(studentsurvey<span class="sc">$</span>LIKES_DISCUSS, studentsurvey<span class="sc">$</span>CUML_GPA)</span>
+<span id="cb64-197"><a href="#cb64-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-198"><a href="#cb64-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-199"><a href="#cb64-199" aria-hidden="true" tabindex="-1"></a><span class="fu">### Multiple Regression Analysis</span></span>
+<span id="cb64-200"><a href="#cb64-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-203"><a href="#cb64-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-204"><a href="#cb64-204" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(CUML_GPA <span class="sc">~</span> PREP_STUDY <span class="sc">+</span> LIKES_DISCUSS, <span class="at">data =</span> studentsurvey))</span>
+<span id="cb64-205"><a href="#cb64-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-206"><a href="#cb64-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-207"><a href="#cb64-207" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualizing the Data</span></span>
+<span id="cb64-208"><a href="#cb64-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-209"><a href="#cb64-209" aria-hidden="true" tabindex="-1"></a>Studying with peers &amp; GPA</span>
+<span id="cb64-210"><a href="#cb64-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-213"><a href="#cb64-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-214"><a href="#cb64-214" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> PREP_STUDY, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-215"><a href="#cb64-215" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-216"><a href="#cb64-216" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-217"><a href="#cb64-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-218"><a href="#cb64-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-219"><a href="#cb64-219" aria-hidden="true" tabindex="-1"></a>Positive discussions &amp; GPA</span>
+<span id="cb64-220"><a href="#cb64-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-223"><a href="#cb64-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-224"><a href="#cb64-224" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> studentsurvey, <span class="fu">aes</span>(<span class="at">x =</span> LIKES_DISCUSS, <span class="at">y =</span> CUML_GPA)) <span class="sc">+</span></span>
+<span id="cb64-225"><a href="#cb64-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb64-226"><a href="#cb64-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm)</span>
+<span id="cb64-227"><a href="#cb64-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-228"><a href="#cb64-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-229"><a href="#cb64-229" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conclusions</span></span>
+<span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a>Students who study with their peers are more likely to have higher GPAs, according to the simple linear regression and correlation test. The p-value was less than 0.05 (0.01535). However, the correlation was not extremely high (0.2009882) and neither was the adjusted r-squared value (0.03369). That being said, the results were statistically significant.</span>
+<span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a>Additionally, students who found class discussions to be helpful (always or some of the time, compared to those who did not find class discussions to be a positive experience) to their education and learning were significantly more likely to have higher GPAs. The p-value was less than 0.01 (0.007804). Again the correlation was not extreme (0.2201251) as well as the adjusted r-squared (0.0418).</span>
+<span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a>The multiple regression analysis also found the combined two variables to be statistically significant (0.01666). Thus, it could be concluded that collaboration has a positive impact on GPA, supporting my hypothesis.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

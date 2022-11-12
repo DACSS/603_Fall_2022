@@ -1,0 +1,2180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Caleb Hill">
+<meta name="dcterms.date" content="2022-11-08">
+
+<title>- Final Part 2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="- Final Part 2">
+<meta name="twitter:description" content="Multiple research reports state that there is a relationship between re-hospitalization rates and social characteristics, such as demographic and economic identifiers, (Barnett, Hsu &amp; McWilliams…">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a></li>
+  </ul></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive Statistics</a>
+  <ul class="collapse">
+  <li><a href="#population-density" id="toc-population-density" class="nav-link" data-scroll-target="#population-density">Population Density</a></li>
+  <li><a href="#heat-index-over-105f" id="toc-heat-index-over-105f" class="nav-link" data-scroll-target="#heat-index-over-105f">Heat Index Over 105F</a></li>
+  <li><a href="#average-yearly-temperature" id="toc-average-yearly-temperature" class="nav-link" data-scroll-target="#average-yearly-temperature">Average Yearly Temperature</a></li>
+  <li><a href="#average-yearly-precipitation" id="toc-average-yearly-precipitation" class="nav-link" data-scroll-target="#average-yearly-precipitation">Average Yearly Precipitation</a></li>
+  <li><a href="#total-natural-disasters" id="toc-total-natural-disasters" class="nav-link" data-scroll-target="#total-natural-disasters">Total Natural Disasters</a></li>
+  <li><a href="#median-household-income" id="toc-median-household-income" class="nav-link" data-scroll-target="#median-household-income">Median Household Income</a></li>
+  <li><a href="#percent-in-poverty" id="toc-percent-in-poverty" class="nav-link" data-scroll-target="#percent-in-poverty">Percent in Poverty</a></li>
+  <li><a href="#percent-commuting-alone-over-60-minutes" id="toc-percent-commuting-alone-over-60-minutes" class="nav-link" data-scroll-target="#percent-commuting-alone-over-60-minutes">Percent Commuting Alone, Over 60 Minutes</a></li>
+  <li><a href="#percent-renter-housing-costs-over-50-percent-of-income" id="toc-percent-renter-housing-costs-over-50-percent-of-income" class="nav-link" data-scroll-target="#percent-renter-housing-costs-over-50-percent-of-income">Percent Renter Housing Costs Over 50 Percent of Income</a></li>
+  <li><a href="#re-hospitalization-rate" id="toc-re-hospitalization-rate" class="nav-link" data-scroll-target="#re-hospitalization-rate">Re-hospitalization Rate</a></li>
+  </ul></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis">Analysis</a>
+  <ul class="collapse">
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+  <li><a href="#model-comparisons" id="toc-model-comparisons" class="nav-link" data-scroll-target="#model-comparisons">Model Comparisons</a></li>
+  <li><a href="#diagnostics" id="toc-diagnostics" class="nav-link" data-scroll-target="#diagnostics">Diagnostics</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Final Part 2</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">finalpart2</div>
+    <div class="quarto-category">caleb.hill</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Caleb Hill </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 8, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>Multiple research reports state that there is a relationship between re-hospitalization rates and social characteristics, such as demographic and economic identifiers, (Barnett, Hsu &amp; McWilliams, 2015; Murray, Allen, Clark, Daly &amp; Jacobs, 2021). Specifically, racial characteristics play a large role in predicting re-hospitalization in a population (Li, Cai &amp; Glance, 2015). While some articles examine economic and health factors contributing to these disparities, very few dig deep into environmental factors that influence this phenomenon, (Spatz, Bernheim, Horwitz &amp; Herrin, 2020). With your zipcode affecting up to 60% of your health outcomes, this research is relevant to better improving one of our most costly health expenditures: hospitalization.</p>
+<p>Re-hospitalization is a substantially costlier expenditure, as readmitting a patient further increases costs – especially if the diagnosis was untreated, poorly treated, or incorrectly treated. Most inpatient episodes characterized as a re-hospitalization when the patient is readmitted to the hospital 60 days after discharge. If the cause is different, sometimes that is counted as a re-hospitalization; other times, not so much, (Bhosale, K., Nath, R., Pandit, N., Agarwal, P., Khairnar, S., Yadav, B. &amp; Chandrakar, S., 2020).</p>
+<section id="research-question" class="level3">
+<h3 class="anchored" data-anchor-id="research-question">Research Question</h3>
+<p>This paper aims to explore how different environmental variables impact re-hospitalization rates on a county-by-county level. Due to the nature of this project, we will not be controlling for racial, ethnic, and sex variables. These environmental factors will include both common environmental concerns, such as heat index, average temperature, precipitation, and natural disasters, along with the built environment, mean travel time to work, renter burden, and population density. We will also stratify by rural/urban classification, to determine if counties above or below 250,000 population experience differences in re-hospitalization rates, dependent upon these explanatory variables.</p>
+<p>The data-set chosen for this analysis is taken from the Agency for Healthcare Research and Quality, Social Determinants of Health (SDOH) Database. This data-set has over 300 variables to explore each SDOH domain: social context, economic context, education, healthcare, and the environment. We shall pull data from three of these five domains: social, economic, and environmental.</p>
+<p>How re-hospitalization is measured is not clarified per this data-set’s codebook. However, the Center for Medicare and Medicaid (CMS) 30-day Risk-Standardized Readmission Rate (RSRR) measures re-hospitalization as an unplanned readmission to inpatient services. It does stratify and specify based upon diagnosis. As the AHRQ is a federal agency alongside CMS, it is likely that they are pulling from CMS for this measure and aggregating various diagnoses into one county rate.</p>
+</section>
+<section id="hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis">Hypothesis</h3>
+<p>The hypothesis for this research report is:</p>
+<ul>
+<li>Environmental factors increase rates of re-hospitalization in the United States.</li>
+</ul>
+<p>Therefore, the null hypothesis is:</p>
+<ul>
+<li>Environmental factors do not increase rates of re-hospitalization in the United States.</li>
+</ul>
+<p>Various regression analyses shall be employed to determine the relationship – or lack thereof – between these variables.</p>
+<p>First I’ll import the relevant libraries.</p>
+<p>Then I’ll import the dataset and view the first six rows.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> SDOH_2020_COUNTY_1_0 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"_data/SDOH_2020_COUNTY_1_0.xlsx"</span>, </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">sheet =</span> <span class="st">"Data"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OA1673 / R1673C391: got '46123'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OA1765 / R1765C391: got '32510'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OB1765 / R1765C392: got '41025'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OC1765 / R1765C393: got '41037'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OA2799 / R2799C391: got '49017'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OB2799 / R2799C392: got '49019'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OC2799 / R2799C393: got '49025'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OD2799 / R2799C394: got '49055'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expecting logical in OA2844 / R2844C391: got '51760'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 685
+   YEAR COUNTYFIPS STATEFIPS STATE COUNTY REGION TERRI…¹ ACS_T…² ACS_T…³ ACS_T…⁴
+  &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1  2020 01001      01        Alab… Autau… South        0   55639   54929   52404
+2  2020 01003      01        Alab… Baldw… South        0  218289  216518  206329
+3  2020 01005      01        Alab… Barbo… South        0   25026   24792   23694
+4  2020 01007      01        Alab… Bibb … South        0   22374   22073   21121
+5  2020 01009      01        Alab… Bloun… South        0   57755   57164   54250
+6  2020 01011      01        Alab… Bullo… South        0   10173   10143    9579
+# … with 675 more variables: ACS_TOT_POP_ABOVE15 &lt;dbl&gt;,
+#   ACS_TOT_POP_ABOVE16 &lt;dbl&gt;, ACS_TOT_POP_16_19 &lt;dbl&gt;,
+#   ACS_TOT_POP_ABOVE25 &lt;dbl&gt;, ACS_TOT_CIVIL_POP_ABOVE18 &lt;dbl&gt;,
+#   ACS_TOT_CIVIL_VET_POP_ABOVE25 &lt;dbl&gt;, ACS_TOT_OWN_CHILD_BELOW17 &lt;dbl&gt;,
+#   ACS_TOT_WORKER_NWFH &lt;dbl&gt;, ACS_TOT_WORKER_HH &lt;dbl&gt;,
+#   ACS_TOT_CIVILIAN_LABOR &lt;dbl&gt;, ACS_TOT_CIVIL_EMPLOY_POP &lt;dbl&gt;,
+#   ACS_TOT_POP_POV &lt;dbl&gt;, ACS_TOT_CIVIL_NONINST_POP_POV &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>Next I want to verify the class is a dataframe. Otherwise, I’ll need to transform the data to make it easier to work with.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "tbl_df"     "tbl"        "data.frame"</code></pre>
+</div>
+</div>
+<p>All good here.</p>
+<p>Now on to data transformation. We will need to select only the relevant columns for this analysis.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_new <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COUNTYFIPS,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         STATE,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         COUNTY,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>         AHRF_USDA_RUCC_2013,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>         CEN_POPDENSITY_COUNTY,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>         NEPHTN_HEATIND_105,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>         NOAAC_AVG_TEMP_YEARLY,</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>         NOAAC_PRECIPITATION_AVG_YEARLY,</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>         NOAAS_TOT_NATURAL_DISASTERS,</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>         SAIPE_MEDIAN_HH_INCOME,</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>         SAIPE_PCT_POV,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>         ACS_PCT_COMMT_60MINUP,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>         ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>         LTC_AVG_OBS_REHOSP_RATE) </span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3229</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 14
+  COUNTYF…¹ STATE COUNTY AHRF_…² CEN_P…³ NEPHT…⁴ NOAAC…⁵ NOAAC…⁶ NOAAS…⁷ SAIPE…⁸
+  &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 01001     Alab… Autau… 2          93.6       4    66.2    5.72      17   67565
+2 01003     Alab… Baldw… 3         137.        0    68.9    5.27      58   71135
+3 01005     Alab… Barbo… 6          28.3       3    66.4    5.75      24   38866
+4 01007     Alab… Bibb … 1          35.9       0    64.1    5.61      23   50907
+5 01009     Alab… Bloun… 1          89.6       0    62.7    5.96      45   55203
+6 01011     Alab… Bullo… 6          16.3       2    66.2    5.40      12   33124
+# … with 4 more variables: SAIPE_PCT_POV &lt;dbl&gt;, ACS_PCT_COMMT_60MINUP &lt;dbl&gt;,
+#   ACS_PCT_RENTER_HU_COST_50PCT &lt;dbl&gt;, LTC_AVG_OBS_REHOSP_RATE &lt;dbl&gt;, and
+#   abbreviated variable names ¹​COUNTYFIPS, ²​AHRF_USDA_RUCC_2013,
+#   ³​CEN_POPDENSITY_COUNTY, ⁴​NEPHTN_HEATIND_105, ⁵​NOAAC_AVG_TEMP_YEARLY,
+#   ⁶​NOAAC_PRECIPITATION_AVG_YEARLY, ⁷​NOAAS_TOT_NATURAL_DISASTERS,
+#   ⁸​SAIPE_MEDIAN_HH_INCOME</code></pre>
+</div>
+</div>
+<p>Out of 1400+ variables, we’ve whittled them down to 14. Of those 14, we have four (4) that are unique identifiers (FIPS, State, County, and Rural-Urban Continuation Code), four (4) environmental, two (2) economic, one (1) housing, two (2) built-enviornment, and one (1) healthcare outcome.</p>
+<p>Before we launch into exploring these variables via descriptive statistics, first we need to determine where the NAs are and see if any of the variables will have a substantial amount of missing data.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_new)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">COUNTYFIPS</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">STATE</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COUNTY</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AHRF_USDA_RUCC_2013</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CEN_POPDENSITY_COUNTY</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NEPHTN_HEATIND_105</td>
+<td style="text-align: right;">121</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NOAAC_AVG_TEMP_YEARLY</td>
+<td style="text-align: right;">123</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NOAAC_PRECIPITATION_AVG_YEARLY</td>
+<td style="text-align: right;">123</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NOAAS_TOT_NATURAL_DISASTERS</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAIPE_MEDIAN_HH_INCOME</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAIPE_PCT_POV</td>
+<td style="text-align: right;">87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACS_PCT_COMMT_60MINUP</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ACS_PCT_RENTER_HU_COST_50PCT</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LTC_AVG_OBS_REHOSP_RATE</td>
+<td style="text-align: right;">410</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Plenty of variables with missing data. Some are minor, such as population density, housing cost, and commute time variables with 8. Some are concerning, such as Heat Index, Average Yearly Temperature, and Average Yearly Precipitation, all around 120+.</p>
+<p>The most concerning is – of course – our outcome variable, Re-Hospitalization Rates. This is not ideal. However, 410 / 3229 (12.6%) is not bad. That still leaves us with plenty of counties to review.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_new <span class="ot">&lt;-</span> df_new <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(df_new))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,814 × 14
+   COUNTYFIPS STATE   COUNTY          AHRF_USDA_RUCC_2013 CEN_POPDENSITY_COUNTY
+   &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt;           &lt;chr&gt;                               &lt;dbl&gt;
+ 1 01001      Alabama Autauga County  2                                    93.6
+ 2 01003      Alabama Baldwin County  3                                   137. 
+ 3 01005      Alabama Barbour County  6                                    28.3
+ 4 01007      Alabama Bibb County     1                                    35.9
+ 5 01009      Alabama Blount County   1                                    89.6
+ 6 01011      Alabama Bullock County  6                                    16.3
+ 7 01013      Alabama Butler County   6                                    25.4
+ 8 01015      Alabama Calhoun County  3                                   189. 
+ 9 01017      Alabama Chambers County 6                                    56.0
+10 01019      Alabama Cherokee County 6                                    47.0
+   NEPHTN_HEATIND_105 NOAAC_AVG_TEMP_YEARLY NOAAC_PRECIPITATION_AVG_YEARLY
+                &lt;dbl&gt;                 &lt;dbl&gt;                          &lt;dbl&gt;
+ 1                  4                  66.2                           5.72
+ 2                  0                  68.9                           5.27
+ 3                  3                  66.4                           5.75
+ 4                  0                  64.1                           5.61
+ 5                  0                  62.7                           5.96
+ 6                  2                  66.2                           5.40
+ 7                  0                  67.1                           5.37
+ 8                  0                  63.2                           5.74
+ 9                  0                  63.3                           5.93
+10                  0                  62.3                           5.85
+   NOAAS_TOT_NATURAL_DISASTERS SAIPE_MEDIAN_HH_INCOME SAIPE_PCT_POV
+                         &lt;dbl&gt;                  &lt;dbl&gt;         &lt;dbl&gt;
+ 1                          17                  67565          11.2
+ 2                          58                  71135           8.9
+ 3                          24                  38866          25.5
+ 4                          23                  50907          17.8
+ 5                          45                  55203          13.1
+ 6                          12                  33124          30.8
+ 7                          18                  42268          20.6
+ 8                          14                  50259          14.5
+ 9                          18                  39318          16.3
+10                          38                  50388          14.7
+   ACS_PCT_COMMT_60MINUP ACS_PCT_RENTER_HU_COST_50PCT LTC_AVG_OBS_REHOSP_RATE
+                   &lt;dbl&gt;                        &lt;dbl&gt;                   &lt;dbl&gt;
+ 1                  6.06                         26.6                    0.14
+ 2                  7.53                         20.8                    0.14
+ 3                 11.8                          22.4                    0.22
+ 4                 10.4                          27.4                    0.16
+ 5                 18.6                          22.6                    0.14
+ 6                 12.7                          34                      0.05
+ 7                  9.14                         29.5                    0.11
+ 8                  7.21                         20.5                    0.13
+ 9                  5.93                         13.0                    0.15
+10                 10.2                          12.2                    0.19
+# … with 2,804 more rows</code></pre>
+</div>
+</div>
+<p>2,814 x 14 is a good place to start.</p>
+</section>
+</section>
+<section id="descriptive-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive Statistics</h2>
+<p>For our preliminary analysis, we’re going to provide summary statistics analyzing the 10 variables relevant to our research question, from Population Density to the end of the data-set, and a visualization for each.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">describe</span>(df_new))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 17%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 6%">
+<col style="width: 6%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">vars</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: right;">mean</th>
+<th style="text-align: right;">sd</th>
+<th style="text-align: right;">median</th>
+<th style="text-align: right;">trimmed</th>
+<th style="text-align: right;">mad</th>
+<th style="text-align: right;">min</th>
+<th style="text-align: right;">max</th>
+<th style="text-align: right;">range</th>
+<th style="text-align: right;">skew</th>
+<th style="text-align: right;">kurtosis</th>
+<th style="text-align: right;">se</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">COUNTYFIPS*</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">1.407500e+03</td>
+<td style="text-align: right;">8.124762e+02</td>
+<td style="text-align: right;">1407.50000</td>
+<td style="text-align: right;">1.407500e+03</td>
+<td style="text-align: right;">1043.009100</td>
+<td style="text-align: right;">1.000000e+00</td>
+<td style="text-align: right;">2814.00000</td>
+<td style="text-align: right;">2.813000e+03</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">-1.2012794</td>
+<td style="text-align: right;">15.3161135</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">STATE*</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">2.442928e+01</td>
+<td style="text-align: right;">1.359471e+01</td>
+<td style="text-align: right;">23.00000</td>
+<td style="text-align: right;">2.441874e+01</td>
+<td style="text-align: right;">16.308600</td>
+<td style="text-align: right;">1.000000e+00</td>
+<td style="text-align: right;">48.00000</td>
+<td style="text-align: right;">4.700000e+01</td>
+<td style="text-align: right;">0.0584273</td>
+<td style="text-align: right;">-1.2662366</td>
+<td style="text-align: right;">0.2562759</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COUNTY*</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">8.369051e+02</td>
+<td style="text-align: right;">4.694844e+02</td>
+<td style="text-align: right;">831.50000</td>
+<td style="text-align: right;">8.339396e+02</td>
+<td style="text-align: right;">584.885700</td>
+<td style="text-align: right;">1.000000e+00</td>
+<td style="text-align: right;">1674.00000</td>
+<td style="text-align: right;">1.673000e+03</td>
+<td style="text-align: right;">0.0526610</td>
+<td style="text-align: right;">-1.1127183</td>
+<td style="text-align: right;">8.8503222</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AHRF_USDA_RUCC_2013*</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">4.772210e+00</td>
+<td style="text-align: right;">2.619826e+00</td>
+<td style="text-align: right;">6.00000</td>
+<td style="text-align: right;">4.717140e+00</td>
+<td style="text-align: right;">2.965200</td>
+<td style="text-align: right;">1.000000e+00</td>
+<td style="text-align: right;">9.00000</td>
+<td style="text-align: right;">8.000000e+00</td>
+<td style="text-align: right;">0.0039932</td>
+<td style="text-align: right;">-1.2985960</td>
+<td style="text-align: right;">0.0493867</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CEN_POPDENSITY_COUNTY</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">2.893180e+02</td>
+<td style="text-align: right;">1.877174e+03</td>
+<td style="text-align: right;">50.74500</td>
+<td style="text-align: right;">8.620448e+01</td>
+<td style="text-align: right;">55.404762</td>
+<td style="text-align: right;">5.000000e-01</td>
+<td style="text-align: right;">71895.54000</td>
+<td style="text-align: right;">7.189504e+04</td>
+<td style="text-align: right;">25.8518141</td>
+<td style="text-align: right;">850.3767977</td>
+<td style="text-align: right;">35.3868910</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NEPHTN_HEATIND_105</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">4.098792e+00</td>
+<td style="text-align: right;">8.186776e+00</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">1.963144e+00</td>
+<td style="text-align: right;">0.000000</td>
+<td style="text-align: right;">0.000000e+00</td>
+<td style="text-align: right;">59.00000</td>
+<td style="text-align: right;">5.900000e+01</td>
+<td style="text-align: right;">2.9358498</td>
+<td style="text-align: right;">9.6132423</td>
+<td style="text-align: right;">0.1543302</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NOAAC_AVG_TEMP_YEARLY</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">5.627572e+01</td>
+<td style="text-align: right;">8.030342e+00</td>
+<td style="text-align: right;">55.95833</td>
+<td style="text-align: right;">5.617415e+01</td>
+<td style="text-align: right;">8.784405</td>
+<td style="text-align: right;">3.541667e+01</td>
+<td style="text-align: right;">78.49167</td>
+<td style="text-align: right;">4.307500e+01</td>
+<td style="text-align: right;">0.1339838</td>
+<td style="text-align: right;">-0.5932113</td>
+<td style="text-align: right;">0.1513812</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NOAAC_PRECIPITATION_AVG_YEARLY</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">3.611196e+00</td>
+<td style="text-align: right;">1.628908e+00</td>
+<td style="text-align: right;">3.62375</td>
+<td style="text-align: right;">3.638924e+00</td>
+<td style="text-align: right;">1.887844</td>
+<td style="text-align: right;">2.241667e-01</td>
+<td style="text-align: right;">9.74500</td>
+<td style="text-align: right;">9.520833e+00</td>
+<td style="text-align: right;">-0.0899446</td>
+<td style="text-align: right;">-0.7490480</td>
+<td style="text-align: right;">0.0307068</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NOAAS_TOT_NATURAL_DISASTERS</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">3.678074e+01</td>
+<td style="text-align: right;">4.541085e+01</td>
+<td style="text-align: right;">25.00000</td>
+<td style="text-align: right;">2.851510e+01</td>
+<td style="text-align: right;">19.273800</td>
+<td style="text-align: right;">0.000000e+00</td>
+<td style="text-align: right;">662.00000</td>
+<td style="text-align: right;">6.620000e+02</td>
+<td style="text-align: right;">5.3277337</td>
+<td style="text-align: right;">46.7140570</td>
+<td style="text-align: right;">0.8560470</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SAIPE_MEDIAN_HH_INCOME</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">5.738628e+04</td>
+<td style="text-align: right;">1.442985e+04</td>
+<td style="text-align: right;">55107.00000</td>
+<td style="text-align: right;">5.584910e+04</td>
+<td style="text-align: right;">11735.520300</td>
+<td style="text-align: right;">2.599700e+04</td>
+<td style="text-align: right;">155362.00000</td>
+<td style="text-align: right;">1.293650e+05</td>
+<td style="text-align: right;">1.4172637</td>
+<td style="text-align: right;">3.6789671</td>
+<td style="text-align: right;">272.0193680</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SAIPE_PCT_POV</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">1.371606e+01</td>
+<td style="text-align: right;">5.320367e+00</td>
+<td style="text-align: right;">12.80000</td>
+<td style="text-align: right;">1.323637e+01</td>
+<td style="text-align: right;">4.744320</td>
+<td style="text-align: right;">3.000000e+00</td>
+<td style="text-align: right;">39.60000</td>
+<td style="text-align: right;">3.660000e+01</td>
+<td style="text-align: right;">1.0397109</td>
+<td style="text-align: right;">1.6688697</td>
+<td style="text-align: right;">0.1002951</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ACS_PCT_COMMT_60MINUP</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">8.155924e+00</td>
+<td style="text-align: right;">4.864799e+00</td>
+<td style="text-align: right;">6.85500</td>
+<td style="text-align: right;">7.487016e+00</td>
+<td style="text-align: right;">3.810282</td>
+<td style="text-align: right;">0.000000e+00</td>
+<td style="text-align: right;">35.91000</td>
+<td style="text-align: right;">3.591000e+01</td>
+<td style="text-align: right;">1.5015546</td>
+<td style="text-align: right;">3.0016425</td>
+<td style="text-align: right;">0.0917071</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ACS_PCT_RENTER_HU_COST_50PCT</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">2.060974e+01</td>
+<td style="text-align: right;">6.649144e+00</td>
+<td style="text-align: right;">20.78000</td>
+<td style="text-align: right;">2.057608e+01</td>
+<td style="text-align: right;">6.093486</td>
+<td style="text-align: right;">0.000000e+00</td>
+<td style="text-align: right;">49.26000</td>
+<td style="text-align: right;">4.926000e+01</td>
+<td style="text-align: right;">0.1136840</td>
+<td style="text-align: right;">0.5492796</td>
+<td style="text-align: right;">0.1253440</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LTC_AVG_OBS_REHOSP_RATE</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">2814</td>
+<td style="text-align: right;">1.449645e-01</td>
+<td style="text-align: right;">8.432610e-02</td>
+<td style="text-align: right;">0.14000</td>
+<td style="text-align: right;">1.422425e-01</td>
+<td style="text-align: right;">0.059304</td>
+<td style="text-align: right;">0.000000e+00</td>
+<td style="text-align: right;">1.00000</td>
+<td style="text-align: right;">1.000000e+00</td>
+<td style="text-align: right;">1.6404370</td>
+<td style="text-align: right;">12.5443704</td>
+<td style="text-align: right;">0.0015896</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>We should note for many of these analyses that the Urban / Rural Continuum Code runs from 1.00 to 9.00. Anything 4.00 or higher would be classified as Rural, with an urban population of less than 250,000.</p>
+<section id="population-density" class="level3">
+<h3 class="anchored" data-anchor-id="population-density">Population Density</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pop_den <span class="ot">&lt;-</span> df_new <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CEN_POPDENSITY_COUNTY <span class="sc">&lt;</span> <span class="dv">5000</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pop_den, <span class="fu">aes</span>(CEN_POPDENSITY_COUNTY)) <span class="sc">+</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We’ve surely got some out-liers. The mean is 291, but the median is 46. The max is 70,000. We’ve filtered those out for this visualization and set the bins close to the median. A left-skewed variable is expected, as the majority of counties in the United States would be classified as rural and therefore have low population densities.</p>
+<p>Let’s plot a facet-grid on these codes.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pop_den, <span class="fu">aes</span>(CEN_POPDENSITY_COUNTY)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>As expected, a large part of the distribution is 4.0 or higher. 1.0 also has a high variation of population density, which may cause issues with the regression.</p>
+</section>
+<section id="heat-index-over-105f" class="level3">
+<h3 class="anchored" data-anchor-id="heat-index-over-105f">Heat Index Over 105F</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Due to the wide range in climate for the United States, it’s not surprising that there’s a large variety of out-liers. The median number of days a county experienceed a heat index of over 105F each year is 4 days per year. One county even reached 59 days – a Texas county!</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The data-set has a very left skewed distribution, similar to Population Density. Most counties experience under 10 days with a Heat Index over 105.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This distribution stays fairly constant, regardless of UR classification. 2.00 and 6.00 may have interesting insights, as their right tails are more pronounced, but that would be better suited to a map for quick reference. That is outside the scope of this project.</p>
+</section>
+<section id="average-yearly-temperature" class="level3">
+<h3 class="anchored" data-anchor-id="average-yearly-temperature">Average Yearly Temperature</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_AVG_TEMP_YEARLY)) <span class="sc">+</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There’s a good distribution. Average temperature each month is between 50 to 60 for most of the counties. The range (45) is also fairly large and shows the multiple climates within its borders.</p>
+</section>
+<section id="average-yearly-precipitation" class="level3">
+<h3 class="anchored" data-anchor-id="average-yearly-precipitation">Average Yearly Precipitation</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_PRECIPITATION_AVG_YEARLY)) <span class="sc">+</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Average precipitation each month is fairly uniform, with the mean at 3.49 inches of rain, on average, each month. This variable will most likely provide less variation in the analysis compared to others, such as population density and heat index. This can be both a good and a bad thing, as variations in precipitation was one of the variables I was most interested in exploring for this project. Oh well.</p>
+</section>
+<section id="total-natural-disasters" class="level3">
+<h3 class="anchored" data-anchor-id="total-natural-disasters">Total Natural Disasters</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Many high out-liers over 100; some even reaching over 600. Let’s plot a histogram to get a better look at the data’s distribution.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>A left skewed variable, with observations dropping off dramatically once we reach 50 total recorded natural disasters.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Little to no difference in UR classification for natural disaster out-liers.</p>
+</section>
+<section id="median-household-income" class="level3">
+<h3 class="anchored" data-anchor-id="median-household-income">Median Household Income</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_MEDIAN_HH_INCOME)) <span class="sc">+</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Very close to a normal distribution, if barely left-skewed. A couple of high out-liers, hovering around $90,000+ in median household income, but the mean holds at $57,465.</p>
+</section>
+<section id="percent-in-poverty" class="level3">
+<h3 class="anchored" data-anchor-id="percent-in-poverty">Percent in Poverty</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_PCT_POV)) <span class="sc">+</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Another close to normal distribution. Most counties have poverty rates ranging from 10% to 20%. There are of course out-liers, especially a good number below 10%, but those are rare.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_PCT_POV)) <span class="sc">+</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Highly urbanized counties (1.00) have substantially less percentage poverty compared to their rural counterparts. 7.00, 8.00, and 9.00 have the highest spread, with some counties reaching 40% poverty rates! We barely see the urban areas (1.00 - 3.00) reach 30% poverty.</p>
+</section>
+<section id="percent-commuting-alone-over-60-minutes" class="level3">
+<h3 class="anchored" data-anchor-id="percent-commuting-alone-over-60-minutes">Percent Commuting Alone, Over 60 Minutes</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_COMMT_60MINUP)) <span class="sc">+</span>   </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The majority of counties fall below 10% of their population commuting up to and more than 60 minutes for work. Let’s do another facet grid to see if there’s a relationship between UR codes.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_COMMT_60MINUP)) <span class="sc">+</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Not particularly. The only codes that appear different than the rest include 1.00 (highly urban, over 1 million population) and 8.00 (completely rural, fewer than 2,500 population). 7.00 and higher is surprising, as these are counties with very little population and often not adjacent to metro areas. Therefore, populations are most likely condensed around “urban” centers for economic purposes.</p>
+</section>
+<section id="percent-renter-housing-costs-over-50-percent-of-income" class="level3">
+<h3 class="anchored" data-anchor-id="percent-renter-housing-costs-over-50-percent-of-income">Percent Renter Housing Costs Over 50 Percent of Income</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_RENTER_HU_COST_50PCT)) <span class="sc">+</span>   </span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>This is a startling figure. On average, 20% of counties have renters where 50% or more of their income goes toward housing costs. These leaves little to no room for other expenses and drives economic instability. The data is normally distributed and barely left-skewed – but still an item to consider with further analysis.</p>
+</section>
+<section id="re-hospitalization-rate" class="level3">
+<h3 class="anchored" data-anchor-id="re-hospitalization-rate">Re-hospitalization Rate</h3>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(LTC_AVG_OBS_REHOSP_RATE)) <span class="sc">+</span>   </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Another right skewed variable. Lots of counties with 0.00 rates of re-hospitalization, and few, if any, above 0.50 per 100,000 people. From a health perspective, this is good news! From a research perspective, that’s going to make analysis a little trickier. However, the somewhat normal and/or bimodal distribution should be fairly easy to work with. While needing some transformation for a linear regression, we can test multiple models per each variable to determine which amendment provides the most robust inference.</p>
+</section>
+</section>
+<section id="analysis" class="level2">
+<h2 class="anchored" data-anchor-id="analysis">Analysis</h2>
+<section id="hypothesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h3>
+<p>Remember that the hypothesis for this research report is:</p>
+<ul>
+<li>Environmental factors increase rates of re-hospitalization in the United States.</li>
+</ul>
+<p>We have nine (9) explanatory variables to work with, so we can run different regressions to determine what variables influence re-hospitalization rates the most – if at all – and how they interact with other variables.</p>
+<p>Reminder that the nine (9) explanatory variable are broken down into three domains: environmental, economic, and built environment.</p>
+<p>Environmental entails:</p>
+<ul>
+<li><p>Day with Heat Index over 105F</p></li>
+<li><p>Average Annual Precipitation</p></li>
+<li><p>Average Annual Precipitation</p></li>
+<li><p>Total Natural Disasters Per Year</p></li>
+</ul>
+<p>Economic is:</p>
+<ul>
+<li><p>Median Household Income</p></li>
+<li><p>Percent Poverty</p></li>
+</ul>
+<p>And the Built Environment includes:</p>
+<ul>
+<li><p>Population Density</p></li>
+<li><p>Percent Rental Housing Cost, over 50%</p></li>
+<li><p>Percent Commuting Alone, over 60 minutes</p></li>
+</ul>
+<p>We will run four models to test the hypothesis. They shall examine each environmental variable’s impact on the dependent variable, re-hospitalization rates. The control variables will be the economic and built environment variables, five (5) in total.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>               NEPHTN_HEATIND_105 <span class="sc">+</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>               NOAAC_AVG_TEMP_YEARLY <span class="sc">+</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>               NOAAC_PRECIPITATION_AVG_YEARLY <span class="sc">+</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a>               NOAAS_TOT_NATURAL_DISASTERS <span class="sc">+</span></span>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>             df_new)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Let’s plot these regressions, removing the control variables to get a better visualization. For two of the models, we will employ log transformations for data that is skewed. These variables were identified during the Descriptive Statistic section. This shall include a log transformation for the response variable in particular.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105,</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 1"</span>,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Heat Index Over 105F"</span>,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 235 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(<span class="fu">log</span>(NOAAC_AVG_TEMP_YEARLY),</span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 2"</span>,</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Average Annual Temperature"</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 235 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-26-2.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_PRECIPITATION_AVG_YEARLY,</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 3"</span>,</span>
+<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Average Annual Precipitation"</span>,</span>
+<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 235 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-26-3.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS,</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 4"</span>,</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Total Natural Disasters"</span>,</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 235 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-26-4.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Of these four, it looks like temperature and precipitation have the best fit. All but Total Natural Disasters have a positive relationship with the response variable, so that helps us in determining if we should accept or reject the null hypothesis.</p>
+<p>We will reject the null hypothesis. While it looks like, at first glance, that there is little positive relationship, we can at least note that there is <em>some</em> positive relationship. In the next two sections, we will dig deeper into each model, examining the p-value and R-Squared value, to see what level of relationship is present.</p>
+</section>
+<section id="model-comparisons" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparisons">Model Comparisons</h3>
+<p>Now we will compare the four (4) models in more depth.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LTC_AVG_OBS_REHOSP_RATE ~ NEPHTN_HEATIND_105 + CEN_POPDENSITY_COUNTY + 
+    SAIPE_MEDIAN_HH_INCOME + SAIPE_PCT_POV + ACS_PCT_COMMT_60MINUP + 
+    ACS_PCT_RENTER_HU_COST_50PCT, data = df_new)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.24905 -0.04273 -0.00201  0.03850  0.86257 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   5.582e-02  1.553e-02   3.595 0.000330 ***
+NEPHTN_HEATIND_105            6.909e-04  1.959e-04   3.526 0.000428 ***
+CEN_POPDENSITY_COUNTY         6.250e-07  8.575e-07   0.729 0.466180    
+SAIPE_MEDIAN_HH_INCOME        4.223e-07  1.825e-07   2.313 0.020777 *  
+SAIPE_PCT_POV                 3.331e-03  5.166e-04   6.449 1.32e-10 ***
+ACS_PCT_COMMT_60MINUP        -4.504e-05  3.321e-04  -0.136 0.892129    
+ACS_PCT_RENTER_HU_COST_50PCT  8.043e-04  2.517e-04   3.195 0.001413 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.0824 on 2807 degrees of freedom
+Multiple R-squared:  0.04725,   Adjusted R-squared:  0.04521 
+F-statistic:  23.2 on 6 and 2807 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LTC_AVG_OBS_REHOSP_RATE ~ NOAAC_AVG_TEMP_YEARLY + 
+    CEN_POPDENSITY_COUNTY + SAIPE_MEDIAN_HH_INCOME + SAIPE_PCT_POV + 
+    ACS_PCT_COMMT_60MINUP + ACS_PCT_RENTER_HU_COST_50PCT, data = df_new)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.22744 -0.04216 -0.00227  0.03810  0.87918 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                  -3.293e-03  1.691e-02  -0.195 0.845614    
+NOAAC_AVG_TEMP_YEARLY         1.721e-03  2.236e-04   7.697 1.91e-14 ***
+CEN_POPDENSITY_COUNTY         6.974e-07  8.498e-07   0.821 0.411866    
+SAIPE_MEDIAN_HH_INCOME        2.163e-07  1.835e-07   1.178 0.238760    
+SAIPE_PCT_POV                 2.082e-03  5.440e-04   3.827 0.000132 ***
+ACS_PCT_COMMT_60MINUP        -4.280e-04  3.338e-04  -1.282 0.199842    
+ACS_PCT_RENTER_HU_COST_50PCT  6.661e-04  2.498e-04   2.667 0.007701 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08172 on 2807 degrees of freedom
+Multiple R-squared:  0.06281,   Adjusted R-squared:  0.06081 
+F-statistic: 31.35 on 6 and 2807 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LTC_AVG_OBS_REHOSP_RATE ~ NOAAC_PRECIPITATION_AVG_YEARLY + 
+    CEN_POPDENSITY_COUNTY + SAIPE_MEDIAN_HH_INCOME + SAIPE_PCT_POV + 
+    ACS_PCT_COMMT_60MINUP + ACS_PCT_RENTER_HU_COST_50PCT, data = df_new)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.24203 -0.04423 -0.00280  0.03765  0.86494 
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                     3.851e-02  1.539e-02   2.502  0.01240 *  
+NOAAC_PRECIPITATION_AVG_YEARLY  8.861e-03  1.046e-03   8.470  &lt; 2e-16 ***
+CEN_POPDENSITY_COUNTY           4.913e-07  8.473e-07   0.580  0.56206    
+SAIPE_MEDIAN_HH_INCOME          5.067e-07  1.801e-07   2.813  0.00495 ** 
+SAIPE_PCT_POV                   2.954e-03  5.089e-04   5.805 7.15e-09 ***
+ACS_PCT_COMMT_60MINUP          -5.921e-04  3.358e-04  -1.763  0.07794 .  
+ACS_PCT_RENTER_HU_COST_50PCT    4.636e-04  2.514e-04   1.844  0.06534 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08154 on 2807 degrees of freedom
+Multiple R-squared:  0.06688,   Adjusted R-squared:  0.06489 
+F-statistic: 33.53 on 6 and 2807 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = LTC_AVG_OBS_REHOSP_RATE ~ NOAAS_TOT_NATURAL_DISASTERS + 
+    CEN_POPDENSITY_COUNTY + SAIPE_MEDIAN_HH_INCOME + SAIPE_PCT_POV + 
+    ACS_PCT_COMMT_60MINUP + ACS_PCT_RENTER_HU_COST_50PCT, data = df_new)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.24509 -0.04423 -0.00198  0.03901  0.85940 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   4.845e-02  1.564e-02   3.099  0.00196 ** 
+NOAAS_TOT_NATURAL_DISASTERS  -5.117e-05  3.596e-05  -1.423  0.15490    
+CEN_POPDENSITY_COUNTY         4.512e-07  8.578e-07   0.526  0.59891    
+SAIPE_MEDIAN_HH_INCOME        5.359e-07  1.876e-07   2.856  0.00432 ** 
+SAIPE_PCT_POV                 3.750e-03  5.097e-04   7.358 2.44e-13 ***
+ACS_PCT_COMMT_60MINUP        -2.872e-05  3.331e-04  -0.086  0.93131    
+ACS_PCT_RENTER_HU_COST_50PCT  7.913e-04  2.526e-04   3.132  0.00175 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.08255 on 2807 degrees of freedom
+Multiple R-squared:  0.04372,   Adjusted R-squared:  0.04168 
+F-statistic: 21.39 on 6 and 2807 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Three of the four explanatory variables meet the statistical significance threshold (0.001). Total Natural Disasters Per Year do not. This helps in finalizing whether to accept or reject the null hypothesis. The p-value is most significant for precipitation, model 3.</p>
+<p>For the model fit, the adjusted R squared ranges from 0.04 to 0.06. The highest is for precipitation, model 3.</p>
+<p>Precipitation also has the lowest residual standard error, at 0.081.</p>
+<p>Finally, we’re going to calculate the PRESS statistic (Predicted Residual Sum of Squares) to best determine which model can predict the response variable based upon the explanatory variables.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">lm.influence</span>(model)<span class="sc">$</span>hat)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(i<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.17066</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.86294</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.77811</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 19.23593</code></pre>
+</div>
+</div>
+<p>Model 3 has the lowest PRESS score.</p>
+<p>Due to a strong p-value, PRESS score, and model fit compared to the other three models, model 3 will be chosen as the final model for the diagnostic exploration. While the adjusted R squared value is not strong when controlling for economic and built environment factors, there is still a positive relationship, and therefore some influence on the dependent variable.</p>
+</section>
+<section id="diagnostics" class="level3">
+<h3 class="anchored" data-anchor-id="diagnostics">Diagnostics</h3>
+<p>Finally, we’ll plot the diagnostics to best understand the model.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>));</span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model3, </span>
+<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalPart2_CalebHill_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Of the six plots, Cook’s distance is the most striking and relevant, as there are three out-liers: 1679, 2189, and 2455.</p>
+<p>1679 is New York County, New York.</p>
+<p>2189 is Mellette County, South Dakota.</p>
+<p>2455 is Real County, Texas.</p>
+<p>Otherwise, the plot looks good.</p>
+<p>Normal Q-Q violates this test, as the points at the right tail of the plot do not generally fall along the line. This is very apparent for our three out-liers. The remaining plots do not violate their tested assumptions and further cement the model’s reliability.</p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This paper explored the relationship between re-hospitalization rates and four environmental variables, when controlling for common variables that regularly influence the dependent variable. These four variables included days with a heat index over 105F, average annual temperature, average annual precipitation, and total natural disasters.</p>
+<p>Four models were selected, one for each variable, to best determine which measure best impacted re-hospitalization rates. Three of the four variables were statistically significant and two had a larger adjusted R squared value than the others. Precipitation was selected as the variable with the best model fit to explain re-hospitalization rate impact. While the adjusted R-squared value is negligible (0.06), there is a positive relationship that is statistically significant. Therein we see some form of an influence large amounts of annual precipitation has on re-hospitalization rates.</p>
+<p>I would have liked to tighten the analysis further instead of including multiple (10) variables, by focusing on some key measurements: Precipitation as the explanatory, Poverty as the control, and filtering by Rurality to determine the relationship with re-hospitalization rates. I could then fit different models (Simple Linear, Poisson, Polynomial, etc.) to see which worked best. I may not have time to do so for the poster presentation, nor would that perhaps be within the scope of this project. Either way, I have something for future classes, perhaps via time series analysis or machine learning (prediction over inference). Either way, this helped me better understand the robustness of linear regression models.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Barnett, M., Hsu, J. &amp; McWilliams, M. (2015). “Patient Characteristics and Differences in Hospital Readmission Rates.” JAMA Intern Med., 175(11): 1803-1812.</p>
+<p>Bhosale KH, Nath RK, Pandit N, Agarwal P, Khairnar S, Yadav B, &amp; Chandrakar S. (2020). “Rate of Rehospitalization in 60 Days of Discharge and It’s Determinants in Patients with Heart Failure with Reduced Ejection Fraction in a Tertiary Care Centre in India.” Int J Heart Fail. 21;2(2):131-144.</p>
+<p>Li, Y., Cai, X. &amp; Glance, L. (2015). “Disparities in 30-day rehospitalization rates among Medicare skilled nursing facility residents by race and site of care.” Med Care, 53(12): 1058-1065.</p>
+<p>Murray, F., Allen, M., Clark, C., Daly, C. &amp; Jacobs, D. (2021). “Socio-demographic and -economic factors associated with 30-day readmission for conditions targeted by the hospital readmissions reduction program: a population-based study.” BMC Public Health, 21.</p>
+<p>Spatz, E., Bernheim, S., Horwitz, L. &amp; Herrin, J. (2020). Community factors and hospital wide readmission rates: Does context matter? PLoS One, 15(10).</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb82" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Part 2"</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Caleb Hill"</span></span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Part 2 of the Final Project"</span></span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "11/08/2022"</span></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart2</span></span>
+<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - caleb.hill</span></span>
+<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introduction</span></span>
+<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>Multiple research reports state that there is a relationship between re-hospitalization rates and social characteristics, such as demographic and economic identifiers, (Barnett, Hsu &amp; McWilliams, 2015; Murray, Allen, Clark, Daly &amp; Jacobs, 2021). Specifically, racial characteristics play a large role in predicting re-hospitalization in a population (Li, Cai &amp; Glance, 2015). While some articles examine economic and health factors contributing to these disparities, very few dig deep into environmental factors that influence this phenomenon, (Spatz, Bernheim, Horwitz &amp; Herrin, 2020). With your zipcode affecting up to 60% of your health outcomes, this research is relevant to better improving one of our most costly health expenditures: hospitalization.</span>
+<span id="cb82-20"><a href="#cb82-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-21"><a href="#cb82-21" aria-hidden="true" tabindex="-1"></a>Re-hospitalization is a substantially costlier expenditure, as readmitting a patient further increases costs -- especially if the diagnosis was untreated, poorly treated, or incorrectly treated. Most inpatient episodes characterized as a re-hospitalization when the patient is readmitted to the hospital 60 days after discharge. If the cause is different, sometimes that is counted as a re-hospitalization; other times, not so much, (Bhosale, K., Nath, R., Pandit, N., Agarwal, P., Khairnar, S., Yadav, B. &amp; Chandrakar, S., 2020).</span>
+<span id="cb82-22"><a href="#cb82-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-23"><a href="#cb82-23" aria-hidden="true" tabindex="-1"></a><span class="fu">### Research Question</span></span>
+<span id="cb82-24"><a href="#cb82-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-25"><a href="#cb82-25" aria-hidden="true" tabindex="-1"></a>This paper aims to explore how different environmental variables impact re-hospitalization rates on a county-by-county level. Due to the nature of this project, we will not be controlling for racial, ethnic, and sex variables. These environmental factors will include both common environmental concerns, such as heat index, average temperature, precipitation, and natural disasters, along with the built environment, mean travel time to work, renter burden, and population density. We will also stratify by rural/urban classification, to determine if counties above or below 250,000 population experience differences in re-hospitalization rates, dependent upon these explanatory variables.</span>
+<span id="cb82-26"><a href="#cb82-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-27"><a href="#cb82-27" aria-hidden="true" tabindex="-1"></a>The data-set chosen for this analysis is taken from the Agency for Healthcare Research and Quality, Social Determinants of Health (SDOH) Database. This data-set has over 300 variables to explore each SDOH domain: social context, economic context, education, healthcare, and the environment. We shall pull data from three of these five domains: social, economic, and environmental.</span>
+<span id="cb82-28"><a href="#cb82-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-29"><a href="#cb82-29" aria-hidden="true" tabindex="-1"></a>How re-hospitalization is measured is not clarified per this data-set's codebook. However, the Center for Medicare and Medicaid (CMS) 30-day Risk-Standardized Readmission Rate (RSRR) measures re-hospitalization as an unplanned readmission to inpatient services. It does stratify and specify based upon diagnosis. As the AHRQ is a federal agency alongside CMS, it is likely that they are pulling from CMS for this measure and aggregating various diagnoses into one county rate.</span>
+<span id="cb82-30"><a href="#cb82-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-31"><a href="#cb82-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hypothesis</span></span>
+<span id="cb82-32"><a href="#cb82-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-33"><a href="#cb82-33" aria-hidden="true" tabindex="-1"></a>The hypothesis for this research report is:</span>
+<span id="cb82-34"><a href="#cb82-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-35"><a href="#cb82-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Environmental factors increase rates of re-hospitalization in the United States.</span>
+<span id="cb82-36"><a href="#cb82-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-37"><a href="#cb82-37" aria-hidden="true" tabindex="-1"></a>Therefore, the null hypothesis is:</span>
+<span id="cb82-38"><a href="#cb82-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-39"><a href="#cb82-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Environmental factors do not increase rates of re-hospitalization in the United States.</span>
+<span id="cb82-40"><a href="#cb82-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-41"><a href="#cb82-41" aria-hidden="true" tabindex="-1"></a>Various regression analyses shall be employed to determine the relationship -- or lack thereof -- between these variables.</span>
+<span id="cb82-42"><a href="#cb82-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-43"><a href="#cb82-43" aria-hidden="true" tabindex="-1"></a>First I'll import the relevant libraries.</span>
+<span id="cb82-44"><a href="#cb82-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-45"><a href="#cb82-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include = FALSE}</span></span>
+<span id="cb82-46"><a href="#cb82-46" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb82-47"><a href="#cb82-47" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb82-48"><a href="#cb82-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-49"><a href="#cb82-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb82-50"><a href="#cb82-50" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb82-51"><a href="#cb82-51" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb82-52"><a href="#cb82-52" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb82-53"><a href="#cb82-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb82-54"><a href="#cb82-54" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_minimal</span>()</span>
+<span id="cb82-55"><a href="#cb82-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-56"><a href="#cb82-56" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb82-57"><a href="#cb82-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-58"><a href="#cb82-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-59"><a href="#cb82-59" aria-hidden="true" tabindex="-1"></a>Then I'll import the dataset and view the first six rows.</span>
+<span id="cb82-60"><a href="#cb82-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-63"><a href="#cb82-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-64"><a href="#cb82-64" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> SDOH_2020_COUNTY_1_0 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"_data/SDOH_2020_COUNTY_1_0.xlsx"</span>, </span>
+<span id="cb82-65"><a href="#cb82-65" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">sheet =</span> <span class="st">"Data"</span>)</span>
+<span id="cb82-66"><a href="#cb82-66" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb82-67"><a href="#cb82-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-68"><a href="#cb82-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-69"><a href="#cb82-69" aria-hidden="true" tabindex="-1"></a>Next I want to verify the class is a dataframe. Otherwise, I'll need to transform the data to make it easier to work with.</span>
+<span id="cb82-70"><a href="#cb82-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-73"><a href="#cb82-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-74"><a href="#cb82-74" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span>
+<span id="cb82-75"><a href="#cb82-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-76"><a href="#cb82-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-77"><a href="#cb82-77" aria-hidden="true" tabindex="-1"></a>All good here.</span>
+<span id="cb82-78"><a href="#cb82-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-79"><a href="#cb82-79" aria-hidden="true" tabindex="-1"></a>Now on to data transformation. We will need to select only the relevant columns for this analysis.</span>
+<span id="cb82-80"><a href="#cb82-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-83"><a href="#cb82-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-84"><a href="#cb82-84" aria-hidden="true" tabindex="-1"></a>df_new <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb82-85"><a href="#cb82-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(COUNTYFIPS,</span>
+<span id="cb82-86"><a href="#cb82-86" aria-hidden="true" tabindex="-1"></a>         STATE,</span>
+<span id="cb82-87"><a href="#cb82-87" aria-hidden="true" tabindex="-1"></a>         COUNTY,</span>
+<span id="cb82-88"><a href="#cb82-88" aria-hidden="true" tabindex="-1"></a>         AHRF_USDA_RUCC_2013,</span>
+<span id="cb82-89"><a href="#cb82-89" aria-hidden="true" tabindex="-1"></a>         CEN_POPDENSITY_COUNTY,</span>
+<span id="cb82-90"><a href="#cb82-90" aria-hidden="true" tabindex="-1"></a>         NEPHTN_HEATIND_105,</span>
+<span id="cb82-91"><a href="#cb82-91" aria-hidden="true" tabindex="-1"></a>         NOAAC_AVG_TEMP_YEARLY,</span>
+<span id="cb82-92"><a href="#cb82-92" aria-hidden="true" tabindex="-1"></a>         NOAAC_PRECIPITATION_AVG_YEARLY,</span>
+<span id="cb82-93"><a href="#cb82-93" aria-hidden="true" tabindex="-1"></a>         NOAAS_TOT_NATURAL_DISASTERS,</span>
+<span id="cb82-94"><a href="#cb82-94" aria-hidden="true" tabindex="-1"></a>         SAIPE_MEDIAN_HH_INCOME,</span>
+<span id="cb82-95"><a href="#cb82-95" aria-hidden="true" tabindex="-1"></a>         SAIPE_PCT_POV,</span>
+<span id="cb82-96"><a href="#cb82-96" aria-hidden="true" tabindex="-1"></a>         ACS_PCT_COMMT_60MINUP,</span>
+<span id="cb82-97"><a href="#cb82-97" aria-hidden="true" tabindex="-1"></a>         ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb82-98"><a href="#cb82-98" aria-hidden="true" tabindex="-1"></a>         LTC_AVG_OBS_REHOSP_RATE) </span>
+<span id="cb82-99"><a href="#cb82-99" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(df_new)</span>
+<span id="cb82-100"><a href="#cb82-100" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df_new)</span>
+<span id="cb82-101"><a href="#cb82-101" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-102"><a href="#cb82-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-103"><a href="#cb82-103" aria-hidden="true" tabindex="-1"></a>Out of 1400+ variables, we've whittled them down to 14. Of those 14, we have four (4) that are unique identifiers (FIPS, State, County, and Rural-Urban Continuation Code), four (4) environmental, two (2) economic, one (1) housing, two (2) built-enviornment, and one (1) healthcare outcome.</span>
+<span id="cb82-104"><a href="#cb82-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-105"><a href="#cb82-105" aria-hidden="true" tabindex="-1"></a>Before we launch into exploring these variables via descriptive statistics, first we need to determine where the NAs are and see if any of the variables will have a substantial amount of missing data.</span>
+<span id="cb82-106"><a href="#cb82-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-109"><a href="#cb82-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-110"><a href="#cb82-110" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">colSums</span>(<span class="fu">is.na</span>(df_new)))</span>
+<span id="cb82-111"><a href="#cb82-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-112"><a href="#cb82-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-113"><a href="#cb82-113" aria-hidden="true" tabindex="-1"></a>Plenty of variables with missing data. Some are minor, such as population density, housing cost, and commute time variables with 8. Some are concerning, such as Heat Index, Average Yearly Temperature, and Average Yearly Precipitation, all around 120+.</span>
+<span id="cb82-114"><a href="#cb82-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-115"><a href="#cb82-115" aria-hidden="true" tabindex="-1"></a>The most concerning is -- of course -- our outcome variable, Re-Hospitalization Rates. This is not ideal. However, 410 / 3229 (12.6%) is not bad. That still leaves us with plenty of counties to review.</span>
+<span id="cb82-116"><a href="#cb82-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-119"><a href="#cb82-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-120"><a href="#cb82-120" aria-hidden="true" tabindex="-1"></a>df_new <span class="ot">&lt;-</span> df_new <span class="sc">%&gt;%</span></span>
+<span id="cb82-121"><a href="#cb82-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb82-122"><a href="#cb82-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">nrow</span>(df_new))</span>
+<span id="cb82-123"><a href="#cb82-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-124"><a href="#cb82-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-125"><a href="#cb82-125" aria-hidden="true" tabindex="-1"></a>2,814 x 14 is a good place to start.</span>
+<span id="cb82-126"><a href="#cb82-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-127"><a href="#cb82-127" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Statistics</span></span>
+<span id="cb82-128"><a href="#cb82-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-129"><a href="#cb82-129" aria-hidden="true" tabindex="-1"></a>For our preliminary analysis, we're going to provide summary statistics analyzing the 10 variables relevant to our research question, from Population Density to the end of the data-set, and a visualization for each.</span>
+<span id="cb82-130"><a href="#cb82-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-133"><a href="#cb82-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-134"><a href="#cb82-134" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">describe</span>(df_new))</span>
+<span id="cb82-135"><a href="#cb82-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-136"><a href="#cb82-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-137"><a href="#cb82-137" aria-hidden="true" tabindex="-1"></a>We should note for many of these analyses that the Urban / Rural Continuum Code runs from 1.00 to 9.00. Anything 4.00 or higher would be classified as Rural, with an urban population of less than 250,000.</span>
+<span id="cb82-138"><a href="#cb82-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-139"><a href="#cb82-139" aria-hidden="true" tabindex="-1"></a><span class="fu">### Population Density</span></span>
+<span id="cb82-140"><a href="#cb82-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-143"><a href="#cb82-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-144"><a href="#cb82-144" aria-hidden="true" tabindex="-1"></a>pop_den <span class="ot">&lt;-</span> df_new <span class="sc">%&gt;%</span></span>
+<span id="cb82-145"><a href="#cb82-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CEN_POPDENSITY_COUNTY <span class="sc">&lt;</span> <span class="dv">5000</span>)</span>
+<span id="cb82-146"><a href="#cb82-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-147"><a href="#cb82-147" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pop_den, <span class="fu">aes</span>(CEN_POPDENSITY_COUNTY)) <span class="sc">+</span></span>
+<span id="cb82-148"><a href="#cb82-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>)</span>
+<span id="cb82-149"><a href="#cb82-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-150"><a href="#cb82-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-151"><a href="#cb82-151" aria-hidden="true" tabindex="-1"></a>We've surely got some out-liers. The mean is 291, but the median is 46. The max is 70,000. We've filtered those out for this visualization and set the bins close to the median. A left-skewed variable is expected, as the majority of counties in the United States would be classified as rural and therefore have low population densities.</span>
+<span id="cb82-152"><a href="#cb82-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-153"><a href="#cb82-153" aria-hidden="true" tabindex="-1"></a>Let's plot a facet-grid on these codes.</span>
+<span id="cb82-154"><a href="#cb82-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-157"><a href="#cb82-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-158"><a href="#cb82-158" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pop_den, <span class="fu">aes</span>(CEN_POPDENSITY_COUNTY)) <span class="sc">+</span></span>
+<span id="cb82-159"><a href="#cb82-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb82-160"><a href="#cb82-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span>
+<span id="cb82-161"><a href="#cb82-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-162"><a href="#cb82-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-163"><a href="#cb82-163" aria-hidden="true" tabindex="-1"></a>As expected, a large part of the distribution is 4.0 or higher. 1.0 also has a high variation of population density, which may cause issues with the regression.</span>
+<span id="cb82-164"><a href="#cb82-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-165"><a href="#cb82-165" aria-hidden="true" tabindex="-1"></a><span class="fu">### Heat Index Over 105F</span></span>
+<span id="cb82-166"><a href="#cb82-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-169"><a href="#cb82-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-170"><a href="#cb82-170" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb82-171"><a href="#cb82-171" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb82-172"><a href="#cb82-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-173"><a href="#cb82-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-174"><a href="#cb82-174" aria-hidden="true" tabindex="-1"></a>Due to the wide range in climate for the United States, it's not surprising that there's a large variety of out-liers. The median number of days a county experienceed a heat index of over 105F each year is 4 days per year. One county even reached 59 days -- a Texas county!</span>
+<span id="cb82-175"><a href="#cb82-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-178"><a href="#cb82-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-179"><a href="#cb82-179" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb82-180"><a href="#cb82-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-181"><a href="#cb82-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-182"><a href="#cb82-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-183"><a href="#cb82-183" aria-hidden="true" tabindex="-1"></a>The data-set has a very left skewed distribution, similar to Population Density. Most counties experience under 10 days with a Heat Index over 105.</span>
+<span id="cb82-184"><a href="#cb82-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-187"><a href="#cb82-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-188"><a href="#cb82-188" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105)) <span class="sc">+</span></span>
+<span id="cb82-189"><a href="#cb82-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb82-190"><a href="#cb82-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span>
+<span id="cb82-191"><a href="#cb82-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-192"><a href="#cb82-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-193"><a href="#cb82-193" aria-hidden="true" tabindex="-1"></a>This distribution stays fairly constant, regardless of UR classification. 2.00 and 6.00 may have interesting insights, as their right tails are more pronounced, but that would be better suited to a map for quick reference. That is outside the scope of this project.</span>
+<span id="cb82-194"><a href="#cb82-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-195"><a href="#cb82-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Average Yearly Temperature</span></span>
+<span id="cb82-196"><a href="#cb82-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-199"><a href="#cb82-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-200"><a href="#cb82-200" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_AVG_TEMP_YEARLY)) <span class="sc">+</span></span>
+<span id="cb82-201"><a href="#cb82-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-202"><a href="#cb82-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-203"><a href="#cb82-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-204"><a href="#cb82-204" aria-hidden="true" tabindex="-1"></a>There's a good distribution. Average temperature each month is between 50 to 60 for most of the counties. The range (45) is also fairly large and shows the multiple climates within its borders.</span>
+<span id="cb82-205"><a href="#cb82-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-206"><a href="#cb82-206" aria-hidden="true" tabindex="-1"></a><span class="fu">### Average Yearly Precipitation</span></span>
+<span id="cb82-207"><a href="#cb82-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-210"><a href="#cb82-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-211"><a href="#cb82-211" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_PRECIPITATION_AVG_YEARLY)) <span class="sc">+</span></span>
+<span id="cb82-212"><a href="#cb82-212" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb82-213"><a href="#cb82-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-214"><a href="#cb82-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-215"><a href="#cb82-215" aria-hidden="true" tabindex="-1"></a>Average precipitation each month is fairly uniform, with the mean at 3.49 inches of rain, on average, each month. This variable will most likely provide less variation in the analysis compared to others, such as population density and heat index. This can be both a good and a bad thing, as variations in precipitation was one of the variables I was most interested in exploring for this project. Oh well.</span>
+<span id="cb82-216"><a href="#cb82-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-217"><a href="#cb82-217" aria-hidden="true" tabindex="-1"></a><span class="fu">### Total Natural Disasters</span></span>
+<span id="cb82-218"><a href="#cb82-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-221"><a href="#cb82-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-222"><a href="#cb82-222" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb82-223"><a href="#cb82-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb82-224"><a href="#cb82-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-225"><a href="#cb82-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-226"><a href="#cb82-226" aria-hidden="true" tabindex="-1"></a>Many high out-liers over 100; some even reaching over 600. Let's plot a histogram to get a better look at the data's distribution.</span>
+<span id="cb82-227"><a href="#cb82-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-230"><a href="#cb82-230" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-231"><a href="#cb82-231" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb82-232"><a href="#cb82-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-233"><a href="#cb82-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-234"><a href="#cb82-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-235"><a href="#cb82-235" aria-hidden="true" tabindex="-1"></a>A left skewed variable, with observations dropping off dramatically once we reach 50 total recorded natural disasters.</span>
+<span id="cb82-236"><a href="#cb82-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-239"><a href="#cb82-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-240"><a href="#cb82-240" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS)) <span class="sc">+</span></span>
+<span id="cb82-241"><a href="#cb82-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb82-242"><a href="#cb82-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span>
+<span id="cb82-243"><a href="#cb82-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-244"><a href="#cb82-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-245"><a href="#cb82-245" aria-hidden="true" tabindex="-1"></a>Little to no difference in UR classification for natural disaster out-liers.</span>
+<span id="cb82-246"><a href="#cb82-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-247"><a href="#cb82-247" aria-hidden="true" tabindex="-1"></a><span class="fu">### Median Household Income</span></span>
+<span id="cb82-248"><a href="#cb82-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-251"><a href="#cb82-251" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-252"><a href="#cb82-252" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_MEDIAN_HH_INCOME)) <span class="sc">+</span></span>
+<span id="cb82-253"><a href="#cb82-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-254"><a href="#cb82-254" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-255"><a href="#cb82-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-256"><a href="#cb82-256" aria-hidden="true" tabindex="-1"></a>Very close to a normal distribution, if barely left-skewed. A couple of high out-liers, hovering around \$90,000+ in median household income, but the mean holds at \$57,465.</span>
+<span id="cb82-257"><a href="#cb82-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-258"><a href="#cb82-258" aria-hidden="true" tabindex="-1"></a><span class="fu">### Percent in Poverty</span></span>
+<span id="cb82-259"><a href="#cb82-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-262"><a href="#cb82-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-263"><a href="#cb82-263" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_PCT_POV)) <span class="sc">+</span></span>
+<span id="cb82-264"><a href="#cb82-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-265"><a href="#cb82-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-266"><a href="#cb82-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-267"><a href="#cb82-267" aria-hidden="true" tabindex="-1"></a>Another close to normal distribution. Most counties have poverty rates ranging from 10% to 20%. There are of course out-liers, especially a good number below 10%, but those are rare.</span>
+<span id="cb82-268"><a href="#cb82-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-271"><a href="#cb82-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-272"><a href="#cb82-272" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(SAIPE_PCT_POV)) <span class="sc">+</span></span>
+<span id="cb82-273"><a href="#cb82-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb82-274"><a href="#cb82-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span>
+<span id="cb82-275"><a href="#cb82-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-276"><a href="#cb82-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-277"><a href="#cb82-277" aria-hidden="true" tabindex="-1"></a>Highly urbanized counties (1.00) have substantially less percentage poverty compared to their rural counterparts. 7.00, 8.00, and 9.00 have the highest spread, with some counties reaching 40% poverty rates! We barely see the urban areas (1.00 - 3.00) reach 30% poverty.</span>
+<span id="cb82-278"><a href="#cb82-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-279"><a href="#cb82-279" aria-hidden="true" tabindex="-1"></a><span class="fu">### Percent Commuting Alone, Over 60 Minutes</span></span>
+<span id="cb82-280"><a href="#cb82-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-283"><a href="#cb82-283" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-284"><a href="#cb82-284" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_COMMT_60MINUP)) <span class="sc">+</span>   </span>
+<span id="cb82-285"><a href="#cb82-285" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-286"><a href="#cb82-286" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-287"><a href="#cb82-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-288"><a href="#cb82-288" aria-hidden="true" tabindex="-1"></a>The majority of counties fall below 10% of their population commuting up to and more than 60 minutes for work. Let's do another facet grid to see if there's a relationship between UR codes.</span>
+<span id="cb82-289"><a href="#cb82-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-292"><a href="#cb82-292" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-293"><a href="#cb82-293" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_COMMT_60MINUP)) <span class="sc">+</span></span>
+<span id="cb82-294"><a href="#cb82-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb82-295"><a href="#cb82-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="st">'AHRF_USDA_RUCC_2013'</span>)</span>
+<span id="cb82-296"><a href="#cb82-296" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-297"><a href="#cb82-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-298"><a href="#cb82-298" aria-hidden="true" tabindex="-1"></a>Not particularly. The only codes that appear different than the rest include 1.00 (highly urban, over 1 million population) and 8.00 (completely rural, fewer than 2,500 population). 7.00 and higher is surprising, as these are counties with very little population and often not adjacent to metro areas. Therefore, populations are most likely condensed around "urban" centers for economic purposes.</span>
+<span id="cb82-299"><a href="#cb82-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-300"><a href="#cb82-300" aria-hidden="true" tabindex="-1"></a><span class="fu">### Percent Renter Housing Costs Over 50 Percent of Income</span></span>
+<span id="cb82-301"><a href="#cb82-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-304"><a href="#cb82-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-305"><a href="#cb82-305" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(ACS_PCT_RENTER_HU_COST_50PCT)) <span class="sc">+</span>   </span>
+<span id="cb82-306"><a href="#cb82-306" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-307"><a href="#cb82-307" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-308"><a href="#cb82-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-309"><a href="#cb82-309" aria-hidden="true" tabindex="-1"></a>This is a startling figure. On average, 20% of counties have renters where 50% or more of their income goes toward housing costs. These leaves little to no room for other expenses and drives economic instability. The data is normally distributed and barely left-skewed -- but still an item to consider with further analysis.</span>
+<span id="cb82-310"><a href="#cb82-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-311"><a href="#cb82-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### Re-hospitalization Rate</span></span>
+<span id="cb82-312"><a href="#cb82-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-315"><a href="#cb82-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-316"><a href="#cb82-316" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(LTC_AVG_OBS_REHOSP_RATE)) <span class="sc">+</span>   </span>
+<span id="cb82-317"><a href="#cb82-317" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span>
+<span id="cb82-318"><a href="#cb82-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-319"><a href="#cb82-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-320"><a href="#cb82-320" aria-hidden="true" tabindex="-1"></a>Another right skewed variable. Lots of counties with 0.00 rates of re-hospitalization, and few, if any, above 0.50 per 100,000 people. From a health perspective, this is good news! From a research perspective, that's going to make analysis a little trickier. However, the somewhat normal and/or bimodal distribution should be fairly easy to work with. While needing some transformation for a linear regression, we can test multiple models per each variable to determine which amendment provides the most robust inference.</span>
+<span id="cb82-321"><a href="#cb82-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-322"><a href="#cb82-322" aria-hidden="true" tabindex="-1"></a><span class="fu">## Analysis</span></span>
+<span id="cb82-323"><a href="#cb82-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-324"><a href="#cb82-324" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hypothesis Testing</span></span>
+<span id="cb82-325"><a href="#cb82-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-326"><a href="#cb82-326" aria-hidden="true" tabindex="-1"></a>Remember that the hypothesis for this research report is:</span>
+<span id="cb82-327"><a href="#cb82-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-328"><a href="#cb82-328" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Environmental factors increase rates of re-hospitalization in the United States.</span>
+<span id="cb82-329"><a href="#cb82-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-330"><a href="#cb82-330" aria-hidden="true" tabindex="-1"></a>We have nine (9) explanatory variables to work with, so we can run different regressions to determine what variables influence re-hospitalization rates the most -- if at all -- and how they interact with other variables.</span>
+<span id="cb82-331"><a href="#cb82-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-332"><a href="#cb82-332" aria-hidden="true" tabindex="-1"></a>Reminder that the nine (9) explanatory variable are broken down into three domains: environmental, economic, and built environment.</span>
+<span id="cb82-333"><a href="#cb82-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-334"><a href="#cb82-334" aria-hidden="true" tabindex="-1"></a>Environmental entails:</span>
+<span id="cb82-335"><a href="#cb82-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-336"><a href="#cb82-336" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Day with Heat Index over 105F</span>
+<span id="cb82-337"><a href="#cb82-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-338"><a href="#cb82-338" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Average Annual Precipitation</span>
+<span id="cb82-339"><a href="#cb82-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-340"><a href="#cb82-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Average Annual Precipitation</span>
+<span id="cb82-341"><a href="#cb82-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-342"><a href="#cb82-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Total Natural Disasters Per Year</span>
+<span id="cb82-343"><a href="#cb82-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-344"><a href="#cb82-344" aria-hidden="true" tabindex="-1"></a>Economic is:</span>
+<span id="cb82-345"><a href="#cb82-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-346"><a href="#cb82-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Median Household Income</span>
+<span id="cb82-347"><a href="#cb82-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-348"><a href="#cb82-348" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Percent Poverty</span>
+<span id="cb82-349"><a href="#cb82-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-350"><a href="#cb82-350" aria-hidden="true" tabindex="-1"></a>And the Built Environment includes:</span>
+<span id="cb82-351"><a href="#cb82-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-352"><a href="#cb82-352" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Population Density</span>
+<span id="cb82-353"><a href="#cb82-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-354"><a href="#cb82-354" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Percent Rental Housing Cost, over 50%</span>
+<span id="cb82-355"><a href="#cb82-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-356"><a href="#cb82-356" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Percent Commuting Alone, over 60 minutes</span>
+<span id="cb82-357"><a href="#cb82-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-358"><a href="#cb82-358" aria-hidden="true" tabindex="-1"></a>We will run four models to test the hypothesis. They shall examine each environmental variable's impact on the dependent variable, re-hospitalization rates. The control variables will be the economic and built environment variables, five (5) in total.</span>
+<span id="cb82-359"><a href="#cb82-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-362"><a href="#cb82-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-363"><a href="#cb82-363" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb82-364"><a href="#cb82-364" aria-hidden="true" tabindex="-1"></a>               NEPHTN_HEATIND_105 <span class="sc">+</span></span>
+<span id="cb82-365"><a href="#cb82-365" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb82-366"><a href="#cb82-366" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb82-367"><a href="#cb82-367" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb82-368"><a href="#cb82-368" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb82-369"><a href="#cb82-369" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb82-370"><a href="#cb82-370" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb82-371"><a href="#cb82-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-372"><a href="#cb82-372" aria-hidden="true" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb82-373"><a href="#cb82-373" aria-hidden="true" tabindex="-1"></a>               NOAAC_AVG_TEMP_YEARLY <span class="sc">+</span></span>
+<span id="cb82-374"><a href="#cb82-374" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb82-375"><a href="#cb82-375" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb82-376"><a href="#cb82-376" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb82-377"><a href="#cb82-377" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb82-378"><a href="#cb82-378" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb82-379"><a href="#cb82-379" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb82-380"><a href="#cb82-380" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-381"><a href="#cb82-381" aria-hidden="true" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb82-382"><a href="#cb82-382" aria-hidden="true" tabindex="-1"></a>               NOAAC_PRECIPITATION_AVG_YEARLY <span class="sc">+</span></span>
+<span id="cb82-383"><a href="#cb82-383" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb82-384"><a href="#cb82-384" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb82-385"><a href="#cb82-385" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb82-386"><a href="#cb82-386" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb82-387"><a href="#cb82-387" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb82-388"><a href="#cb82-388" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb82-389"><a href="#cb82-389" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb82-390"><a href="#cb82-390" aria-hidden="true" tabindex="-1"></a>model4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(LTC_AVG_OBS_REHOSP_RATE <span class="sc">~</span> </span>
+<span id="cb82-391"><a href="#cb82-391" aria-hidden="true" tabindex="-1"></a>               NOAAS_TOT_NATURAL_DISASTERS <span class="sc">+</span></span>
+<span id="cb82-392"><a href="#cb82-392" aria-hidden="true" tabindex="-1"></a>               CEN_POPDENSITY_COUNTY <span class="sc">+</span></span>
+<span id="cb82-393"><a href="#cb82-393" aria-hidden="true" tabindex="-1"></a>               SAIPE_MEDIAN_HH_INCOME <span class="sc">+</span></span>
+<span id="cb82-394"><a href="#cb82-394" aria-hidden="true" tabindex="-1"></a>               SAIPE_PCT_POV <span class="sc">+</span></span>
+<span id="cb82-395"><a href="#cb82-395" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_COMMT_60MINUP <span class="sc">+</span></span>
+<span id="cb82-396"><a href="#cb82-396" aria-hidden="true" tabindex="-1"></a>               ACS_PCT_RENTER_HU_COST_50PCT,</span>
+<span id="cb82-397"><a href="#cb82-397" aria-hidden="true" tabindex="-1"></a>             df_new)</span>
+<span id="cb82-398"><a href="#cb82-398" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-399"><a href="#cb82-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-400"><a href="#cb82-400" aria-hidden="true" tabindex="-1"></a>Let's plot these regressions, removing the control variables to get a better visualization. For two of the models, we will employ log transformations for data that is skewed. These variables were identified during the Descriptive Statistic section. This shall include a log transformation for the response variable in particular.</span>
+<span id="cb82-401"><a href="#cb82-401" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-404"><a href="#cb82-404" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-405"><a href="#cb82-405" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NEPHTN_HEATIND_105,</span>
+<span id="cb82-406"><a href="#cb82-406" aria-hidden="true" tabindex="-1"></a>       <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb82-407"><a href="#cb82-407" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-408"><a href="#cb82-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb82-409"><a href="#cb82-409" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb82-410"><a href="#cb82-410" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb82-411"><a href="#cb82-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 1"</span>,</span>
+<span id="cb82-412"><a href="#cb82-412" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Heat Index Over 105F"</span>,</span>
+<span id="cb82-413"><a href="#cb82-413" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span>
+<span id="cb82-414"><a href="#cb82-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-415"><a href="#cb82-415" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(<span class="fu">log</span>(NOAAC_AVG_TEMP_YEARLY),</span>
+<span id="cb82-416"><a href="#cb82-416" aria-hidden="true" tabindex="-1"></a>       <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb82-417"><a href="#cb82-417" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-418"><a href="#cb82-418" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb82-419"><a href="#cb82-419" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb82-420"><a href="#cb82-420" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb82-421"><a href="#cb82-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 2"</span>,</span>
+<span id="cb82-422"><a href="#cb82-422" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Average Annual Temperature"</span>,</span>
+<span id="cb82-423"><a href="#cb82-423" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span>
+<span id="cb82-424"><a href="#cb82-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-425"><a href="#cb82-425" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAC_PRECIPITATION_AVG_YEARLY,</span>
+<span id="cb82-426"><a href="#cb82-426" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb82-427"><a href="#cb82-427" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-428"><a href="#cb82-428" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb82-429"><a href="#cb82-429" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb82-430"><a href="#cb82-430" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb82-431"><a href="#cb82-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 3"</span>,</span>
+<span id="cb82-432"><a href="#cb82-432" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Average Annual Precipitation"</span>,</span>
+<span id="cb82-433"><a href="#cb82-433" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span>
+<span id="cb82-434"><a href="#cb82-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-435"><a href="#cb82-435" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df_new, <span class="fu">aes</span>(NOAAS_TOT_NATURAL_DISASTERS,</span>
+<span id="cb82-436"><a href="#cb82-436" aria-hidden="true" tabindex="-1"></a>                   <span class="fu">log</span>(LTC_AVG_OBS_REHOSP_RATE))) <span class="sc">+</span></span>
+<span id="cb82-437"><a href="#cb82-437" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-438"><a href="#cb82-438" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm,</span>
+<span id="cb82-439"><a href="#cb82-439" aria-hidden="true" tabindex="-1"></a>              <span class="at">se =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb82-440"><a href="#cb82-440" aria-hidden="true" tabindex="-1"></a>              <span class="at">fullrange =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb82-441"><a href="#cb82-441" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Model 4"</span>,</span>
+<span id="cb82-442"><a href="#cb82-442" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Total Natural Disasters"</span>,</span>
+<span id="cb82-443"><a href="#cb82-443" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Re-Hospitalization Rates"</span>)</span>
+<span id="cb82-444"><a href="#cb82-444" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-445"><a href="#cb82-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-446"><a href="#cb82-446" aria-hidden="true" tabindex="-1"></a>Of these four, it looks like temperature and precipitation have the best fit. All but Total Natural Disasters have a positive relationship with the response variable, so that helps us in determining if we should accept or reject the null hypothesis.</span>
+<span id="cb82-447"><a href="#cb82-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-448"><a href="#cb82-448" aria-hidden="true" tabindex="-1"></a>We will reject the null hypothesis. While it looks like, at first glance, that there is little positive relationship, we can at least note that there is *some* positive relationship. In the next two sections, we will dig deeper into each model, examining the p-value and R-Squared value, to see what level of relationship is present.</span>
+<span id="cb82-449"><a href="#cb82-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-450"><a href="#cb82-450" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model Comparisons</span></span>
+<span id="cb82-451"><a href="#cb82-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-452"><a href="#cb82-452" aria-hidden="true" tabindex="-1"></a>Now we will compare the four (4) models in more depth.</span>
+<span id="cb82-453"><a href="#cb82-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-456"><a href="#cb82-456" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-457"><a href="#cb82-457" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span>
+<span id="cb82-458"><a href="#cb82-458" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span>
+<span id="cb82-459"><a href="#cb82-459" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span>
+<span id="cb82-460"><a href="#cb82-460" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model4)</span>
+<span id="cb82-461"><a href="#cb82-461" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-462"><a href="#cb82-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-463"><a href="#cb82-463" aria-hidden="true" tabindex="-1"></a>Three of the four explanatory variables meet the statistical significance threshold (0.001). Total Natural Disasters Per Year do not. This helps in finalizing whether to accept or reject the null hypothesis. The p-value is most significant for precipitation, model 3.</span>
+<span id="cb82-464"><a href="#cb82-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-465"><a href="#cb82-465" aria-hidden="true" tabindex="-1"></a>For the model fit, the adjusted R squared ranges from 0.04 to 0.06. The highest is for precipitation, model 3.</span>
+<span id="cb82-466"><a href="#cb82-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-467"><a href="#cb82-467" aria-hidden="true" tabindex="-1"></a>Precipitation also has the lowest residual standard error, at 0.081.</span>
+<span id="cb82-468"><a href="#cb82-468" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-469"><a href="#cb82-469" aria-hidden="true" tabindex="-1"></a>Finally, we're going to calculate the PRESS statistic (Predicted Residual Sum of Squares) to best determine which model can predict the response variable based upon the explanatory variables.</span>
+<span id="cb82-470"><a href="#cb82-470" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-473"><a href="#cb82-473" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-474"><a href="#cb82-474" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(model) {</span>
+<span id="cb82-475"><a href="#cb82-475" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">lm.influence</span>(model)<span class="sc">$</span>hat)</span>
+<span id="cb82-476"><a href="#cb82-476" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sum</span>(i<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb82-477"><a href="#cb82-477" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb82-478"><a href="#cb82-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-479"><a href="#cb82-479" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model1)</span>
+<span id="cb82-480"><a href="#cb82-480" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model2)</span>
+<span id="cb82-481"><a href="#cb82-481" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model3)</span>
+<span id="cb82-482"><a href="#cb82-482" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(model4)</span>
+<span id="cb82-483"><a href="#cb82-483" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-484"><a href="#cb82-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-485"><a href="#cb82-485" aria-hidden="true" tabindex="-1"></a>Model 3 has the lowest PRESS score.</span>
+<span id="cb82-486"><a href="#cb82-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-487"><a href="#cb82-487" aria-hidden="true" tabindex="-1"></a>Due to a strong p-value, PRESS score, and model fit compared to the other three models, model 3 will be chosen as the final model for the diagnostic exploration. While the adjusted R squared value is not strong when controlling for economic and built environment factors, there is still a positive relationship, and therefore some influence on the dependent variable.</span>
+<span id="cb82-488"><a href="#cb82-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-489"><a href="#cb82-489" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagnostics</span></span>
+<span id="cb82-490"><a href="#cb82-490" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-491"><a href="#cb82-491" aria-hidden="true" tabindex="-1"></a>Finally, we'll plot the diagnostics to best understand the model.</span>
+<span id="cb82-492"><a href="#cb82-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-495"><a href="#cb82-495" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb82-496"><a href="#cb82-496" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>));</span>
+<span id="cb82-497"><a href="#cb82-497" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model3, </span>
+<span id="cb82-498"><a href="#cb82-498" aria-hidden="true" tabindex="-1"></a>     <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb82-499"><a href="#cb82-499" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb82-500"><a href="#cb82-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-501"><a href="#cb82-501" aria-hidden="true" tabindex="-1"></a>Of the six plots, Cook's distance is the most striking and relevant, as there are three out-liers: 1679, 2189, and 2455.</span>
+<span id="cb82-502"><a href="#cb82-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-503"><a href="#cb82-503" aria-hidden="true" tabindex="-1"></a>1679 is New York County, New York.</span>
+<span id="cb82-504"><a href="#cb82-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-505"><a href="#cb82-505" aria-hidden="true" tabindex="-1"></a>2189 is Mellette County, South Dakota.</span>
+<span id="cb82-506"><a href="#cb82-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-507"><a href="#cb82-507" aria-hidden="true" tabindex="-1"></a>2455 is Real County, Texas.</span>
+<span id="cb82-508"><a href="#cb82-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-509"><a href="#cb82-509" aria-hidden="true" tabindex="-1"></a>Otherwise, the plot looks good.</span>
+<span id="cb82-510"><a href="#cb82-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-511"><a href="#cb82-511" aria-hidden="true" tabindex="-1"></a>Normal Q-Q violates this test, as the points at the right tail of the plot do not generally fall along the line. This is very apparent for our three out-liers. The remaining plots do not violate their tested assumptions and further cement the model's reliability.</span>
+<span id="cb82-512"><a href="#cb82-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-513"><a href="#cb82-513" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusion</span></span>
+<span id="cb82-514"><a href="#cb82-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-515"><a href="#cb82-515" aria-hidden="true" tabindex="-1"></a>This paper explored the relationship between re-hospitalization rates and four environmental variables, when controlling for common variables that regularly influence the dependent variable. These four variables included days with a heat index over 105F, average annual temperature, average annual precipitation, and total natural disasters.</span>
+<span id="cb82-516"><a href="#cb82-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-517"><a href="#cb82-517" aria-hidden="true" tabindex="-1"></a>Four models were selected, one for each variable, to best determine which measure best impacted re-hospitalization rates. Three of the four variables were statistically significant and two had a larger adjusted R squared value than the others. Precipitation was selected as the variable with the best model fit to explain re-hospitalization rate impact. While the adjusted R-squared value is negligible (0.06), there is a positive relationship that is statistically significant. Therein we see some form of an influence large amounts of annual precipitation has on re-hospitalization rates.</span>
+<span id="cb82-518"><a href="#cb82-518" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-519"><a href="#cb82-519" aria-hidden="true" tabindex="-1"></a>I would have liked to tighten the analysis further instead of including multiple (10) variables, by focusing on some key measurements: Precipitation as the explanatory, Poverty as the control, and filtering by Rurality to determine the relationship with re-hospitalization rates. I could then fit different models (Simple Linear, Poisson, Polynomial, etc.) to see which worked best. I may not have time to do so for the poster presentation, nor would that perhaps be within the scope of this project. Either way, I have something for future classes, perhaps via time series analysis or machine learning (prediction over inference). Either way, this helped me better understand the robustness of linear regression models.</span>
+<span id="cb82-520"><a href="#cb82-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-521"><a href="#cb82-521" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
+<span id="cb82-522"><a href="#cb82-522" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-523"><a href="#cb82-523" aria-hidden="true" tabindex="-1"></a>Barnett, M., Hsu, J. &amp; McWilliams, M. (2015). "Patient Characteristics and Differences in Hospital Readmission Rates." JAMA Intern Med., 175(11): 1803-1812.</span>
+<span id="cb82-524"><a href="#cb82-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-525"><a href="#cb82-525" aria-hidden="true" tabindex="-1"></a>Bhosale KH, Nath RK, Pandit N, Agarwal P, Khairnar S, Yadav B, &amp; Chandrakar S. (2020). "Rate of Rehospitalization in 60 Days of Discharge and It's Determinants in Patients with Heart Failure with Reduced Ejection Fraction in a Tertiary Care Centre in India." Int J Heart Fail. 21;2(2):131-144.</span>
+<span id="cb82-526"><a href="#cb82-526" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-527"><a href="#cb82-527" aria-hidden="true" tabindex="-1"></a>Li, Y., Cai, X. &amp; Glance, L. (2015). "Disparities in 30-day rehospitalization rates among Medicare skilled nursing facility residents by race and site of care." Med Care, 53(12): 1058-1065.</span>
+<span id="cb82-528"><a href="#cb82-528" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-529"><a href="#cb82-529" aria-hidden="true" tabindex="-1"></a>Murray, F., Allen, M., Clark, C., Daly, C. &amp; Jacobs, D. (2021). "Socio-demographic and -economic factors associated with 30-day readmission for conditions targeted by the hospital readmissions reduction program: a population-based study." BMC Public Health, 21.</span>
+<span id="cb82-530"><a href="#cb82-530" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-531"><a href="#cb82-531" aria-hidden="true" tabindex="-1"></a>Spatz, E., Bernheim, S., Horwitz, L. &amp; Herrin, J. (2020). Community factors and hospital wide readmission rates: Does context matter? PLoS One, 15(10).</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>

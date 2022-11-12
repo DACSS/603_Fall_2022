@@ -1,0 +1,1897 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.251">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ethan Campbell">
+<meta name="dcterms.date" content="2022-11-11">
+<meta name="description" content="Temperature and Humidity impact on number of bike users">
+
+<title>- Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<link href="../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+<meta name="twitter:title" content="- Final Project">
+<meta name="twitter:description" content="Temperature and Humidity impact on number of bike users">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">Contributors</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a></li>
+  <li><a href="#analytic-planning" id="toc-analytic-planning" class="nav-link" data-scroll-target="#analytic-planning">Analytic Planning</a></li>
+  <li><a href="#library" id="toc-library" class="nav-link" data-scroll-target="#library">Library</a></li>
+  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive statistics</a>
+  <ul class="collapse">
+  <li><a href="#reading-in-the-data" id="toc-reading-in-the-data" class="nav-link" data-scroll-target="#reading-in-the-data">Reading in the data</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#cleaning-the-data" id="toc-cleaning-the-data" class="nav-link" data-scroll-target="#cleaning-the-data">Cleaning the data</a></li>
+  </ul></li>
+  <li><a href="#model-evaluation---backward-elimination" id="toc-model-evaluation---backward-elimination" class="nav-link" data-scroll-target="#model-evaluation---backward-elimination">Model Evaluation - Backward Elimination</a></li>
+  <li><a href="#regression" id="toc-regression" class="nav-link" data-scroll-target="#regression">Regression</a>
+  <ul class="collapse">
+  <li><a href="#residuals-vs-fittedwill-need-to-be-adjusted" id="toc-residuals-vs-fittedwill-need-to-be-adjusted" class="nav-link" data-scroll-target="#residuals-vs-fittedwill-need-to-be-adjusted">Residuals vs Fitted(Will need to be adjusted)</a>
+  <ul class="collapse">
+  <li><a href="#resolving-heteroskedasticity" id="toc-resolving-heteroskedasticity" class="nav-link" data-scroll-target="#resolving-heteroskedasticity">Resolving Heteroskedasticity</a></li>
+  </ul></li>
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Final Project</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">finalpart2</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Temperature and Humidity impact on number of bike users
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ethan Campbell </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 11, 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Climate has always been a topic that sparks debate and there is continuous research being done on it every day. I wanted to contribute to this research and analyze the impacts climate factors like temperature and humidity have on bike users. There has been study related to weather conditions and biking and whether or not it results in more accidents which concluded in an increase in accidents. “It suggests that weather conditions should be considered in every analysis where bicycle volume data is needed” (Pazdan, 2020). The paper describes the importance of weather condition and how they should be used in any analysis regarding biking data. Here, I thought about if we know that these factors are important, how important are they? I can find this data online somewhere however, I would like to conduct my own study and determine the results from that and then compare it to results online.</p>
+<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Research Questions
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A. How has temperature and humidity impacted bike users?</p>
+</div>
+</div>
+<p>My motivation is driven by my own interest in biking and climate factors and the study of how the climate is impacting human movement. I think it is interesting how significant climate factors can impact certain human activities and I want to learn more about which ones are presenting the largest impact on human activity. The reason this study is different is that it is based on normalized data and is focusing how bikers are impacted by weather condition.</p>
+</section>
+<section id="hypothesis" class="level1">
+<h1>Hypothesis</h1>
+<p>My hypothesis is testing how and if climate factors like temperature and humidity have an impact on bike users. I am hypothesizing that temperature will have the largest impact on bike sales. I believe temperature will mostly cause it to increase as nicer weather would be good for a ride. However, I believe at a certain point it will dip down and no longer be as positive. I hypothesize that as humidity increases then the number of bike users drop since the biking conditions will grow away from the ideal conditions. This study will use normalized feeling temperature and normalized humidity compared to daily and hourly bike users. This study is using new data compared to the research documents that have been observed online and presents a new view to either support or reject their claims.</p>
+<p>The hypothesis will be tested as follows:</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>0A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Temperature does not impact bike users</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>1A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Temperature does impact bike users</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>0A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Humidity does not impact bike users</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>1A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Humidity does impact bike users</p>
+</div>
+</div>
+</section>
+<section id="analytic-planning" class="level1">
+<h1>Analytic Planning</h1>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<p>
+</p><pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+  A[Importing Data] --&gt; B(Data Cleaning)
+  B --&gt; C[Descriptive Statistics]
+  C --&gt; D(Hypothesis testing)
+  D --&gt; E[Backward Elimination]
+  E --&gt; F[Regression Analysis 1]
+  F --&gt; G[Research Question 1]
+  G --&gt; H(Conclusion)
+  E --&gt; I[Regression Analysis 2]
+  I --&gt; J[Research Question 2]
+  J --&gt; H(Conclusion)
+</pre>
+<div id="mermaid-tooltip-1" class="mermaidTooltip">
+
+</div>
+<p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="library" class="level1">
+<h1>Library</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(kableExtra): there is no package called 'kableExtra'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(GGally): there is no package called 'GGally'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(caret): there is no package called 'caret'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(ggthemes): there is no package called 'ggthemes'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(hrbrthemes): there is no package called 'hrbrthemes'</code></pre>
+</div>
+</div>
+</section>
+<section id="descriptive-statistics" class="level1">
+<h1>Descriptive statistics</h1>
+<section id="reading-in-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-the-data">Reading in the data</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/hour.csv"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/day.csv"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bike)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 17379    17</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bike2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 731  16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bike)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    instant         dteday              season            yr        
+ Min.   :    1   Length:17379       Min.   :1.000   Min.   :0.0000  
+ 1st Qu.: 4346   Class :character   1st Qu.:2.000   1st Qu.:0.0000  
+ Median : 8690   Mode  :character   Median :3.000   Median :1.0000  
+ Mean   : 8690                      Mean   :2.502   Mean   :0.5026  
+ 3rd Qu.:13034                      3rd Qu.:3.000   3rd Qu.:1.0000  
+ Max.   :17379                      Max.   :4.000   Max.   :1.0000  
+      mnth              hr           holiday           weekday     
+ Min.   : 1.000   Min.   : 0.00   Min.   :0.00000   Min.   :0.000  
+ 1st Qu.: 4.000   1st Qu.: 6.00   1st Qu.:0.00000   1st Qu.:1.000  
+ Median : 7.000   Median :12.00   Median :0.00000   Median :3.000  
+ Mean   : 6.538   Mean   :11.55   Mean   :0.02877   Mean   :3.004  
+ 3rd Qu.:10.000   3rd Qu.:18.00   3rd Qu.:0.00000   3rd Qu.:5.000  
+ Max.   :12.000   Max.   :23.00   Max.   :1.00000   Max.   :6.000  
+   workingday       weathersit         temp           atemp       
+ Min.   :0.0000   Min.   :1.000   Min.   :0.020   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:1.000   1st Qu.:0.340   1st Qu.:0.3333  
+ Median :1.0000   Median :1.000   Median :0.500   Median :0.4848  
+ Mean   :0.6827   Mean   :1.425   Mean   :0.497   Mean   :0.4758  
+ 3rd Qu.:1.0000   3rd Qu.:2.000   3rd Qu.:0.660   3rd Qu.:0.6212  
+ Max.   :1.0000   Max.   :4.000   Max.   :1.000   Max.   :1.0000  
+      hum           windspeed          casual         registered   
+ Min.   :0.0000   Min.   :0.0000   Min.   :  0.00   Min.   :  0.0  
+ 1st Qu.:0.4800   1st Qu.:0.1045   1st Qu.:  4.00   1st Qu.: 34.0  
+ Median :0.6300   Median :0.1940   Median : 17.00   Median :115.0  
+ Mean   :0.6272   Mean   :0.1901   Mean   : 35.68   Mean   :153.8  
+ 3rd Qu.:0.7800   3rd Qu.:0.2537   3rd Qu.: 48.00   3rd Qu.:220.0  
+ Max.   :1.0000   Max.   :0.8507   Max.   :367.00   Max.   :886.0  
+      cnt       
+ Min.   :  1.0  
+ 1st Qu.: 40.0  
+ Median :142.0  
+ Mean   :189.5  
+ 3rd Qu.:281.0  
+ Max.   :977.0  </code></pre>
+</div>
+</div>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<p>The data was collected from UCI machine learning repository. Where I collected for both daily and hourly information for 17 variables. Each variable is described below. Important variables will be in <strong>bold</strong>. Their relationship towards the analysis will be described underneath this section.</p>
+<ul>
+<li>instant - This is the record index. This is the count of how many rows there are. This object will not be utilized in this study</li>
+<li>dteday - This is the date. The date is currently in year-day-month format. This will be used to observe change over time</li>
+<li><strong>season</strong> - This is the 4 seasons. This is expressed as: 1-Winter, 2-Spring, 3-Summer, 4- Fall. This will be used as a control variable since this could impact the sales of bikes and the independent variables</li>
+<li>yr - This is the year ranging from 2011-2012. This will be used analyze change over each year.</li>
+<li>mnth - This is the month 1-12. This will be used to analyze the change over months.</li>
+<li>hr - This is hour 0-23. This will be used to analyze the change by the hour.</li>
+<li><strong>holiday</strong> - This is the holidays so whether or not it is a holiday. This will be used as an independent variable in conjunction with another</li>
+<li>weekday - Day of the week.</li>
+<li>workingday - if day is neither weekend nor holiday is 1, otherwise is 0.</li>
+<li><strong>weathersit</strong> -
+<ul>
+<li>1: Clear, Few clouds, Partly cloudy, Partly cloudy</li>
+<li>2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist</li>
+<li>3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds</li>
+<li>4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog</li>
+</ul></li>
+<li><strong>temp</strong> - Normalized temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (only in hourly scale)</li>
+<li><strong>atemp</strong> - Normalized feeling temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (only in hourly scale)</li>
+<li><strong>hum</strong> - Normalized humidity. The values are divided to 100 (max)</li>
+<li>windspeed - Normalized wind speed. The values are divided to 67 (max)</li>
+<li>casual - count of casual users</li>
+<li>registered - count of registered users</li>
+<li><strong>cnt</strong> - count of total rental bikes including both casual and registered</li>
+</ul>
+<p><strong>Regression 1</strong></p>
+<ul>
+<li><strong>Explanatory</strong> - normalized temperature feeling</li>
+<li><strong>Outcome</strong> - cnt</li>
+<li><strong>Control</strong> - Season, holiday, weekday, weathersit</li>
+</ul>
+<p><strong>Regression 2</strong></p>
+<ul>
+<li><strong>Explanatory</strong> - Normalized humidity</li>
+<li><strong>Outcome -</strong> cnt</li>
+<li><strong>Control -</strong> temperature(normalized and normalized feeling), wind speed, weekday, holiday, weathersit</li>
+</ul>
+<p><strong>Regression Model</strong></p>
+<p><strong>Interaction Terms</strong></p>
+<p>I do not believe I need to use a quardratic or anything like that however, there is heteroskedascity so using a log may help with the funneling?</p>
+<p><span class="math display">\[
+\hat{Y} = b0 + b1X1+b2X2
+\]</span></p>
+<p><strong>Regression Model 1</strong></p>
+<p><span class="math display">\[
+Cnt = FeelingTemperature + Humidity + Season + Week Day + Hour + Year + Holiday + Windspeed
+\]</span> <strong>Regression Model 2</strong></p>
+<p><span class="math display">\[
+Cnt = FeelingTemperature + Humidity + Season + Week Day + Weather Type + Year + Holiday + Windspeed
+\]</span></p>
+</section>
+<section id="cleaning-the-data" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-the-data">Cleaning the data</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> bike <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Date'</span> <span class="ot">=</span> dteday) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Year'</span> <span class="ot">=</span> yr) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Month'</span> <span class="ot">=</span> mnth) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Hour'</span> <span class="ot">=</span> hr) <span class="sc">%&gt;%</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_temperature_C'</span> <span class="ot">=</span> temp) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_feeling_temperature_C'</span> <span class="ot">=</span> atemp) <span class="sc">%&gt;%</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_Humidity'</span> <span class="ot">=</span> hum) <span class="sc">%&gt;%</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">"Total_bike_users"</span> <span class="ot">=</span> cnt)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> bike2 <span class="sc">%&gt;%</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Date'</span> <span class="ot">=</span> dteday) <span class="sc">%&gt;%</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Year'</span> <span class="ot">=</span> yr) <span class="sc">%&gt;%</span></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Month'</span> <span class="ot">=</span> mnth) <span class="sc">%&gt;%</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_temperature_C'</span> <span class="ot">=</span> temp) <span class="sc">%&gt;%</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_feeling_temperature_C'</span> <span class="ot">=</span> atemp) <span class="sc">%&gt;%</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_Humidity'</span> <span class="ot">=</span> hum) <span class="sc">%&gt;%</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">"Total_bike_users"</span> <span class="ot">=</span> cnt)</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>bike2<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(bike2<span class="sc">$</span>Date)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for multicollinearity (We notice that temp and feeling temp are almost identical) so we removed the normalized temperature form the study since I want to focus on feeling temperature. Also removing instant since it is just the count of rows.</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> bike[,<span class="sc">-</span><span class="dv">11</span>]</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> bike2[,<span class="sc">-</span><span class="dv">10</span>]</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bike[<span class="dv">3</span><span class="sc">:</span><span class="dv">16</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                       season         Year        Month
+season                            1.000000000 -0.010742486  0.830385892
+Year                             -0.010742486  1.000000000 -0.010472929
+Month                             0.830385892 -0.010472929  1.000000000
+Hour                             -0.006116901 -0.003867005 -0.005771909
+holiday                          -0.009584526  0.006691617  0.018430325
+weekday                          -0.002335350 -0.004484851  0.010400061
+workingday                        0.013743102 -0.002196005 -0.003476922
+weathersit                       -0.014523552 -0.019156853  0.005399522
+Normalized_feeling_temperature_C  0.319379811  0.039221595  0.208096131
+Normalized_Humidity               0.150624745 -0.083546421  0.164411443
+windspeed                        -0.149772751 -0.008739533 -0.135386323
+casual                            0.120206447  0.142778528  0.068457301
+registered                        0.174225633  0.253684310  0.122272967
+Total_bike_users                  0.178055731  0.250494899  0.120637760
+                                         Hour      holiday      weekday
+season                           -0.006116901 -0.009584526 -0.002335350
+Year                             -0.003867005  0.006691617 -0.004484851
+Month                            -0.005771909  0.018430325  0.010400061
+Hour                              1.000000000  0.000479136 -0.003497739
+holiday                           0.000479136  1.000000000 -0.102087791
+weekday                          -0.003497739 -0.102087791  1.000000000
+workingday                        0.002284998 -0.252471370  0.035955071
+weathersit                       -0.020202528 -0.017036113  0.003310740
+Normalized_feeling_temperature_C  0.133749965 -0.030972737 -0.008820945
+Normalized_Humidity              -0.276497828 -0.010588465 -0.037158268
+windspeed                         0.137251568  0.003987632  0.011501545
+casual                            0.301201730  0.031563628  0.032721415
+registered                        0.374140710 -0.047345424  0.021577888
+Total_bike_users                  0.394071498 -0.030927303  0.026899860
+                                   workingday   weathersit
+season                            0.013743102 -0.014523552
+Year                             -0.002196005 -0.019156853
+Month                            -0.003476922  0.005399522
+Hour                              0.002284998 -0.020202528
+holiday                          -0.252471370 -0.017036113
+weekday                           0.035955071  0.003310740
+workingday                        1.000000000  0.044672224
+weathersit                        0.044672224  1.000000000
+Normalized_feeling_temperature_C  0.054667235 -0.105563108
+Normalized_Humidity               0.015687512  0.418130329
+windspeed                        -0.011829789  0.026225652
+casual                           -0.300942486 -0.152627885
+registered                        0.134325791 -0.120965520
+Total_bike_users                  0.030284368 -0.142426138
+                                 Normalized_feeling_temperature_C
+season                                                0.319379811
+Year                                                  0.039221595
+Month                                                 0.208096131
+Hour                                                  0.133749965
+holiday                                              -0.030972737
+weekday                                              -0.008820945
+workingday                                            0.054667235
+weathersit                                           -0.105563108
+Normalized_feeling_temperature_C                      1.000000000
+Normalized_Humidity                                  -0.051917696
+windspeed                                            -0.062336043
+casual                                                0.454080065
+registered                                            0.332558635
+Total_bike_users                                      0.400929304
+                                 Normalized_Humidity    windspeed      casual
+season                                    0.15062475 -0.149772751  0.12020645
+Year                                     -0.08354642 -0.008739533  0.14277853
+Month                                     0.16441144 -0.135386323  0.06845730
+Hour                                     -0.27649783  0.137251568  0.30120173
+holiday                                  -0.01058846  0.003987632  0.03156363
+weekday                                  -0.03715827  0.011501545  0.03272142
+workingday                                0.01568751 -0.011829789 -0.30094249
+weathersit                                0.41813033  0.026225652 -0.15262788
+Normalized_feeling_temperature_C         -0.05191770 -0.062336043  0.45408007
+Normalized_Humidity                       1.00000000 -0.290104895 -0.34702809
+windspeed                                -0.29010490  1.000000000  0.09028678
+casual                                   -0.34702809  0.090286775  1.00000000
+registered                               -0.27393312  0.082320847  0.50661770
+Total_bike_users                         -0.32291074  0.093233784  0.69456408
+                                  registered Total_bike_users
+season                            0.17422563       0.17805573
+Year                              0.25368431       0.25049490
+Month                             0.12227297       0.12063776
+Hour                              0.37414071       0.39407150
+holiday                          -0.04734542      -0.03092730
+weekday                           0.02157789       0.02689986
+workingday                        0.13432579       0.03028437
+weathersit                       -0.12096552      -0.14242614
+Normalized_feeling_temperature_C  0.33255864       0.40092930
+Normalized_Humidity              -0.27393312      -0.32291074
+windspeed                         0.08232085       0.09323378
+casual                            0.50661770       0.69456408
+registered                        1.00000000       0.97215073
+Total_bike_users                  0.97215073       1.00000000</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="model-evaluation---backward-elimination" class="level1">
+<h1>Model Evaluation - Backward Elimination</h1>
+<p>Here we are aiming for anything with 95% significance.</p>
+<p>This method works by creating a linear model and then analyzing the results and determining which values are not significant and you remove them from the linear regression to drive a more fitted regression. Below I have created this with creating a seed for reproduction and then set the train control with the method cross validation and set the k-folds to 10. Next I tested that on the regression model with everything included and this will test each variable one by one and tell you how many variables are needed to have the most fit model. Here it states that the model with 8 variables is the most fit with both the RMSE and MAE method showing this below, This results in an R squared of 38.8%. This is for the bike data set and when we do it on bike2 data set we see that the number of variables remains the same. They both operate the best at 8 variables anything past that would over fit the data and would result in worse information. This one is showing an r squared at 79.79% which is a pretty good fit for the data. The only variable that does get changed is hour is removed and weather type gets added in. The regression have already been checked for significance but have been placed within the regression section and they are explained there.</p>
+<div class="cell caption-margin">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting for reproducibility</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># setting repeated k-fold cross validation</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>train.control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in trainControl(method = "cv", number = 10): could not find function "trainControl"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># testing it on bike2 table</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>Backward_temp2 <span class="ot">&lt;-</span> <span class="fu">train</span>(Total_bike_users <span class="sc">~</span>. <span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike2,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"leapBackward"</span>, </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">nvmax =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trControl =</span> train.control</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in train(Total_bike_users ~ . - Date - casual - registered, data = bike2, : could not find function "train"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>results_bike2 <span class="ot">&lt;-</span> Backward_temp2<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'Backward_temp2' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results_bike2, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">align =</span> <span class="st">"ccccccc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"nvmax"</span>, <span class="st">"RMSE"</span>, <span class="st">"Rsquared"</span>, <span class="st">"MAE"</span>, <span class="st">"RMSESD"</span>, <span class="st">"RsquaredSD"</span>, <span class="st">"MAESD"</span>), <span class="at">caption =</span> <span class="st">"Bike2 Data set Model Evaluation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>), <span class="at">background =</span> <span class="st">"cadetblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in row_spec(., c(8, 8, 8), background = "cadetblue"): could not find function "row_spec"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the 12 variables in order</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Backward_temp2<span class="sc">$</span>finalModel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(Backward_temp2$finalModel): object 'Backward_temp2' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Training my model with backward elimination. Removed Date since there are other variables in here that accomplish time and removed </span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Casual and registered since those two combined create total bike users. </span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>Backward_temp1 <span class="ot">&lt;-</span> <span class="fu">train</span>(Total_bike_users <span class="sc">~</span>. <span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"leapBackward"</span>, </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">nvmax =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trControl =</span> train.control</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in train(Total_bike_users ~ . - Date - casual - registered, data = bike, : could not find function "train"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here it shows the RMSE and MAE saying 8 variables is the best fit </span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>results_bike <span class="ot">&lt;-</span> Backward_temp1<span class="sc">$</span>results</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'Backward_temp1' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results_bike, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">align =</span> <span class="st">"ccccccc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"nvmax"</span>, <span class="st">"RMSE"</span>, <span class="st">"Rsquared"</span>, <span class="st">"MAE"</span>, <span class="st">"RMSESD"</span>, <span class="st">"RsquaredSD"</span>, <span class="st">"MAESD"</span>), <span class="at">caption =</span> <span class="st">"Bike Data set Model Evaluation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>), <span class="at">background =</span> <span class="st">"cadetblue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in row_spec(., c(8, 8, 8), background = "cadetblue"): could not find function "row_spec"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the 8 variables in order</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Backward_temp1<span class="sc">$</span>finalModel)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(Backward_temp1$finalModel): object 'Backward_temp1' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="regression" class="level1">
+<h1>Regression</h1>
+<p>Within the first test we notice a fairly low R squared but we also know they are all statistically significant meaning that we can reject the null hypothesis and say yes there appears to be some effect here. Once we implement the model evaluation to the regression we notice a large difference in the r squared.</p>
+<p>Here we are looking at two different regression on two different scales. One is on hourly time and the other is on daily time which causes the variables to impact the outcome differently. Here we notice both temperature and humidity are statistically significant in both situations which is further evidence that we can really reject the null.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression 1 both temperature and humidity</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Total_bike_users <span class="sc">~</span>  Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> season <span class="sc">+</span> weekday <span class="sc">+</span> Hour, <span class="at">data =</span> bike) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Total_bike_users ~ Normalized_feeling_temperature_C + 
+    Normalized_Humidity + season + weekday + Hour, data = bike)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-358.16  -95.48  -30.75   53.96  691.81 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                        36.2565     6.0492   5.994 2.09e-09 ***
+Normalized_feeling_temperature_C  330.3458     6.9634  47.440  &lt; 2e-16 ***
+Normalized_Humidity              -229.8928     6.1318 -37.492  &lt; 2e-16 ***
+season                             19.1274     1.0843  17.640  &lt; 2e-16 ***
+weekday                             1.9755     0.5586   3.537 0.000406 ***
+Hour                                7.4868     0.1698  44.090  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 147.6 on 17373 degrees of freedom
+Multiple R-squared:  0.3383,    Adjusted R-squared:  0.3381 
+F-statistic:  1776 on 5 and 17373 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This was the first regression I made based on my own knowledge and will be used to compare against the one created by the model</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># We notice that the original had an r squared of 33.8% while this one has a 38.8% which is a large difference and shows the importance of finding the best fitted model</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>Regression1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> Hour <span class="sc">+</span> Year <span class="sc">+</span> season <span class="sc">+</span> holiday <span class="sc">+</span> weekday <span class="sc">+</span> windspeed, <span class="at">data =</span> bike)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Regression1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Total_bike_users ~ Normalized_feeling_temperature_C + 
+    Normalized_Humidity + Hour + Year + season + holiday + weekday + 
+    windspeed, data = bike)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-398.12  -92.84  -27.49   59.81  642.21 
+
+Coefficients:
+                                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                       -27.3890     6.7226  -4.074 4.64e-05 ***
+Normalized_feeling_temperature_C  321.2238     6.7131  47.850  &lt; 2e-16 ***
+Normalized_Humidity              -204.3276     6.1144 -33.418  &lt; 2e-16 ***
+Hour                                7.6326     0.1638  46.608  &lt; 2e-16 ***
+Year                               81.0198     2.1637  37.445  &lt; 2e-16 ***
+season                             19.9910     1.0469  19.096  &lt; 2e-16 ***
+holiday                           -24.1092     6.4763  -3.723 0.000198 ***
+weekday                             1.9179     0.5399   3.552 0.000383 ***
+windspeed                          43.4284     9.2898   4.675 2.96e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 141.9 on 17370 degrees of freedom
+Multiple R-squared:  0.3885,    Adjusted R-squared:  0.3882 
+F-statistic:  1379 on 8 and 17370 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression two on bike2 data set both temperature and humidity. Comparing original regression on bike2 data set here we have an r squared of 50.58%</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> weathersit <span class="sc">+</span> season, <span class="at">data =</span> bike2) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Total_bike_users ~ Normalized_feeling_temperature_C + 
+    Normalized_Humidity + weathersit + season, data = bike2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4034.7 -1019.5  -183.7  1057.8  4356.6 
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                       2276.00     260.57   8.735  &lt; 2e-16 ***
+Normalized_feeling_temperature_C  6486.06     340.09  19.072  &lt; 2e-16 ***
+Normalized_Humidity              -1860.81     462.50  -4.023 6.34e-05 ***
+weathersit                        -551.04     119.11  -4.626 4.41e-06 ***
+season                             436.18      49.21   8.863  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1366 on 726 degrees of freedom
+Multiple R-squared:  0.5058,    Adjusted R-squared:  0.503 
+F-statistic: 185.7 on 4 and 726 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we have an r squared of 79.74% which is a MAJOR difference this has changed the coefficient of temperature by ~600. This goes to show how inaccurate the first model was. </span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>Regression2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> weathersit <span class="sc">+</span> Year <span class="sc">+</span> season <span class="sc">+</span> holiday <span class="sc">+</span> weekday <span class="sc">+</span> windspeed, <span class="at">data =</span> bike2)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Regression2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Total_bike_users ~ Normalized_feeling_temperature_C + 
+    Normalized_Humidity + weathersit + Year + season + holiday + 
+    weekday + windspeed, data = bike2)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4138.0  -425.5    73.3   536.4  2823.2 
+
+Coefficients:
+                                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                       1467.57     228.77   6.415 2.55e-10 ***
+Normalized_feeling_temperature_C  5931.29     219.28  27.048  &lt; 2e-16 ***
+Normalized_Humidity              -1132.22     313.36  -3.613 0.000323 ***
+weathersit                        -592.12      78.49  -7.544 1.37e-13 ***
+Year                              2038.35      65.50  31.121  &lt; 2e-16 ***
+season                             407.23      31.91  12.762  &lt; 2e-16 ***
+holiday                           -614.59     195.40  -3.145 0.001728 ** 
+weekday                             69.21      16.35   4.234 2.60e-05 ***
+windspeed                        -2449.82     452.25  -5.417 8.27e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 876.8 on 722 degrees of freedom
+Multiple R-squared:  0.7974,    Adjusted R-squared:  0.7952 
+F-statistic: 355.2 on 8 and 722 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="residuals-vs-fittedwill-need-to-be-adjusted" class="level2">
+<h2 class="anchored" data-anchor-id="residuals-vs-fittedwill-need-to-be-adjusted">Residuals vs Fitted(Will need to be adjusted)</h2>
+<p>This shows signs of heteroskedasticity and this is when standard deviations of a predicated variable being monitored over different values of an independent variable are non-constant. The problems that arise from this issue is, the standard error is wrong and thus the confidence intervals and hypothesis tests can not be relied on. This issues needs to be resolved before declaring the conclusion.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> .<span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Total_bike_users ~ . - Date - casual - registered, 
+    data = bike)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-392.56  -93.49  -27.65   60.96  641.27 
+
+Coefficients:
+                                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                      -3.109e+01  7.337e+00  -4.237 2.27e-05 ***
+instant                          -4.527e-03  5.126e-03  -0.883  0.37719    
+season                            1.993e+01  1.819e+00  10.959  &lt; 2e-16 ***
+Year                              1.207e+02  4.487e+01   2.690  0.00714 ** 
+Month                             3.283e+00  3.775e+00   0.870  0.38457    
+Hour                              7.671e+00  1.650e-01  46.477  &lt; 2e-16 ***
+holiday                          -2.151e+01  6.692e+00  -3.214  0.00131 ** 
+weekday                           1.928e+00  5.403e-01   3.569  0.00036 ***
+workingday                        4.031e+00  2.396e+00   1.683  0.09245 .  
+weathersit                       -3.334e+00  1.904e+00  -1.751  0.07994 .  
+Normalized_feeling_temperature_C  3.197e+02  6.777e+00  47.176  &lt; 2e-16 ***
+Normalized_Humidity              -1.989e+02  6.880e+00 -28.906  &lt; 2e-16 ***
+windspeed                         4.612e+01  9.401e+00   4.906 9.39e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 141.9 on 17366 degrees of freedom
+Multiple R-squared:  0.3887,    Adjusted R-squared:  0.3883 
+F-statistic: 920.3 on 12 and 17366 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<section id="resolving-heteroskedasticity" class="level3">
+<h3 class="anchored" data-anchor-id="resolving-heteroskedasticity">Resolving Heteroskedasticity</h3>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>0A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is no Heteroskedasticity</p>
+</div>
+</div>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+H<sub>1A</sub>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>There is Heteroskedasticity</p>
+</div>
+</div>
+<p>Here we will conduct the Breusch-Pagan test using the lmtest package and bptest() function. This will let us know if there is heteroskedascity if the P &lt; .05. Here we see that both meet this standard and thus we have evidence to reject the null hypothesis</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Breusch-Pagan test to determine if Heteroskedasticity exist</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(Regression1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  Regression1
+BP = 1450.9, df = 8, p-value &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(Regression2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  Regression2
+BP = 47.248, df = 8, p-value = 1.375e-07</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># both of these are p&lt;.05 meaning that we reject the null hypothesis and say yes there is heteroskedacity </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<p>Here we see as temperature increases we can expect bike users to increase while as humidity increases we expect the opposite.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Regression1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output-display">
+<p><img src="FinalProject2_EthanCampbell_files/figure-html/unnamed-chunk-9-4.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regression2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(regression2): object 'regression2' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>Bike_users_plot <span class="ot">&lt;-</span> bike2 <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span>Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="at">fill=</span><span class="st">"#69b3a2"</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"#69b3a2"</span>) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"total bike user"</span>) <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in theme_ipsum(): could not find function "theme_ipsum"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Making it interactive</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>Bike_users_plot <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(Bike_users_plot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplotly(Bike_users_plot): object 'Bike_users_plot' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>Bike_users_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'Bike_users_plot' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Value used to transform the data</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>coeff <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A few constants</span></span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>temperatureColor <span class="ot">&lt;-</span> <span class="st">"#69b3a2"</span></span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>priceColor <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="dv">1</span>)</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bike2, <span class="fu">aes</span>(<span class="at">x=</span>Date)) <span class="sc">+</span></span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Normalized_feeling_temperature_C), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>temperatureColor) <span class="sc">+</span> </span>
+<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Total_bike_users <span class="sc">/</span> coeff), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>priceColor) <span class="sc">+</span></span>
+<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Features of the first axis</span></span>
+<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Temperature (Normalized)"</span>,</span>
+<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a second axis and specify its features</span></span>
+<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">*</span>coeff, <span class="at">name=</span><span class="st">"Bike users"</span>)</span>
+<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb62-22"><a href="#cb62-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb62-23"><a href="#cb62-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-24"><a href="#cb62-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb62-25"><a href="#cb62-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> temperatureColor, <span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb62-26"><a href="#cb62-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> priceColor, <span class="at">size=</span><span class="dv">13</span>)</span>
+<span id="cb62-27"><a href="#cb62-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb62-28"><a href="#cb62-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-29"><a href="#cb62-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Temperature correlation with bikes users"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in theme_ipsum(): could not find function "theme_ipsum"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Value used to transform the data</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>coeff <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co"># A few constants</span></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>humidityColor <span class="ot">&lt;-</span> <span class="st">"#69b3a2"</span></span>
+<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>bikeColor <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="dv">1</span>)</span>
+<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bike2, <span class="fu">aes</span>(<span class="at">x=</span>Date)) <span class="sc">+</span></span>
+<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-10"><a href="#cb64-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Normalized_Humidity), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>temperatureColor) <span class="sc">+</span> </span>
+<span id="cb64-11"><a href="#cb64-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Total_bike_users <span class="sc">/</span> coeff), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>priceColor) <span class="sc">+</span></span>
+<span id="cb64-12"><a href="#cb64-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-13"><a href="#cb64-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb64-14"><a href="#cb64-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb64-15"><a href="#cb64-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Features of the first axis</span></span>
+<span id="cb64-16"><a href="#cb64-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Humidity (Normalized)"</span>,</span>
+<span id="cb64-17"><a href="#cb64-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb64-18"><a href="#cb64-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a second axis and specify its features</span></span>
+<span id="cb64-19"><a href="#cb64-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">*</span>coeff, <span class="at">name=</span><span class="st">"Bike users"</span>)</span>
+<span id="cb64-20"><a href="#cb64-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb64-21"><a href="#cb64-21" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb64-22"><a href="#cb64-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb64-23"><a href="#cb64-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-24"><a href="#cb64-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb64-25"><a href="#cb64-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> temperatureColor, <span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb64-26"><a href="#cb64-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> priceColor, <span class="at">size=</span><span class="dv">13</span>)</span>
+<span id="cb64-27"><a href="#cb64-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb64-28"><a href="#cb64-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-29"><a href="#cb64-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Humidity correlation with bikes users"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in theme_ipsum(): could not find function "theme_ipsum"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting the data to visualize </span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bike2, <span class="fu">aes</span>(<span class="at">x=</span>Normalized_feeling_temperature_C, <span class="at">y =</span> Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>(<span class="at">base_size =</span> <span class="dv">10</span>, <span class="at">base_family =</span> <span class="st">'serif'</span>) <span class="sc">+</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">'serif'</span>, <span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Total Bike Users'</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">'Normalized Feeling Temperature'</span>) <span class="sc">+</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Temerpature and Bike users"</span>, <span class="at">caption =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in theme_fivethirtyeight(base_size = 10, base_family = "serif"): could not find function "theme_fivethirtyeight"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bike2, <span class="fu">aes</span>(<span class="at">x=</span>Normalized_Humidity, <span class="at">y =</span> Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>(<span class="at">base_size =</span> <span class="dv">10</span>, <span class="at">base_family =</span> <span class="st">'serif'</span>) <span class="sc">+</span></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">'serif'</span>, <span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Total Bike Users'</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">'Normalized Humidity'</span>) <span class="sc">+</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Humidity and Bike users"</span>, <span class="at">caption =</span> <span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in theme_fivethirtyeight(base_size = 10, base_family = "serif"): could not find function "theme_fivethirtyeight"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(bike2, <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>), ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span><span class="st">'red'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggpairs(bike2, columns = c(10, 11, 15), ggplot2::aes(colour = "red")): could not find function "ggpairs"</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>In conclusion, for hypothesis one we reject the null hypothesis with evidence of the extremely significant p-value of 2e-16. This give us evidence that we can accept the alternative and say yes temperature has an impact on bike sales. There were two different tests done here, we did the daily data compared to the hourly data. Both were significant and we controlled for 7 variables which are specified at the top. The reason we controlled these variables is that they could impact the outcome variable and thus we controlled them to make sure that they were not impacting the results. So in conclusion, normalized feeling temperature Celsius has an impact on bike users. Looking at our correlation graph we can see that it has a positive correlation with bike users at .631.</p>
+<p>For the second questions we can also reject the null hypothesis as humidity is significant with a p-value of &lt; 2e-16 in data set one and 0.000323 in data set two. This is further evidence that we can reject the null as in both scales is what significant. This data held the same control variables as temperature and thus we can yes humidity has an impact on bike users and looking at our correlation we see a negative correlation of -.101.</p>
+<p>Once I correct the heteroskedascity then I am curious as to how the information is altered as of right now I am unable to fully accept my claims until these are removed.</p>
+</section>
+</section>
+<section id="references" class="level1">
+
+
+
+
+<!-- -->
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" role="doc-bibliography">
+<ul>
+<li>Fanaee-T, H. (n.d.). Bike Sharing Dataset . Retrieved from UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset</li>
+<li>Pazdan, Sylwia. (2020). The impact of weather on bicycle risk exposure. Archives of Transport. 56. 89-105. 10.5604/01.3001.0014.5629.</li>
+</ul>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } 
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb72" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project"</span></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Ethan Campbell"</span></span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Temperature and Humidity impact on number of bike users"</span></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "11/11/2022"</span></span>
+<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb72-8"><a href="#cb72-8" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
+<span id="cb72-9"><a href="#cb72-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb72-10"><a href="#cb72-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb72-11"><a href="#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb72-12"><a href="#cb72-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb72-13"><a href="#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="co">    css: "styles.css"</span></span>
+<span id="cb72-14"><a href="#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb72-15"><a href="#cb72-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalpart2</span></span>
+<span id="cb72-16"><a href="#cb72-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb72-17"><a href="#cb72-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-18"><a href="#cb72-18" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction</span></span>
+<span id="cb72-19"><a href="#cb72-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-20"><a href="#cb72-20" aria-hidden="true" tabindex="-1"></a>Climate has always been a topic that sparks debate and there is continuous research being done on it every day. I wanted to contribute to this research and analyze the impacts climate factors like temperature and humidity have on bike users. There has been study related to weather conditions and biking and whether or not it results in more accidents which concluded in an increase in accidents. "It suggests that weather conditions should be considered in every analysis where bicycle volume data is needed" (Pazdan, 2020). The paper describes the importance of weather condition and how they should be used in any analysis regarding biking data. Here, I thought about if we know that these factors are important, how important are they? I can find this data online somewhere however, I would like to conduct my own study and determine the results from that and then compare it to results online.</span>
+<span id="cb72-21"><a href="#cb72-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-22"><a href="#cb72-22" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb72-23"><a href="#cb72-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Questions</span></span>
+<span id="cb72-24"><a href="#cb72-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-25"><a href="#cb72-25" aria-hidden="true" tabindex="-1"></a>A. How has temperature and humidity impacted bike users?</span>
+<span id="cb72-26"><a href="#cb72-26" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-27"><a href="#cb72-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-28"><a href="#cb72-28" aria-hidden="true" tabindex="-1"></a>My motivation is driven by my own interest in biking and climate factors and the study of how the climate is impacting human movement. I think it is interesting how significant climate factors can impact certain human activities and I want to learn more about which ones are presenting the largest impact on human activity. The reason this study is different is that it is based on normalized data and is focusing how bikers are impacted by weather condition.</span>
+<span id="cb72-29"><a href="#cb72-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-30"><a href="#cb72-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis</span></span>
+<span id="cb72-31"><a href="#cb72-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-32"><a href="#cb72-32" aria-hidden="true" tabindex="-1"></a>My hypothesis is testing how and if climate factors like temperature and humidity have an impact on bike users. I am hypothesizing that temperature will have the largest impact on bike sales. I believe temperature will mostly cause it to increase as nicer weather would be good for a ride. However, I believe at a certain point it will dip down and no longer be as positive. I hypothesize that as humidity increases then the number of bike users drop since the biking conditions will grow away from the ideal conditions. This study will use normalized feeling temperature and normalized humidity compared to daily and hourly bike users. This study is using new data compared to the research documents that have been observed online and presents a new view to either support or reject their claims.</span>
+<span id="cb72-33"><a href="#cb72-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-34"><a href="#cb72-34" aria-hidden="true" tabindex="-1"></a>The hypothesis will be tested as follows:</span>
+<span id="cb72-35"><a href="#cb72-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-36"><a href="#cb72-36" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-37"><a href="#cb72-37" aria-hidden="true" tabindex="-1"></a><span class="fu">## H~0A~</span></span>
+<span id="cb72-38"><a href="#cb72-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-39"><a href="#cb72-39" aria-hidden="true" tabindex="-1"></a>Temperature does not impact bike users</span>
+<span id="cb72-40"><a href="#cb72-40" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-41"><a href="#cb72-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-42"><a href="#cb72-42" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-43"><a href="#cb72-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## H~1A~</span></span>
+<span id="cb72-44"><a href="#cb72-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-45"><a href="#cb72-45" aria-hidden="true" tabindex="-1"></a>Temperature does impact bike users</span>
+<span id="cb72-46"><a href="#cb72-46" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-47"><a href="#cb72-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-48"><a href="#cb72-48" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-49"><a href="#cb72-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## H~0A~</span></span>
+<span id="cb72-50"><a href="#cb72-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-51"><a href="#cb72-51" aria-hidden="true" tabindex="-1"></a>Humidity does not impact bike users</span>
+<span id="cb72-52"><a href="#cb72-52" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-53"><a href="#cb72-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-54"><a href="#cb72-54" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-55"><a href="#cb72-55" aria-hidden="true" tabindex="-1"></a><span class="fu">## H~1A~</span></span>
+<span id="cb72-56"><a href="#cb72-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-57"><a href="#cb72-57" aria-hidden="true" tabindex="-1"></a>Humidity does impact bike users</span>
+<span id="cb72-58"><a href="#cb72-58" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-59"><a href="#cb72-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-60"><a href="#cb72-60" aria-hidden="true" tabindex="-1"></a><span class="fu"># Analytic Planning</span></span>
+<span id="cb72-61"><a href="#cb72-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-64"><a href="#cb72-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{mermaid}</span></span>
+<span id="cb72-65"><a href="#cb72-65" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb72-66"><a href="#cb72-66" aria-hidden="true" tabindex="-1"></a>  A[Importing Data] --&gt; B(Data Cleaning)</span>
+<span id="cb72-67"><a href="#cb72-67" aria-hidden="true" tabindex="-1"></a>  B --&gt; C[Descriptive Statistics]</span>
+<span id="cb72-68"><a href="#cb72-68" aria-hidden="true" tabindex="-1"></a>  C --&gt; D(Hypothesis testing)</span>
+<span id="cb72-69"><a href="#cb72-69" aria-hidden="true" tabindex="-1"></a>  D --&gt; E[Backward Elimination]</span>
+<span id="cb72-70"><a href="#cb72-70" aria-hidden="true" tabindex="-1"></a>  E --&gt; F[Regression Analysis <span class="dv">1</span>]</span>
+<span id="cb72-71"><a href="#cb72-71" aria-hidden="true" tabindex="-1"></a>  F --&gt; G[Research Question <span class="dv">1</span>]</span>
+<span id="cb72-72"><a href="#cb72-72" aria-hidden="true" tabindex="-1"></a>  G --&gt; H(Conclusion)</span>
+<span id="cb72-73"><a href="#cb72-73" aria-hidden="true" tabindex="-1"></a>  E --&gt; I[Regression Analysis <span class="dv">2</span>]</span>
+<span id="cb72-74"><a href="#cb72-74" aria-hidden="true" tabindex="-1"></a>  I --&gt; J[Research Question <span class="dv">2</span>]</span>
+<span id="cb72-75"><a href="#cb72-75" aria-hidden="true" tabindex="-1"></a>  J --&gt; H(Conclusion)</span>
+<span id="cb72-76"><a href="#cb72-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-77"><a href="#cb72-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-78"><a href="#cb72-78" aria-hidden="true" tabindex="-1"></a><span class="fu"># Library</span></span>
+<span id="cb72-79"><a href="#cb72-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-82"><a href="#cb72-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-83"><a href="#cb72-83" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb72-84"><a href="#cb72-84" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb72-85"><a href="#cb72-85" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plyr)</span>
+<span id="cb72-86"><a href="#cb72-86" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb72-87"><a href="#cb72-87" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb72-88"><a href="#cb72-88" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb72-89"><a href="#cb72-89" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb72-90"><a href="#cb72-90" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
+<span id="cb72-91"><a href="#cb72-91" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb72-92"><a href="#cb72-92" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb72-93"><a href="#cb72-93" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggthemes)</span>
+<span id="cb72-94"><a href="#cb72-94" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb72-95"><a href="#cb72-95" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb72-96"><a href="#cb72-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-97"><a href="#cb72-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-98"><a href="#cb72-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-99"><a href="#cb72-99" aria-hidden="true" tabindex="-1"></a><span class="fu"># Descriptive statistics</span></span>
+<span id="cb72-100"><a href="#cb72-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-101"><a href="#cb72-101" aria-hidden="true" tabindex="-1"></a><span class="fu">## Reading in the data</span></span>
+<span id="cb72-102"><a href="#cb72-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-105"><a href="#cb72-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-106"><a href="#cb72-106" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/hour.csv"</span>)</span>
+<span id="cb72-107"><a href="#cb72-107" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"_data/day.csv"</span>)</span>
+<span id="cb72-108"><a href="#cb72-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-109"><a href="#cb72-109" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bike)</span>
+<span id="cb72-110"><a href="#cb72-110" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(bike2)</span>
+<span id="cb72-111"><a href="#cb72-111" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bike)</span>
+<span id="cb72-112"><a href="#cb72-112" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-113"><a href="#cb72-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-114"><a href="#cb72-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data</span></span>
+<span id="cb72-115"><a href="#cb72-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-116"><a href="#cb72-116" aria-hidden="true" tabindex="-1"></a>The data was collected from UCI machine learning repository. Where I collected for both daily and hourly information for 17 variables. Each variable is described below. Important variables will be in **bold**. Their relationship towards the analysis will be described underneath this section.</span>
+<span id="cb72-117"><a href="#cb72-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-118"><a href="#cb72-118" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>instant - This is the record index. This is the count of how many rows there are. This object will not be utilized in this study</span>
+<span id="cb72-119"><a href="#cb72-119" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>dteday - This is the date. The date is currently in year-day-month format. This will be used to observe change over time</span>
+<span id="cb72-120"><a href="#cb72-120" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**season** - This is the 4 seasons. This is expressed as: 1-Winter, 2-Spring, 3-Summer, 4- Fall. This will be used as a control variable since this could impact the sales of bikes and the independent variables</span>
+<span id="cb72-121"><a href="#cb72-121" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>yr - This is the year ranging from 2011-2012. This will be used analyze change over each year.</span>
+<span id="cb72-122"><a href="#cb72-122" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>mnth - This is the month 1-12. This will be used to analyze the change over months.</span>
+<span id="cb72-123"><a href="#cb72-123" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>hr - This is hour 0-23. This will be used to analyze the change by the hour.</span>
+<span id="cb72-124"><a href="#cb72-124" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**holiday** - This is the holidays so whether or not it is a holiday. This will be used as an independent variable in conjunction with another</span>
+<span id="cb72-125"><a href="#cb72-125" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>weekday - Day of the week.</span>
+<span id="cb72-126"><a href="#cb72-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>workingday - if day is neither weekend nor holiday is 1, otherwise is 0.</span>
+<span id="cb72-127"><a href="#cb72-127" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**weathersit** -</span>
+<span id="cb72-128"><a href="#cb72-128" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>1: Clear, Few clouds, Partly cloudy, Partly cloudy</span>
+<span id="cb72-129"><a href="#cb72-129" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist</span>
+<span id="cb72-130"><a href="#cb72-130" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds</span>
+<span id="cb72-131"><a href="#cb72-131" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog</span>
+<span id="cb72-132"><a href="#cb72-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**temp** - Normalized temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-8, t_max=+39 (only in hourly scale)</span>
+<span id="cb72-133"><a href="#cb72-133" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**atemp** - Normalized feeling temperature in Celsius. The values are derived via (t-t_min)/(t_max-t_min), t_min=-16, t_max=+50 (only in hourly scale)</span>
+<span id="cb72-134"><a href="#cb72-134" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**hum** - Normalized humidity. The values are divided to 100 (max)</span>
+<span id="cb72-135"><a href="#cb72-135" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>windspeed - Normalized wind speed. The values are divided to 67 (max)</span>
+<span id="cb72-136"><a href="#cb72-136" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>casual - count of casual users</span>
+<span id="cb72-137"><a href="#cb72-137" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>registered - count of registered users</span>
+<span id="cb72-138"><a href="#cb72-138" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**cnt** - count of total rental bikes including both casual and registered</span>
+<span id="cb72-139"><a href="#cb72-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-140"><a href="#cb72-140" aria-hidden="true" tabindex="-1"></a>**Regression 1**</span>
+<span id="cb72-141"><a href="#cb72-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-142"><a href="#cb72-142" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Explanatory** - normalized temperature feeling</span>
+<span id="cb72-143"><a href="#cb72-143" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Outcome** - cnt</span>
+<span id="cb72-144"><a href="#cb72-144" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Control** - Season, holiday, weekday, weathersit</span>
+<span id="cb72-145"><a href="#cb72-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-146"><a href="#cb72-146" aria-hidden="true" tabindex="-1"></a>**Regression 2**</span>
+<span id="cb72-147"><a href="#cb72-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-148"><a href="#cb72-148" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Explanatory** - Normalized humidity</span>
+<span id="cb72-149"><a href="#cb72-149" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Outcome -** cnt</span>
+<span id="cb72-150"><a href="#cb72-150" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Control -** temperature(normalized and normalized feeling), wind speed, weekday, holiday, weathersit</span>
+<span id="cb72-151"><a href="#cb72-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-152"><a href="#cb72-152" aria-hidden="true" tabindex="-1"></a>**Regression Model**</span>
+<span id="cb72-153"><a href="#cb72-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-154"><a href="#cb72-154" aria-hidden="true" tabindex="-1"></a>**Interaction Terms**</span>
+<span id="cb72-155"><a href="#cb72-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-156"><a href="#cb72-156" aria-hidden="true" tabindex="-1"></a>I do not believe I need to use a quardratic or anything like that however, there is heteroskedascity so using a log may help with the funneling? </span>
+<span id="cb72-157"><a href="#cb72-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-158"><a href="#cb72-158" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb72-159"><a href="#cb72-159" aria-hidden="true" tabindex="-1"></a>\hat{Y} = b0 + b1X1+b2X2</span>
+<span id="cb72-160"><a href="#cb72-160" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb72-161"><a href="#cb72-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-162"><a href="#cb72-162" aria-hidden="true" tabindex="-1"></a>**Regression Model 1**</span>
+<span id="cb72-163"><a href="#cb72-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-164"><a href="#cb72-164" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb72-165"><a href="#cb72-165" aria-hidden="true" tabindex="-1"></a>Cnt = FeelingTemperature + Humidity + Season + Week Day + Hour + Year + Holiday + Windspeed</span>
+<span id="cb72-166"><a href="#cb72-166" aria-hidden="true" tabindex="-1"></a>$$ **Regression Model 2**</span>
+<span id="cb72-167"><a href="#cb72-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-168"><a href="#cb72-168" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb72-169"><a href="#cb72-169" aria-hidden="true" tabindex="-1"></a>Cnt = FeelingTemperature + Humidity + Season + Week Day + Weather Type + Year + Holiday + Windspeed</span>
+<span id="cb72-170"><a href="#cb72-170" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb72-171"><a href="#cb72-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-172"><a href="#cb72-172" aria-hidden="true" tabindex="-1"></a><span class="fu">## Cleaning the data</span></span>
+<span id="cb72-173"><a href="#cb72-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-176"><a href="#cb72-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-177"><a href="#cb72-177" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> bike <span class="sc">%&gt;%</span></span>
+<span id="cb72-178"><a href="#cb72-178" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Date'</span> <span class="ot">=</span> dteday) <span class="sc">%&gt;%</span></span>
+<span id="cb72-179"><a href="#cb72-179" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Year'</span> <span class="ot">=</span> yr) <span class="sc">%&gt;%</span></span>
+<span id="cb72-180"><a href="#cb72-180" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Month'</span> <span class="ot">=</span> mnth) <span class="sc">%&gt;%</span></span>
+<span id="cb72-181"><a href="#cb72-181" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Hour'</span> <span class="ot">=</span> hr) <span class="sc">%&gt;%</span></span>
+<span id="cb72-182"><a href="#cb72-182" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_temperature_C'</span> <span class="ot">=</span> temp) <span class="sc">%&gt;%</span></span>
+<span id="cb72-183"><a href="#cb72-183" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_feeling_temperature_C'</span> <span class="ot">=</span> atemp) <span class="sc">%&gt;%</span></span>
+<span id="cb72-184"><a href="#cb72-184" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_Humidity'</span> <span class="ot">=</span> hum) <span class="sc">%&gt;%</span></span>
+<span id="cb72-185"><a href="#cb72-185" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">"Total_bike_users"</span> <span class="ot">=</span> cnt)</span>
+<span id="cb72-186"><a href="#cb72-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-187"><a href="#cb72-187" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> bike2 <span class="sc">%&gt;%</span></span>
+<span id="cb72-188"><a href="#cb72-188" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Date'</span> <span class="ot">=</span> dteday) <span class="sc">%&gt;%</span></span>
+<span id="cb72-189"><a href="#cb72-189" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Year'</span> <span class="ot">=</span> yr) <span class="sc">%&gt;%</span></span>
+<span id="cb72-190"><a href="#cb72-190" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Month'</span> <span class="ot">=</span> mnth) <span class="sc">%&gt;%</span></span>
+<span id="cb72-191"><a href="#cb72-191" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_temperature_C'</span> <span class="ot">=</span> temp) <span class="sc">%&gt;%</span></span>
+<span id="cb72-192"><a href="#cb72-192" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_feeling_temperature_C'</span> <span class="ot">=</span> atemp) <span class="sc">%&gt;%</span></span>
+<span id="cb72-193"><a href="#cb72-193" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">'Normalized_Humidity'</span> <span class="ot">=</span> hum) <span class="sc">%&gt;%</span></span>
+<span id="cb72-194"><a href="#cb72-194" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">"Total_bike_users"</span> <span class="ot">=</span> cnt)</span>
+<span id="cb72-195"><a href="#cb72-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-196"><a href="#cb72-196" aria-hidden="true" tabindex="-1"></a>bike2<span class="sc">$</span>Date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(bike2<span class="sc">$</span>Date)</span>
+<span id="cb72-197"><a href="#cb72-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-198"><a href="#cb72-198" aria-hidden="true" tabindex="-1"></a><span class="co"># Checking for multicollinearity (We notice that temp and feeling temp are almost identical) so we removed the normalized temperature form the study since I want to focus on feeling temperature. Also removing instant since it is just the count of rows.</span></span>
+<span id="cb72-199"><a href="#cb72-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-200"><a href="#cb72-200" aria-hidden="true" tabindex="-1"></a>bike <span class="ot">&lt;-</span> bike[,<span class="sc">-</span><span class="dv">11</span>]</span>
+<span id="cb72-201"><a href="#cb72-201" aria-hidden="true" tabindex="-1"></a>bike2 <span class="ot">&lt;-</span> bike2[,<span class="sc">-</span><span class="dv">10</span>]</span>
+<span id="cb72-202"><a href="#cb72-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-203"><a href="#cb72-203" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(bike[<span class="dv">3</span><span class="sc">:</span><span class="dv">16</span>])</span>
+<span id="cb72-204"><a href="#cb72-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-205"><a href="#cb72-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-206"><a href="#cb72-206" aria-hidden="true" tabindex="-1"></a><span class="fu"># Model Evaluation - Backward Elimination</span></span>
+<span id="cb72-207"><a href="#cb72-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-208"><a href="#cb72-208" aria-hidden="true" tabindex="-1"></a>Here we are aiming for anything with 95% significance.</span>
+<span id="cb72-209"><a href="#cb72-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-210"><a href="#cb72-210" aria-hidden="true" tabindex="-1"></a>This method works by creating a linear model and then analyzing the results and determining which values are not significant and you remove them from the linear regression to drive a more fitted regression. Below I have created this with creating a seed for reproduction and then set the train control with the method cross validation and set the k-folds to 10. Next I tested that on the regression model with everything included and this will test each variable one by one and tell you how many variables are needed to have the most fit model. Here it states that the model with 8 variables is the most fit with both the RMSE and MAE method showing this below, This results in an R squared of 38.8%. This is for the bike data set and when we do it on bike2 data set we see that the number of variables remains the same. They both operate the best at 8 variables anything past that would over fit the data and would result in worse information. This one is showing an r squared at 79.79% which is a pretty good fit for the data. The only variable that does get changed is hour is removed and weather type gets added in. The regression have already been checked for significance but have been placed within the regression section and they are explained there.</span>
+<span id="cb72-211"><a href="#cb72-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-214"><a href="#cb72-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-215"><a href="#cb72-215" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-cap-margin</span></span>
+<span id="cb72-216"><a href="#cb72-216" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Table shows the 9th variable being a better fit however, it is wanting to include the instant variable which is just a count of rows and thus has been rejected and I have accepted the 8 variable count"</span></span>
+<span id="cb72-217"><a href="#cb72-217" aria-hidden="true" tabindex="-1"></a><span class="co">#| cap-location: margin</span></span>
+<span id="cb72-218"><a href="#cb72-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-219"><a href="#cb72-219" aria-hidden="true" tabindex="-1"></a><span class="co"># Setting for reproducibility</span></span>
+<span id="cb72-220"><a href="#cb72-220" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb72-221"><a href="#cb72-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-222"><a href="#cb72-222" aria-hidden="true" tabindex="-1"></a><span class="co"># setting repeated k-fold cross validation</span></span>
+<span id="cb72-223"><a href="#cb72-223" aria-hidden="true" tabindex="-1"></a>train.control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">10</span>)</span>
+<span id="cb72-224"><a href="#cb72-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-225"><a href="#cb72-225" aria-hidden="true" tabindex="-1"></a><span class="co"># testing it on bike2 table</span></span>
+<span id="cb72-226"><a href="#cb72-226" aria-hidden="true" tabindex="-1"></a>Backward_temp2 <span class="ot">&lt;-</span> <span class="fu">train</span>(Total_bike_users <span class="sc">~</span>. <span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike2,</span>
+<span id="cb72-227"><a href="#cb72-227" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"leapBackward"</span>, </span>
+<span id="cb72-228"><a href="#cb72-228" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">nvmax =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb72-229"><a href="#cb72-229" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trControl =</span> train.control</span>
+<span id="cb72-230"><a href="#cb72-230" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb72-231"><a href="#cb72-231" aria-hidden="true" tabindex="-1"></a>results_bike2 <span class="ot">&lt;-</span> Backward_temp2<span class="sc">$</span>results</span>
+<span id="cb72-232"><a href="#cb72-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-233"><a href="#cb72-233" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results_bike2, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">align =</span> <span class="st">"ccccccc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"nvmax"</span>, <span class="st">"RMSE"</span>, <span class="st">"Rsquared"</span>, <span class="st">"MAE"</span>, <span class="st">"RMSESD"</span>, <span class="st">"RsquaredSD"</span>, <span class="st">"MAESD"</span>), <span class="at">caption =</span> <span class="st">"Bike2 Data set Model Evaluation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-234"><a href="#cb72-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-235"><a href="#cb72-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>), <span class="at">background =</span> <span class="st">"cadetblue"</span>)</span>
+<span id="cb72-236"><a href="#cb72-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-237"><a href="#cb72-237" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the 12 variables in order</span></span>
+<span id="cb72-238"><a href="#cb72-238" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Backward_temp2<span class="sc">$</span>finalModel)</span>
+<span id="cb72-239"><a href="#cb72-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-240"><a href="#cb72-240" aria-hidden="true" tabindex="-1"></a><span class="co"># Training my model with backward elimination. Removed Date since there are other variables in here that accomplish time and removed </span></span>
+<span id="cb72-241"><a href="#cb72-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Casual and registered since those two combined create total bike users. </span></span>
+<span id="cb72-242"><a href="#cb72-242" aria-hidden="true" tabindex="-1"></a>Backward_temp1 <span class="ot">&lt;-</span> <span class="fu">train</span>(Total_bike_users <span class="sc">~</span>. <span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike,</span>
+<span id="cb72-243"><a href="#cb72-243" aria-hidden="true" tabindex="-1"></a>                    <span class="at">method =</span> <span class="st">"leapBackward"</span>, </span>
+<span id="cb72-244"><a href="#cb72-244" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tuneGrid =</span> <span class="fu">data.frame</span>(<span class="at">nvmax =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
+<span id="cb72-245"><a href="#cb72-245" aria-hidden="true" tabindex="-1"></a>                    <span class="at">trControl =</span> train.control</span>
+<span id="cb72-246"><a href="#cb72-246" aria-hidden="true" tabindex="-1"></a>                    )</span>
+<span id="cb72-247"><a href="#cb72-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-248"><a href="#cb72-248" aria-hidden="true" tabindex="-1"></a><span class="co"># Here it shows the RMSE and MAE saying 8 variables is the best fit </span></span>
+<span id="cb72-249"><a href="#cb72-249" aria-hidden="true" tabindex="-1"></a>results_bike <span class="ot">&lt;-</span> Backward_temp1<span class="sc">$</span>results</span>
+<span id="cb72-250"><a href="#cb72-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-251"><a href="#cb72-251" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(results_bike, <span class="at">digits =</span> <span class="dv">4</span>, <span class="at">align =</span> <span class="st">"ccccccc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"nvmax"</span>, <span class="st">"RMSE"</span>, <span class="st">"Rsquared"</span>, <span class="st">"MAE"</span>, <span class="st">"RMSESD"</span>, <span class="st">"RsquaredSD"</span>, <span class="st">"MAESD"</span>), <span class="at">caption =</span> <span class="st">"Bike Data set Model Evaluation"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-252"><a href="#cb72-252" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">16</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb72-253"><a href="#cb72-253" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_spec</span>(<span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">8</span>), <span class="at">background =</span> <span class="st">"cadetblue"</span>)</span>
+<span id="cb72-254"><a href="#cb72-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-255"><a href="#cb72-255" aria-hidden="true" tabindex="-1"></a><span class="co"># Here are the 8 variables in order</span></span>
+<span id="cb72-256"><a href="#cb72-256" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Backward_temp1<span class="sc">$</span>finalModel)</span>
+<span id="cb72-257"><a href="#cb72-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-258"><a href="#cb72-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-259"><a href="#cb72-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-260"><a href="#cb72-260" aria-hidden="true" tabindex="-1"></a><span class="fu"># Regression</span></span>
+<span id="cb72-261"><a href="#cb72-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-262"><a href="#cb72-262" aria-hidden="true" tabindex="-1"></a>Within the first test we notice a fairly low R squared but we also know they are all statistically significant meaning that we can reject the null hypothesis and say yes there appears to be some effect here. Once we implement the model evaluation to the regression we notice a large difference in the r squared.</span>
+<span id="cb72-263"><a href="#cb72-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-264"><a href="#cb72-264" aria-hidden="true" tabindex="-1"></a>Here we are looking at two different regression on two different scales. One is on hourly time and the other is on daily time which causes the variables to impact the outcome differently. Here we notice both temperature and humidity are statistically significant in both situations which is further evidence that we can really reject the null.</span>
+<span id="cb72-265"><a href="#cb72-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-268"><a href="#cb72-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-269"><a href="#cb72-269" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression 1 both temperature and humidity</span></span>
+<span id="cb72-270"><a href="#cb72-270" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Total_bike_users <span class="sc">~</span>  Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> season <span class="sc">+</span> weekday <span class="sc">+</span> Hour, <span class="at">data =</span> bike) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span>
+<span id="cb72-271"><a href="#cb72-271" aria-hidden="true" tabindex="-1"></a><span class="co"># This was the first regression I made based on my own knowledge and will be used to compare against the one created by the model</span></span>
+<span id="cb72-272"><a href="#cb72-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-273"><a href="#cb72-273" aria-hidden="true" tabindex="-1"></a><span class="co"># We notice that the original had an r squared of 33.8% while this one has a 38.8% which is a large difference and shows the importance of finding the best fitted model</span></span>
+<span id="cb72-274"><a href="#cb72-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-275"><a href="#cb72-275" aria-hidden="true" tabindex="-1"></a>Regression1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> Hour <span class="sc">+</span> Year <span class="sc">+</span> season <span class="sc">+</span> holiday <span class="sc">+</span> weekday <span class="sc">+</span> windspeed, <span class="at">data =</span> bike)</span>
+<span id="cb72-276"><a href="#cb72-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-277"><a href="#cb72-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Regression1)</span>
+<span id="cb72-278"><a href="#cb72-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-279"><a href="#cb72-279" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression two on bike2 data set both temperature and humidity. Comparing original regression on bike2 data set here we have an r squared of 50.58%</span></span>
+<span id="cb72-280"><a href="#cb72-280" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> weathersit <span class="sc">+</span> season, <span class="at">data =</span> bike2) <span class="sc">%&gt;%</span> <span class="fu">summary</span>()</span>
+<span id="cb72-281"><a href="#cb72-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-282"><a href="#cb72-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-283"><a href="#cb72-283" aria-hidden="true" tabindex="-1"></a><span class="co"># Here we have an r squared of 79.74% which is a MAJOR difference this has changed the coefficient of temperature by ~600. This goes to show how inaccurate the first model was. </span></span>
+<span id="cb72-284"><a href="#cb72-284" aria-hidden="true" tabindex="-1"></a>Regression2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> Normalized_feeling_temperature_C <span class="sc">+</span> Normalized_Humidity <span class="sc">+</span> weathersit <span class="sc">+</span> Year <span class="sc">+</span> season <span class="sc">+</span> holiday <span class="sc">+</span> weekday <span class="sc">+</span> windspeed, <span class="at">data =</span> bike2)</span>
+<span id="cb72-285"><a href="#cb72-285" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Regression2)</span>
+<span id="cb72-286"><a href="#cb72-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-287"><a href="#cb72-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-288"><a href="#cb72-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-289"><a href="#cb72-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-290"><a href="#cb72-290" aria-hidden="true" tabindex="-1"></a><span class="fu">## Residuals vs Fitted(Will need to be adjusted)</span></span>
+<span id="cb72-291"><a href="#cb72-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-292"><a href="#cb72-292" aria-hidden="true" tabindex="-1"></a>This shows signs of heteroskedasticity and this is when standard deviations of a predicated variable being monitored over different values of an independent variable are non-constant. The problems that arise from this issue is, the standard error is wrong and thus the confidence intervals and hypothesis tests can not be relied on. This issues needs to be resolved before declaring the conclusion.</span>
+<span id="cb72-293"><a href="#cb72-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-296"><a href="#cb72-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-297"><a href="#cb72-297" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Total_bike_users <span class="sc">~</span> .<span class="sc">-</span>Date <span class="sc">-</span>casual <span class="sc">-</span>registered, <span class="at">data =</span> bike)</span>
+<span id="cb72-298"><a href="#cb72-298" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod)</span>
+<span id="cb72-299"><a href="#cb72-299" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb72-300"><a href="#cb72-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-301"><a href="#cb72-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-302"><a href="#cb72-302" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resolving Heteroskedasticity</span></span>
+<span id="cb72-303"><a href="#cb72-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-304"><a href="#cb72-304" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-305"><a href="#cb72-305" aria-hidden="true" tabindex="-1"></a><span class="fu">### H~0A~</span></span>
+<span id="cb72-306"><a href="#cb72-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-307"><a href="#cb72-307" aria-hidden="true" tabindex="-1"></a>There is no Heteroskedasticity</span>
+<span id="cb72-308"><a href="#cb72-308" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-309"><a href="#cb72-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-310"><a href="#cb72-310" aria-hidden="true" tabindex="-1"></a>::: callout-tip</span>
+<span id="cb72-311"><a href="#cb72-311" aria-hidden="true" tabindex="-1"></a><span class="fu">### H~1A~</span></span>
+<span id="cb72-312"><a href="#cb72-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-313"><a href="#cb72-313" aria-hidden="true" tabindex="-1"></a>There is Heteroskedasticity</span>
+<span id="cb72-314"><a href="#cb72-314" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb72-315"><a href="#cb72-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-316"><a href="#cb72-316" aria-hidden="true" tabindex="-1"></a>Here we will conduct the Breusch-Pagan test using the lmtest package and bptest() function. This will let us know if there is heteroskedascity if the P &lt; .05. Here we see that both meet this standard and thus we have evidence to reject the null hypothesis</span>
+<span id="cb72-317"><a href="#cb72-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-320"><a href="#cb72-320" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-321"><a href="#cb72-321" aria-hidden="true" tabindex="-1"></a><span class="co"># Breusch-Pagan test to determine if Heteroskedasticity exist</span></span>
+<span id="cb72-322"><a href="#cb72-322" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(Regression1)</span>
+<span id="cb72-323"><a href="#cb72-323" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(Regression2)</span>
+<span id="cb72-324"><a href="#cb72-324" aria-hidden="true" tabindex="-1"></a><span class="co"># both of these are p&lt;.05 meaning that we reject the null hypothesis and say yes there is heteroskedacity </span></span>
+<span id="cb72-325"><a href="#cb72-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-326"><a href="#cb72-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-327"><a href="#cb72-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-328"><a href="#cb72-328" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visualizations</span></span>
+<span id="cb72-329"><a href="#cb72-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-330"><a href="#cb72-330" aria-hidden="true" tabindex="-1"></a>Here we see as temperature increases we can expect bike users to increase while as humidity increases we expect the opposite.</span>
+<span id="cb72-331"><a href="#cb72-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-334"><a href="#cb72-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb72-335"><a href="#cb72-335" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb72-336"><a href="#cb72-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-337"><a href="#cb72-337" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Regression1)</span>
+<span id="cb72-338"><a href="#cb72-338" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regression2)</span>
+<span id="cb72-339"><a href="#cb72-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-340"><a href="#cb72-340" aria-hidden="true" tabindex="-1"></a>Bike_users_plot <span class="ot">&lt;-</span> bike2 <span class="sc">%&gt;%</span></span>
+<span id="cb72-341"><a href="#cb72-341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>Date, <span class="at">y=</span>Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb72-342"><a href="#cb72-342" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>(<span class="at">fill=</span><span class="st">"#69b3a2"</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb72-343"><a href="#cb72-343" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">"#69b3a2"</span>) <span class="sc">+</span></span>
+<span id="cb72-344"><a href="#cb72-344" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">"total bike user"</span>) <span class="sc">+</span></span>
+<span id="cb72-345"><a href="#cb72-345" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span>
+<span id="cb72-346"><a href="#cb72-346" aria-hidden="true" tabindex="-1"></a><span class="co"># Making it interactive</span></span>
+<span id="cb72-347"><a href="#cb72-347" aria-hidden="true" tabindex="-1"></a>Bike_users_plot <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(Bike_users_plot)</span>
+<span id="cb72-348"><a href="#cb72-348" aria-hidden="true" tabindex="-1"></a>Bike_users_plot</span>
+<span id="cb72-349"><a href="#cb72-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-350"><a href="#cb72-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-351"><a href="#cb72-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-352"><a href="#cb72-352" aria-hidden="true" tabindex="-1"></a><span class="co"># Value used to transform the data</span></span>
+<span id="cb72-353"><a href="#cb72-353" aria-hidden="true" tabindex="-1"></a>coeff <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb72-354"><a href="#cb72-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-355"><a href="#cb72-355" aria-hidden="true" tabindex="-1"></a><span class="co"># A few constants</span></span>
+<span id="cb72-356"><a href="#cb72-356" aria-hidden="true" tabindex="-1"></a>temperatureColor <span class="ot">&lt;-</span> <span class="st">"#69b3a2"</span></span>
+<span id="cb72-357"><a href="#cb72-357" aria-hidden="true" tabindex="-1"></a>priceColor <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="dv">1</span>)</span>
+<span id="cb72-358"><a href="#cb72-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-359"><a href="#cb72-359" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bike2, <span class="fu">aes</span>(<span class="at">x=</span>Date)) <span class="sc">+</span></span>
+<span id="cb72-360"><a href="#cb72-360" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-361"><a href="#cb72-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Normalized_feeling_temperature_C), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>temperatureColor) <span class="sc">+</span> </span>
+<span id="cb72-362"><a href="#cb72-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Total_bike_users <span class="sc">/</span> coeff), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>priceColor) <span class="sc">+</span></span>
+<span id="cb72-363"><a href="#cb72-363" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-364"><a href="#cb72-364" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb72-365"><a href="#cb72-365" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-366"><a href="#cb72-366" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Features of the first axis</span></span>
+<span id="cb72-367"><a href="#cb72-367" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Temperature (Normalized)"</span>,</span>
+<span id="cb72-368"><a href="#cb72-368" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-369"><a href="#cb72-369" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a second axis and specify its features</span></span>
+<span id="cb72-370"><a href="#cb72-370" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">*</span>coeff, <span class="at">name=</span><span class="st">"Bike users"</span>)</span>
+<span id="cb72-371"><a href="#cb72-371" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb72-372"><a href="#cb72-372" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-373"><a href="#cb72-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb72-374"><a href="#cb72-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-375"><a href="#cb72-375" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb72-376"><a href="#cb72-376" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> temperatureColor, <span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb72-377"><a href="#cb72-377" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> priceColor, <span class="at">size=</span><span class="dv">13</span>)</span>
+<span id="cb72-378"><a href="#cb72-378" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb72-379"><a href="#cb72-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-380"><a href="#cb72-380" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Temperature correlation with bikes users"</span>)</span>
+<span id="cb72-381"><a href="#cb72-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-382"><a href="#cb72-382" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-383"><a href="#cb72-383" aria-hidden="true" tabindex="-1"></a><span class="co"># Value used to transform the data</span></span>
+<span id="cb72-384"><a href="#cb72-384" aria-hidden="true" tabindex="-1"></a>coeff <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb72-385"><a href="#cb72-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-386"><a href="#cb72-386" aria-hidden="true" tabindex="-1"></a><span class="co"># A few constants</span></span>
+<span id="cb72-387"><a href="#cb72-387" aria-hidden="true" tabindex="-1"></a>humidityColor <span class="ot">&lt;-</span> <span class="st">"#69b3a2"</span></span>
+<span id="cb72-388"><a href="#cb72-388" aria-hidden="true" tabindex="-1"></a>bikeColor <span class="ot">&lt;-</span> <span class="fu">rgb</span>(<span class="fl">0.2</span>, <span class="fl">0.6</span>, <span class="fl">0.9</span>, <span class="dv">1</span>)</span>
+<span id="cb72-389"><a href="#cb72-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-390"><a href="#cb72-390" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(bike2, <span class="fu">aes</span>(<span class="at">x=</span>Date)) <span class="sc">+</span></span>
+<span id="cb72-391"><a href="#cb72-391" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-392"><a href="#cb72-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Normalized_Humidity), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>temperatureColor) <span class="sc">+</span> </span>
+<span id="cb72-393"><a href="#cb72-393" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>( <span class="fu">aes</span>(<span class="at">y=</span>Total_bike_users <span class="sc">/</span> coeff), <span class="at">size=</span><span class="dv">2</span>, <span class="at">color=</span>priceColor) <span class="sc">+</span></span>
+<span id="cb72-394"><a href="#cb72-394" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-395"><a href="#cb72-395" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb72-396"><a href="#cb72-396" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-397"><a href="#cb72-397" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Features of the first axis</span></span>
+<span id="cb72-398"><a href="#cb72-398" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">"Humidity (Normalized)"</span>,</span>
+<span id="cb72-399"><a href="#cb72-399" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb72-400"><a href="#cb72-400" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add a second axis and specify its features</span></span>
+<span id="cb72-401"><a href="#cb72-401" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">*</span>coeff, <span class="at">name=</span><span class="st">"Bike users"</span>)</span>
+<span id="cb72-402"><a href="#cb72-402" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb72-403"><a href="#cb72-403" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb72-404"><a href="#cb72-404" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb72-405"><a href="#cb72-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-406"><a href="#cb72-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb72-407"><a href="#cb72-407" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">color =</span> temperatureColor, <span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb72-408"><a href="#cb72-408" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y.right =</span> <span class="fu">element_text</span>(<span class="at">color =</span> priceColor, <span class="at">size=</span><span class="dv">13</span>)</span>
+<span id="cb72-409"><a href="#cb72-409" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb72-410"><a href="#cb72-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-411"><a href="#cb72-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"Humidity correlation with bikes users"</span>)</span>
+<span id="cb72-412"><a href="#cb72-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-413"><a href="#cb72-413" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting the data to visualize </span></span>
+<span id="cb72-414"><a href="#cb72-414" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bike2, <span class="fu">aes</span>(<span class="at">x=</span>Normalized_feeling_temperature_C, <span class="at">y =</span> Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb72-415"><a href="#cb72-415" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-416"><a href="#cb72-416" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb72-417"><a href="#cb72-417" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>(<span class="at">base_size =</span> <span class="dv">10</span>, <span class="at">base_family =</span> <span class="st">'serif'</span>) <span class="sc">+</span></span>
+<span id="cb72-418"><a href="#cb72-418" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">'serif'</span>, <span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Total Bike Users'</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">'Normalized Feeling Temperature'</span>) <span class="sc">+</span></span>
+<span id="cb72-419"><a href="#cb72-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Temerpature and Bike users"</span>, <span class="at">caption =</span> <span class="st">""</span>)</span>
+<span id="cb72-420"><a href="#cb72-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-421"><a href="#cb72-421" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> bike2, <span class="fu">aes</span>(<span class="at">x=</span>Normalized_Humidity, <span class="at">y =</span> Total_bike_users)) <span class="sc">+</span></span>
+<span id="cb72-422"><a href="#cb72-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb72-423"><a href="#cb72-423" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> lm) <span class="sc">+</span></span>
+<span id="cb72-424"><a href="#cb72-424" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_fivethirtyeight</span>(<span class="at">base_size =</span> <span class="dv">10</span>, <span class="at">base_family =</span> <span class="st">'serif'</span>) <span class="sc">+</span></span>
+<span id="cb72-425"><a href="#cb72-425" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">'serif'</span>, <span class="at">size =</span> <span class="dv">15</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">'Total Bike Users'</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">'Normalized Humidity'</span>) <span class="sc">+</span></span>
+<span id="cb72-426"><a href="#cb72-426" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Relationship between Humidity and Bike users"</span>, <span class="at">caption =</span> <span class="st">""</span>)</span>
+<span id="cb72-427"><a href="#cb72-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-428"><a href="#cb72-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-429"><a href="#cb72-429" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(bike2, <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">15</span>), ggplot2<span class="sc">::</span><span class="fu">aes</span>(<span class="at">colour=</span><span class="st">'red'</span>))</span>
+<span id="cb72-430"><a href="#cb72-430" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb72-431"><a href="#cb72-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-432"><a href="#cb72-432" aria-hidden="true" tabindex="-1"></a><span class="fu">## Conclusions</span></span>
+<span id="cb72-433"><a href="#cb72-433" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-434"><a href="#cb72-434" aria-hidden="true" tabindex="-1"></a>In conclusion, for hypothesis one we reject the null hypothesis with evidence of the extremely significant p-value of 2e-16. This give us evidence that we can accept the alternative and say yes temperature has an impact on bike sales. There were two different tests done here, we did the daily data compared to the hourly data. Both were significant and we controlled for 7 variables which are specified at the top. The reason we controlled these variables is that they could impact the outcome variable and thus we controlled them to make sure that they were not impacting the results. So in conclusion, normalized feeling temperature Celsius has an impact on bike users. Looking at our correlation graph we can see that it has a positive correlation with bike users at .631.</span>
+<span id="cb72-435"><a href="#cb72-435" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-436"><a href="#cb72-436" aria-hidden="true" tabindex="-1"></a>For the second questions we can also reject the null hypothesis as humidity is significant with a p-value of &lt; 2e-16 in data set one and 0.000323 in data set two. This is further evidence that we can reject the null as in both scales is what significant. This data held the same control variables as temperature and thus we can yes humidity has an impact on bike users and looking at our correlation we see a negative correlation of -.101.</span>
+<span id="cb72-437"><a href="#cb72-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-438"><a href="#cb72-438" aria-hidden="true" tabindex="-1"></a>Once I correct the heteroskedascity then I am curious as to how the information is altered as of right now I am unable to fully accept my claims until these are removed. </span>
+<span id="cb72-439"><a href="#cb72-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-440"><a href="#cb72-440" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb72-441"><a href="#cb72-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-442"><a href="#cb72-442" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb72-443"><a href="#cb72-443" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Fanaee-T, H. (n.d.). Bike Sharing Dataset . Retrieved from UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/Bike+Sharing+Dataset</span>
+<span id="cb72-444"><a href="#cb72-444" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Pazdan, Sylwia. (2020). The impact of weather on bicycle risk exposure. Archives of Transport. 56. 89-105. 10.5604/01.3001.0014.5629.</span>
+<span id="cb72-445"><a href="#cb72-445" aria-hidden="true" tabindex="-1"></a>:::</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
