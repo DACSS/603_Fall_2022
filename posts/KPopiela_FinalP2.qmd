@@ -1,0 +1,106 @@
+---
+title: "KPopiela_Finalp2"
+editor: visual
+---
+
+```{r,echo=TRUE}
+library(poliscidata)
+library(dplyr)
+library(tidyr)
+library(stats)
+library(ggplot2)
+```
+
+##Intro and Background Info
+
+I've had more time to think about my final, and I've decided to simplify my research topic. Rather than look at ethnic conflict, I'm going to look at how internet usage affects a people's confidence in their country (institutions and governance). In order to focus on this relationship, I will be using the 'world' data set in the 'poliscidata' package, and I will be using the following variables: 'country', 'unnetuse' (internet usage per 100 people), confidence (population's confidence in their country's institutions; scaled out of 100), and 'effectiveness' (government effectiveness scale). 
+
+Below is a general presentation of the data I will be using, filtered down as I described. 
+
+```{r,echo=TRUE}
+library(poliscidata) %>%
+  data("world")
+world %>%
+  select(country,regime_type3,unnetuse,confidence,effectiveness)
+```
+
+The internet and media consumption play a massive role in politics now; at this point, it's pretty much expected to find out what is happening in the world on the internet (newspapers, social media, etc.). And as we've seen since the 2016 election, the internet also plays a substantial role in domestic politics, whether it be through neutral journalism, activism, whistle-blowing, or misinformation. It is both good and bad, and as Stanford professor Evgeny Morozov writes, the internet's impact "will depend on individual conditions" such as a given country's political atmosphere (peaceful, volatile, conservative, liberal, etc.), ease of access to the internet, and how united a population is either in favor or against their current government ("The Internet, Politics and the Politics of Internet Debate"). So, what */is/* the relationship between internet use and domestic politics? 
+
+Based on my personal and academic experience, I hypothesize that while internet usage definitely does affect people's confidence in their government, I do not think that it automatically hinders government effectiveness. If a certain country's subjects have extremely little confidence in its government, the government would have no legitimacy (and would therefore be ineffective); a government's power largely comes from its subjects' willingness to accept it. However, there are instances where a country's population has little confidence in its government with no effect on its efficacy. But, again, for this project I will be focusing on how internet usage impacts confidence in a given regime.
+
+Now to transcribe my research question: Does internet usage (social media, news, etc.) have an impact on people's confidence in their government ('confidence')? If so, is said government more or less effective in its duties?
+
+First, lets look at some summary statistics. 
+
+### 1) 'regime_type3', 'confidence', 'effectiveness', 'regime_type3', and 'unnetuse'
+
+```{r,echo=TRUE}
+world_filter <- world %>%
+  select(country,regime_type3,confidence,effectiveness,unnetuse)
+summary(world_filter)
+```
+
+a) regime_type3 -- There are 167 entries in the filtered down dataset I am using. Dividing that, 61 countries are classified as dictatorships, 41 as a parliamentary democracy, 34 N/A responses/unclassified regimes, and 31 presidential democracies. Not having doen any statistical analysis yet I can't speak for the values' mathematical significance, but politically, it is important to note that 61/167 countries in the data set are classified as dictatorships. 
+
+b) confidence -- Confidence scores in this data set are scaled from 1-100. The minimum confidence score is 6.495 and the maximum, obviously is 100.000. The mean value, 48.508, is below 50.000 which indicates that there are slightly more scores under than 50.000 than over. The median is 49.508 and the 1st and 3rd quantiles are 38.889 and 59.523 respectively. However, these values are not so low that there's an implication of a widespread (and severe) sense that peoples' governments are incompetent.
+
+c) effectiveness -- Similar to 'confidence', 'effectiveness' is scaled out of 100. Unlike 'confidence', however, this variable presents a numerical representation of how effective regimes are at governance (actual governance, welfare, infrastructure/services). The summary values for this variable are, overall, lower than their counterparts under 'confidence'. The minimum value is 7.801, and the mean is 46.036. The median, 1st, and 3rd quantiles are 39.007, 28.132, and 62.884 respectively. While currently untested, these figures indicate that whether or not people have confidence in their government, said government is not necessarily effective to the same degree.
+
+d) unnetuse -- Unlike the previous 2 variables, this one is scaled as a percentage of each country's total population, specifically the number of internet users per 100 people. This variable is more practically tangible; the values are calculated as a percentage, but since it's also out of 100 people, it's easy to conceptualize the 1st quantile value for instance: 5.25, which would be about 5 people per 100. On that note, the maximum value, 87.70, is indicative of a high percentage of internet users in a given state.
+
+
+## Hypothesis Testing, Analysis
+
+I will start with some preliminary graphs/visualizations.
+
+```{r,echo=TRUE}
+ggplot(data=world_filter, aes(x=unnetuse,y=confidence, color=regime_type3)) + geom_point() 
+```
+
+This scatterplot, which measures the relationship between internet usage and popular confidence in government, has no obvious relationship or correlation. The points are grouped by color based on regime type, but there is no notable increase or decrease in the points' location as a variable increases or decreases. The vast majority of values are located in the middle of the graph.
+
+```{r,echo=TRUE}
+ggplot(data=world_filter, aes(x=confidence,y=effectiveness, color=regime_type3)) + geom_point() 
+```
+
+While there still isn't a traditional positive or negative relationship between 'confidence' and 'effectiveness', it is noteworthy that the majority of values are in the center of the graph. They have a wide range, but they are mostly within 25 and 75 on the x-axis, which does make sense giving that the 1st and 3rd quantiles are included in the initial summary statistics.
+
+```{r,echo=TRUE}
+ggplot(world_filter, aes(x=unnetuse,y=confidence,color=regime_type3)) + geom_point() + stat_smooth(method="lm",col="blue")
+```
+
+This visualization is a recreation of the first scatterplot, but with a multiple regression line. The line, at first glance, is straight, but upon closer inspection it ever so slightly slopes down toward the right. This indicates a slightly negative relationship between internet usage (x) and confidence in government institutions (y).
+
+```{r,echo=TRUE}
+ggplot(world_filter, aes(x=unnetuse,y=effectiveness,color=regime_type3)) + geom_point() + stat_smooth(method="lm",col="blue")
+```
+
+The above scatterplot, however, depicts a very clear positive relationship between variables 'unnetuse' (x) and 'effectiveness' (y). This is indicative of a strong relationship between internet use and government effectiveness. There is what appears to be a heavier concentration of points below 50 on the x-axis, but the general trend is pretty clear that government effectiveness increases as nationals' internet use does. Although 'unnetuse' comes from a 2008 survey, I would argue that this trend still holds up; especially due to COVID-19, the main way that politicians engage with their constituents is on the internet (social media). There is not really a culture of "visit your politician and talk to them" culture anymore, the new norm is for sucht things to be done over the phone, over email, or in some form, over the internet. 
+
+My next step is to go into modeling. I'm going to start with a linear regression model. 'confidence' is the dependent variable, and 'unnetuse', 'effectiveness', and 'regime_type3' are all independent.
+
+```{r,echo=TRUE}
+confidence_lm <- lm(confidence~unnetuse+effectiveness+regime_type3, data=world_filter)
+confidence_lm
+```
+
+And here is a visualization of the above values. 
+
+```{r,echo=TRUE}
+plot(fitted(confidence_lm))
+abline(h=50, lty=2)
+```
+
+```{r,echo=TRUE}
+summary(confidence_lm)
+```
+
+I'm honestly not entirely sure what these values mean, but I input what I had into the function and I got results.
+
+```{r,echo=TRUE}
+AIC(confidence_lm)
+BIC(confidence_lm)
+```
+
+
+
