@@ -1,0 +1,205 @@
+---
+title: "Final Project Part 2"
+author: "Emily Duryea"
+desription: "Final Project Part 2"
+date: "11/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - final project
+  - Emily Duryea
+  - dataset
+---
+
+# Final Project Part 2
+
+```{r}
+studentsurvey <- read.csv("student_prediction.csv")
+summary(studentsurvey)
+library(ggplot2)
+library(tidyverse)
+```
+
+## Research Question 1
+
+Question: Does classroom engagement (i.e., taking notes, attending class, listening) result in a higher GPA in university students?
+
+Hypothesis: Classroom engagement factors (i.e., taking notes, attending class, listening) will have a positive correlation with higher GPA.
+
+Explanatory Variable: Classroom engagement factors (1) taking notes, 2) attending class, 3) listening)
+
+Response Variable: University students' GPA
+
+### Simple Linear Regression & Correlation Test
+
+Notes & GPA
+
+```{r}
+nfit <- lm(NOTES ~ CUML_GPA, data = studentsurvey)
+summary(nfit)
+
+cor.test(studentsurvey$NOTES, studentsurvey$CUML_GPA)
+```
+
+Attendance & GPA
+
+```{r}
+afit <- lm(ATTEND ~ CUML_GPA, data = studentsurvey)
+summary(afit)
+
+cor.test(studentsurvey$ATTEND, studentsurvey$CUML_GPA)
+```
+
+Listening & GPA
+
+```{r}
+lfit <- lm(LISTENS ~ CUML_GPA, data = studentsurvey)
+summary(lfit)
+
+cor.test(studentsurvey$LISTENS, studentsurvey$CUML_GPA)
+```
+
+### Multiple Regression with all 3 Variables
+
+```{r}
+summary(lm(CUML_GPA ~ NOTES + ATTEND + LISTENS, data = studentsurvey))
+```
+
+### Visualizing the Data
+
+Impact of Taking Notes on University Student GPA
+
+```{r}
+ggplot(data = studentsurvey, aes(x = NOTES, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+Impact of Class Attendance on GPA
+
+```{r}
+ggplot(data = studentsurvey, aes(x = ATTEND, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+Impact of Listening in Class on GPA
+
+```{r}
+ggplot(data = studentsurvey, aes(x = LISTENS, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+### Conclusions
+
+To analyze the influence of classroom engagement on student GPA, I chose to run a simple linear regression and a correlation test. I did also conduct a multiple regression analysis, but I preferred to separate the three variables within my definition of "classroom engagement" so I could analyze them individually.
+
+Taking notes did not appear to have a significant impact on cumulative GPA. The p-value (0.08499) was greater than 0.05, indicating the result was not statistically significant. Additionally, the correlation coefficient was positive, but only slightly (0.1435413). The adjusted r squared also indicated a low correlation (0.01376).
+
+Class attendance was found to be a statistically significant, as the p-value was less than 0.05 (0.0319). Interestingly, classroom attendance actually had a negative correlation with GPA, indicating that students who attended class less frequently obtained higher GPAs. This correlation is also slight, as indicated by the correlation coefficient (-0.1783047) and the adjusted r squared (0.02502).
+
+Students' reported listening during class was not statistically significant on GPA, with a p-value higher than 0.05 (0.5079). The correlation was also extremely slight, with a positive correlation coefficient of 0.05542742 and an adjusted r squared value of -0.003899.
+
+Thus, my hypothesis that classroom engagement would have a positive influence on GPA would be rejected.
+
+## Research Question 2
+
+Question: Does reported studying (i.e., weekly study hours) result in a higher GPA in university students?
+
+Hypothesis: More hours studied will have a positive impact on student cumulative GPA.
+
+Explanatory Variable: Hours reported studying a week
+
+Response Variable: Cumulative GPA
+
+### Simple Linear Regression & Correlation Test
+
+```{r}
+shfit <- lm(STUDY_HRS ~ CUML_GPA, data = studentsurvey)
+summary(shfit)
+
+cor.test(studentsurvey$STUDY_HRS, studentsurvey$CUML_GPA)
+```
+
+### Visualizing the Data
+
+```{r}
+ggplot(data = studentsurvey, aes(x = STUDY_HRS, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+### Conclusions
+
+Like with my previous research question, I chose to run a simple linear regression and a correlation test to analyze the data. The results indicated that hours spent studying had very little impact on cumulative GPA. The p-value was greater than 0.05 (0.9225), and both the correlation coefficient, although positive, and the adjusted r r squared values were extremely small (0.008144991 and -0.006926). Thus, my hypothesis would be refuted.
+
+## Research Question 3
+
+Question: Does collaboration between students (i.e., studying together, positive class discussions) result in a higher GPA in university students?
+
+Hypothesis: Collaboration between students would have a positive impact on cumulative GPA.
+
+Explanatory Variable: Collaboration (Studying with peers, perceiving classroom discussions as positive)
+
+Response Variable: Cumulative GPA
+
+### Simple Linear Regression & Correlation Test
+
+Studying with peers & GPA
+
+```{r}
+studentsurvey$PREP_STUDY <- ifelse(studentsurvey$PREP_STUDY==2, 2, 1)
+
+spfit <- lm(PREP_STUDY ~ CUML_GPA, data = studentsurvey)
+summary(spfit)
+
+cor.test(studentsurvey$PREP_STUDY, studentsurvey$CUML_GPA)
+```
+
+Positive discussions & GPA
+
+```{r}
+studentsurvey$PREP_STUDY <- ifelse(studentsurvey$LIKES_DISCUSS==1, 1, 2)
+
+ldfit <- lm(LIKES_DISCUSS ~ CUML_GPA, data = studentsurvey)
+summary(ldfit)
+
+cor.test(studentsurvey$LIKES_DISCUSS, studentsurvey$CUML_GPA)
+```
+
+### Multiple Regression Analysis
+
+```{r}
+summary(lm(CUML_GPA ~ PREP_STUDY + LIKES_DISCUSS, data = studentsurvey))
+```
+
+### Visualizing the Data
+
+Studying with peers & GPA
+
+```{r}
+ggplot(data = studentsurvey, aes(x = PREP_STUDY, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+Positive discussions & GPA
+
+```{r}
+ggplot(data = studentsurvey, aes(x = LIKES_DISCUSS, y = CUML_GPA)) +
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+### Conclusions
+
+Students who study with their peers are more likely to have higher GPAs, according to the simple linear regression and correlation test. The p-value was less than 0.05 (0.01535). However, the correlation was not extremely high (0.2009882) and neither was the adjusted r-squared value (0.03369). That being said, the results were statistically significant.
+
+Additionally, students who found class discussions to be helpful (always or some of the time, compared to those who did not find class discussions to be a positive experience) to their education and learning were significantly more likely to have higher GPAs. The p-value was less than 0.01 (0.007804). Again the correlation was not extreme (0.2201251) as well as the adjusted r-squared (0.0418).
+
+The multiple regression analysis also found the combined two variables to be statistically significant (0.01666). Thus, it could be concluded that collaboration has a positive impact on GPA, supporting my hypothesis.
