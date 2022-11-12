@@ -1,0 +1,766 @@
+---
+title: "Final Project Part 2"
+author: "Ken Docekal"
+desription: "Part 2 Analysis"
+date: "11/12/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart2
+  - descriptive statistics 
+  - analysis
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+
+library(readr)
+library(readxl)
+
+
+statedata <- read.csv("_data/correlatesofstatepolicyprojectv1_10.csv")
+
+```
+
+
+
+#Expanded Data Description
+
+
+###Variables and missing data
+
+Specifying variables for relevance and data availability
+
+```{r}
+
+statedata1 = subset(statedata, select = c(state, year, policypriorityscore, econdev, pldvpag, urbrenen, nonwhite, soc_capital_ma, evangelical_pop, pc_inc_ann, gini_coef, hsdiploma, co2emissions, ideo,st_ec, st_soc,  pop_annual))
+
+```
+
+
+
+We transform co2 emission variable from raw tons to ton per state resident 
+
+```{r}
+
+statedata1$co2 <- statedata1$co2emissions / statedata1$pop_annual
+
+```
+
+
+
+Creating data subset with new variables, removing pre-transformation and aggregate population measures 
+
+```{r}
+
+sd = subset(statedata1, select = c(state, year, policypriorityscore, econdev, pldvpag, urbrenen, nonwhite, soc_capital_ma, evangelical_pop, pc_inc_ann, gini_coef, hsdiploma, co2, ideo,st_ec, st_soc))
+
+```
+
+
+Due to additional missing observations we will set the new data range as 1980 to 2000.
+
+```{r}
+view(sd)
+```
+
+```{r}
+
+sd1 <- subset(sd, year>1979 & year<2001, na.rm = TRUE ) 
+
+```
+
+
+
+NAs are reduced as listwise removal of observations that are missing completely at random analysis will be unbiased
+
+
+```{r}
+
+summary(sd)
+
+summary(sd1)
+
+
+```
+
+
+Excluding District of Columbia, Alaska, Hawaii to further reduce NAs
+
+```{r}
+
+sdd <- subset(sd1, state != "District of Columbia", na.rm = TRUE ) 
+
+sda <- subset(sdd, state != "Alaska", na.rm = TRUE ) 
+
+sd2 <- subset(sda, state != "Hawaii", na.rm = TRUE ) 
+
+
+```
+
+```{r}
+
+summary(sd2)
+
+```
+
+
+
+
+###Visual description 
+
+Most explanatory variables like econdev, pldvpag, and urbrenen are dummy variables.
+
+```{r}
+ggplot(sd2, aes(x = econdev)) +
+  geom_histogram()
+
+```
+
+
+The exception is policypriorityscore which is normally distributed. 
+```{r}
+
+ggplot(sd2, aes(x = policypriorityscore)) +
+  geom_histogram()
+
+```
+
+
+Control variables  nonwhite, soc_capital_ma, evangelical_pop, pc_inc_ann, gini_coef, hsdiploma, and co2 are normally distributed
+
+```{r}
+
+hist(sd2$nonwhite)
+hist(sd2$soc_capital_ma)
+hist(sd2$soc_capital_ma)
+hist(sd2$evangelical_pop)
+hist(sd2$pc_inc_ann)
+hist(sd2$gini_coef)
+hist(sd2$hsdiploma)
+hist(sd2$co2)
+
+```
+
+
+
+
+Response variables are also linear but st_ec and st_soc are only avaliable for the year 2000
+```{r}
+
+hist(sd2$ideo)
+hist(sd2$st_ec)
+hist(sd2$st_soc)
+
+```
+
+
+The relationship between response st_ec and select explanatory and control variables in scatterplots:
+
+```{r}
+
+ggplot(data = sd2, aes(x = econdev, y = st_ec)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+
+```
+
+
+```{r}
+
+ggplot(data = sd2, aes(x = nonwhite, y = st_ec)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+
+```
+
+
+```{r}
+ggplot(data = sd2, aes(x = co2, y = st_ec)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = F)
+```
+
+With log(co2):
+
+```{r}
+
+ggplot(data = sd2, aes(x = log(co2), y = st_ec)) +
+  geom_point() +
+  geom_smooth(method = 'lm')
+
+
+```
+
+
+
+
+Similar relationship with boxplots:
+
+```{r}
+
+boxplot(st_ec ~ econdev, data = sd2)
+
+
+```
+
+
+```{r}
+
+boxplot(st_ec ~ nonwhite, data = sd2)
+
+```
+
+
+```{r}
+
+boxplot(st_ec ~ co2, data = sd2)
+
+```
+
+
+```{r}
+
+boxplot(st_ec ~ log(co2), data = sd2)
+
+```
+
+
+
+
+# Hypothesis testing
+
+
+
+Our dataset now contains the following variables:
+
+
+Year  1935 - 2000
+
+State 1935 - 2000
+
+
+Explanatory-
+
+Econdev - Did State adopt Strategic Planning for Economic Development? 1981 – 1992
+
+Pldvpag - Did State adopt Planning/Development Agency? 1935 – 1978
+
+Urbrenen - Did State adopt Urban Renewal ?  1941 – 1952 
+
+Policypriorityscore - State Policy Priority Score - collective goods (e.g., education and highways) v particularized benefits (e.g., health care and welfare)  1982-2005
+
+
+Control-
+
+Nonwhite - Proportion of the population that is nonwhite 1974 - 2011 
+
+Soc_capital_ma - Hawes et al. Weighted Moving Average Measure of Social Capital, rate per capita 1984 - 2011
+
+Evangelical_pop - Evangelical Population, rate per capita 1975 - 2013
+
+pc_inc_ann - Per Capita Annual Income, rate per capita 1929 – 2011
+
+Gini_coef - Gini Coefficient 1917 - 2013
+
+Hsdiploma  - High School Diploma, rate per capita 1975 – 2006
+
+Co2 - Total CO2 emissions from fossil-fuels (metric tons), rate per capita  1960 – 2001
+
+
+Response-
+
+Ideo - State Ideology Score 1976 – 2011
+
+st_ec - Mean Economic Liberalism 2000
+
+st_soc - Mean Social Liberalism 2000 
+
+
+
+
+co2emissions was transformed to co2 to change the measure from raw tons to ton per state resident. This enables the variable's unit of measure to align with the units of the other variables used. 
+
+
+
+
+
+We test for the Hypothesis that state social-economic policy interventions have no effect on population policy preferences.
+
+
+Observing the linear regression model with all variables through stargazer shows high p=values for multiple variables and r2 low for most variables with the highest barely above .5. 
+
+```{r}
+
+summary(lm(st_ec ~ co2 + pldvpag, sd2))$fstatistic
+
+
+```
+
+```{r}
+
+install.packages('stargazer')
+library(stargazer)
+
+```
+
+
+```{r}
+
+m1 <- lm(st_ec ~ policypriorityscore, data = sd2)
+m2 <- lm(st_ec ~ policypriorityscore + econdev, data = sd2)
+m3 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag, data = sd2)
+m4 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen, data = sd2)
+m5 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite, data = sd2)
+m6 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma, data = sd2)
+m7 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop, data = sd2)
+m8 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop + pc_inc_ann, data = sd2)
+m9 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop + pc_inc_ann + gini_coef, data = sd2)
+m10 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop + pc_inc_ann + gini_coef + hsdiploma, data = sd2)
+m11 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop + pc_inc_ann + gini_coef + hsdiploma + co2, data = sd2)
+m12 <- lm(st_ec ~ policypriorityscore + econdev + pldvpag + urbrenen + nonwhite + soc_capital_ma + evangelical_pop + pc_inc_ann + gini_coef + hsdiploma + co2 + ideo, data = sd2)
+
+
+
+
+```
+
+```{r}
+
+
+stargazer(m1, m2, m3,m4,m5,m6,m7,m8,m9,m10,m11,m12, type = 'text')
+
+
+```
+
+
+
+Looking at variable correlations there is a potential confounder variable with pc_inc_ann and gini_coef, but neither has high correlation with any other variable.
+```{r}
+
+cor(sd2$pc_inc_ann, sd2$gini_coef)
+
+```
+
+
+
+We instead use the model from model comparison #3 with limited variables:
+
+Must remove state first
+
+```{r}
+
+sd3 = subset(sd2, select = c(year, policypriorityscore, econdev, pldvpag, urbrenen, nonwhite, soc_capital_ma, evangelical_pop, pc_inc_ann, gini_coef, hsdiploma, co2, ideo,st_ec, st_soc))
+
+```
+
+
+selected model - 
+
+```{r}
+
+lm(formula = st_ec ~ policypriorityscore + log(nonwhite) + hsdiploma + 
+    st_soc, data = sd3) |> summary()
+
+
+```
+
+
+Result - We are able to reject the null Hypothesis at the 95% confidence level as a small but statistically significant effect is observed
+
+
+
+
+
+# Model comparison
+
+```{r}
+install.packages("magrittr")
+```
+
+```{r}
+library(magrittr)
+```
+
+
+
+## 1
+
+Cross-validation with training and test set
+
+```{r}
+
+set.seed(1)
+sd2 %>% nrow() %>% multiply_by(0.7) %>% round() -> training_set_size
+train_indices <- sample(1:nrow(sd2), training_set_size)
+train <- sd2[train_indices,]
+test <- sd2[-train_indices,]
+
+
+```
+
+
+```{r}
+
+nrow(train)
+
+```
+
+
+```{r}
+
+nrow(test)
+
+```
+
+
+Base model with all variables
+
+```{r}
+base <- lm(st_ec ~ . , data = train)
+
+```
+
+```{r}
+
+plot(base)
+
+```
+
+
+Attempt to remove state
+
+```{r}
+
+no_region <- lm(st_ec ~ . - state, data = train)
+
+```
+
+
+With interaction term
+
+```{r}
+
+ia <- lm(st_ec ~ . + pc_inc_ann*hsdiploma, data = train)
+
+
+```
+
+
+```{r}
+plot(ia)
+```
+
+
+```{r}
+mean((predict(base, test) - test$st_ec)^2) -> MSE_base
+```
+
+
+```{r}
+mean((predict(no_region, test) - test$st_ec)^2) -> MSE_no_region
+```
+
+
+```{r}
+
+mean((predict(ia, test) - test$st_ec)^2) -> MSE_ia
+
+```
+
+
+```{r}
+
+mean((predict(ia, test) - test$st_ec)^2) -> MSE_ia
+```
+
+
+
+## 2
+
+Backward elimination 
+
+```{r}
+
+lm(st_ec ~ ., data = sd2) |> summary()
+
+```
+
+```{r}
+
+sd3 = subset(sd2, select = c(year, policypriorityscore, econdev, pldvpag, urbrenen, nonwhite, soc_capital_ma, evangelical_pop, pc_inc_ann, gini_coef, hsdiploma, co2, ideo,st_ec, st_soc))
+
+```
+
+
+```{r}
+
+lm(st_ec ~ ., data = sd3) |> summary()
+
+```
+
+
+Inclusion of policypriorityscore, nonwhite, hsdiploma, and st_soc only has the highest adjusted R squared
+
+```{r}
+
+lm(st_ec ~ .-econdev -pldvpag -urbrenen -soc_capital_ma -evangelical_pop -pc_inc_ann -gini_coef -co2 -ideo , data = sd3) |> summary()
+
+```
+
+
+
+## 3
+
+Forward selection
+
+```{r}
+
+lm(st_ec ~ policypriorityscore , data = sd3) |> summary()
+
+
+```
+
+```{r}
+
+lm(st_ec ~ policypriorityscore + econdev, data = sd3) |> summary()
+
+
+```
+
+```{r}
+
+lm(st_ec ~ policypriorityscore + pldvpag, data = sd3) |> summary()
+
+
+```
+
+
+Evangelical_pop is does not increase p-value
+```{r}
+
+lm(st_ec ~ policypriorityscore + evangelical_pop, data = sd3) |> summary()
+
+```
+
+
+All other additions increase p-value
+```{r}
+
+lm(st_ec ~ policypriorityscore + evangelical_pop + pc_inc_ann, data = sd3) |> summary()
+
+```
+
+
+
+##4 
+
+Log-linear transformation
+
+```{r}
+lm(log(st_ec) ~ .-econdev -pldvpag -urbrenen -soc_capital_ma -evangelical_pop -pc_inc_ann -gini_coef -co2 -ideo , data = sd3) |> summary()
+
+```
+
+
+
+##5
+
+Linear-log
+
+```{r}
+lm(st_ec ~ log(policypriorityscore) + nonwhite + hsdiploma + st_soc , data = sd3) |> summary()
+
+
+```
+
+
+Linear-log for nonwhite only results in highest adjusted R-squared
+
+```{r}
+lm(st_ec ~ policypriorityscore + log(nonwhite) + hsdiploma + st_soc , data = sd3) |> summary()
+
+
+```
+
+
+
+##6
+
+Two Period Panel data comparing 1990 and 2000 
+
+```{r}
+
+
+sd1990 <- subset(sd2, year = 1990, na.rm = TRUE ) 
+
+sd2000 <- subset(sd2, year = 1990, na.rm = TRUE ) 
+
+
+
+```
+
+```{r}
+
+diff_ideo <- sd2000$ideo - sd1990$ideo
+diff_econdev<- sd2000$econdev - sd1990$econdev
+
+```
+
+
+```{r}
+install.packages("AER")
+install.packages("plm")
+
+
+```
+
+
+```{r}
+library(AER)
+library(plm)
+
+```
+
+
+Estimating a regression using differenced data
+
+```{r}
+
+ideo_mod <- lm(diff_ideo ~ diff_econdev)
+
+coeftest(ideo_mod, vcov = vcovHC, type = "HC1")
+
+```
+
+
+```{r}
+# plot the differenced data
+plot(x = diff_econdev, 
+     y = diff_ideo, 
+     xlab = "Change in econdev",
+     ylab = "Change in ideo",
+     main = "Changes in Economic Development Agency Presence and Ideology in 1990-2000",
+     xlim = c(-0.6, 0.6),
+     ylim = c(-1.5, 1),
+     pch = 20, 
+     col = "steelblue")
+
+# add the regression line to plot
+abline(ideo_mod, lwd = 1.5)
+```
+
+
+
+##7
+
+Estimating a combined time and entity fixed effects regression model 
+
+```{r}
+
+
+ideo_lm_mod <- lm(ideo ~ econdev + state + year - 1, data = sd2)
+ideo_lm_mod
+
+```
+
+
+```{r}
+ideo_mod <- plm(ideo ~ econdev, 
+                      data = sd2,
+                      index = c("state", "year"), 
+                      model = "within", 
+                      effect = "twoways")
+
+coeftest(ideo_mod, vcov = vcovHC, type = "HC1")
+```
+
+
+Checking the class of state and year
+
+```{r}
+
+class(sd2$state)
+
+class(sd2$year)
+
+```
+
+
+Changing to factors 
+
+```{r}
+
+state1 <- as.factor(sd2$state)
+
+year1 <- as.factor(sd2$year)
+
+```
+
+
+
+```{r}
+ideo_mod <- plm(ideo ~ econdev, 
+                      data = sd2,
+                      index = c("state", "year"), 
+                      model = "within", 
+                      effect = "twoways")
+
+coeftest(ideo_mod, vcov = vcovHC, type = "HC1")
+```
+
+
+```{r}
+
+class(ideo_lm_mod)
+
+```
+
+
+Results in very high p-value
+
+```{r}
+
+coeftest(ideo_lm_mod, vcov = vcovHC, type = "HC1")[1, ]
+
+```
+
+
+
+# Diagnostic 
+
+
+Diagnostic plots for selected model #3 
+
+
+```{r}
+
+stEcLm <- lm(formula = st_ec ~ policypriorityscore + log(nonwhite) + hsdiploma + 
+    st_soc, data = sd3)
+
+```
+
+
+```{r}
+
+par(mfrow = c(2,3)); plot(stEcLm, which = 1:6) 
+
+```
+
+
+
