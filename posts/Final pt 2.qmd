@@ -1,0 +1,160 @@
+---
+title: "Final Project Proposal"
+author: "Lindsay Jones"
+editor: visual
+description: Initial proposal for my final project
+date: "11/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart2
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+```
+
+## Part 1
+
+### Research Question
+
+In the United States, wage stagnation has become a hot-button issue for many people in various fields of employment. Graduate students have been at the center of this issue in recent years- strikes for wage increases and cost-of-living adjustments have taken place at multiple universities throughout the country. Because PhD students often do not have the time to earn extra income (and their contracts often prohibit them from pursuing work elsewhere), how much they will earn from their stipend is a huge factor in considering where to pursue their research (Powell, 2004; Soar et al., 2022). Knowing how much My research question is: **Is university ownership status (public vs. private) a predictor of the value of a PhD stipend?**
+
+### Hypothesis
+
+**H₀:University ownership status is a predictor of the value of a PhD stipend.**
+
+**H₁: University ownership status is not a predictor of the value of a PhD stipend.**
+
+### Dataset
+
+This dataset is comprised of self-reported survey data collected by PhDStipends.com. Respondents are asked their university, department, academic year, and year in the program. They are also asked whether they receive a 12-month or 9-month salary, gross pay, and required fees. PhDStipends automatically calculates the LW Ratio (living wage ratio), which is the stipend divided by the living wage of the county the university is located in.
+
+In addition to this information, I also manually categorized universities by their ownership status as public or private, and assigned each program to 1 of five broader academic disciplines: Business/Policy, Social Science, Natural Science, Formal Science, and Humanities. Due to a computer issue much of my work was lost, so the dataset is currently incomplete. The analysis that follows is based on the information I was able to recover or reenter within a reasonable period of time.
+
+The variables of interest for me are the ownership status, gross pay, program year, and academic discipline.
+
+```{r}
+library(readr)
+csv <- read_csv("~/School/UMASS/DACSS 603/Final Project/csv.csv")
+summary(csv)
+```
+
+```{r}
+print(summarytools::dfSummary(csv,
+                              varnumbers = FALSE,
+                              plain.ascii  = FALSE,
+                              style        = "grid",
+                              graph.magnif = 0.70,
+                              valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+```
+
+## Part 2
+
+### Visualizations
+
+I'll start with a histogram of all stipends, regardless of university ownership status.
+
+```{r}
+viz <- csv %>% filter(Status %in% c("Public", "Private")) 
+
+hist(viz$Pay, breaks = 10)
+```
+
+The distribution appears somewhat normal, with annual pay most frequently in the range of \$20,000 to \$30,000 annually.
+
+Next I will generate 2 boxplots: one for public universities, and one for private.
+
+```{r}
+viz %>%
+  ggplot(
+    aes(x=Status, y=Pay, fill=Status)) +
+    geom_boxplot()
+```
+
+There are quite a few outliers for both categories, but we can see that median pay is higher in private universities than in public universities. There are also significantly more outliers below the 1st quartile in private universities than in public.
+
+### Hypothesis Testing
+
+-   Explanatory Variable: Ownership Status (Status)
+
+-   Response Variable: Gross Pay (Pay)
+
+-   Control Variable: Academic Discipline (Category), Program Year (ProgYear)
+
+First I will run a model for gross pay, using as.factor() to convert ownership status into dummy variables.
+
+```{r}
+fit1=lm(Pay ~ as.factor(Status), data = csv)
+summary(fit1)
+```
+
+Based on the p-values, it does seem that ownership status is statistically significant with regards to pay. Now I will plot this model.
+
+Next I will create a model adding the control variable "Category" (academic discipline).
+
+```{r}
+fit2=lm(Pay ~ as.factor(Status) + Category, data = csv)
+summary(fit2)
+```
+
+Formal Science, Humanities, and Natural Science all appear to be statistically significant. However, "Category0" is likely skewing the data, as this includes degree programs I have yet to assign to a category. The R-squared value here is higher than the previous model; however, due to the incomplete data, I will take this with a grain of salt.
+
+Next I will create a model adding the control variable "ProgYear" (program year).
+
+```{r}
+fit3=lm(Pay ~ as.factor(Status) + ProgYear, data = csv)
+summary(fit3)
+```
+
+Program year does appear to be statistically significant. R-squared is comparable to the original model.
+
+Finally, I will create a model using both control variables.
+
+```{r}
+fit4=lm(Pay ~ as.factor(Status) + Category + ProgYear, data = csv)
+summary(fit4)
+```
+
+In this model, the disciplines of Business/Policy and Formal Science are the only ones which are not statistically significant.
+
+```{r}
+par(mfrow= c(2,3)); plot(fit1, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit2, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit3, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit4, which=1:6)
+```
+
+The large number of categorical variables in my data makes plotting any model challenging, but from what I can see the fit is not great for any model. I am curious if a logit model would produce better results.
+
+## Summary
+
+I need to reevaluate some of my variables and data and see if I can come up with a way to transform the data so that the models can be improved. I may experiment with relevel() and see if that has any effect. I also have yet to try an F-test.
+
+Also, as previously mentioned, my data is incomplete- finishing the categorization of each degree program may improve my results.
+
+### References
+
+*Living Wage Calculator*. (n.d.). Retrieved October 10, 2022, from <https://livingwage.mit.edu/>
+
+Powell, K. Stipend survival. Nature 428, 102--103 (2004). <https://doi.org/10.1038/nj6978-102a>
+
+Emily Roberts & Kyle Roberts. (2022, October 10). PhD stipends [Dataset]. <http://www.phdstipends.com/csv>
+
+Soar, M., Stewart, L., Nissen, S. et al. Sweat Equity: Student Scholarships in Aotearoa New Zealand's Universities. NZ J Educ Stud (2022). <https://doi.org/10.1007/s40841-022-00244-5>
