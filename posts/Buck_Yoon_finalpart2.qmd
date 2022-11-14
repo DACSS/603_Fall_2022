@@ -1,0 +1,217 @@
+---
+title: "finalpart2"
+editor: visual
+date: "11/10/22"
+author: "Shoshana Buck & Roy Yoon"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+tags: 
+  - final project part 2
+  - Buck
+  - Yoon
+  - physiological 
+  - ICPSR
+  - Longitudinal 
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(gapminder)
+library(readr)
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+```
+
+## Research Question
+
+we are going to be using the [National Longitudinal Study of Adolescent to Adult Health, 1994-2018](https://www.icpsr.umich.edu/web/ICPSR/studies/21600.) we are interested in exploring the relation between education levels and health.
+
+# Some of our research questions are:
+
+What is the correlation and relationship between someone's education and health? Does the type and duration of education matter? Are there fields that may be "more healthy"? How does the relationship between education and health differ among the education levels/ is there a difference?
+
+What does this data set have to say to a possible causal link between education and health? Does the data set provide apt data to establish a causal link?
+
+## Hypothesis
+
+We are going to be using the hypothesis from researchers **Eric R. Ride** and **Mark H. Showalter**, but using the data from the *National Longitudinal Study*
+
+There hypothesis was: 'The empirical link between education and health is firmly established. Numerous studies document that higher levels of education are positively associated with longer life and better health throughout the lifespan...But measuring the causal links between education and health is a more challenging task." [Estimating the relation between health and education: what do we know and what do we need to know?](linkhttps://www.sciencedirect.com/science/article/pii/S0272775711000525)
+
+We are hypothesizing that a positive correlation exists between education and health; the more education an individual receives, the better health the individual may have.
+
+We want to look at the *National Longitudinal Study of Adolescent to Adult Health 1992-2018* and observe what other factors beyond education there is that can affect the correlation to health. What are the potential moderating or mediating variables?
+
+## Descriptive Statistics
+
+This is an overview of the entire data set we are still determining which specific sections we want to analyze for our final project.
+
+According to [ICPSR](https://www.icpsr.umich.edu/web/ICPSR/studies/21600.):
+
+**Study Purpose**: Add Health was developed in response to a mandate from the U.S. Congress to fund a study of adolescent health. Waves I and II focused on the forces that may influence adolescents' health and risk behaviors, including personal traits, families, friendships, romantic relationships, peer groups, schools, neighborhoods, and communities. As participants aged into adulthood, the scientific goals of the study expanded and evolved. Wave III explored adolescent experiences and behaviors related to decisions, behavior, and health outcomes in the transition to adulthood. Wave IV expanded to examine developmental and health trajectories across the life course of adolescence into young adulthood, using an integrative study design which combined social, behavioral, and biomedical measures data collection. Wave V aimed to track the emergence of chronic disease as the cohort aged into their 30s and early 40s.
+
+**Study Design:** Add health is a school-based longitudinal study of a nationally-representative sample of adolescents in grates 7-12 in the United States in 1945-45. Over more than 20 years of data collection, data have been collected from adolescents, their fellow students, school administrators, parents, siblings, friends, and romantic partners through multiple data collection components. In addition, existing databases with information about respondents' neighborhoods and communities have been merged with Add Health data, including variables on income poverty, unemployment, availability and utilization of health services, crime, church membership, and social programs and policies.
+
+**Sample:**
+
+-   **Wave I:** The **Stage 1** in-school sample was a stratified, random sample of all high schools in the United States. A school was eligible for the sample if it included an 11th grade and had a minimum enrollment of 30 students. A feeder school -- a school that sent graduates to the high school and that included a 7th grade -- was also recruited from the community. The in-school questionnaire was administered to more than 90,000 students in grades 7 through 12. The Stage 2 in-home sample of 27,000 adolescents consisted of a core sample from each community, plus selected special over samples. Eligibility for over samples was determined by an adolescent's responses on the in-school questionnaire. Adolescents could qualify for more than one sample.
+
+-   **Wave II**: The Wave II in-home interview surveyed almost 15,000 of the same students one year after Wave I.
+
+-   **Wave III**: The in-home Wave III sample consists of over 15,000 Wave I respondents who could be located and re-interviewed six years later.
+
+-   **Wave IV**: All original Wave I in-home respondents were eligible for in-home interviews at Wave IV. At Wave IV, the Add Health sample was dispersed across the nation with respondents living in all 50 states. Administrators were able to locate 92.5% of the Wave IV sample and interviewed 80.3% of eligible sample members.
+
+-   **Wave V:** All Wave I respondents who were still living were eligible at Wave V, yielding a pool of 19,828 persons. This pool was split into three stratified random samples for the purposes of survey design testing.
+
+-   **Time Method:** Longitudinal:Panel
+
+-   **Universe:** Adolescents in grades 7 through 12 during the 1994-1995 school year. Respondents were geographically located in the United States.
+
+-   **Units of Observation**: Individual
+
+-   **Data Types:** Survey Data
+
+-   **Time periods**: 1994 - 2018
+
+-   **Date of Collections:** Wave 1(1994-01 - 1995-12), Wave II(1996-04 - 1996-09), Wave III(2001-04 - 2002 -04), Wave IV(2007-04 - 2009-01), Wave V(2016-03 - 2018-11)
+
+-   **Response Rates:** Wave 1(79%), Wave 2(88.6%), Wave III(77.4%), Wave IV(80.3%), Wave V(71.8%).
+
+## Part 2
+
+# Explanatory and Outcome Variable
+
+In the longitudinal study, a range of data was collected through an in-school questionnaire and in-home interviews. We are looking at wave V of the data, which was collected in 2016-2018 when respondents were 33 to 43 years old. Within wave V we are looking at DS35 (Wave V: Biomarkers, Cardiovascular Measures), DS38 Wave V: Biomarkers, Measures of Inflammation and Immune Function), DS39 (Wave V: Biomarkers, Lipids), and DS40 (Wave V: Biomarkers, Medication Use).
+
+in our study, health is the outcome variable that looks at respondents' social, economic, psychological, and physical well-being with contextual data on the family, neighborhood, community, school, friendships, peer groups, and romantic relationships. Health questions would develop as the students got older. For example, in wave V the respondents tracked any new chronic diseases that the cohort experienced as they were older
+
+We look at education level and history as our explanatory variable. Previous research has already well established a positive correlation between the years of education and overall health. However, a causal relationship, is difficult to solidify with correlation alone. We aim to use our explanatory variable, years of education, to examines if there are potential moderating variables such as the various physiological data reported in our data to aim at a better chance of a potential causal relationship.
+
+# Cardiovascular
+
+Looking at classification of blood pressure to the guidelines of prevention, detection, evaluation, and management of high blood pressure in adults to the pulse pressure(systolic and diastolic) controlled for mean arterial pressure(the weighted sum of systolic and diastolic blood pressure measure).
+
+The classification of blood pressure gives a generalization of the health consequences, however it is important to examine the pulse pressures within those classifications. The mean arterial pressure is the weighted sum of the systolic and diastolic blood pressures. We aimed to get a more comprehensive understanding of cardiovascular health to education and mental health. More specifically, we wanted to explore if there is potential space for our research to find moderating variables in the cardiovascular data reported. Looking at this relationship, though may not be causal, will better help us scope our research to examine uncustomary correlations in physiological health, mental health, and education levels.
+
+```{r load data}
+
+# loading data
+WaveV_DS35<- load("~/Documents/603/603_Fall_2022/posts/_data/ICPSR_21600/DS0035/21600-0035-Data.rda")
+
+#cardiovascular 
+
+WaveV_DS35 <- (da21600.0035)
+
+WaveV_DS35
+
+summary(WaveV_DS35)
+
+e<-lm(H5PP ~ H5BPCLS5 + H5MAP, data = WaveV_DS35)
+
+summary(e)
+
+```
+
+# Inflammation and Immune Function
+
+Looking at potential regression for c-reactive protein to the classification of HSCRP.
+
+Looking at this relationship will help us better understand if there is a significance between the reactive protein to the classification; we can use this model to connect it to the relationship between health, specifically in the realm of inflammation and education. We wanted to examine if there would be a correlation between inflammation reporting, education, and overall health. Looking at this relationship can help us better determine if this categorization of health is significant to compare to our explanatory variable of education.
+
+```{r}
+#inflammation and immune function
+
+WaveV_DS38<- load("~/Documents/603/603_Fall_2022/posts/_data/ICPSR_21600/DS0038/21600-0038-Data.rda")
+
+WaveV_DS38 <- (da21600.0038)
+
+WaveV_DS38
+
+summary(WaveV_DS38)
+
+
+b<-lm(H5CCRP ~ H5CRP, data = WaveV_DS38)
+
+summary(b)
+
+```
+
+# Lipids
+
+Examine the relationship between total cholesterol and low density lipo-protein cholesterol.
+
+We continued to explore potential moderating variable relations in health and education. There is a vast amount of data published on lipid health for the participants. We wanted to see if examining lipid levels, specifically cholesterol, would be a significant factor to examine in our overall exploration of the relationship of health and education. Lipid levels, though not a direct cause, could have an unevaluated/unexplored correlation. We will further explore the data to understand the potential significance/correlation of lipid levels to mental health and education, and if there even is potential correlation to be examined.
+
+```{r}
+
+#lipids
+WaveV_DS39<- load("~/Documents/603/603_Fall_2022/posts/_data/ICPSR_21600/DS0039/21600-0039-Data.rda")
+
+WaveV_DS39 <- (da21600.0039)
+
+WaveV_DS39
+
+summary(WaveV_DS39)
+
+c <-lm(H5LDL~ H5TC, data = WaveV_DS39)
+
+summary(c)
+
+
+```
+
+# Medication Use
+
+Looking at the total number of prescription medication over a month to the anti-inflammatory classification controlled for the immunosuppresivity capability of the medication.
+
+We wanted to explore the efficacy of anti-inflammatory medication when controlled for the immunosuppresivity capability. These medications depending on their concentration have stratified efficacies to someone's health. The data reported looks at a short term efficacy over one month, and examines a correlation between the total number of prescription medication over a month to the anti-inflammatory classification. Looking at this relationship is interesting to us as we can see how this correlation does or does not follow the previous examining of measures of inflammation and immune function. We will narrow our variables to see if certain diseases and medication classified have significant effects.
+
+```{r}
+
+#medication use
+WaveV_DS40<- load("~/Documents/603/603_Fall_2022/posts/_data/ICPSR_21600/DS0040/21600-0040-Data.rda")
+
+WaveV_DS40 <- (da21600.0040)
+
+WaveV_DS40
+
+summary(WaveV_DS40)
+
+d <-lm(H5ECRP8 ~ H5MEDTOT + H5ECRP7, data = WaveV_DS40)
+
+summary(d)
+
+```
+
+```{r remove NA}
+
+#Remove NA
+
+WaveV_DS35_NA <- WaveV_DS35 %>%
+  na.omit()
+
+WaveV_DS38_NA <- WaveV_DS38 %>%
+  na.omit()
+
+WaveV_DS39_NA <- WaveV_DS39 %>%
+  na.omit()
+
+WaveV_DS40_NA <- WaveV_DS40 %>%
+  na.omit()
+
+
+```
+
+
+
+We will further our research by running comparative regression models.

@@ -1,0 +1,745 @@
+---
+title: "Final Project"
+author: "Ethan Campbell"
+description: "Climate region effect on state economies"
+date: "10/15/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - finalpart1
+---
+
+# Introduction
+
+Extensive research has been done on climate change and economic changes respectively but there is not a significant amount of research about their relation towards one another. There are research papers that touch on this but in different aspects and focus more on other factors like political aspects. I would like to look a little broader and look at the difference between each climate zone and their economic differences. This can be taken with a grain of salt as there are many factors that could effect the economic situation being left out. The data was pulled from NASA's POWER data access viewer; here I pulled the data by region since pulling the whole country in one go was unavailable. Thus, I will conduct research on each region respectively and then compare the results. This study will be conducted on the Köppen climate classification scale to determine climate types for study. I will keep the this one the first level of the scale as further scaling would take significantly more time to process.
+
+## Köppen climate classification
+
+There are three levels to this climate classification the first scale is the 5 main climate groups A(tropical), B(Arid), C(Temperate), D(Continental), and E(Polar), the second layer is the seasonal precipitation type, and the final layer indicates the heat levels. Through this three layer system that was created by Wladimir Köppen in 1884 we are able to accurately dial in on a specific climate type. getwd() ![Climate Classification](/images/koppen.png)
+
+::: callout-note
+## Research Questions
+
+A. Is there a relation between climate zone and economic growth?
+
+B. Do Southern climates have the largest economic growth?
+:::
+
+# Hypothesis
+
+My hypothesis is testing if there is an impact since certain climates effect the type of labor, conditions, longevity of materials, abundance of materials, and it alters the level of difficult of human growth. This study will focus more on generating climate regions and comparing the economic status within each region and try to identify trends that are occurring. I believe the regions with the biggest economic growth would be the south with their flatter lands or the west coast since its climate is good for technological advances.
+
+The hypothesis will be tested as follows:
+
+::: callout-tip
+## H~0A~
+
+Climate region differences [will not]{.underline} be predictors of economical change.
+:::
+
+::: callout-tip
+## H~1A~
+
+Climate region differences [will]{.underline} be predictors of economical change.
+:::
+
+::: callout-tip
+## H~0A~
+
+Southern climates [will not]{.underline} show greater economic growth.
+:::
+
+::: callout-tip
+## H~1A~
+
+Southern climates [will]{.underline} show greater economic growth.
+:::
+
+# Analytical Planning
+
+```{mermaid}
+flowchart LR
+  A[Importing Data] --> B(Data Cleaning)
+  B --> C[Descriptive Statistics]
+  C --> D(Hypothesis testing)
+  D --> E[Regression Analysis 1]
+  E --> F[Research Question 1]
+  F --> G{Conclusion}
+  D --> H[Regression Analysis 2]
+  H --> I[Research Question 2]
+  I --> G{Conclusion}
+```
+
+# Library
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(kableExtra)
+library(lubridate)
+library(plyr)
+```
+
+# Descriptive statistics
+
+## Reading in the data
+
+Data was collected
+
+```{r}
+# Reading in all the weather data 
+
+Amherst <- read.csv("_data/amherst.csv", skip = 14)
+Florida <- read.csv("_data/flordia.csv", skip = 14)
+Illinois <- read.csv("_data/illinois.csv", skip = 14)
+Middle <- read.csv("_data/middle.csv", skip = 14)
+Newmexico <- read.csv("_data/Newmexico.csv", skip = 14)
+North <- read.csv("_data/North.csv", skip = 14)
+South <- read.csv("_data/South.csv", skip = 14)
+SouthCali <- read.csv("_data/SouthCali.csv", skip = 14)
+Texas <- read.csv("_data/Texas.csv", skip = 14)
+Washington <- read.csv("_data/washington.csv", skip = 14)
+WestV <- read.csv("_data/WestV.csv", skip = 14)
+
+```
+
+### Amherst
+
+Had trouble with pivot_wider since it would split the values up by each name but then would fill in the values with NA for the other sections. This added a ton of NA values that one looked bad and were hard to deal with. I had to go a more manual way and do it for each part of PARAMETER to get the exact number of rows I needed. This stopped the NA values and got them all lined up so it reduced the size of the document from 500k+ rows to 89290 rows. This is huge in terms of running the data and working with it. Finally, I just merged the data together and then I was able to rename all the columns and start regression analysis.
+
+```{r}
+
+# Bringing all the month columns into one column
+region <- Amherst %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+
+# trying to create a function that would apply to all regions
+tidy_function <- function(region, Tidy_region, t2m, rh2m, wh10m, wh50m, PRECTOTCORR){
+  Tidy_region <- region %>%
+  select(PARAMETER, Month_Average, YEAR, LAT, LON, MONTH) %>%
+  filter(PARAMETER == 'PS')
+  Tidy_region <- Tidy_region %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  Tidy_region <- Tidy_region %>%
+  select(PS, YEAR, MONTH, LAT, LON)
+  t2m <- region %>%
+  select(PARAMETER, Month_Average, YEAR) %>%
+  filter(PARAMETER == 'T2M')
+  t2m <- t2m %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  t2m <- t2m %>%
+  select(T2M, YEAR)
+  Tidy_region$T2M <- t2m$T2M
+  rh2m <- region %>%
+  select(PARAMETER, Month_Average, YEAR, LAT) %>%
+  filter(PARAMETER == 'RH2M')
+  rh2m <- rh2m %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  rh2m <- rh2m %>%
+  select(RH2M, YEAR)
+  Tidy_region$RH2M <- rh2m$RH2M
+  wh10m <- region %>%
+  select(PARAMETER, Month_Average, YEAR, LAT) %>%
+  filter(PARAMETER == 'WS10M')
+  wh10m <- wh10m %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  wh10m <- wh10m %>%
+  select(WS10M, YEAR)
+  Tidy_region$WS10M <- wh10m$WS10M
+  wh50m <- region %>%
+  select(PARAMETER, Month_Average, YEAR, LAT) %>%
+  filter(PARAMETER == 'WS50M')
+  wh50m <- wh50m %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  wh50m <- wh50m %>%
+  select(WS50M, YEAR)
+  Tidy_region$WS50M <- wh50m$WS50M
+  PRECTOTCORR <- region %>%
+  select(PARAMETER, Month_Average, YEAR, LAT) %>%
+  filter(PARAMETER == 'PRECTOTCORR')
+  PRECTOTCORR <- PRECTOTCORR %>%
+  group_by(PARAMETER) %>%
+  dplyr::mutate(row = row_number()) %>%
+  tidyr::pivot_wider(names_from = PARAMETER, values_from = Month_Average) %>%
+  select(-row)
+  PRECTOTCORR <- PRECTOTCORR %>%
+  select(PRECTOTCORR, YEAR)
+  Tidy_region$PRECTOTCORR <- PRECTOTCORR$PRECTOTCORR
+  # renaming all the variables to easier to digest names
+  Tidy_region <- Tidy_region %>%
+  dplyr::rename(Temperature = T2M) %>%
+  dplyr::rename(Humidity = RH2M) %>%
+  dplyr::rename(Wind_10_meter = WS10M) %>%
+  dplyr::rename(Surface_Pressure = PS) %>%
+  dplyr::rename(Wind_50_meter = WS50M) %>%
+  dplyr::rename(Precipitation = PRECTOTCORR) %>%
+  dplyr::rename(Latitude = LAT) %>%
+  dplyr::rename(Longitude = LON) %>%
+  dplyr::rename(Month = MONTH) %>%
+  dplyr::rename(Year = YEAR)
+}
+
+Amherst <- tidy_function(region)
+
+## Getting them in clean looking order
+Amherst <- Amherst %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+
+Amherst <- Amherst %>%
+  mutate(Temperature = Temperature* 9/5 + 32)
+
+view_amherst <- Amherst %>%
+  slice(1:10)
+
+kable(view_amherst, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Amherst Data") %>%
+  kable_styling(font_size = 16)
+
+
+# aggregate the months into 1 year
+# Converting abbreviation to normal word
+Weather_region_Amherst$Month <- mapvalues(Weather_region_Amherst$Month, from = c("NOV", "JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "DEC"), to = c("November", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "December"))
+
+# Change word to numeric value
+Weather_region_Amherst <- Weather_region_Amherst %>%
+  mutate(Month = recode(Month,
+                        January = 1,
+                        February = 2,
+                        March = 3,
+                        April = 4,
+                        May = 5,
+                        June = 6,
+                        July = 7,
+                        August = 8,
+                        September = 9,
+                        October = 10,
+                        November = 11,
+                        December = 12))
+
+# Changing from year month to date column
+
+Weather_region_Amherst$Date <- with(Weather_region_Amherst, ym(sprintf('%04d%02d', Year, Month)))
+
+Year <- format(as.Date(Weather_region_Amherst$Date), format = "%Y")
+
+Weather_region_Amherst %>%
+  group_by(Latitude, Longitude) %>%
+  mutate(Annual_Temperature = mean(Temperature),
+      Annual_Humidity = mean(Humidity),
+      Annual_Precipitation = sum(Precipitation))
+
+# creating the mean value for each long and lat for each variable
+Means_variables <- ddply(Weather_region_Amherst, .(Year, Latitude, Longitude), summarise,
+      Annual_Temperature = mean(Temperature),
+      Annual_Humidity = mean(Humidity),
+      Annual_Precipitation = sum(Precipitation),
+      Average_Pressure = mean(Surface_Pressure),
+      Average_Wind_10Meter = mean(Wind_10_meter),
+      Average_Wind_50Meter = mean(Wind_50_meter))
+
+# Creating the regions based on longitude and latitude 
+Weather_region_Amherst <- Means_variables %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+
+data <- merge(Means_variables, Economy)
+
+data <- data %>%
+  distinct(Annual_Temperature, Annual_Humidity, Annual_Precipitation, Year_Money_Millions)
+
+
+
+
+
+cor(data$Year_Money_Millions ~ data$Annual_Temperature)
+
+
+test <- lm(Year_Money_Millions ~ log(Annual_Temperature), data = data)
+
+summary(test)
+
+plot(test)
+
+corrplot(data)
+
+plot(Year_Money_Millions ~ Annual_Temperature + Annual_Humidity + Annual_Precipitation, 
+     data = data, 
+     col = "steelblue", 
+     pch = 20, 
+     xlim = c(0, 100),
+     cex.main = 0.9,
+     main = "Percentage of English language learners")
+# Creating weather types
+
+# Creating the 4 regions 
+```
+
+### Florida
+
+```{r}
+
+region <- Florida %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+
+
+Florida <- tidy_function(region)
+Florida <- Florida %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(Florida)
+
+view_Florida <- Florida %>%
+  slice(1:10)
+
+kable(view_Florida, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Florida Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Florida <- Florida %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Florida
+
+```
+
+### Illinois
+
+```{r}
+
+
+region <- Illinois %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+
+
+Illinois <- tidy_function(region)
+
+Illinois <- Illinois %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(Illinois)
+
+view_Illinois <- Illinois %>%
+  slice(1:10)
+
+kable(view_Illinois, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Illinois Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Illinois <- Illinois %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Illinois
+```
+
+### Middle
+
+```{r}
+region <- Middle %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+
+Middle <- tidy_function(region)
+
+Middle <- Middle %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(Middle)
+
+view_Middle <- Middle %>%
+  slice(1:10)
+
+kable(view_Middle, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Middle Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Middle <- Middle %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Middle
+```
+
+### New Mexico
+
+```{r}
+region <- Newmexico %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+
+New_Mexico <- tidy_function(region)
+
+New_Mexico <- New_Mexico %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(New_Mexico)
+
+view_Newmexico <- New_Mexico %>%
+  slice(1:10)
+
+kable(view_Newmexico, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Amherst Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Newmexico <- New_Mexico %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Newmexico
+```
+
+### North
+
+```{r}
+region <- North %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+North <- tidy_function(region)
+
+North <- North %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(North)
+
+view_North <- North %>%
+  slice(1:10)
+
+kable(view_North, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Northern Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_North <- North %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_North
+```
+
+### South
+
+```{r}
+
+region <- South %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+South <- tidy_function(region)
+
+South <- South %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(South)
+
+view_South <- South %>%
+  slice(1:10)
+
+kable(view_South, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Southern Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_South <- South %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_South
+```
+
+### South California
+
+```{r}
+
+region <- SouthCali %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+South_California <- tidy_function(region)
+
+South_California <- South_California %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(South_California)
+
+view_SouthCali <- South_California %>%
+  slice(1:10)
+
+kable(view_SouthCali, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "South California Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_SouthCali <- South_California %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_SouthCali
+```
+
+### Texas
+
+```{r}
+
+region <- Texas %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+Texas <- tidy_function(region)
+
+Texas <- Texas %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(Texas)
+
+view_Texas <- Texas %>%
+  slice(1:10)
+
+kable(view_Texas, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Texas Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Texas <- Texas %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Texas
+```
+
+### Washington
+
+```{r}
+
+region <- Washington %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+Washington <- tidy_function(region)
+
+Washington <- Washington %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(Washington)
+
+view_Washington <- Washington %>%
+  slice(1:10)
+
+kable(view_Washington, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "Washington Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_Washington <- Washington %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_Washington
+```
+
+### West Virgina
+
+```{r}
+
+region <- WestV %>%
+pivot_longer(
+  cols = c(NOV, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, DEC),
+  names_to = "MONTH",
+  values_to = "Month_Average",
+)
+West_Virginia <- tidy_function(region)
+
+West_Virginia <- West_Virginia %>%
+  select(Year, Month, Latitude, Longitude, Temperature, Humidity, Precipitation, Surface_Pressure, Wind_10_meter, Wind_50_meter)
+
+summary(West_Virginia)
+
+view_WestV <- West_Virginia %>%
+  slice(1:10)
+
+kable(view_WestV, digits = 2, align = "ccccccc", col.names = c("Year", "Month", "Latitude", "Longitude", "Temperature", "Humidity", "Precipitation", "Surface Pressure", "Wind 10 Meters", "Wind 50 Meters"), caption = "West Virginia Data") %>%
+  kable_styling(font_size = 16)
+
+Weather_region_WestV <- West_Virginia %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+Weather_region_WestV
+```
+
+### State Economy data
+
+The economic data is pulled from the Bureau of Economic Analysis (Analysis, n.d.). This data is the ins, outs, and the difference between the former two in income by state. The data ranges from 1990 to 2020 and covers every state in the US.
+
+```{r}
+
+
+# Reading in economic data
+
+Economy <- read.csv("_data/Economy.csv")
+
+# Renaming the columns to remove the X
+Economy <- Economy %>%
+  dplyr::rename('1990' = X1990) %>%
+  dplyr::rename('1991' = X1991) %>%
+  dplyr::rename('1992' = X1992) %>%
+  dplyr::rename('1993' = X1993) %>%
+  dplyr::rename('1994' = X1994) %>%
+  dplyr::rename('1995' = X1995) %>%
+  dplyr::rename('1996' = X1996) %>%
+  dplyr::rename('1997' = X1997) %>%
+  dplyr::rename('1998' = X1998) %>%
+  dplyr::rename('1999' = X1999) %>%
+  dplyr::rename('2000' = X2000) %>%
+  dplyr::rename('2001' = X2001) %>%
+  dplyr::rename('2002' = X2002) %>%
+  dplyr::rename('2003' = X2003) %>%
+  dplyr::rename('2004' = X2004) %>%
+  dplyr::rename('2005' = X2005) %>%
+  dplyr::rename('2006' = X2006) %>%
+  dplyr::rename('2007' = X2007) %>%
+  dplyr::rename('2008' = X2008) %>%
+  dplyr::rename('2009' = X2009) %>%
+  dplyr::rename('2010' = X2010) %>%
+  dplyr::rename('2011' = X2011) %>%
+  dplyr::rename('2012' = X2012) %>%
+  dplyr::rename('2013' = X2013) %>%
+  dplyr::rename('2014' = X2014) %>%
+  dplyr::rename('2015' = X2015) %>%
+  dplyr::rename('2016' = X2016) %>%
+  dplyr::rename('2017' = X2017) %>%
+  dplyr::rename('2018' = X2018) %>%
+  dplyr::rename('2019' = X2019) %>%
+  dplyr::rename('2020' = X2020) 
+
+# Pivoting to combine all the years into one column
+Economy <- Economy %>%
+pivot_longer(
+  cols = c('1990', '1991', '1992', '1993', '1994', '1995', '1996', '1997', '1998', '1999', '2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020'),
+  names_to = "Year",
+  values_to = "Yearly_Fianace",
+)
+
+## Change from char to numeric
+Economy$Year <- as.numeric(Economy$Year)
+
+# Changing the finance column to be in millions
+Economy <- Economy %>%
+  mutate(Year_Money_Millions = Yearly_Fianace/1000)
+
+Economy <- Economy %>%
+  select(State, Year, Year_Money_Millions, Description) %>%
+  filter(Description == "Adjustment for residence")
+
+Economy <- Economy %>%
+  mutate(Regions = case_when(
+    Latitude >= 23.25 & Latitude <= 40.75 & Longitude >= -95.5 & Longitude <= -70.5 ~ 'Southeast',
+    Latitude >= 25 & Latitude <= 37 & Longitude >= -114.75 & Longitude <= -95.6 ~ 'Southwest',
+    Latitude >= 32.3 & Latitude <= 49 & Longitude >= -124.36 & Longitude <= -102 ~ 'West',
+    Latitude >= 39.7 & Latitude <= 47.4 & Longitude >= -81 & Longitude <= -66 ~ 'Northeast',
+    Latitude >= 35 & Latitude <= 49 & Longitude >= -104 & Longitude <= -80.5 ~ 'Midwest'
+  ))
+
+```
+
+# References
+
+::: {#refs}
+-   Analysis, B. o. (n.d.). Regional Economic Accounts: Download. Retrieved from BEA: https://apps.bea.gov/regional/downloadzip.cfm
+
+-   Research, NASA Langley. The POWER Project. 08 May 2021. 21 February 2022. https://power.larc.nasa.gov.
+
+("These data were obtained from the NASA Langley Research Center (LaRC) POWER Project funded through the NASA Earth Science/Applied Science Program.")
+:::

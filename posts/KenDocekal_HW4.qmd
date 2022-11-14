@@ -1,0 +1,489 @@
+---
+title: "HW4"
+author: "Ken Docekal"
+desription: "Homework 4"
+date: "11/14/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - Ken Docekal
+
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(AER)
+library(stargazer)
+
+
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Q1
+
+
+# A
+
+```{r}
+
+a <- 1240
+
+b <- 18000
+
+c <- -10536 + 53.8*a + 2.84*b 
+
+c
+
+
+```
+
+```{r}
+
+145000 - 107296
+
+``` 
+
+The predicted selling price is 107296 which makes the residual 37704. This means that our model's estimated sale price of $107296, for a house size of 1240 square feet and lot size  of 18000 square feet, is off from the actual observed price by $37704. 
+
+
+
+# B
+
+With fixed lot size each square-foot increase in home size increases price by $53.80. This is because the variable's coefficient is  53.8 and will therefore only increase by this amount if no factors other than home size are considered by the model.  
+
+
+
+# C
+
+```{r}
+
+53.8/ 2.84
+
+```
+
+If we fix home size, lot size need to increase by 18.94 feet to have the equivalent impact as a one square foot increase in home size. 
+
+
+
+## Q2
+
+
+```{r}
+
+library(alr4) 
+
+data('salary', package = 'alr4')
+
+```
+
+```{r}
+
+summary(salary)
+
+tibble(salary)
+
+```
+
+
+
+# A
+
+
+```{r}
+
+lm(salary ~ sex, data = salary) |> summary()
+
+
+```
+
+Findings indicate a negative relationship of $3340 for females however this result is not significant at the 95% confidence level and the model has low predictive ability as adjusted R-squared is only .05. This is confirmed as p-value is the same because there is only one explanatory variable.
+
+
+```{r}
+
+model <- lm(salary ~ sex, data = salary)
+coeftest(model, vcov. = vcovHC, type = "HC1")
+
+
+```
+
+
+```{r}
+
+model <- lm(salary ~ sex, data = salary)
+confint(model)
+
+
+
+```
+
+
+
+# B
+
+
+```{r}
+
+model <- lm(salary ~ sex + degree + rank + year + ysdeg, data = salary)
+
+confint(model)
+
+```
+
+95% confidence interval for sex controlling for other variables: 
+
+-697.81 to 3030.564
+
+
+
+# C
+
+```{r}
+
+
+ lm(salary ~ sex + degree + rank + year + ysdeg, data = salary) |> summary()
+
+
+```
+
+
+sex 
+The p-value of 0.214 indicates the effect of sex is insignificant at the 95% confidence interval; with all other variables held equal the coefficient indicates an increase of $1166.37 in salary for female sex with a positive slope. 
+
+degreePhD
+The p-value of 0.18 indicates the effect of a PhD degree is insignificant at the 95% confidence interval; with all other variables held equal the coefficient indicates an increase of $1388.61 in salary for PhD holders compared to Masters degree holders with a positive slope.
+
+rank
+Rank values are in relation to the baseline of rankAsst. The p-values of both rankAssoc and rankProf are low enough to indicate significance at the 95% confidence interval; with all other variables held equal the coefficients indicate positive slopes with a salary increase of $5292.36 and $11,118.76 for Associate and Full Professors respectively compared to Assistant Professor salary.
+
+year 
+The p-value of less than .05 indicates the effect of years in current rank is significant at the 95% confidence interval; with all other variables held equal the coefficient indicates a positive slope with an increase of $476.31 in salary per increase in year.
+
+ysdeg 
+The p-value of 0.115 indicates the effect of ysdeg is insignificant at the 95% confidence interval; with all other variables held equal the coefficient indicates an decrease of $124.57 in salary per year since highest degree with a negative slope. 
+
+
+
+# D
+
+
+```{r}
+
+salary$rank <- relevel(salary$rank, ref = "Assoc")
+summary(lm(salary ~ sex + degree + rank + year + ysdeg, data = salary))
+
+
+```
+
+When rank's baseline is changed to Assc we are able to see the values for rankAsst. The coefficient of  -5292.36 indicates a negative relationship with p-value indicating significance at the 95% confidence interval.
+
+
+```{r}
+
+salary$rank <- relevel(salary$rank, ref = "Prof")
+summary(lm(salary ~ sex + degree + rank + year + ysdeg, data = salary))
+
+
+```
+
+When we change the baseline to Prof the model tells us that with other variables equal professor with rank Asst would receive $11,118.76 less salary and a professor with rank Assoc would receive $5826.40 less salary. Both these results are significant at the 95% confidence interval. 
+
+
+
+# E
+
+Rank would be a biased estimator?? multicollinear? 
+
+
+```{r}
+
+lm(salary ~ sex + degree + year + ysdeg, data = salary) |> summary()
+
+```
+Comparing the rank excluded model with a non-excluded model we can see that rank is not multicollinear as each rank variable outcome is significant according to its individual p-value and adjusted R-squared decreases when rank is removed from the model. The rank-included model has relatively greater predictive power.
+
+
+
+
+# F
+
+We can turn ysdeg into a dummy variable dean with 1 if hired after the dean, 0 if hired before the dean.
+
+```{r}
+
+salary$dean <- ifelse(salary$ysdeg <=15, 1, 0)
+tibble(salary)
+
+```
+
+
+
+Multicollinearity check:
+
+```{r}
+
+cor(salary$ysdeg, salary$year)
+
+```
+
+
+```{r}
+
+cor(salary$ysdeg, salary$dean)
+
+```
+
+
+```{r}
+
+cor(salary$year, salary$dean)
+
+```
+
+
+```{r}
+lm(salary ~ sex + degree + year + rank + ysdeg + dean, data = salary) |> summary()
+
+```
+
+```{r}
+
+lm(salary ~ sex + degree + rank + dean, data = salary) |> summary()
+
+```
+
+
+
+Selected model excluding ysdeg:
+
+```{r}
+
+lm(salary ~ sex + degree + year + rank + dean, data = salary) |> summary()
+
+```
+
+
+The new variable dummy dean is derived from ysdeg so we exclude ysdeg from the model. Controlling for all other variables, dean's coefficient of 2163.46 represents a positive relationship between dean hiring and salary however this relationship is not statistically significant. Based on the selected model we are not able to reject the null hypothesis that people hired by the new Dean are making a higher salary at the 95% confidence level due to the p-value of .05. 
+
+
+
+## Q3
+
+
+```{r}
+
+library(smss) 
+
+data('house.selling.price', package = 'smss')
+
+
+```
+
+
+
+```{r}
+
+summary(house.selling.price)
+
+tibble(house.selling.price)
+
+```
+
+
+
+# A
+
+
+```{r}
+
+lm(Price ~ Size + New, data = house.selling.price) |> summary()
+
+```
+
+The model prediciting home selling price in terms of size and newness is statistically significant overall and accounts for .72 of observed prices. Individually, both Size and New variables are significant at the 95% confidence interval; the Size coefficient indicates an of $116.13 per additional square feet while the New coefficient indicates new homes sell for $57,736.28 more than old homes.
+
+
+
+# B
+
+
+Looking only at new homes, the mean selling price for new homes is predicted to be $290964. 
+```{r}
+
+prediction1 <- predict(lm(Price ~ Size + New, data = subset(house.selling.price, New=="1"))) 
+
+summary(prediction1)
+
+```
+
+
+
+Looking only at non-new homes, the mean selling price for non-new homes is predicted to be $138,567. 
+```{r}
+
+prediction0 <- predict(lm(Price ~ Size + New, data = subset(house.selling.price, New=="0"))) 
+
+summary(prediction0)
+
+```
+
+
+
+
+# C
+
+```{r}
+
+n <- lm(Price ~ Size + New, data = house.selling.price)
+
+```
+
+
+The predicted selling price for a new home of 3000 square feet is $366,016.30
+
+```{r}
+
+predict(n, data.frame(Size = 3000) + (New = 1))
+
+```
+
+
+The predicted selling price for a non-new home of 3000 square feet is $308,163.90
+
+```{r}
+
+predict(n, data.frame(Size = 3000) + (New = 0))
+
+```
+
+
+
+
+# D
+
+The model with an interaction term between size and new indicates overall model significance at the 95% confidence interval due to the low model p-value. With other variables held equal however, the variable New is no longer statistically significant. 
+
+```{r}
+
+lm(Price ~ Size + New + Size*New, data = house.selling.price) |> summary()
+
+
+```
+
+
+
+# E
+
+The regression line for homes hat are new and not new show the same positive linear relationship and a very similar slope. This indicates that the degree of newness' effect on selling price is similar for new and not new homes. 
+
+```{r}
+
+new0 <- subset(house.selling.price, New=="0")
+
+ggplot(new0, aes(y=Size, x=Price)) + 
+  geom_point(colour = "red") + 
+   geom_smooth(method = "lm", se=FALSE) 
+     
+```
+
+
+
+```{r}
+
+new1 <- subset(house.selling.price, New=="1")
+
+ggplot(new1, aes(y=Size, x=Price)) + 
+  geom_point(colour = "blue") + 
+   geom_smooth(method = "lm", se=FALSE) 
+     
+```
+
+
+
+
+# F
+
+The predicted selling price with Size*New
+
+```{r}
+
+nI <- lm(Price ~ Size + New + Size*New, data = house.selling.price)
+
+```
+
+
+The predicted selling price for a new home of 3000 square feet is $398,473.90.
+
+```{r}
+
+predict(nI, data.frame(Size = 3000) + (New = 1))
+
+```
+
+
+The predicted selling price for a non-new home of 3000 square feet is $291,087.40.
+
+```{r}
+
+predict(nI, data.frame(Size = 3000) + (New = 0))
+
+```
+
+
+
+# G
+
+
+```{r}
+
+predict(nI, data.frame(Size = 1500) + (New = 1))
+
+predict(nI, data.frame(Size = 1500) + (New = 0))
+
+```
+
+As house size increase the difference in selling price also increases as for a home of 1500 square feet the different between new and non-new is predicted to be $14,512.70, compared to a difference of $107,386.50 for a 3000 square foot home.  
+
+
+# H
+
+
+```{r}
+
+lm(Price ~ Size + New, data = house.selling.price) |> summary()
+
+
+lm(Price ~ Size + New + Size*New, data = house.selling.price) |> summary()
+
+
+```
+
+The model with the interaction term is preferable compared to without the interaction term as the adjusted R-squared value is higher while both models are statistically significant indicating that model is more representative of the relationship of Size and New to Price.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

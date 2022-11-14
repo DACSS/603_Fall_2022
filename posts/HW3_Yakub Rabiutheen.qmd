@@ -45,18 +45,24 @@ The predictor is `ppgdp` and the response is `fertility`.
 
 
 ```{r}
-# Qn 1.1.1
+# Qn 1.1.1 Standard Scatterplot
 library(ggplot2)
 ggplot(data = UN11, aes(x=ppgdp,y=fertility)) + geom_point()
 ```
 
 
-# Qn 1.1.3
+
+
+
+# Qn 1.1.2
 
 ```{r}
-# draw scatterplot.
+# Log scatterplot.
 scatterplot (log(fertility) ~ log(ppgdp), UN11)
 ```
+
+
+
 
 
 # Question-2.a
@@ -72,6 +78,8 @@ slope<-(usdollar/pound)
 slope
 ```
 
+To convert from USD to GBP, the value of the response must be divided by 1.33. Same goes for the slope.
+
 ## Question-2.b
 
 How, if at all, does the correlation change?
@@ -79,6 +87,7 @@ How, if at all, does the correlation change?
 cor.test(usdollar,pound)
 ```
 
+Currency Changes do not affect correlation.
 
 ## Question-3
 
@@ -100,6 +109,9 @@ pairs(water_supply,main = "Sierra Southern California Water Supply Runoff",
 lm_water_supply<-lm(BSAAM~APMAM+APSAB+APSLAKE+OPBPC+OPRC+OPSLAKE,data = water)
 summary(lm_water_supply)
 ```
+The following variables  OPBPC, OPRC, OPSLAKE are correlated with each other.
+
+
 
 ## Q.4
 
@@ -107,6 +119,9 @@ summary(lm_water_supply)
 data("Rateprof")
 pairs(~Rateprof$quality+Rateprof$helpfulness+Rateprof$clarity+Rateprof$easiness+Rateprof$raterInterest, lwd=2, labels = c("QUALITY", "HELPFULNESS", "CLARITY", "EASINESS", "Rater INTEREST"), pch=19, cex = 0.75, col = "blue")
 ```
+The following variables   “quality”, “clarity”, and “helpfulnes  are correlated with each other.
+
+
 
 
 ## Q.5
@@ -137,6 +152,8 @@ ggplot(data=student.survey,aes(x=re,fill=pi))+
   geom_bar() + labs(x="Religiosity", fill ="Political Ideology")
 ```
 
+As shown in the graph,there is a strong correlation association between religiosity and Political Idealogy.
+
 ```{r}
 data("student.survey")
 ggplot(data=student.survey,aes(x=hi, y=tv)) +
@@ -144,7 +161,7 @@ ggplot(data=student.survey,aes(x=hi, y=tv)) +
 ```
 
 
-
+There is very little relationship betweeh watching TV and High School GPA.
 
 
 

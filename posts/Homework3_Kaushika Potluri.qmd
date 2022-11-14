@@ -1,0 +1,137 @@
+---
+title: "Homework 3"
+author: "Kaushika Potluri"
+date: "11/07/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw3installin
+---
+
+
+```{r, echo=T}
+library(tidyverse)
+library(ggplot2)
+library(stats)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+##Question 1
+
+Loading data :
+```{r, echo=T}
+data1 = data(UN11)
+UN11
+```
+1.1.1
+
+The Predicted variable here is ppgdp (GDP per capita)
+The response is fertility.
+
+1.1.2
+
+```{r}
+ggplot(data = UN11, aes(x = ppgdp, y = fertility)) +
+  geom_point()
+```
+
+```{r}
+ggplot(data = UN11, aes(x = log(ppgdp), y = log(fertility))) +
+  geom_point()
+```
+
+Yes, linear regression seems plausible. 
+
+##Question 2
+a.
+
+```{r}
+UN11$british <- 1.33*UN11$ppgdp
+# check slope.
+summary(lm(fertility ~ british, UN11))
+```
+
+2b
+```{r}
+# correlation with US dollars.
+cor(UN11$ppgdp, UN11$fertility)
+```
+
+```{r}
+# correlation with British pounds.
+cor(UN11$british, UN11$fertility)
+```
+
+## Question 3
+```{r}
+data(water)
+
+#generating scatterplots.
+pairs(water)
+```
+Looking at the plot, it seems that the stream run-off variable has a relationship to the ‘O’ named lakes but no real notable relationship to the ‘A’ named lakes.
+
+## Question 4
+```{r}
+
+# load dataset.
+data(Rateprof)
+
+# create subset.
+rateprof <- Rateprof %>% select(quality, helpfulness, clarity, easiness, raterInterest)
+
+# generate scatterplots.
+pairs(rateprof)
+```
+
+Quality, helpfulness and clarity have the clearest linear relationships with one another. Easiness and raterInterest do not seem to have linear relationships with the other variables.
+
+##Question 5
+a.
+```{r}
+# load dataset.
+data(student.survey)
+glimpse(student.survey)
+```
+
+```{r}
+# generate plots.
+boxplot(pi ~ re, student.survey)
+```
+
+```{r}
+scatterplot(hi ~ tv, student.survey)
+```
+
+
+Religiosity and conservatism seem to have a positive relationship.
+High school GPA and TV-watching seem to have a negative relationship.
+
+5b
+```{r}
+# change pi to numeric variable.
+student.survey$pi <- as.numeric(student.survey$pi)
+
+# removing ordering in re and rename it.
+levels(student.survey$re) <- c("N", "O", "M", "E")
+student.survey$re <- factor(student.survey$re, ordered = FALSE)
+
+# run regression models.
+summary(lm(pi ~ re, student.survey))
+```
+
+```{r}
+summary(lm(hi ~ tv, student.survey))
+```
+
+
+When compared to those who never went, those who regularly attended religious services were much more likely to be conservative, p<.001.Between those who occasionally attended religious services and those who never did, there was little variation in political orientation. 
+
+Watching less hours of TV per week was associated with higher high-school GPAs, p < .05. That being said, as the R2 is fairly low, hours of TV watching is not a great predictor of high school GPA.
