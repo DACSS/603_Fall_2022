@@ -1,0 +1,214 @@
+---
+title: "Homework 4"
+author: "Saaradhaa M"
+date: "11/14/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - hw4
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+library(tidyverse)
+library(alr4)
+library(smss)
+library(interactions)
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Qn 1A
+
+```{r}
+#| label: 1A
+# predicted price.
+yhat <- -10536 + 53.8*1240 + 2.84*18000
+
+# residual.
+145000-yhat
+```
+
+The model under-predicts by \$37,704.
+
+# Qn 1B
+
+It is predicted to increase by \~\$53.80. This is because the effects of `x1` and `x2` on `y` are independent of one another, and there is no interaction between them.
+
+# Qn 1C
+
+```{r}
+#| label: 1C
+53.8/2.84
+```
+
+It would need to increase by \~19x.
+
+# Qn 2A
+
+```{r}
+#| label: 2A
+# load dataset.
+data(salary)
+
+# run model.
+summary(lm(salary ~ sex, salary))
+```
+
+The mean salary for men and women does not differ, *p* = 0.07 (i.e., it is the same).
+
+# Qn 2B
+
+```{r}
+#| label: 2B
+# run model.
+model2B <- lm(salary ~ ., salary)
+summary(model2B)
+
+# get confidence interval.
+confint(model2B)
+```
+
+Sex is still not a significant predictor of salary. The 95% CI for difference in salary between males and females is approx. -698 to 3031.
+
+# Qn 2C
+
+`rank` and `year` are significant predictors of salary, while all others were not.
+
+Both `rank` and `year` positively predict salary: Associate Professors and full Professors were likely to earn quite a bit more than Assistant Professors, while professors with more years in their current rank also earned more.
+
+Looking at the magnitude of the coefficients, `rank` has a greater impact on salary than `year` does.
+
+# Qn 2D
+
+```{r}
+#| label: 2D
+# change baseline category.
+salary$rank <- relevel(salary$rank, ref = 'Assoc')
+
+# re-run model.
+model2D <- lm(salary ~ ., salary)
+summary(model2D)
+```
+
+We can see that `rank` now both negatively and positively predicts `salary`. Specifically, Assistant Professors earn less than Associate Professors do, at the same magnitude that was observed in `model1` (approx. \~\$5292).
+
+# Qn 2E
+
+```{r}
+#| label: 2E
+model2E <- lm(salary ~ . - rank, salary)
+summary(model2E)
+```
+
+Excluding `rank`, both adjusted R^2^ and the overall F-statistic drop. `degree` and `ysdeg` are now significant as well. Curiously, those with a PhD earn less than those with an MS. As years since highest degree increases, so does salary.
+
+# Qn 2F
+
+```{r}
+#| label: 2F1
+# create new variable.
+salary <- mutate(salary, HireTime = case_when(ysdeg <= 15 ~ "1", ysdeg > 15 ~ "0"))
+salary$HireTime <- as.numeric(salary$HireTime)
+
+# run correlation matrix to check for multicollinearity. it's important to do so especially because HireTime is derived from ysdeg, so we would expect them to be highly correlated.
+subset <- salary %>% select(year, ysdeg, HireTime)
+matrix <- cor(subset, use="complete.obs")
+```
+
+I would remove `ysdeg` from the regression model since it is highly correlated with `HireTime`, *r* = 0.84.
+
+```{r}
+#| label: 2F2
+model2F <- lm(salary ~ . - ysdeg, salary)
+summary(model2F)
+```
+
+Yes, those hired by the new Dean are making more, *p* = .05.
+
+# Qn 3A
+
+```{r}
+#| label: 3A
+# load dataset.
+data(house.selling.price)
+
+# run model.
+model3A <- lm(Price ~ Size + New, house.selling.price)
+summary(model3A)
+```
+
+Both `Size` and `New` significantly positively predict selling price. As each predictor goes up by 1 unit, selling price rises by \$116 and \$57,736 respectively.
+
+# Qn 3B
+
+```{r}
+#| label: 3B
+# new homes.
+new <- house.selling.price %>% filter(New == 1)
+model3B1 <- lm(Price ~ Size, new)
+summary(model3B1)
+
+# old homes.
+old <- house.selling.price %>% filter(New == 0)
+model3B2 <- lm(Price ~ Size, old)
+summary(model3B2)
+```
+
+Size significantly positively predicts price for both new and old houses, but by a greater magnitude for new houses:
+
+-   New: E(Price) = 166\*Size - 100,755
+
+    -   Adjusted R^2^ for the model is also much higher (0.90 vs. 0.57).
+
+-   Old: E(Price) = 104\*Size - 22,228
+
+# Qn 3C
+
+-   New: E(Price) = 166\*3000 - 100,755 = \$397,245
+
+-   Old: E(Price) = 104\*3000 - 22,228 = \$289,772
+
+# Qn 3D
+
+```{r}
+#| label: 3D
+model3D <- lm(Price ~ Size*New, house.selling.price)
+summary(model3D)
+interact_plot(model3D, pred = Size, modx = New)
+```
+
+`Size` and `New` positively interact to affect `Price`, such that `New` amplifies the positive relationship between `Size` and `Price`.
+
+# Qn 3E
+
+Referring to `model3D` above:
+
+-   New: -22,228 + 104\*Size - 78,528 + 62\*Size = 166\*Size - 100,756
+
+-   Old: 104\*Size - 22,228
+
+# Qn 3F
+
+-   New: 166\*3000 -100,756 = \$397,244
+
+-   Old: 104\*3000 - 22,228 = \$289,772
+
+# Qn 3G
+
+-   New: 166\*1500 - 100,756 = \$148,244
+
+-   Old: 104\*1500 - 22,228 = \$133,772
+
+As size of home goes up, the difference in predicted selling prices between old and new homes becomes larger.
+
+# Qn 3H
+
+Questions 3F and 3G demonstrate that `size` affects the relationship between `new` and `price`, which reveals some type of dependency between the predictors. Hence, the model with interaction represents the relationships between `size`, `new` and `price` better.
