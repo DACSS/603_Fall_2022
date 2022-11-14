@@ -1,0 +1,222 @@
+---
+author: "Emma Rasmussen"
+title: "Homework 4"
+date: "11/13/2022"
+format:
+  html:
+    toc: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(alr4)
+library(smss)
+```
+
+## 1a.
+
+Prediction equation: ŷ = −10,536 + 53.8x1 + 2.84x2.
+
+```{r}
+#plugging in size of home and lot size into prediction equation
+-10536 + 53.8*1240 + 2.84*18000
+#Calculating residual, actual-predicted
+145000-107296
+```
+
+Predicted selling price \$107,296 Residual: \$37,704
+
+## 1b.
+
+According to the prediction equations, for a fixed lot size, the price of the house is predicted to increase \$53.80 per square foot of house size.
+
+## 1c.
+
+```{r}
+53.8/2.84
+```
+
+For a fixed home size, lot size would need to increase by 18.94366 feet to have the same impact as a one square foot increase in home size.
+
+```{r}
+#Check: 
+-10536 + 53.8*1400 + 2.84*20000
+-10536 + 53.8*1400+ 2.84*20018.94366
+121637.8-121584
+```
+
+## 2a.
+
+H0: Salary(male)=Salary(female) 
+Ha:Salary(male) not equal to Salary(female)
+
+```{r}
+data(salary)
+head(salary)
+t.test(salary ~ sex, data=salary)
+```
+
+According to this two sample t.test, there is not evidence for a difference in salary between male and female professors at the 5% significance level. At the 10% significance level, there is a difference.
+
+## 2b.
+
+```{r}
+#creating a model
+summary(lm(salary ~ degree + rank + sex + year + ysdeg, data=salary))
+
+#assigning model to an object
+prof_fit_1<- lm(salary ~ degree + rank + sex + year + ysdeg, data=salary)
+
+#Creating a confidence interval for coefficients in the model
+confint(prof_fit_1)
+```
+
+The 95% confidence interval for the difference in salary between male and females is -697.82 and 3030.56.
+
+## 2c.
+
+Degree: The p-value for degree is not statistically significant. However, acccoring to this regression equation, for a faculty member with a PhD, their predicted salary is \$1,388.61 higher than a faculty member with a masters degree (all other variables held constant).
+
+Rank: The baseline category is Asst professor. For a faculty member of rank Associate, all other variables held constant, their predicted salary is \$5,292.36 more than an Asst Professor.
+
+For a faculty member of rank Professor, the predicted salary is \$11,118.76 more than a faculty of rank Asst Professor (all other variables held constant).
+
+These salary differences are statistically significant at the 0.0001 alpha level for both Asst and Professor rank.
+
+Sex: For a faculty member who is female, their predicted salary is \$1166.37 more than a faculty member who is male. However, his coefficient is not statistically significant at any alpha level.
+
+Year: For each year in their current rank, the salary is expected to increase by \$478.31. The coeffiticent is significant at the 0.0001 alpha level.
+
+ysdegree: For eah year after completion of their highest degree, salary is expected to decrease by \$124.57. However this coefficient is not significant at any alpha level.
+
+## 2d.
+
+```{r}
+salary$rank<- relevel(salary$rank, ref = 'Assoc')
+summary(lm(salary ~ degree + rank + sex + year + ysdeg, data=salary))
+```
+
+The baseline category is now Assoc. According to these coefficients, faculty of rank asst are expected to make \$5292.36 less than Associate professors. Faculty of rank Professor are expected to make \$5826.40 more than Associate professors.
+
+## 2e. 
+
+```{r}
+summary(lm(salary ~ degree + sex + year + ysdeg, data=salary))
+```
+Excluding the rank variable reveals a difference between male and female salaries with females making $1286.54 less than men. However, this difference is not signficant at any standard alpha levels. 
+
+## 2f. 
+
+```{r}
+#creating a dummy variable new and old dean
+salary<-mutate(salary, dean= case_when(ysdeg < 15 ~"new",
+                               ysdeg >=15 ~"old"))
+```
+
+```{r}
+summary(lm(salary ~ dean + degree + sex + rank +year, data=salary))
+```
+
+I excluded ysdegree after creating the new variable to prevent multicollinearity. (Because one variable is made from the other.)
+
+According to this equation, faculty hired by the old dean make $2421.60 less than new faculty when we control for other factors. This is significant at the 0.05 alpha level. 
+
+## 3a. 
+
+```{r}
+data(house.selling.price)
+house.selling.price
+summary(lm(Price ~ Size + New, data= house.selling.price))
+```
+According to the coefficient for size, the price of a house is expected to increase by $116.132 for each square foot increase in size. The coefficient is significant at the 0.0001 alpha level, meaning there is a strong correlation between size and price when the age status (new/old) is held fixed.
+
+According to the coefficient for new, a new house is expected to cost $57,736.283 more than an old house. This variable is significant at the 0.001 level, meaning that whether a house is old or new has a strong positive impact on price of the house. 
+
+## 3b. 
+
+Y = -40230.867 + 116.132(X1) +  57736.283 (X2) where X1 represents size and X2 represents new/old.
+
+For a new house: 
+Y = -40230.867 + 116.132(size) +  57736.283
+
+For an old house: 
+Y = -40230.867 + 116.132(size)
+
+## 3c. 
+
+```{r}
+#new:
+-40230.867 + 116.132*3000 +  57736.283
+#not new:
+-40230.867 + 116.132*3000 +  57736.283*0
+```
+New: $365,901.40
+Not new: $308165.10
+
+## 3d. 
+
+```{r}
+summary(lm(Price ~ Size + New + Size*New, data= house.selling.price))
+```
+Y = -2227.808 + 104.438(size) + 61.916(size:new) -78527.502(new)
+Both size and the interaction term between size and new are statistically significant. The new/coefficient is no longer statistically significant. 
+
+## 3e. 
+
+For a new house:
+Y = -2227.808 + 166.354(size) - 78527.502
+Old:
+Y = -2227.808 + 104.438(size)
+
+## 3f. 
+
+```{r}
+#new: 
+-2227.808 + 166.354*3000 - 78527.502
+#not new:
+-2227.808 + 104.438*3000
+```
+
+New: $418,306.70
+Not new: $311,086.20
+
+## 3g. 
+
+```{r}
+#new: 
+-2227.808 + 166.354*1500 - 78527.502
+#not new:
+-2227.808 + 104.438*1500
+```
+New: $168,775.70
+Not new: $154429.20
+
+According to this equation, houses that are larger are much greater in price, especially when comparing new large houses to small new houses. For larger houses, the difference in cost between new and not new is much larger, compared to smaller houses, where new/not new makes less of a difference in price.
+
+## 3h.
+
+I prefer the second model with the interaction term which provides a clearer picture of how increased square footage makes a larger difference in bigger sized houses. The model with the interaction term also has a larger adjusted R squared. 
+
+However, I would be skeptical using this model with small homes: for a home that is 1000 square feet, the predicted price for a new house is greater than for an old house. In other words, I do not feel this model would be good at predicting tiny home prices.  
+```{r}
+#for a 1000 sq foot home:
+#New:
+-2227.808 + 166.354*1000 - 78527.502
+#Not new:
+-2227.808 + 104.438*1000
+```
+
