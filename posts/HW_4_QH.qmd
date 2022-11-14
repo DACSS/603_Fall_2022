@@ -1,0 +1,295 @@
+---
+title: "Homework 4"
+author: "Quinn He"
+desription: "Something to describe what I did"
+date: "08/02/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  
+  ---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(smss)
+library(alr4)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1a
+
+Based off the equation given in the question, the predicted value is $107,296 for a home with the parameters given.
+
+```{r}
+ 
+val1 <- -10536 + (53.8*1240) + (2.84*18000)
+
+val1
+```
+
+The residual is 37,704. 
+
+```{r}
+145000 - 107296
+
+```
+
+It's hard to analyze a single residual, but it seems like the number is off by more than it should. There isn't enough data to make a concrete conclusion. 
+
+## 1b
+
+The house size is predicted to increase by $53.80 for each square foot increase of the house because of the 53.8 variable.
+
+## 1c
+
+I'm going to use the equation from before, but increase the square foot by 1.
+```{r}
+
+val <- -10536 + (53.8*1241) + (2.84*18000)
+
+val
+```
+
+```{r}
+
+val-val1
+
+```
+
+Lot size would need to increase by 53.8. 
+
+## 2a
+
+```{r}
+
+data("salary")
+```
+
+
+It appears the mean salary for men is about $3,000 more than the mean salary of women, indicating sex does play a factor in salary. The mean salary is not the same for both men and women. Even with a boxplot, it's easy to observe the difference in salary across both genders. 
+```{r}
+
+t.test(salary$salary ~ salary$sex, mu = 0, alternative = "two.sided")
+
+```
+
+
+```{r}
+
+salary %>% 
+  ggplot(aes(x = sex, y = salary))+
+  geom_boxplot()
+
+```
+## 2b
+
+In the summary, since there is no code next to the sexFemale variable, we can see that it has not met a significant threshold. This shows we did obtain a 95% confidence interval. 
+```{r}
+
+fit <- summary(lm(salary ~ ., data = salary))
+
+fit
+
+``` 
+
+## 2c
+Degree does not appear to be significant when it comes to the outcome of salary. The R squared is actually a negative number so it really is not an appropriate measure of salary. 
+```{r}
+
+m1 <- summary(lm(salary ~ degree, data = salary))
+m1
+
+
+```
+
+Rank actually does have significance in the outcome of salary. Both Assoc and Prof have significant p values and the R squared is about 0.74 which indicates some level of significance. In this model, I can assume that if you are a professor, you can observe an increase in $11,890. 
+```{r}
+
+m2 <- summary(lm(salary ~ rank, data = salary))
+m2
+```
+
+According to this model, sex is not relevant when it comes to the outcome variable, containing a low R squared and an insignificant p value.
+```{r}
+
+m3 <- summary(lm(salary ~ sex, data = salary))
+m3
+```
+
+The years someone has been in their position does have a significant impact on their salary, which makes sense because, usually, the longer someone is in a job, the more opportunities they will have for a promotion.
+```{r}
+
+m4 <- summary(lm(salary ~ year, data = salary))
+m4
+```
+
+I think years since highest degree earned falls under the same logic as the years column since, presummably, many of the years spent in the job were years also in the ysdeg column. I expect that with every 1 year increase in years after highest degree, there will be a $390 increase in salary. 
+```{r}
+
+m5 <- summary(lm(salary ~ ysdeg, data = salary))
+m5
+```
+
+
+I may want to use the par function but I cannot find the proper way to type it out. Will revisit. 
+
+## 2d
+
+```{r}
+
+#rank <- relevel(rank)
+
+relevel_mod <- lm(salary ~ rank, data = salary)
+
+summary(relevel_mod)
+
+```
+
+## 2e
+If you compare this model with models that contain the rank variable, you'll see that rank actually does play a significant role in salary. Rank always has a p value worth noting as seen with the significance codes. The adjusted R squared is also much lower in this model than any model containing rank as an explanatory variable. 
+```{r}
+
+summary(lm(salary ~ degree + sex + year + ysdeg, data = salary))
+
+```
+
+## 2f
+I'm trying to make a new column for someone hired within the 15 year period of the new Dean. Now the new column should have a 1 if the person was hired with 15 years or less from earning their highest degree and people will have a -1 if its more. The 1 will indicate if they have been hired by the new dean and we may see an increase in salary for those people.  
+```{r}
+
+salary <- salary %>% 
+  mutate(hired_by_new_dean = case_when(
+    ysdeg <= 15 ~ 1,
+    T ~ -1
+  ))
+
+```
+
+```{r}
+
+
+summary(lm(salary ~ ysdeg*hired_by_new_dean, data = salary))
+
+
+```
+```{r}
+summary(lm(salary ~ ysdeg, data = salary))
+
+
+```
+With an interaction between ysdeg and the new column I created to separate people hired by the new dean, I can see the first model is slightly a better fit with an R squared of 0.5 and all significantly low p values. We can conclude that if you were hired by the new dean, you are more likely to have a higher salary. I avoided multicollinearity by putting an interaction symbol for ysdeg and hired_by_new_dean. I'd be worried about ysdeg and hired_by_new interacting with each other to cause multicollinearity. 
+
+
+## 3a
+
+```{r}
+data("house.selling.price")
+
+```
+Both size and whether the house is new or not are statistically significant as per the significance codes related to the p values. The adjusted R squared is also pretty high which indicates this model is a good fit. Going by the significance codes, Size is more important when it comes to the model compared to the New variable. 
+```{r}
+
+model <-lm(Price ~ Size + New, data = house.selling.price)
+summary(model)
+```
+
+## 3b 
+
+According to my prediction model, the mean for both actual price and predicted price are exactly the same, which I find odd because would there not be some variation? I used the predict function on the model then added them together so the data was easier to work with. I suppose I could have created a test set and a training set, but I think that was outside the scope of the homework. 
+```{r}
+
+pred <- predict(model)
+pred
+
+new.house.selling.price <- cbind(house.selling.price, pred)
+
+
+```
+
+```{r}
+
+new.house.selling.price %>% 
+  group_by(New) %>% 
+  summarize(Price_actual = mean(Price), Price_prediction = mean(pred))
+
+
+
+```
+
+
+## 3c
+
+```{r}
+variable1 <- data.frame(Size = 3000, New = 1)
+
+predict(model, newdata = variable1)
+
+```
+
+```{r}
+variable2 <- data.frame(Size = 3000, New = 0)
+
+predict(model, newdata = variable2)
+
+```
+
+## 3d
+The interaction between New and Size actually is more significant than New solely alone. Overall, the model is a pretty good fit since its R squared is 0.73.
+```{r}
+
+mod <- lm(Price ~ Size*New, data = house.selling.price)
+
+summary(mod)
+```
+
+## 3e
+
+New home price = -22228 + 104 + -78527 + 62
+Old home price = -22228 + 104
+
+I included the last two numbers in the first equation because those are the interaction terms. 
+
+## 3f 
+
+Repeat question
+
+
+## 3g 
+
+The whether the home is new or not impacts the price of the house in a pretty significant way. About a $60,000 difference in price is not something to dismiss. With the same lot size, a home that is new will fetch significantly more money than the same home, but old. 
+```{r}
+
+var3 <- data.frame(Size = 1500, New = 0)
+
+var4 <- data.frame(Size = 1500, New = 1)
+
+```
+
+House is new.
+```{r}
+
+predict(model, newdata = var4)
+
+```
+
+
+House is old.
+```{r}
+
+predict(model, newdata = var3)
+
+```
+
+## 3h
+
+I prefer the model with interaction between size and new because its adjusted R squared is slightly higher than that of the model without interaction. Be it only 0.02 points, it still shows a better fit compared to the other model. The p value for the interaction between new and old is also labeled as significant in the interaction model. They are so similar, but again I would choose the interaction model because the adjusted R squared is slightly higher.
