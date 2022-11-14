@@ -1,0 +1,110 @@
+---
+title: 'Homework #3'
+author: "Kalimah Muhammad"
+date: "10/31/2022"
+desription: "Regression Models"
+format:
+  
+  html:
+    toc: yes
+    code-fold: yes
+    code-copy: yes
+    code-tools: yes
+categories: 
+  - hw3
+  - Kalimah Muhammad
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1: United Nations 
+```{r} 
+data(UN11) #load United Nations data
+```
+
+### 1.1.1
+
+The predictor variable is ppgdp (the gross national product per person in USD) and the response or outcome variable in fertility (the birth rate per 1000 females).
+
+### 1.1.2
+
+```{r} 
+ggplot(UN11, aes(x=ppgdp, y=fertility))+ geom_point()
+
+```
+
+Fertility has the most variability at zero gross national product per person (ppgdp) where countries range from birthrate of 1 to 7 per 1000 females. There is a sharp decline thereafter where the fertility rate is consistently 3 or under and hovers between slightly above 2 and 1 for countries with a ppgdp above 30,000.
+
+```{r} 
+plot(x=UN11$ppgdp, y=UN11$fertility)
+```
+
+Based on the plot above, there is little difference between the two plots.
+
+### 1.1.3.
+
+```{r} 
+plot(x= log(UN11$ppgdp), y=UN11$fertility)
+```
+
+Using natural logarithms, the model seems more plausible as the data becomes normalized. 
+
+## Question 2: Annual Income   
+
+### 2a. 
+When the British pound is used instead of the dollar, the steep of the slop minimizes.
+
+### 2b. 
+THe correlation does not change when factoring in pound in lieu of the dollar.
+
+## Question 3: Water runoff in the Sierras  
+
+Using the pairwise scatterplot, we find some pairs are better represented by a straight line than others. This seems to be common among mountain ranges with similar starting initials (i.e. of the ranges starting with "A" or those starting with "O").In each case, those pairs have a clear positive slope. Examining the percipitation by year and mountain range shows a wide range of variability with a singular outlier for each mountain range. 
+```{r} 
+data(water) #load water data
+pairs(water) #plot pairs
+```
+
+```{r}
+fit_water <- lm(Year~APMAM+ APSAB+ APSLAKE+ OPBPC+ OPRC+ OPSLAKE+ BSAAM, data=water) #create linear regression model based on year and mountain range
+summary(fit_water) #summarize model
+```
+
+## Question 4: Professor ratings
+
+```{r} 
+data("Rateprof") #load data
+Rateprof%>%
+  select(quality, helpfulness, clarity, easiness, raterInterest)%>%
+pairs()
+
+```
+
+Based on the scatterplot, quality appears to be positive related to helpfulness and clarity. There's more variablity in results for easiness and aterInterest.
+
+## Question 5: Student Survey
+
+```{r}
+data("student.survey")
+fit_smss<- lm(factor(pi) ~ re, data = student.survey)
+plot(x=student.survey$re, y=student.survey$pi)
+```
+
+```{r} 
+fit_smss2<- lm(tv ~ hi, data = student.survey)
+summary(fit_smss2)
+plot(x=student.survey$hi, y=student.survey$tv)
+```
+
+The summary above shows there is a statistically signifcate relationship between high school GPA and the number of TV hours watched per week. 
+
