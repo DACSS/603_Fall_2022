@@ -1,0 +1,224 @@
+---
+title: "DACSS 603 HW 4"
+author: "Karen Kimble"
+desription: "Homework 4 for DACSS 603"
+date: "11/14/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+category: HW4
+---
+
+```{r}
+# Setup
+library(tidyverse)
+library(dplyr)
+library(alr4)
+library(smss)
+```
+
+## Question 1
+
+### Part A
+
+```{r}
+# Predicted
+
+y = -10536 + (53.8 * 1240) + (2.84 * 18000)
+
+y
+
+145000 - y
+```
+
+The predicted selling price is 107,296 dollars but the actual selling price was 145,000 dollars, resulting in a residual of 37,704. This means that the predictor model underestimated the selling price by over 37,000 dollars.
+
+### Part B
+
+For a fixed lot size, the house selling price is predicted to increase by 53.8 for each square foot increase in home size. This is because 53.8 is the coefficient for the square foot variable, meaning that the model estimates this amount of increase for each additional unit of x.
+
+### Part C
+
+```{r}
+53.8/2.84
+```
+
+For a fixed home size, the lot size would need to increase by about 18.94 square feet in order to have an equivalent impact as an additional square foot of home size.
+
+## Question 2
+
+### Part A
+
+```{r}
+t.test(salary ~ sex, data = salary)
+```
+
+The p-value from the t-test 0.09, greater than a 0.05 significance level. This indicates that there is not statistically significant evidence to reject the hypothesis that the mean salary for men and women are the same.
+
+### Part B
+
+```{r}
+model <- lm(salary ~ sex + degree + rank + year + ysdeg, data = salary)
+confint(model)
+```
+
+The confidence interval for sex means that there is 95% confidence that the true difference in mean salaries for men and women lie between -697.82 and 3,030.56.
+
+### Part C
+
+```{r}
+summary(model)
+```
+
+The above results show that the p-value for the variable of sex is larger than the significance level of 0.05, meaning there is still no statistically significant evidence to reject the hypothesis that the mean salaries for men and women are the same. When the individual is female, the model predicts the salary increases by 1,166.37.
+
+For the degree level, there is also not statistically significant evidence to reject the hypothesis that the mean salaries for those with a master's degree and a PhD are the same, since the p-value is larger than 0.05. The model predicts that when an individual has a PhD, their predicted salary increases by 1,388.61.
+
+For the rank variable, there is statistically significant evidence to reject the hypothesis that the salaries for ranks Associate, Assistant, and Professor are the same. The p-values for both Associate and Professor rankings are extremely small and less than the significance level of 0.05. THe model predicts that faculty with an Associate ranking have a salary increase by 5,292.36, and faculty with a Professor ranking have a salary increase by 111,118.76.
+
+The p-value for the variable of the amount of years in the current rank is also extremely small and less than the 0.05 significance level, meaning that there is statistically significant evidence to reject the hypothesis that the amount of years does not affect salary amount. For each additional year spent in the current rank, the model predicts a salary increase of 476.31.
+
+Lastly, the p-value for the amount of years since the highest degree is larger than the signficiance level 0.05. There is no statistically significant evidence to reject the hypothesis that the amount of years since highest degree has no impact on salary amount. The model predicts that for each additional year since the highest degree, the salary decreases by 124.57.
+
+### Part D
+
+```{r}
+salary$rank <- relevel(salary$rank, ref = 'Prof')
+model <- lm(salary ~ sex + degree + rank + year + ysdeg, data = salary)
+summary(model)
+```
+
+After changing the baseline category, the model shows that for faculty with the ranks of Assistant and Associate, the p-value is still extremely small and shows significant evidence to reject the hypothesis that the salaries for ranks Assistant, Associate, and Professor are the same. The model indicates that for those in the rank Assistant, their predicted salary decreases by 111,118.76. When Assistant is the baseline category, the model predicts a salary decrease if 5,826.40 when the faculty is ranked Associate.
+
+### Part E
+
+```{r}
+model <- lm(salary ~ sex + degree + year + ysdeg, data = salary)
+summary(model)
+```
+
+After excluding rank, all variables except for sex have statistically significant p-values. Though the p-value for the year variable increased, it still reamined under the 0.05 significance level. The variables degree and ysdeg now have p-values less than the significant 0.05 level when they were much higher in the previous model. Removing the rank variable resulted in new coefficients for all variables as well.
+
+### Part F
+
+```{r}
+salary$appointed <- ifelse(salary$year > 15, c("0"), c("1"))
+model <- lm(salary ~ sex + degree + appointed, data = salary)
+summary(model)
+```
+
+Multicollinearity would be a concern in this case because multiple variables are related due to the appointment of the new Dean. If the Dean only hired those who recently got their degree, then that means the variables year and years since highest degree are related--only those hired within the past 15 years would also have gotten their degree within 15 years. Thus, I omitted these two variables and created the variable "appointed", with 1 indicating that the faculty member was appointed by the new dean and 0 indicating that they were not. The results from the model don't support the hypothesis that the new Dean's appointees are making higher salaries than those who were are not. The model predicts a salary decrease of 6,005 when the faculty member is appointed by the new Dean. If the people hired by the new Dean were making more money, this predictiin would be an increase.
+
+## Question 3
+
+### Part A
+
+```{r}
+model <- lm(Price ~ Size + New, data = house.selling.price)
+summary(model)
+```
+
+For the variable size, the p-value is extremely small and less than the significance level of 0.05, meaning that there is statistically significant evidence to reject the hypothesis that the size of the house does not affect price. The coefficient of size indicates that for each additional square foot, the model predicts the price to increase by 116.132.
+
+The p-value for the variable new is also smaller than the significance level of 0.05, so there is statistically significant evidence to reject the hypothesis that new houses have the same mean price as old houses. The coefficient of new means that for a house that is new, the price is predicted to increase by 57,736.283.
+
+### Part B
+
+The prediction equation is: y = -40,230.867 + 116.132x1 + 57,736.283x2 (with x1 being the square feet of the house and x2 being whether the house is old or new)
+
+This means that when the house has 0 square feet and is not new, the price would be predicted to be -40,230.867 (or the y-intercept).
+
+The equation for not new homes: y = -40,230.867 + 116.132x1
+
+The last part of the prediction equation is omitted since not new homes are equal to 0, cancelling out the last component.
+
+The equation for new homes: y = -40,230.867 + 116.132x1 + 57,736.283x2
+
+### Part C
+
+```{r}
+# New
+
+-40230.867 + (116.132 * 3000) + (57636.283 * 1)
+```
+
+The predicted price of a new home with 3,000 square feet is $365,801.40.
+
+```{r}
+# Not new
+
+-40230.867 + (116.132 * 3000)
+```
+
+The predicted price of a not new home with 3,000 square feet is $308,165.10.
+
+### Part D
+
+```{r}
+model <- lm(Price ~ Size + New + Size*New, data = house.selling.price)
+summary(model)
+```
+
+The coefficients changed for both variables with the new model. The coefficient for size indicates that for each additional square foot, the price of the home is predicted to increase by 104.438. For new, when the house is new, the price of the home is expected to decrease by 78527.502--now it is a negative relationship when in the previous model it was positive. The interaction coefficient is 61.916, meaning that for each additional square foot when the house is new, the price is predicted to increase by 61.916. The size variable's p-value is still below the 0.05 significance level. However, the p-value for the variable new is above the 0.05 significance level, indicating that there is now no statistically significant evidence to reject the hypothesis that the mean prices for new houses and old houses (regardless of size) are the same. The interaction term's p-value is smaller than the 0.05 significance level, meaning that there is statistically significant evidence to reject the hypothesis that the price of a new house doesn't depend on its size and vice versa.
+
+### Part E
+
+Equation for a new house: y = -22,2227.808 + 104.438x1 - 78,527.502x2 + 61.916(x1)(x2)
+
+Equation for a not new house: y = -22,2227.808 + 104.438x1
+
+Again, removed the last two terms of this equation since not new is equal to 0 and would therefore cancel out the last two terms.
+
+### Part F
+
+```{r}
+# New
+
+-22227.808 + (104.438 * 3000) - (78527.502 * 1) + (61.916 * 3000 * 1)
+```
+
+The predicted price for a new house with 3,000 square feet with the new equation is $398,306.70.
+
+```{r}
+# Not New
+
+-22227.808 + (104.438 * 3000)
+```
+
+The predicted price for a not new house with 3,000 square feet with the new equation is $291,086.19.
+
+### Part G
+
+```{r}
+# New
+
+-22227.808 + (104.438 * 1500) - (78527.502 * 1) + (61.916 * 1500 * 1)
+```
+
+The predicted price for a new house with 1,500 square feet is $148,775.70.
+
+```{r}
+# Not new
+
+-22227.808 + (104.438 * 1500)
+```
+
+The predicted price for a not new house with 1,500 square feet is 134,429.20.
+
+### Part H
+
+I think the model with the interaction term better represents the relationship of size to the outcome of price, both from the results in the summary and from my own limited knowledge about housing. The regression results from the interaction model showed that the interaction term was statistically significant, indicating strong evidence that the price of a home does depend on size, but whether or not the house is new affects the magnitude of this effect. Also, I think when people buy homes they care both about size and about whether or not the house is new. Additionally, when the interaction model calculated the price of homes for both 3,000 square feet and 1,500 square feet when the house is both new and old, there is a dramatic difference in how much the price increased in the new house with the additional square footage than the not new house.
+
+
+
+
+
+
+
+
+
+
+
