@@ -1,0 +1,307 @@
+---
+title: "HW4"
+editor: visual
+---
+
+```{r,echo=TRUE}
+library(smss)
+library(alr4)
+library(stats)
+library(tidyr)
+library(ggplot2)
+```
+
+
+## Question 1  
+
+#### For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is ŷ = −10,536 + 53.8x1 + 2.84x2.
+
+#### a) A particular home of 1240 square feet on a lot of 18,000 square feet sold for $145,000. Find the predicted selling price and the residual, and interpret. 
+
+```{r,echo=TRUE}
+predicted_sp <- 10536+53.8*1240+2.84*18000
+predicted_sp
+```
+
+Given the measurements and previous selling price of the house, the predicted selling price is $128,368. 
+
+Now to calculate the residual between the above figure and the actual selling price of $145,000.
+
+```{r,echo=TRUE}
+residual <- 145000-predicted_sp
+residual
+```
+
+The residual is $16,632, which indicates that the home and property sold for $16,632 above the predicted selling price.
+
+
+#### b) For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?  
+
+The coefficient for home size in square feet (x1) is 53.8, so the price of the home would go up by $53.80 for each square foot increase.
+
+
+#### c) According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?  
+
+The coefficient for x2 (lot size in square feet) is 2.84, meaning that every square foot increase in property size would add $2.84 to the overall price of the home. For an increase in lot size to have the same impact as a one square foot increase in home size, we have to do some simple division (x1/x2)
+
+```{r,echo=TRUE}
+53.8/2.84
+```
+
+Lot size would have to increase by 18.94 square feet to have the same price impact as a one square foot increase in house size.
+
+
+## Question 2
+
+#### (Data file: salary in alr4 R package). The data file concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.
+
+#### a) Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings. 
+
+```{r,echo=TRUE}
+data(salary)
+t.test(salary~sex,data = salary)
+```
+
+The mean salary for males is $24,696.79 and the mean salary for females is $21,357.14. Based entirely on sex, the mean salary for men and women is not the same, with a $3,339.65 difference in favor of males.
+
+#### b) Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.
+
+```{r,echo=TRUE}
+lr_predictors <- lm(salary~degree+rank+sex+year+ysdeg, data=salary)
+lr_predictors
+```
+
+
+```{r,echo=TRUE}
+set.seed(3)
+mf_pay_rate <- data.frame(degree=sample(salary$degree,size=10,replace=T),
+                          rank=sample(salary$rank,size=10,replace=T),
+                          sex=sample(salary$sex,size=10,replace=T),
+                          year=sample(salary$year,size=10,replace=T),
+                          ysdeg=sample(salary$ysdeg,size=10,replace=T))
+predict(lr_predictors,mf_pay_rate)
+```
+
+```{r,echo=TRUE}
+summary(lr_predictors)
+```
+
+```{r,echo=TRUE}
+confint(lr_predictors,'sexFemale')
+```
+
+After conducting a multiple linear regression (with 95% CI), the difference in salary between males and females in this scenario ranges from $697.82 less than male counterparts to $3030.56 more than male counterparts.
+
+
+#### c) Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variables.
+
+```{r,echo=TRUE}
+set.seed(3)
+income_df <-data.frame(degree=sample(salary$degree,size=10,replace=T),
+                          rank=sample(salary$rank,size=10,replace=T),
+                          sex=sample(salary$sex,size=10,replace=T),
+                          year=sample(salary$year,size=10,replace=T),
+                          ysdeg=sample(salary$ysdeg,size=10,replace=T))
+predict(lr_predictors,income_df)
+```
+
+```{r,echo=TRUE}
+summary(lr_predictors)
+```
+
+According to this data set, individuals' salary increases by:  
+    1) $1388.61 if they have a PhD  
+    2) $5292.36 if they are an associate professor  
+    3) $11,118.76 if they are a full/tenured professor  
+    4) $1166.37 if they are female  
+    5) $475.31 every year they are employed at their institution  
+
+Salary decreases by $124.57, however, for every year that passes since the individual received their degree. I may have misinterpreted the meaning of this variable (ysdeg), because this doesn't really make sense if they get a raise for everything else. Anyway, the values representing respondents' professorial rank and the length of their employment are statistically significant.
+
+
+#### d) Change the baseline category for the rank variable. Interpret the coefficients related to rank again.  
+
+```{r,echo=TRUE}
+lr_predictors_rank <- lm(salary~rank+sex+degree+year+ysdeg, data=salary)
+set.seed(3) 
+income_rank <- data.frame(rank=sample(salary$rank,size=10,replace=T),
+                  sex=sample(salary$sex,size=10,replace=T),
+                  degree=sample(salary$degree,size=10,replace=T),
+                  year=sample(salary$year,size=10,replace=T),
+                  ysdeg=sample(salary$ysdeg,size=10,replace=T))
+predict(lr_predictors_rank,income_rank)
+```
+
+```{r,echo=TRUE}
+summary(lr_predictors_rank)
+```
+
+I am not entirely sure this is right since all of the values remained the same.
+
+    
+#### e) Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, “[a] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be ‘tainted.’ ” Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. 
+
+#### Exclude the variable rank, refit, and summarize how your findings changed, if they did.
+
+```{r,echo=TRUE}
+lr_predictors3 <- lm(salary~degree+sex+year+ysdeg,data=salary)
+
+set.seed(3)
+income_df3 <- data.frame(degree=sample(salary$degree,size=10,replace=T),
+                  sex=sample(salary$sex,size=10,replace=T),
+                  year=sample(salary$year,size=10,replace=T),
+                  ysdeg=sample(salary$ysdeg,size=10,replace=T))
+predict(lr_predictors3,income_df3)
+```
+
+```{r,echo=TRUE}
+summary(lr_predictors3)
+```
+
+By excluding 'rank', salary decreases by:  
+      1) $3299.35 if the individual has a PhD  
+      2) $1286.54 if the individual  
+
+However, salary */increases/* by:  
+      1) $351.97 for each year the individual is at their current professorial rank  
+      2) $339.40 every year after the individual receives their PhD  
+      
+
+#### f) Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.
+
+#### Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?
+
+```{r,echo=TRUE}
+lr_predictor4 <- lm(salary~rank+degree+sex+year+ysdeg+year*ysdeg,data=salary)
+summary(lr_predictor4)
+```
+
+The slope for 'year:ysdeg' is positive, whcih supports the hypothesis that people hired by the new dean make more than those hired beforehand.
+
+
+## Question 3  
+
+#### a) Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.
+
+Let's start with presenting summary data to see what we're working with:
+
+```{r,echo=TRUE}
+library(smss)
+data("house.selling.price")
+head(house.selling.price)
+```
+
+```{r,echo=TRUE}
+summary(house.selling.price)
+```
+
+```{r,echo=TRUE}
+str(house.selling.price)
+```
+
+Now I'm going to delve into the regression analysis in which y= selling price (USD) relative to house size, and whether a home is new (1=yes, 0=no). 
+
+```{r,echo=TRUE}
+summary(lm(Price~Size+New,data=house.selling.price))
+```
+
+
+#### b) Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes.
+
+In this scenario, y= -40230.87+116.13x1+57736.28x2. x1 represents house size and x2 represents whether the home is new or not. Now I will conduct a multiple regression analysis to show the relationship between a new home's selling price and its size.
+
+
+```{r,echo=TRUE}
+new_sp <- lm(formula=Price~New+Size,data=house.selling.price)
+summary(new_sp)
+```
+
+And now a correlation test to go a step further.
+
+```{r,echo=TRUE}
+cor.test(house.selling.price$Size,house.selling.price$New)
+```
+
+Predictor variables 'new' and 'size' have p-values or 0,00257 and 2w-16 respectively. While different, both p-values are statistically significant, which indicates that the null hypothesis can be rejected. By running a correlation test, we can see that the relationship between these 2 variables is weak, as 0.384.  
+
+
+#### c) Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+First let's calculate the predicted selling price of a NEW 3000 sqft house  
+
+```{r,echo=TRUE}
+predicted_spNEW <- -40230.87+116.13*3000+57736
+predicted_spNEW
+```
+
+The predicted selling price for a new house of these measurements is $365,895.10  
+
+```{r,echo=TRUE}
+predicted_spOLD <- -40230.87+116.13*3000
+predicted_spOLD
+```
+
+The predicted selling price for a NOT new 3000 sqft house is $308,159.10
+
+
+#### d) Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results
+
+Let's start by calculating this interaction  
+
+```{r,echo=TRUE}
+interaction_size <- summary(lm(Price~Size+New+Size*New, data=house.selling.price))
+interaction_size
+```
+
+With the interaction term connecting 'size' and 'new', the estimated price increase for each square foot added to a new home is $61.92. The standard error is $21.69 and the t-test value is 2.855.
+
+#### e) Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.  
+
+```{r,echo=TRUE}
+ggplot(data=house.selling.price,aes(x=Size,y=Price, color=New))+
+  geom_point()+
+  geom_smooth(method="lm",se=F)
+```
+
+The scatterplot above shows the relationship between price and house size (sqft) categorized by whether or not the home is new. Newer houses (light blue) have a higher price baseline than those that are "old" (black); most of the older homes are in the bottom left of the graph. There are also a lot more of them. Finally, none of the light blue dots are fully below the regression line, while about half (or more) of those representing older houses are well below the line.
+
+
+#### f) Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r,echo=TRUE}
+new_house3000 <- -22227.81+104.44*3000-78527.50+61.9*3000*1
+new_house3000
+```
+
+The predicted selling price for a new, 3000 sqft home is $398.264.70
+
+```{r,echo=TRUE}
+older_house3000 <- -22227.81+104.4*3000
+older_house3000
+```
+
+The predicted selling price for an older home of the same size is $290,972.20
+
+
+#### g) Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.
+
+```{r,echo=TRUE}
+new_house1500 <- -22227.81+104.4*1500-78527.50+61.9*1500
+new_house1500
+```
+
+The predicted selling price for a new, 1500sqft house is $148,694.70
+
+```{r,echo=TRUE}
+older_house1500 <- -22227.81+104.4*1500
+older_house1500
+```
+
+The predicted selling price for an older, 1500sqft home is $134,372.20
+
+Now to compare to part f. As size doubles in a new home the price increases by more than double, rising to $398,264.70 from $148,694.70 in new homes. For older homes, the same is also true, but with a lower range of values, rising to $290,972.20 from $134,372.20. This heavily indicates that size is much more valuable than other aspects of a given property.
+
+
+#### h) Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?
+
+I think both models could work, but if you're looking specifically at the relationship between 'size' and 'new' and the selling price, I think the one without the interaction is better. They don't necessarily need to interact with each other in order to show their relationship to the price of the home. 
