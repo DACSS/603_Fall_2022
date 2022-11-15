@@ -1,0 +1,215 @@
+---
+title: "DACSS 603 Final Project Pt 2"
+author: "Karen Kimble"
+desription: "Second part of final project"
+date: "11/14/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+category: finalpart2
+---
+
+## Setup
+
+```{r}
+library(tidyverse)
+library(readr)
+library(scales)
+library(ggplot2)
+
+# Importing datasets
+
+NYC_2019 <- read_csv("_data/2018-2019_School_Demographic_Snapshot.csv", col_types = cols(`Grade PK (Half Day & Full Day)` = col_skip(), `# Multiple Race Categories Not Represented` = col_skip(), `% Multiple Race Categories Not Represented` = col_skip()))
+
+NYC_2019$`% Poverty` <- percent(NYC_2019$`% Poverty`, accuracy=0.1)
+
+NYC_2021 <- read_csv("_data/2020-2021_Demographic_Snapshot_School.csv", col_types = cols(`Grade 3K+PK (Half Day & Full Day)` = col_skip(), `# Multi-Racial` = col_skip(), `% Multi-Racial` = col_skip(), `# Native American` = col_skip(), `% Native American` = col_skip(), `# Missing Race/Ethnicity Data` = col_skip(), `% Missing Race/Ethnicity Data` = col_skip()))
+
+# In order to bind the data, I had to remove columns that were not present in the other spreadsheet: Grade PK or 3K, Native American, the different multi-racial categories, and Missing Data
+
+school_data <- rbind(NYC_2019, NYC_2021)
+
+# Renaming some columns
+
+school_data$pct_white <- school_data$'% White'
+
+# Making values coded as "above 95%" to equal 95% and "below 5%" to equal 5% for the purposes of this analysis
+
+school_data$`% Poverty` <- recode(school_data$`% Poverty`, "Above 95%" = "95%", "Below 5%" = "5%")
+
+# Re-coding variables as numeric
+
+school_data$`% Poverty` <- sapply(school_data$`% Poverty`, function(x) gsub("%", "", x))
+
+school_data$`% Poverty` <- as.numeric(school_data$`% Poverty`)
+
+school_data$`Economic Need Index` <- as.numeric(school_data$`Economic Need Index`)
+
+# Creating a new variable of post-Covid (1) and pre-Covid (0)
+
+school_data$Post_Covid <- ifelse(school_data$Year == "2020-21", c("1"), c("0"))
+```
+
+## Research Question
+
+The research question I want to explore is whether child poverty has increased in schools that are predominantly made up of non-white students from the 2014-2015 school year to the 2020-2021 school year. I think this is extremely important to look at because of the pandemic's impact on not only child learning but also families' economic resources. According to the Columbia University Center on Poverty and Social Policy, "nearly a quarter of children ages 0-3 live in poverty and nearly half of the city's young children live in lower-opportunity neighborhoods where the poverty rate is at least 20 percent" ("Poverty"). Unfortunately, research shows that poverty is disproportionately felt according to one's race or ethnicity. In New York State, as of 2021, child poverty among children of color is almost 30%, with Black or African American children more than twice as likely to live in poverty than White, Non-Hispanic children ("New York State", 2021). With this disproportionate level of economic need in children of color, it seems important to investigate if the poverty level within New York City schools that are predominately non-White has increased significantly compared to schools that are predominantly White. When searching the UMass Libraries databases and other sources, it was hard to find studies that used this data in this way. It is important to understand if there is increasing poverty levels within an already vulnerable group.
+
+## Hypothesis
+
+I hypothesize that the poverty rate in NYC schools that are predominantly children of color will have increased more between pre- and post-Covid than the poverty rate in schools that are predominantly White. Since I have not found many previous studies on this, it is hard to know if this hypothesis was tested before. However, this data is fairly recent and also relates to the pandemic's effects on economics, so I think it is still a significant contribution to test this hypothesis.
+
+## Descriptive Statistics
+
+A description and summary of your data. How was your data collected by its original collectors? What are the important variables of interest for your research question? Use functions like glimpse() and summary() to present your data.
+
+The data was collected by New York City and put on its Open Data source. The data covers NYC schools in the academic years 2014-2015 to 2020-2021. The important variables of interest included in the data are:
+
+-   Academic year, which I transformed into pre-Covid and post-Covid variables
+
+-   Number and percentage of Asisan, Black, Hispanic, and White students
+
+-   Number and percentage of students in poverty
+
+-   Economic need index, which is the average of students' "Economic Need Values"
+
+    -   The Economic Need Index (ENI) estimates the percentage of students facing economic hardship
+
+The other variables included are: DBN (district, borough, school number), school name, total enrollment, enrollment numbers for K-12, number and percentage of female and male students, number and percentage of students with disabilities, and number and percentage of English-Language Learner (ELL) students.
+
+```{r}
+glimpse(school_data)
+```
+
+```{r}
+summary(school_data)
+
+# Note: the summary data for the enrollment numbers split by grade is somewhat off (especially minimums) because there is no variable listed for type of school (i.e., middle versus high school). So, for example, an elementary school would have an enrollment total of 0 for grade 12, which would show up as the minimum.
+```
+
+As we can see from this summary, the median percent of poverty in NYC schools (81.4%) is higher than the mean percent (75.89%), indicating that there may be low outliers with very low percentages of poverty. The same holds true for the Economic Need Index, with the mean (0.691) lower than the median (0.743). It is troubling, however, that both the mean and median percentages of poverty in NYC schools overall is more than three-fourths of the population.
+
+## Visualizations
+
+```{r}
+post_white <- filter(school_data, pct_white > 0.5 & Post_Covid == "1")
+post_nonwhite <- filter(school_data, pct_white <= 0.5 & Post_Covid == "1")
+pre_white <- filter(school_data, pct_white > 0.5 & Post_Covid == "0")
+pre_nonwhite <- filter(school_data, pct_white <= 0.5 & Post_Covid == "0")
+post <- filter(school_data, Post_Covid == "1")
+pre <- filter(school_data, Post_Covid == "0")
+white <- filter(school_data, pct_white > 0.5)
+nonwhite <- filter(school_data, pct_white <= 0.5)
+```
+
+```{r}
+boxplot(school_data$`% Poverty` ~ school_data$Post_Covid,
+        xlab = "Pre-Covid (0) or Post-Covid (1)",
+        ylab = "Percent of Students in Poverty")
+```
+
+From the box plot above, we can see that poverty levels between pre- and post-Covid did not change very dramatically for overall students. However, the maximum percentage of poverty did decrease from close to 100% to about 95%. Yet the median percentage level of poverty increased from pre- to post-Covid, though still remained under 90%. There are a large number of outliers below the minimum level of poverty, which is interesting--yet the minimum level of poverty increased between pre- and post-Covid.
+
+```{r}
+boxplot(white$`% Poverty` ~ white$Post_Covid,
+        xlab = "Pre-Covid (0) or Post-Covid (1)",
+        ylab = "Percent of Students in Majority White Districts in Poverty",
+        cex.lab = 0.75)
+```
+
+The box plot showing majority white districts' poverty levels pre- and post-Covid indicate that, while the median poverty level did not change dramatically, the maximum percentage and the third quartile percentage of poverty decreased between pre- and post-Covid. There was a high outlier pre-Covid, but this disappeared in the post-Covid box plot. The majority of observations for predominantly white schools fall in between about 15%-40% of students in poverty, for both pre- and post-Covid levels.
+
+```{r}
+boxplot(nonwhite$`% Poverty` ~ nonwhite$Post_Covid,
+        xlab = "Pre-Covid (0) or Post-Covid (1)",
+        ylab = "Percent of Students in Majority Non-White Districts in Poverty",
+        cex.lab = 0.75)
+```
+
+The box plot for majority non-white districts' poverty levels has a large number of outliers under the poverty level of 50%, similar to the plot for all school districts. The median level of poverty actually increased slightly between pre- and post-Covid years, along with the minimum level of poverty (both in the plot and in outliers). The maximum level of poverty, however, decreased more between these years. A majority of obersvations for both pre- and post-Covid are between 70%-90% of students in poverty for majority non-white districts.
+
+```{r}
+ggplot(school_data, aes(x=`% Poverty`)) +
+  geom_histogram(binwidth = 5, color="black", fill="white") +
+  geom_vline(aes(xintercept=mean(`% Poverty`)), color="red", linetype="dashed")
+```
+
+From the histogram above, we can see that the mean percentage of poverty for all NYC school districts is just above 75%. Most observations are above the mean, with very few school districts below 50% poverty levels. This is most likely why there were so many outliers in the box plots for all school districts and majority non-white school districts.
+
+```{r}
+ggplot(pre, aes(x=`% Poverty`)) +
+  geom_histogram(binwidth = 5, color="black", fill="gray") +
+  labs(title="School Districts Pre-Covid") +
+  geom_vline(aes(xintercept=mean(`% Poverty`)), color="red", linetype="dashed")
+
+ggplot(post, aes(x=`% Poverty`)) +
+  geom_histogram(binwidth = 5, color="black", fill="light gray") +
+  labs(title="School Districts Post-Covid") +
+  geom_vline(aes(xintercept=mean(`% Poverty`)), color="red", linetype="dashed")
+```
+
+The two different plots above show that a alightly larger share of districts post-Covid had poverty levels above the mean. The observations are very skewed to the left in all three plots, however.
+
+## Hypothesis Testing
+
+Response variables: Percentage of students in poverty
+
+Explanatory variables: Post- or pre-Covid, whether the school is majority or minority white
+
+I'm including the interaction term of school demographics because I think that this does play a major role in how Covid effects were mitigated or compounded. Schools with more white students may have received more support during Covid, whether directly to the school or to the students themselves.
+
+Null Hypothesis: The percentage of students in poverty is the same both pre- and post-Covid for both majority and minority white school districts.
+
+Alternative Hypothesis: The percentage of students in poverty is higher post-Covid than pre-Covid, and this effect will be more drastic in minority white school districts than in majority white school districts.
+
+```{r}
+mean(post_white$'% Poverty') - mean(pre_white$'% Poverty')
+
+mean(post_nonwhite$'% Poverty') - mean(pre_nonwhite$'% Poverty')
+
+mean(post$'% Poverty') - mean(pre$'% Poverty')
+```
+
+Before conducting the hypothesis test, we already see that the differences between pre- and post-Covid poverty levels are very different for majority white and majorty nonwhite schools. Majority white schools actually had a decrease in poverty of 0.91% between pre-Covid and post-Covid school years. Yet majority nonwhite schools saw poverty increase between pre- and post-Covid by 0.46%. All school districts saw an overall 0.85% poverty increase in this time period. However, these numbers could be skewed since there is only one post-Covid year while there are a lot of years included in the data-set pre-Covid.
+
+```{r}
+# Hypothesis Test
+
+model <- lm(school_data$'% Poverty' ~ school_data$Post_Covid + school_data$pct_white + school_data$Post_Covid * school_data$pct_white)
+summary(model)
+```
+
+As seen from the results above, the p-values for all three coefficients are smaller than the significance level of a = 0.05. The results for the coefficient for the varaible Post-Covid indicate that there is statistically significant evidence to reject the null hypothesis, that the percentage of students in poverty is the same both pre- and post-Covid. 
+
+## Model Comparisons
+
+```{r}
+model2 <- lm(school_data$'% Poverty' ~ school_data$Post_Covid + school_data$pct_white)
+summary(model2)
+```
+
+In this second model without the interaction term, the Covid variable has a much higher p-value of 0.9, larger than the 0.05 significance level. This means that in this model, there is not significant evidence to reject the hypothesis that the percentage of students in poverty is the same both pre- and post-Covid. However, the p-value for the variable of the percentage of white students remains much smaller than the 0.05 significance level. There is still significant evidence in this model to reject the hypothesis that the percentage of students in poverty is the same for all percentages of white students in the school.
+
+Though this model could still work, I think the first model with the interaction term would still be more accurate. As stated before, the effects of Covid on poverty levels would be mitigated by how much support students in these school districts had, and there is ample evidence that majority white areas receive much more support or are generally more affluent than majority nonwhite areas.
+
+## Diagnostics
+
+```{r}
+plot(model)
+```
+
+In the Residuals vs Fitted plot, the Residuals seem to be random around the linear line, indicating that the assumption of a linear relationship is reasonable.
+
+In the Normal Q-Q plot, the points generally fall along the line, supporting the assumption of normal residuals.
+
+The Scale-Location plot does show a slight downward trend, but is approximately horizontal for most of the graph. This means that standardized residuals could be changing because of the fitted values and it's possible that there is not constant variance.
+
+There are no points outside of the proper distance in the Residuals vs. Leverage plot, showing that there is no single influential observation.
+
+## References
+
+New York State Child Poverty Facts. Schuyler Center for Analysis and Advocacy. (2021, February 18). Retrieved from https://scaany.org/wp-content/uploads/2021/02/NYS-Child-Poverty-Facts_Feb2021.pdf
+
+Poverty in New York City. Columbia University Center on Poverty and Social Policy. (n.d.). Retrieved from https://www.povertycenter.columbia.edu/poverty-in-new-york-city#:\~:text=Children%20and%20Families%20in%20New%20York%20City&text=Through%20surveys%2C%20we%20find%20that,is%20at%20least%2020%20percent.
