@@ -1,0 +1,461 @@
+---
+title: "DACSS 603 Fall 2022 Final Project -- Draft (Statistical Analysis)"
+subtitle: "Assessing the Impact of Voter Turnout on Partisan Outcomes in U.S. Presidential Elections since 1980"
+author: "Nicholas Boonstra"
+date: "November 14, 2022"
+format:
+  html:
+    code-fold: true
+---
+
+```{r setup}
+
+library(tidyverse)
+library(readxl)
+library(plm)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+# Data Read-In and Clean-Up
+
+## Election Data
+
+```{r elections}
+elections_read <- read_csv("_data/mit_election_1976_2020.csv")
+
+elections_read <- elections_read %>% 
+  mutate(party_simplified=str_to_lower(party_simplified)) %>% 
+  mutate(state=str_to_title(state)) %>% 
+  group_by(party_simplified,state,year) %>% 
+  summarise(votes=sum(candidatevotes)) %>% 
+  ungroup() %>% 
+  pivot_wider(
+    names_from = party_simplified,
+    values_from = votes,
+    values_fill = 0
+  ) %>% 
+  mutate(third = libertarian + other) %>% 
+  select(!c(libertarian,other)) %>% 
+  mutate(totvotes = democrat + republican + third) %>% 
+  mutate(dem_rate = democrat/totvotes) %>% 
+  mutate(rep_rate = republican/totvotes) %>% 
+  mutate(third_rate = third/totvotes)
+
+head(elections_read,20)
+```
+
+The election data was obtained from the [MIT Election Lab](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/42MVDX) on October 10, 2022. These data are for U.S. Presidential elections between 1976 and 2020. Because of the availability of other data (namely turnout data), the cases used below will be, in basic models, elections between 1980 and 2020, and, in robust models, elections between 1996 and 2020.
+
+## Turnout Data
+
+```{r turnout}
+# 1980 to 2012
+turnout <- read_excel("_data/1980-2014 November General Election.xlsx",skip=1)
+
+turnout <- turnout %>% 
+  rename("year" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("state" = 4) %>% 
+  rename("totballots_vep_rate" = 5) %>% 
+  rename("highestoff_vep_rate" = 6) %>% 
+  rename("highestoff_vap_rate" = 7) %>% 
+  rename("totballots_count" = 8) %>% 
+  rename("highestoff_count" = 9) %>% 
+  rename("vep_count" = 10) %>% 
+  rename("vap_count" = 11) %>% 
+  rename("noncitizen_vap_rate" = 12) %>% 
+  rename("prison_count" = 13) %>% 
+  rename("probation_count" = 14) %>% 
+  rename("parole_count" = 15) %>% 
+  rename("totfelon_count" = 16) %>% 
+  rename("skip17" = 17) %>% 
+  select(!contains("skip")) %>% 
+  mutate("totfelon_vap_rate" = (totfelon_count/vap_count)*100)
+
+
+# 2016
+turnout_2016 <- read_excel("_data/2016 November General Election.xlsx",skip=1)
+
+turnout_2016 <- turnout_2016 %>% 
+  mutate(year=2016) %>% 
+  rename("state" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("totballots_vep_rate" = 4) %>% 
+  rename("highestoff_vep_rate" = 5) %>% 
+  rename("highestoff_vap_rate" = 6) %>% 
+  rename("totballots_count" = 7) %>% 
+  rename("highestoff_count" = 8) %>% 
+  rename("vep_count" = 9) %>% 
+  mutate(vep_count=floor(vep_count)) %>% 
+  rename("vap_count" = 10) %>% 
+  rename("noncitizen_vap_rate" = 11) %>% 
+  rename("prison_count" = 12) %>% 
+  rename("probation_count" = 13) %>% 
+  rename("parole_count" = 14) %>% 
+  rename("totfelon_count" = 15) %>% 
+  mutate(totfelon_count = floor(totfelon_count)) %>% 
+  rename("skip16" = 16) %>% 
+  rename("abbrev" = 17) %>% 
+  select(!contains("skip")) %>% 
+  mutate("totfelon_vap_rate" = (totfelon_count/vap_count)*100) 
+
+elections_read <- turnout_2016 %>% 
+  select(c(state,abbrev)) %>% 
+  right_join(elections_read)
+
+turnout_2016 <- turnout_2016 %>% 
+  select(!contains("abbrev"))
+
+
+# 2020
+turnout_2020 <- read_excel("_data/2020 November General Election.xlsx",skip=1)
+
+turnout_2020 <- turnout_2020 %>% 
+  mutate(year=2020) %>% 
+  rename("state" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("totballots_count" = 4) %>% 
+  rename("highestoff_count" = 5) %>% 
+  rename("totballots_vep_rate" = 6) %>% 
+  rename("highestoff_vep_rate" = 7) %>% 
+  rename("vep_count" = 8) %>% 
+  mutate(vep_count = floor(vep_count)) %>% 
+  rename("vap_count" = 9) %>% 
+  mutate(vap_count = floor(vap_count)) %>% 
+  mutate(highestoff_vap_rate = highestoff_count/vap_count) %>% 
+  rename("noncitizen_vap_rate" = 10) %>% 
+  rename("prison_count" = 11) %>% 
+  rename("probation_count" = 12) %>% 
+  rename("parole_count" = 13) %>% 
+  rename("totfelon_count" = 14) %>% 
+  mutate(totfelon_count = floor(totfelon_count)) %>% 
+  mutate(totfelon_vap_rate = (totfelon_count/vap_count)*100) %>% 
+  rename("skip15" = 15) %>%
+  rename("skip16" = 16) %>% 
+  select(!contains("skip")) %>% 
+  mutate(state = str_replace(state, "[*]", ""))
+
+
+# putting it all together
+turnout <- turnout %>% 
+  bind_rows(turnout_2016) %>% 
+  bind_rows(turnout_2020) %>% 
+  mutate(state=str_to_title(state))
+
+elections_read <- elections_read %>% 
+  left_join(turnout)
+
+turnout %>% 
+  filter(state!="United States") %>% 
+  arrange(state,year) %>% 
+  head(.,20)
+```
+
+Turnout data was obtained from the [U.S. Elections Project](https://www.electproject.org/election-data) on October 5 (2016 and 2020 sets) and October 11 (1980-2014 dataset), 2022. The U.S. Elections Project is generally considered the most reliable source of turnout data on U.S. general as well as midterm elections.
+
+## Cost of Voting Index (COVI) Data
+
+```{r covi}
+covi <- read_excel("_data/COVI Values 1996-2022 website.xlsx",
+                   skip=1,
+                 col_types=c(
+                   "skip","text","numeric","skip","skip","numeric","skip","numeric","skip","skip","skip"),
+                 col_names=c(
+                   "abbrev","year","covi_val","covi_covid"
+                 ))
+
+covi <- covi %>% 
+  filter(year<2022) %>% 
+  mutate(covi_covid = case_when(
+    year == 2020 ~ covi_covid,
+    T ~ covi_val
+  ))
+
+elections_read <- elections_read %>% 
+  left_join(covi) %>% 
+  select(!abbrev)
+
+head(covi,20)
+```
+
+The [Cost of Voting Index](https://www.nytimes.com/interactive/2022/09/20/us/politics/cost-of-voting.html) ("COVI") is an empirical measurement of voting ease and accessibility in the fifty U.S. states. (Unfortunately, this dataset does not include observations for the District of Columbia.) The main substance of the dataset comes from a paper published by professors at Northern Illinois, Jacksonville, and Wuhan Universities ([Schraufnagel et al., 2020](https://costofvotingindex.com/articles)). The dataset was obtained October 10, 2022.
+
+Because ballot access was a central aspect of the theoretical underpinnings of this study, it felt appropriate to include these COVI data in my analysis. As will be seen below, these data do appear to play a significant role in affecting partisan vote outcomes.
+
+The `covi_covid` column differs from the `covi_val` column only for the year 2020, and accounts for the electoral changes made by many states in response to the COVID-19 pandemic in that year. The values from `covi_covid` are the ones used for this study.
+
+
+## Final Merged Dataset
+
+```{r elections_finalize}
+elections <- elections_read %>% 
+  arrange(state,year) %>% 
+  mutate(state = as_factor(state)) %>% 
+  mutate(year = as_factor(year)) %>% 
+  mutate(dem_win = case_when(
+    democrat > republican & democrat > third ~ 1,
+    T ~ 0
+  )) %>% 
+  mutate(dem_rate = dem_rate * 100) %>% 
+  mutate(rep_rate = rep_rate * 100) %>% 
+  mutate(third_rate = third_rate * 100) %>% 
+  mutate(totballots_vep_rate = totballots_vep_rate * 100) %>% 
+  mutate(highestoff_vep_rate = highestoff_vep_rate * 100) %>% 
+  mutate(highestoff_vap_rate = highestoff_vap_rate * 100) %>% 
+  mutate(noncitizen_vap_rate = noncitizen_vap_rate * 100)
+
+head(elections,20)
+```
+
+The final dataframe contains 612 observations (51 states $\times$ 12 elections) of 25 variables.
+
+```{r elections colnames}
+colnames(elections)
+```
+
+(The party name variables record raw vote totals for each party or party group in a given state and year.)
+
+# Visualizations
+
+### Turnout Rate and Democratic Vote Share
+
+```{r viz_turnout}
+statelevel_plot <- elections %>%  
+  ggplot(aes(x=highestoff_vap_rate,y=dem_rate)) +
+  geom_point() +
+  geom_smooth(method=lm,se=F) +
+  facet_wrap(vars(state)) +
+  theme_linedraw() +
+  labs(
+    title = "Turnout Rates and Democratic Vote Share",
+    subtitle = "U.S. Presidential Elections by State*, 1980-2020",
+    x = "Turnout Rate (%VAP)",
+    y = "Democratic Vote Share (% of votes cast)",
+    caption = "*Includes Washington, DC"
+  )
+# statelevel_plot
+```
+
+![State-by-state plots of Democratic vote share against %VAP Turnout](images/boonstra_state_plots.png)
+
+Effects vary by state, but a number of states demonstrate a positive correlation between turnout rate and Democratic vote share, lending some initial support to the study's hypothesis.
+
+### Cost of Voting Index and Democratic Vote Share
+
+```{r viz_covi}
+covi_plot <- elections %>% 
+  filter(state!="District Of Columbia") %>% 
+  ggplot(aes(x=covi_covid,y=dem_rate)) +
+  geom_point() +
+  geom_smooth(method=lm,se=F) +
+  facet_wrap(vars(state)) +
+  theme_linedraw() +
+  labs(
+    title = "Cost of Voting Index Values and Democratic Vote Share",
+    subtitle = "U.S. Presidential Elections by State*, 1996-2020",
+    x = "Cost of Voting Index",
+    y = "Democratic Vote Share (% of votes cast)",
+    caption = "*Excludes Washington, DC"
+  )
+# covi_plot
+```
+
+![State-by-state plots of Democratic vote share against Cost of Voting Index values](images/boonstra_covi_plots.png)
+
+Again, while effects vary by state, a trend emerges across a number of states of a negative correlation between COVI and Democratic vote share -- suggesting that Democratic vote share decreases as the cost of voting increases. This effect would also lend credence to the study's hypothesis and underlying theories about ballot access.
+
+# Statistical Analysis
+
+```{r plm basic}
+plm1_vap <- plm(
+  dem_rate ~
+    highestoff_vap_rate,
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm1_vap_clustered <- coeftest(plm1_vap, vcov. = vcovHC, type = "HC1")
+
+plm1_vep <- plm(
+  dem_rate ~
+    highestoff_vep_rate,
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm1_vep_clustered <- coeftest(plm1_vep, vcov. = vcovHC, type = "HC1")
+```
+
+```{r plm robust}
+plm3_vap <- plm(
+  dem_rate ~ 
+    highestoff_vap_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm3_vap_clustered <- coeftest(plm3_vap, vcov. = vcovHC, type = "HC1")
+
+plm3_vep <- plm(
+  dem_rate ~ 
+    highestoff_vep_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm3_vep_clustered <- coeftest(plm3_vep, vcov. = vcovHC, type = "HC1")
+```
+
+```{r stargazer plm}
+plm_models <- list(plm1_vap,plm1_vep,plm3_vap,plm3_vep)
+plm_models_clustered <- list(plm1_vap_clustered,plm1_vep_clustered,plm3_vap_clustered,plm3_vep_clustered)
+
+stargazer(
+  plm_models,
+  title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models",
+  type = "text",
+  dep.var.caption = "Democratic Vote Share",
+  dep.var.labels.include = F,
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+
+stargazer(
+  plm_models_clustered,
+  title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs",
+  type = "text",
+  dep.var.caption = "Democratic Vote Share",
+  dep.var.labels.include = F,
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate(%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+```
+
+```{r demwin_logit_basic}
+demwin_logit_basic_vap <- glm(
+  dem_win ~ 
+    highestoff_vap_rate + state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_basic_vap_cl <- coeftest(demwin_logit_basic_vap, vcov. = vcovHC, type = "HC1")
+
+demwin_logit_basic_vep <- glm(
+  dem_win ~ 
+    highestoff_vep_rate + state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_basic_vep_cl <- coeftest(demwin_logit_basic_vep, vcov. = vcovHC, type = "HC1")
+```
+
+```{r demwin_logit_robust}
+demwin_logit_robust_vap <- glm(
+  dem_win ~ 
+    highestoff_vap_rate + covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count) +
+    state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_robust_vap_cl <- coeftest(demwin_logit_robust_vap, vcov. = vcovHC, type = "HC1")
+
+demwin_logit_robust_vep <- glm(
+  dem_win ~ 
+    highestoff_vep_rate + covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count) +
+    state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_robust_vep_cl <- coeftest(demwin_logit_robust_vep, vcov. = vcovHC, type = "HC1")
+```
+
+```{r stargazer logit}
+logit_models <- list(demwin_logit_basic_vap,demwin_logit_basic_vep,demwin_logit_robust_vap,demwin_logit_robust_vep)
+logit_models_cl <- list(
+  demwin_logit_basic_vap_cl,demwin_logit_basic_vep_cl,demwin_logit_robust_vap_cl,demwin_logit_robust_vep_cl
+)
+
+stargazer(
+  logit_models,
+  type = "text",
+  omit.stat = "aic",
+  omit = c(7:57),
+  dep.var.caption = "Democratic State Victory",
+  title = "Democratic State Win, State-Level Fixed Effects Logit Models",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)"),
+  dep.var.labels.include = F
+)
+
+stargazer(
+  logit_models_cl,
+  type = "text",
+  omit.stat = "aic",
+  omit = c(7:57),
+  title = "Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs",
+  dep.var.caption = "Democratic State Victory",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)"),
+  dep.var.labels.include = F
+)
+```
+
+```{r plm_turnout}
+plm_turnout_vap <- plm(
+  highestoff_vap_rate ~
+    covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  method = "within",
+  effect = "twoway"
+)
+plm_turnout_vap_cl <- coeftest(plm_turnout_vap, vcov. = vcovHC, type = "HC1")
+
+plm_turnout_vep <- plm(
+  highestoff_vep_rate ~
+    covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  method = "within",
+  effect = "twoway"
+)
+plm_turnout_vep_cl <- coeftest(plm_turnout_vep, vcov. = vcovHC, type = "HC1")
+```
+
+```{r stargazer turnout}
+turnout_models <- list(plm_turnout_vap,plm_turnout_vep)
+turnout_models_cl <- list(plm_turnout_vap_cl,plm_turnout_vep_cl)
+
+stargazer(
+  turnout_models,
+  type = "text",
+  title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models",
+  dep.var.caption = "Turnout",
+  dep.var.labels = c("%VAP","%VEP"),
+  covariate.labels = c("Cost of Voting Index","Inelgibile Felon Rate (%VAP)","Noncitizen Rate (%VAP)",
+                      "Voting-Age Population (logged)")
+)
+
+stargazer(
+  turnout_models_cl,
+  type = "text",
+  title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs",
+  dep.var.caption = "Turnout (%VAP, %VEP)",
+  dep.var.labels = NULL,
+  covariate.labels = c("Cost of Voting Index","Inelgibile Felon Rate (%VAP)","Noncitizen Rate (%VAP)",
+                      "Voting-Age Population (logged)")
+)
+```
