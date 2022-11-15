@@ -1,5 +1,5 @@
 ---
-title: "Final Project"
+title: "Final Project - Part 2"
 author: "Karen Detter"
 desription: "What predicts support for government regulation of 'Big Tech'?"
 date: "11/11/2022"
@@ -107,7 +107,7 @@ wav49_factored <- na.omit(wav49_factored)
 wav49_factored
 ```
 
-Finally, since the trait of interest is support for government regulation of online data collection, collapsing the factor levels of the outcome variable <govtreg> to two values - 'More regulation' and 'Not More regulation' - helps clarify the construct of "support".
+Finally, since the trait of interest is support for government regulation of online data collection, collapsing the factor levels of the outcome variable *govtreg* to two values - "More regulation" and "Not More regulation" - helps clarify the construct of "support".
 
 ```{r}
 wav49_factored <- wav49_factored %>%
@@ -197,7 +197,7 @@ chisq.test(tbleducation)
 chisq.test(tblparty)
 chisq.test(tblideology)
 ```
-The test results show that all of the selected variables are significantly correlated with <govtreg>, with p-values well below the .05 threshhold. The null hypothesis can be rejected, as there is evidence supporting the alternative - that these variables have an effect on opinion about government regulation of Big Tech.
+The test results show that all of the selected variables are significantly correlated with *govtreg*, with p-values well below the .05 threshhold. The null hypothesis can be rejected, as there is evidence supporting the alternative - that these variables have an effect on opinion about government regulation of Big Tech.
 
 # Model Comparisons
 
@@ -212,14 +212,14 @@ wav49_numeric <- wav49_sel_clean %>%
 head(wav49_numeric)
 ```
 
-The first model contains all of the variables as explanatory variables for the outcome variable <govtreg>.
+The first model contains all of the selected variables as explanatory variables for the outcome variable *govtreg*.
 
 ```{r}
 model_full <- lm(govtreg ~ awareness + control + understanding + resignation + age + education + party + ideology, data = wav49_numeric)
 summary(model_full)
 ```
 
-The full model shows that <awareness>, <resignation>, <age>, and <ideology> all have significant effects on <govtreg>, with <awareness> and <ideology> having very small p-values. The residuals are also quite small, indicating that the model is appropriate. The Adjusted $R^{2}$, however, shows that even the full model explains less than 1% of the variance in <govtreg>.
+The full model shows that *awareness*, *resignation*, *age*, and *ideology* all have significant effects on *govtreg*, with *awareness* and *ideology* having very small p-values. The residuals are also quite small, indicating that the model is appropriate. The Adjusted $R^{2}$, however, shows that even the full model explains less than 1% of the variance in *govtreg*.
 
 Building another model with only the variables shown to be significant could improve the fit.
 
@@ -237,9 +237,9 @@ model_int <- lm(govtreg ~ awareness*resignation + age + ideology, data = wav49_n
 summary(model_int)
 ```
 
-This model does not seem to be an improvement on the others, as the interaction variable is not statistically significant.
+This model does not seem to be an improvement on the others, as the interaction variable is not statistically significant, and the Adjusted $R^{2}$ is not improved.
 
-The best model, then, is likely the second one tested - the alternative model. 
+Of these, the best model is likely the second one tested - the alternative model. 
 
 # Diagnostics
 
