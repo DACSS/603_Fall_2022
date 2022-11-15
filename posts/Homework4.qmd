@@ -1,0 +1,308 @@
+---
+  title: "Homework 4 - Emily Duryea"
+author: "Emily Duryea"
+description: "The fourth homework assignment for DACSS 603"
+date: "11/14/2022"
+format:
+  html:
+  toc: true
+code-fold: true
+code-copy: true
+code-tools: true
+categories:
+- hw4
+- Emily Duryea
+---
+
+# Homework 4
+
+## Question 1
+
+For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is 
+
+ŷ = −10,536 + 53.8x1 + 2.84x2.
+
+```{r}
+# Importing needed libraries
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(alr4)
+library(smss)
+```
+
+### Part A
+
+A particular home of 1240 square feet on a lot of 18,000 square feet sold for \$145,000. Find the predicted selling price and the residual, and interpret.
+
+```{r}
+# Plugging given values into the equation to solve
+-10536 + 53.8*1240 + 2.84*18000
+
+# Calculating the residual
+145000-107296
+```
+
+The predicted selling price of the house would be \$107,296, and the residual would be \$37,704.
+
+### Part B
+
+For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?
+
+The house selling price predicted to increase for each square-foot increase is \$53.80, based on the multiplier in the prediction equation.
+
+### Part C
+
+According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?
+
+```{r}
+# Calculating using square foot home size multiplier and square foot lot size multipler
+53.8/2.84
+```
+
+The lot size of a fixed size home would have to increase by 18.94366 feet to have the same impact as a one square foot increase in home size.
+
+## Question 2
+
+(Data file: salary in **alr4** R package). The data file concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.
+
+### Part A
+
+Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings.
+
+```{r}
+# Importing the data
+data(salary)
+
+# Conducting a t-test to test hypothesis
+t.test(salary ~ sex, data=salary)
+```
+
+Based on the results of the t-test, there is no statistically significant difference in the salary of male and female professors. This is because the p-value (0.09009) is greater than 0.05.
+
+### Part B
+
+Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.
+
+```{r}
+# Creating the model
+summary(lm(salary ~ degree + rank + sex + year + ysdeg, data=salary))
+
+# Putting model data into a variable
+professor_salary <- lm(salary ~ degree + rank + sex + year + ysdeg, data=salary)
+
+#Creating a confidence interval for the variables in the model
+confint(professor_salary)
+```
+
+The confidence interval for salary difference based on sex is between -697.8183 and 3,030.56452.
+
+### Part C
+
+Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variables
+
+#### Degree
+
+The p-value is not statistically significant, as the p-value is greater than 0.05. The results indicate that professors with a PhD make \$1,388.61 than professors without a PhD.
+
+#### rankAssoc
+
+The p-value is statistically significant, as it is less than 0.05. The results indicate that associate professors make \$5,292.36 than assistant professors.
+
+#### rankProf
+
+The p-value is statistically significant. The results indicate that faculty professors make \$11,118.76 more than assistant professors.
+
+#### Sex
+
+The p-value is not statistically significant. The results indicate that female professors make \$1,166.37 more than male professors.
+
+#### Year
+
+The p-value is statistically significant. The results indicate that with each year as a professor, there is a salary increase of \$476.31.
+
+#### Ysdeg
+
+The p-value is not statistically significant. The results indicate that for each year after completing their highest degree, there is a salary decrease of \$124.57.
+
+### Part D
+
+Change the baseline category for the rank variable. Interpret the coefficients related to rank again.
+
+```{r}
+# Changing the baseline category for the rank variable
+salary$rank<- relevel(salary$rank, ref = 'Assoc')
+
+# Redoing the model from Part B
+summary(lm(salary ~ degree + rank + sex + year + ysdeg, data=salary))
+```
+
+The baseline category has been changed to "Assoc." The results indicate that assistant professors make \$5,292.36 less than Associate professors. Faculty professor are expected to make \$5,826.40 more than Associate professors. These results are both still statistically significant (p-value \< 0.05).
+
+### Part E
+
+Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, \"\[a\] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be \'tainted.\' \" Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. Exclude the variable rank, refit, and summarize how your findings changed, if they did.
+
+```{r}
+# Creating a model without rank
+summary(lm(salary ~ degree + sex + year + ysdeg, data=salary))
+```
+
+After removing rank from the model, the results indicate that there is a difference between male and female salaries, with females making \$1,286.54 less than men. However, this difference is not statistically significant.
+
+### Part F
+
+Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.
+
+Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?
+
+```{r}
+# Creating a variable with categories "new" for less than 15 years, and "old" for 15 or more years
+#creating a dummy variable new and old dean
+salary<-mutate(salary, dean= case_when(ysdeg < 15 ~"new",
+                               ysdeg >=15 ~"old"))
+
+# Rerunning the model with new variable
+summary(lm(salary ~ dean + degree + sex + rank +year, data=salary))
+```
+
+Based on the new variable and controlling for other predictors, faculty hired by the old dean make \$2,421.60 less than new faculty.
+
+## Question 3
+
+(Data file: house.selling.price in **smss** R package)
+
+### Part A
+
+Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of sizeof home (in square feet) and whether the home is new(1 = yes; 0 = no). In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.
+
+```{r}
+# Importing needed data
+data(house.selling.price)
+
+# Creating model based on size and age status
+summary(lm(Price ~ Size + New, data= house.selling.price))
+```
+
+Based on the size variable, the house price will increase by \~\$116.132 for each square foot increase in size. This finding is statistically significant.
+
+Based on the age of the house variable, a new house is projected to cost \~\$57,736.283 more than an old house. This finding is also statistically significant.\
+
+### Part B
+
+Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes.
+
+Prediction equation:
+
+y = -40230.867 + 116.13\*x1 + 57736.283\*x2
+
+x1 = size
+
+x2 = age of house (old vs. new)
+
+Prediction equation for a new house:
+
+y = -40230.867 + 116.132\*x1 + 57736.283
+
+Prediction equation for an old house:
+
+y = -40230.867 + 116.132\*x1
+
+### Part C
+
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r}
+# Using the prediction model to predict the cost of a new house
+-40230.867 + 116.132*3000 +  57736.283
+
+# Using the prediction model to predict the cost of an old house
+-40230.867 + 116.132*3000
+```
+
+Based on the prediction model, a new house of 3,000 square feet would cost \$365,901.40, while an old house of the same size would cost \$308,165.10.
+
+### Part D
+
+Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results
+
+```{r}
+# Creating a model for an interaction between size and new
+summary(lm(Price ~ Size + New + Size*New, data=house.selling.price))
+```
+
+Based on this model, the prediction equation would be y = -2227.808 + 104.438\*x1 + 61.916\*x2 -78527.502\*x3, where x1 is the size of the house in square feet, x2 is the size and house age interaction variable, and x3 is the house age variable (old vs new). Both size and the interaction between size and house age are statistically significant. However, the house age variable is no longer statistically significant.
+
+### Part E
+
+Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.
+
+Prediction equation for a new house:
+
+y = -2227.808 + 166.354\*x1 - 78527.502
+
+Prediction equation for an old house:
+
+y = -2227.808 + 104.438\*x1
+
+### Part F
+
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r}
+# Using the prediction model to predict the cost of a new house
+-2227.808 + 166.354*3000 - 78527.502
+
+# Using the prediction model to predict the cost of an old house
+-2227.808 + 104.438*3000
+```
+
+Based on the new prediction model, a new house of 3,000 square feet would cost \$418,306.70, while an old house of the same size would cost \$311,086.20.
+
+### Part G
+
+Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.
+
+```{r}
+# Using the prediction model to predict the cost of a new house
+-2227.808 + 166.354*1500 - 78527.502
+
+# Using the prediction model to predict the cost of an old house
+-2227.808 + 104.438*1500
+```
+
+Based on the new prediction model, a new house of 1,500 square feet would cost \$168,775.70, while an old house of the same size would cost \$154,429.20. This model demonstrates that small houses vary less in price, regardless of age, than larger houses, where new vs old houses makes much more of a difference.
+
+### Part H
+
+Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?
+
+```{r}
+# Calculating predicted house cost of a large new house with first model
+-40230.867 + 116.132*5000 +  57736.283
+
+# Calculating predicted house cost of a large old house with first model
+-40230.867 + 116.132*5000
+
+# Calculating predicted house cost of a small new house with first model
+-40230.867 + 116.132*1000 +  57736.283
+
+# Calculating predicted house cost of a small old house with the first model
+-40230.867 + 116.132*1000
+
+# Calculating predicted house cost of a large new house with second model
+-2227.808 + 166.354*5000 - 78527.502
+
+# Calculating predicted house cost of a large old house with second model
+-2227.808 + 104.438*5000
+
+# Calculating predicted house cost of a small new house with second model
+-2227.808 + 166.354*1000 - 78527.502
+
+# Calculating predicted house cost of a small old house with the second model
+-2227.808 + 104.438*1000
+```
+
+I think that it depends. For large houses, I would use the second model, because it shows the difference the price a new house vs an old house more greatly. However, for smaller houses, the second model is inaccurate, since it predicts that a new small house would be cheaper than an old small house. I think the first model would be a better predictor for small houses.
