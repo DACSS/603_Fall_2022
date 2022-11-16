@@ -1,0 +1,195 @@
+---
+title: "Homework 4"
+author: "Nick Boonstra"
+date: "November 16, 2022"
+format:
+  html:
+    code-fold: true
+---
+
+```{r setup}
+library(tidyverse)
+library(alr4)
+library(smss)
+```
+
+# Question 1
+
+The prediction equation for selling price of homes in Jacksonville, FL ($y$) is given as:
+
+$\hat{y} = -10,536 + 53.8x_1 + 2.84x_2$
+
+where $x_1$ is the size of the home and $x_2$ is the size of the lot (both in square feet).
+
+## Part A
+
+```{r q1_a}
+q1_a_price <- 145000
+q1_a_predict <- (53.8*1240) + (2.84*18000)
+print(c("Predicted price = ",q1_a_predict))
+residual <- q1_a_price - q1_a_predict
+print(c("Residual = ",residual))
+```
+
+According to the model, predicted selling price was roughly 118000 USD. The residual of roughly 28000 means that the model underpredicted the selling price by roughly 28000 USD.
+
+## Part B
+
+For fixed lot size, the house price is expected to increase by 53.8 USD as the square footage of the house itself increases in 1. This is because the coefficient for the home size square footage is 53.8.
+
+## Part C
+
+Lot size would need to increase by `r 53.8/2.84` to have the same impact as a one-square-foot increase in home size.
+
+
+# Question 2
+
+```{r q2_readin}
+data(salary)
+salary
+```
+
+## Part A
+
+```{r q2_a}
+salary_men <- salary %>% 
+  filter(sex == "Male")
+salary_women <- salary %>% 
+  filter(sex == "Female")
+
+t.test(salary_men$salary,salary_women$salary)
+```
+
+The findings of a two-sample Welch's t-test comparing salary by sex are inconclusive; the difference in means is not significant at a 95% confidence level, but is significant at a 90% confidence level, suggesting that further investigation (i.e. multiple regression) could yield significant results.
+
+## Part B
+
+```{r q2_b}
+q2_lm <- lm(
+  salary ~
+    .,
+  data = salary
+)
+summary(q2_lm)
+```
+
+The 95% confidence interval for the coefficient of `sexFemale` is the range between `r 1166.37 - (qt(0.975,df=51) * ( sd(salary$salary/sqrt(52))))` on the low end and `r 1166.37 + (qt(0.975,df=51) * ( sd(salary$salary/sqrt(52))))` on the high end. Because this range of values passes from negative to positive (i.e. crosses 0), we say that the result is insignificant at a 95% confidence level.
+
+## Part C
+
+`r q2_lm$coefficients[1]` -- All other things being equal, a professor at this university could be expected to earn \$15746.05. This coefficient is significant beyond a 99% confidence level.
+
+`r q2_lm$coefficients[2]` -- A professor with a PhD would be expected to make \$1,388.61 more than one with a Master's degree. However, this coefficient is not significant at a 95% confidence level.
+
+`r q2_lm$coefficients[3]` -- An Associate Professor would be expected to make \$5292.36 more than an Assistant Professor. This coefficient is significant at a 95% confidence level.
+
+`r q2_lm$coefficients[4]` -- A Full Professor would be expected to make \$11118.76 more than an Assistant Professor. This coefficient is significant at a 95% confidence level.
+
+`r q2_lm$coefficients[5]` -- A female professor would be expected to make \$1166.37 more than a male professor based on this model. However, the coefficient is not significant at a 95% confidence level. The direction of the sign, and the lack of significance, would both help to discredit the notion that female professors earn less than male professors at this university systemically.
+
+`r q2_lm$coefficients[6]` -- Each additional year of experience in one's current rank would be expected to earn a professor an additional \$476.31 per year. This coefficient is significant at a 95% confidence level.
+
+`r q2_lm$coefficients[7]` -- A professor would be expected to earn \$124.57 less per year based on each year since they earned their highest degree according to this model. However, this coefficient is not significant at a 95% confidence level, which is good, because this effect wouldn't make much sense when considering the real-world meaning of the coefficient.
+
+## Part D
+```{r q2_d}
+salary$rank <- factor(salary$rank, levels = c("Prof","Asst","Assoc"))
+
+summary(lm(
+  salary ~
+    .,
+  data = salary
+))
+```
+
+Reordering the `rank` variable to put the "Prof" level first yields the above regression table. As in the first regression, Assistant Professors are here expected to make \$11118.76 less per year than Full Professors. Associate Professors are expected to make \$5826.40 less per year than Full Professors. Both of these coefficients are significant at a 95% confidence level.
+
+## Part E
+
+```{r q2_e}
+summary(lm(
+  salary ~
+    . - rank,
+  data = salary
+))
+```
+
+With `rank` excluded, `ysdeg` becomes positive and significant. The coefficient for `sexFemale` is now negative, but is still not significant.
+
+## Part F
+
+```{r q2_f}
+salary_dean <- salary %>% 
+  mutate(dean = case_when(
+    ysdeg <= 15 ~ 1,
+    T ~ 0
+  ))
+
+summary(lm(
+  salary ~
+    . - ysdeg,
+  data = salary_dean
+))
+```
+
+Because `dean` is based on `ysdeg`, and because `year` and `ysdeg` measure overlapping lengths of time, I excluded `ysdeg` for this model. The results are similar to those above, most notably in the lack of significance for the coefficient of `sexFemale`.
+
+# Question 3
+
+```{r q3_read}
+data(house.selling.price)
+house.selling.price
+```
+
+## Part A
+
+```{r q3_a}
+q3_lm <- lm(
+  Price ~ 
+    Size + New,
+  data = house.selling.price
+)
+summary(q3_lm)
+```
+
+All coefficients are significant. The intercept (i.e. a theoretical house of no size that is not new) is -\$42390.87. Each square foot increases house price by \$116.13. A new house would be expected to sell for \$57736.28 more than an old house of equal size.
+
+## Part B
+
+$y$ is equal to predicted selling price in USD, and $x$ is equal to house size in square feet.
+
+New home:
+
+$y = 17505.42 + 116.13x$
+
+Old home:
+
+$y = -40230.87 + 116.132x$
+
+## Part C
+
+```{r q3_c}
+q3_predict <- data.frame(
+  Size = c(3000,3000),
+  New = c(1,0)
+)
+predict(q3_lm,newdata=q3_predict)
+```
+
+The new house would be expected to sell for \$365900, while the not-new house would be expected to sell for about \$308000.
+
+## Part D
+
+```{r q3_d}
+q3_lm_interact <- lm(
+  Price ~ 
+    Size * New,
+  data = house.selling.price
+)
+summary(q3_lm_interact)
+```
+
+The intercept and `New` values are no longer significant. Selling price is expected to increase by \$104 per square foot for all houses, and an additional \$62 per square foot for new houses.
+
+
+
