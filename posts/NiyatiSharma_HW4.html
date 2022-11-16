@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Niyati Sharma">
+<meta name="dcterms.date" content="2022-11-16">
+<meta name="description" content="Homework 4">
+
+<title>Homework 4</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Homework 4">
+<meta name="twitter:description" content="Homework 4">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#answer1" id="toc-answer1" class="nav-link active" data-scroll-target="#answer1">Answer1</a></li>
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">a</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">b</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">c</a>
+  <ul class="collapse">
+  <li><a href="#answer-2" id="toc-answer-2" class="nav-link" data-scroll-target="#answer-2">Answer 2</a></li>
+  </ul></li>
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">a</a></li>
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">b</a></li>
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">c</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">d</a></li>
+  <li><a href="#e" id="toc-e" class="nav-link" data-scroll-target="#e">e</a></li>
+  <li><a href="#f" id="toc-f" class="nav-link" data-scroll-target="#f">f</a>
+  <ul class="collapse">
+  <li><a href="#question-3" id="toc-question-3" class="nav-link" data-scroll-target="#question-3">Question 3</a></li>
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">a</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">b</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">c</a></li>
+  <li><a href="#d-1" id="toc-d-1" class="nav-link" data-scroll-target="#d-1">d</a></li>
+  <li><a href="#e-1" id="toc-e-1" class="nav-link" data-scroll-target="#e-1">e</a></li>
+  <li><a href="#f-1" id="toc-f-1" class="nav-link" data-scroll-target="#f-1">f</a></li>
+  <li><a href="#g" id="toc-g" class="nav-link" data-scroll-target="#g">g</a></li>
+  <li><a href="#h" id="toc-h" class="nav-link" data-scroll-target="#h">h</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Homework 4</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">hw4</div>
+    <div class="quarto-category">Niyati Sharma</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Homework 4
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Niyati Sharma </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">November 16, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<hr>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="answer1" class="level2">
+<h2 class="anchored" data-anchor-id="answer1">Answer1</h2>
+</section>
+<section id="a" class="level1">
+<h1>a</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating predicted selling price</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Pre_sell <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>{<span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> <span class="fl">53.8</span><span class="sc">*</span>a <span class="sc">+</span> <span class="fl">2.84</span><span class="sc">*</span>b}</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Pre_sell</span>(<span class="dv">1240</span>, <span class="dv">18000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 107296</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating residual</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Residual<span class="ot">&lt;-</span> <span class="cf">function</span>(r, p)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  {r<span class="sc">-</span> p}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">Residual</span>(<span class="dv">145000</span>, <span class="dv">107296</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 37704</code></pre>
+</div>
+</div>
+<p>The predicted selling price is 107,296 dollars and the actual selling price is 145,000 dollars. The residual is 37,704 dollars, meaning that the house was sold for 37,704 dollars greater than predicted.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="b" class="level1">
+<h1>b</h1>
+<p>For a fixed lot size, the house selling price is predicted to increase by 53.8 for each square foot increase in home size.This is because a fixed lot size would make 2.84x2 a set number in the prediction equation. Therefore, we would not need to factor in a change in the output based on any input. Then, we are left with the coefficient for the home size variable, which is 53.8. For x1=1, representing one square-foot of home size, the output would increase by 53.8*1 = 53.8.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="c" class="level1">
+<h1>c</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating lot size needed for equal impact of 1 unit increase in home size</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 53.8(1) = 2.84x2</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fl">53.8</span><span class="sc">/</span><span class="fl">2.84</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>x2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 18.94366</code></pre>
+</div>
+</div>
+<p>The lot size would need to increase by about 18.94 square feet in order to have an equivalent impact as an additional square foot of home size.</p>
+<p><span class="math display">\[\\[0.7in]\]</span></p>
+<section id="answer-2" class="level2">
+<h2 class="anchored" data-anchor-id="answer-2">Answer 2</h2>
+</section>
+</section>
+<section id="a-1" class="level1">
+<h1>a</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data and preview</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(salary)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(salary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>   degree rank    sex year ysdeg salary
+1 Masters Prof   Male   25    35  36350
+2 Masters Prof   Male   13    22  35350
+3 Masters Prof   Male   10    23  28200
+4 Masters Prof Female    7    27  26775
+5     PhD Prof   Male   19    30  33696
+6 Masters Prof   Male   16    21  28516</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>RG <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RG)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ sex, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8602.8 -4296.6  -100.8  3513.1 16687.9 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)    24697        938  26.330   &lt;2e-16 ***
+sexFemale      -3340       1808  -1.847   0.0706 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5782 on 50 degrees of freedom
+Multiple R-squared:  0.0639,    Adjusted R-squared:  0.04518 
+F-statistic: 3.413 on 1 and 50 DF,  p-value: 0.0706</code></pre>
+</div>
+</div>
+<p>The female coefficient is -3340, says that women make less than men (indepemdent of other cariable). However, there is a significance level of .07, so we fail to reject the null hypothesis and therefore cannot conclude that there is a difference between mean salaries for men and women.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="b-1" class="level1">
+<h1>b</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fm <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>fm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ ., data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4045.2 -1094.7  -361.5   813.2  9193.1 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 15746.05     800.18  19.678  &lt; 2e-16 ***
+degreePhD    1388.61    1018.75   1.363    0.180    
+rankAssoc    5292.36    1145.40   4.621 3.22e-05 ***
+rankProf    11118.76    1351.77   8.225 1.62e-10 ***
+sexFemale    1166.37     925.57   1.260    0.214    
+year          476.31      94.91   5.018 8.65e-06 ***
+ysdeg        -124.57      77.49  -1.608    0.115    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2398 on 45 degrees of freedom
+Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
+F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>95% Confidence interval for the difference in salary between male and females is -697.82 and 3030.56</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="c-1" class="level1">
+<h1>c</h1>
+<p>Rank and year are significant predictors of salary, while all others were not.</p>
+<p>Both rank and year positively predict salary: Associate Professors and full Professors were likely to earn quite a bit more than Assistant Professors, while professors with more years in their current rank also earned more.</p>
+<p>Looking at the magnitude of the coefficients, rank has a greater impact on salary than year does.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="d" class="level1">
+<h1>d</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="at">ref =</span> <span class="st">"Prof"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sal_rank <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank, salary)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sal_rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ rank, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5209.0 -1819.2  -417.8  1586.6  8386.0 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  29659.0      669.3  44.316  &lt; 2e-16 ***
+rankAsst    -11890.3      972.4 -12.228  &lt; 2e-16 ***
+rankAssoc    -6483.0     1043.0  -6.216 1.09e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2993 on 49 degrees of freedom
+Multiple R-squared:  0.7542,    Adjusted R-squared:  0.7442 
+F-statistic: 75.17 on 2 and 49 DF,  p-value: 1.174e-15</code></pre>
+</div>
+</div>
+<p>As we relabel the baseline category for the rank variable, we see a decreament of $ 11890.3 salary for assistant and $ 6483.0 salary for associate as compared to Professor. Both ranks have significance levels well below 0.05 and we can determine that rank does have a statistically significant impact on salary.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="e" class="level1">
+<h1>e</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ degree + sex + year + ysdeg, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8146.9 -2186.9  -491.5  2279.1 11186.6 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 17183.57    1147.94  14.969  &lt; 2e-16 ***
+degreePhD   -3299.35    1302.52  -2.533 0.014704 *  
+sexFemale   -1286.54    1313.09  -0.980 0.332209    
+year          351.97     142.48   2.470 0.017185 *  
+ysdeg         339.40      80.62   4.210 0.000114 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3744 on 47 degrees of freedom
+Multiple R-squared:  0.6312,    Adjusted R-squared:  0.5998 
+F-statistic: 20.11 on 4 and 47 DF,  p-value: 1.048e-09</code></pre>
+</div>
+</div>
+<p>Now, when we remove rank variable, we see cofficient for sex = -1286.54 and with rank variable it is 1166.37. Furthermore, the female salary will be 1286.54 less than the male salary without rank variable. However, the significance level is 0.332, which is very high and therefore the results cannot be found to be statistically significant. While the change of the coefficient to negative upon removal of rank is interesting, the significance level would likely prevent these results from holding up in court as an indication of discrimination on the basis of sex.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="f" class="level1">
+<h1>f</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">dean_hired =</span> <span class="fu">case_when</span>(ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"1"</span>, ysdeg <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"0"</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> dean_hired, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ dean_hired, data = salary)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+ -8294  -3486  -1772   3829  10576 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  27469.4      913.4  30.073  &lt; 2e-16 ***
+dean_hired1  -7343.5     1291.8  -5.685 6.73e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4658 on 50 degrees of freedom
+Multiple R-squared:  0.3926,    Adjusted R-squared:  0.3804 
+F-statistic: 32.32 on 1 and 50 DF,  p-value: 6.734e-07</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex <span class="sc">+</span> rank <span class="sc">+</span> degree <span class="sc">+</span> dean_hired, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ sex + rank + degree + dean_hired, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-6187.5 -1750.9  -438.9  1719.5  9362.9 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  29511.3      784.0  37.640  &lt; 2e-16 ***
+sexFemale     -829.2      997.6  -0.831    0.410    
+rankAsst    -11925.7     1512.4  -7.885 4.37e-10 ***
+rankAssoc    -7100.4     1297.0  -5.474 1.76e-06 ***
+degreePhD     1126.2     1018.4   1.106    0.275    
+dean_hired1    319.0     1303.8   0.245    0.808    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3023 on 46 degrees of freedom
+Multiple R-squared:  0.7645,    Adjusted R-squared:  0.7389 
+F-statistic: 29.87 on 5 and 46 DF,  p-value: 2.192e-13</code></pre>
+</div>
+</div>
+<p>I create a boolean variable named “dean_hired” where it will be equal to 1 for employed for 15 years or less and equal to 0 employed for over 15 years. Using this variable, I fitted a regression model along with variables sex, degree, rank and hired. To avoid multicollinearity I skipped year and ysdeg variables.Furthermore, our new variable is a product of ysdeg, hence, its not needed to be included.</p>
+<p>Based on the regression model, those hired by the current Dean are predicted to make 319 dollars more than those not hired by the Dean, which can be argued to be a insignificant salary. Furthermore, the level of significance for the hired variable is .81, which indicates that the relationship between hired and salary is not statistically significant. Based on these factors, I would state that findings do not indicate any favorable treatment by the Dean toward faculty that the Dean specifically hired.</p>
+<p><span class="math display">\[\\[0.7in]\]</span></p>
+<section id="question-3" class="level2">
+<h2 class="anchored" data-anchor-id="question-3">Question 3</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>house.selling.price</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>    case Taxes Beds Baths New  Price Size
+1      1  3104    4     2   0 279900 2048
+2      2  1173    2     1   0 146500  912
+3      3  3076    4     2   0 237700 1654
+4      4  1608    3     2   0 200000 2068
+5      5  1454    3     3   0 159900 1477
+6      6  2997    3     2   1 499900 3153
+7      7  4054    3     2   0 265500 1355
+8      8  3002    3     2   1 289900 2075
+9      9  6627    5     4   0 587000 3990
+10    10   320    3     2   0  70000 1160
+11    11   630    3     2   0  64500 1220
+12    12  1780    3     2   0 167000 1690
+13    13  1630    3     2   0 114600 1380
+14    14  1530    3     2   0 103000 1590
+15    15   930    3     1   0 101000 1050
+16    16   590    2     1   0  70000  770
+17    17  1050    3     2   0  85000 1410
+18    18    20    3     1   0  22500 1060
+19    19   870    2     2   0  90000 1300
+20    20  1320    3     2   0 133000 1500
+21    21  1350    2     1   0  90500  820
+22    22  5616    4     3   1 577500 3949
+23    23   680    2     1   0 142500 1170
+24    24  1840    3     2   0 160000 1500
+25    25  3680    4     2   0 240000 2790
+26    26  1660    3     1   0  87000 1030
+27    27  1620    3     2   0 118600 1250
+28    28  3100    3     2   0 140000 1760
+29    29  2070    2     3   0 148000 1550
+30    30   830    3     2   0  69000 1120
+31    31  2260    4     2   0 176000 2000
+32    32  1760    3     1   0  86500 1350
+33    33  2750    3     2   1 180000 1840
+34    34  2020    4     2   0 179000 2510
+35    35  4900    3     3   1 338000 3110
+36    36  1180    4     2   0 130000 1760
+37    37  2150    3     2   0 163000 1710
+38    38  1600    2     1   0 125000 1110
+39    39  1970    3     2   0 100000 1360
+40    40  2060    3     1   0 100000 1250
+41    41  1980    3     1   0 100000 1250
+42    42  1510    3     2   0 146500 1480
+43    43  1710    3     2   0 144900 1520
+44    44  1590    3     2   0 183000 2020
+45    45  1230    3     2   0  69900 1010
+46    46  1510    2     2   0  60000 1640
+47    47  1450    2     2   0 127000  940
+48    48   970    3     2   0  86000 1580
+49    49   150    2     2   0  50000  860
+50    50  1470    3     2   0 137000 1420
+51    51  1850    3     2   0 121300 1270
+52    52   820    2     1   0  81000  980
+53    53  2050    4     2   0 188000 2300
+54    54   710    3     2   0  85000 1430
+55    55  1280    3     2   0 137000 1380
+56    56  1360    3     2   0 145000 1240
+57    57   830    3     2   0  69000 1120
+58    58   800    3     2   0 109300 1120
+59    59  1220    3     2   0 131500 1900
+60    60  3360    4     3   0 200000 2430
+61    61   210    3     2   0  81900 1080
+62    62   380    2     1   0  91200 1350
+63    63  1920    4     3   0 124500 1720
+64    64  4350    3     3   0 225000 4050
+65    65  1510    3     2   0 136500 1500
+66    66  4154    3     3   0 381000 2581
+67    67  1976    3     2   1 250000 2120
+68    68  3605    3     3   1 354900 2745
+69    69  1400    3     2   0 140000 1520
+70    70   790    2     2   0  89900 1280
+71    71  1210    3     2   0 137000 1620
+72    72  1550    3     2   0 103000 1520
+73    73  2800    3     2   0 183000 2030
+74    74  2560    3     2   0 140000 1390
+75    75  1390    4     2   0 160000 1880
+76    76  5443    3     2   0 434000 2891
+77    77  2850    2     1   0 130000 1340
+78    78  2230    2     2   0 123000  940
+79    79    20    2     1   0  21000  580
+80    80  1510    4     2   0  85000 1410
+81    81   710    3     2   0  69900 1150
+82    82  1540    3     2   0 125000 1380
+83    83  1780    3     2   1 162600 1470
+84    84  2920    2     2   1 156900 1590
+85    85  1710    3     2   1 105900 1200
+86    86  1880    3     2   0 167500 1920
+87    87  1680    3     2   0 151800 2150
+88    88  3690    5     3   0 118300 2200
+89    89   900    2     2   0  94300  860
+90    90   560    3     1   0  93900 1230
+91    91  2040    4     2   0 165000 1140
+92    92  4390    4     3   1 285000 2650
+93    93   690    3     1   0  45000 1060
+94    94  2100    3     2   0 124900 1770
+95    95  2880    4     2   0 147000 1860
+96    96   990    2     2   0 176000 1060
+97    97  3030    3     2   0 196500 1730
+98    98  1580    3     2   0 132200 1370
+99    99  1770    3     2   0  88400 1560
+100  100  1430    3     2   0 127200 1340</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="a-2" class="level2">
+<h2 class="anchored" data-anchor-id="a-2">a</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size + New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-205102  -34374   -5778   18929  163866 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -40230.867  14696.140  -2.738  0.00737 ** 
+Size           116.132      8.795  13.204  &lt; 2e-16 ***
+New          57736.283  18653.041   3.095  0.00257 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 53880 on 97 degrees of freedom
+Multiple R-squared:  0.7226,    Adjusted R-squared:  0.7169 
+F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Both size and New variable positively predict selling price. As we change $ 1 in price, it results in 116.132 change in size and 57736.283 units in New.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="b-2" class="level2">
+<h2 class="anchored" data-anchor-id="b-2">b</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>new_home <span class="ot">&lt;-</span> house.selling.price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(New <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size, <span class="at">data =</span> new_home))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size, data = new_home)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-78606 -16092   -987  20068  76140 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -100755.31   42513.73  -2.370   0.0419 *  
+Size            166.35      17.09   9.735 4.47e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 45500 on 9 degrees of freedom
+Multiple R-squared:  0.9133,    Adjusted R-squared:  0.9036 
+F-statistic: 94.76 on 1 and 9 DF,  p-value: 4.474e-06</code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>old_home <span class="ot">&lt;-</span> house.selling.price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(New <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size, <span class="at">data =</span> old_home))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size, data = old_home)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-175748  -29155   -7297   14159  192519 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -22227.808  15708.186  -1.415    0.161    
+Size           104.438      9.538  10.950   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 52620 on 87 degrees of freedom
+Multiple R-squared:  0.5795,    Adjusted R-squared:  0.5747 
+F-statistic: 119.9 on 1 and 87 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>For the filtered data wrt new home and old home, Size positively predicts price (But by a greater value wrt new homes). Adjusted R-squared for the model is also much higher (0.91 vs.&nbsp;0.58) for new home and old home respectively.</p>
+<p>New_Price = 166.35 * Size - 100755.31</p>
+<p>Old_Price = 104.438 * Size - 22227.808</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="c-2" class="level2">
+<h2 class="anchored" data-anchor-id="c-2">c</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>New_Price <span class="ot">=</span> <span class="fl">166.35</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">100755.31</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>Old_Price <span class="ot">=</span> <span class="fl">104.438</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">22227.808</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "New Price = 398294.690000"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Old Price = 291086.192000"</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="d-1" class="level2">
+<h2 class="anchored" data-anchor-id="d-1">d</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Price ~ Size * New, data = house.selling.price)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-175748  -28979   -6260   14693  192519 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -22227.808  15521.110  -1.432  0.15536    
+Size           104.438      9.424  11.082  &lt; 2e-16 ***
+New         -78527.502  51007.642  -1.540  0.12697    
+Size:New        61.916     21.686   2.855  0.00527 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 52000 on 96 degrees of freedom
+Multiple R-squared:  0.7443,    Adjusted R-squared:  0.7363 
+F-statistic: 93.15 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="e-1" class="level2">
+<h2 class="anchored" data-anchor-id="e-1">e</h2>
+<p>The predicted selling price, based on the new regression that includes interaction between Size and Newness, would look like:</p>
+<p>price_with_sizeAndNew = ( -22227.81 + 104.44 * Size ) + ( -78527.50 + 61.92 * Size )</p>
+<p>price_with_size = -22227.81 + 104.44 * Size</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="f-1" class="level2">
+<h2 class="anchored" data-anchor-id="f-1">f</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>New_Price_withSizeAndNew <span class="ot">=</span> ( <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size ) <span class="sc">+</span>( <span class="sc">-</span> <span class="fl">78527.50</span> <span class="sc">+</span> <span class="fl">61.92</span> <span class="sc">*</span> Size )</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>Old_Price_withSize <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price_withSizeAndNew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "New Price = 398324.690000"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price_withSize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Old Price = 291092.190000"</code></pre>
+</div>
+</div>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="g" class="level2">
+<h2 class="anchored" data-anchor-id="g">g</h2>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">1500</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>New_Price_withSizeAndNew <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">78527.50</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">61.92</span> <span class="sc">*</span> Size <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>Old_Price_withSize <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price_withSizeAndNew)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "New Price = 148784.690000"</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price_withSize)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Old Price = 134432.190000"</code></pre>
+</div>
+</div>
+<p>As size of home goes up, the difference in predicted selling prices between old and new homes becomes larger.</p>
+<p><span class="math display">\[\\[0.2in]\]</span></p>
+</section>
+<section id="h" class="level2">
+<h2 class="anchored" data-anchor-id="h">h</h2>
+<p>When we apply the interaction (having both size and new variable), then we see a significantly large negative coefficient. The adjusted r-squared for the model with Size and New variable combined is 0.7363 and the adjusted r-squared for the first model with just Size variable is 0.7169. The increase in the adjusted r-squared with the interaction model could be due to an additional variable or could indicate a slightly better fit for the prediction of the data. Although both models have almost similar adjusted r-squared value, I would prefer the model with interaction (with Size and New variable) because the regression indicates that the interaction term is statistically significant to selling price prediction, so I feel it is necessary to utilize an equation that factors for this.</p>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb44" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Homework 4"</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Niyati Sharma"</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Homework 4 "</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "11/16/2022"</span></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - hw4</span></span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - Niyati Sharma</span></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="co">  </span></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>---</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a><span class="fu">## Answer1</span></span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a><span class="fu"># a</span></span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating predicted selling price</span></span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>Pre_sell <span class="ot">&lt;-</span> <span class="cf">function</span>(a, b)</span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>{<span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> <span class="fl">53.8</span><span class="sc">*</span>a <span class="sc">+</span> <span class="fl">2.84</span><span class="sc">*</span>b}</span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a><span class="fu">Pre_sell</span>(<span class="dv">1240</span>, <span class="dv">18000</span>)</span>
+<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating residual</span></span>
+<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a>Residual<span class="ot">&lt;-</span> <span class="cf">function</span>(r, p)</span>
+<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a>  {r<span class="sc">-</span> p}</span>
+<span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a><span class="fu">Residual</span>(<span class="dv">145000</span>, <span class="dv">107296</span>)</span>
+<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a>The predicted selling price is 107,296 dollars and the actual selling price is 145,000 dollars. </span>
+<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a>The residual is 37,704 dollars, meaning that the house was sold for 37,704 dollars greater than predicted. </span>
+<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-56"><a href="#cb44-56" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-57"><a href="#cb44-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-58"><a href="#cb44-58" aria-hidden="true" tabindex="-1"></a><span class="fu"># b</span></span>
+<span id="cb44-59"><a href="#cb44-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-60"><a href="#cb44-60" aria-hidden="true" tabindex="-1"></a>For a fixed lot size, the house selling price is predicted to increase by 53.8 for each square foot increase in home size.This is because a fixed lot size would make 2.84x2 a set number in the prediction equation. Therefore, we would not need to factor in a change in the output based on any input. Then, we are left with the coefficient for the home size variable, which is 53.8. For x1=1, representing one square-foot of home size, the output would increase by 53.8*1 = 53.8.</span>
+<span id="cb44-61"><a href="#cb44-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-62"><a href="#cb44-62" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-63"><a href="#cb44-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-64"><a href="#cb44-64" aria-hidden="true" tabindex="-1"></a><span class="fu"># c</span></span>
+<span id="cb44-65"><a href="#cb44-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-68"><a href="#cb44-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-69"><a href="#cb44-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating lot size needed for equal impact of 1 unit increase in home size</span></span>
+<span id="cb44-70"><a href="#cb44-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-71"><a href="#cb44-71" aria-hidden="true" tabindex="-1"></a><span class="co"># 53.8(1) = 2.84x2</span></span>
+<span id="cb44-72"><a href="#cb44-72" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fl">53.8</span><span class="sc">/</span><span class="fl">2.84</span></span>
+<span id="cb44-73"><a href="#cb44-73" aria-hidden="true" tabindex="-1"></a>x2</span>
+<span id="cb44-74"><a href="#cb44-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-75"><a href="#cb44-75" aria-hidden="true" tabindex="-1"></a>The lot size would need to increase by about 18.94 square feet in order to have an equivalent impact as an additional square foot of home size.</span>
+<span id="cb44-76"><a href="#cb44-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-77"><a href="#cb44-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-78"><a href="#cb44-78" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.7in</span><span class="co">]</span>$$</span>
+<span id="cb44-79"><a href="#cb44-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-80"><a href="#cb44-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Answer 2</span></span>
+<span id="cb44-81"><a href="#cb44-81" aria-hidden="true" tabindex="-1"></a><span class="fu"># a</span></span>
+<span id="cb44-84"><a href="#cb44-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-85"><a href="#cb44-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data and preview</span></span>
+<span id="cb44-86"><a href="#cb44-86" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(salary)</span>
+<span id="cb44-87"><a href="#cb44-87" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(salary)</span>
+<span id="cb44-88"><a href="#cb44-88" aria-hidden="true" tabindex="-1"></a>RG <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary)</span>
+<span id="cb44-89"><a href="#cb44-89" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(RG)</span>
+<span id="cb44-90"><a href="#cb44-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-91"><a href="#cb44-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-92"><a href="#cb44-92" aria-hidden="true" tabindex="-1"></a>The female coefficient is -3340, says that women make less than men (indepemdent of other cariable). However, there is a significance level of .07, so we fail to reject the null hypothesis and therefore cannot conclude that there is a difference between mean salaries for men and women.</span>
+<span id="cb44-93"><a href="#cb44-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-94"><a href="#cb44-94" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-95"><a href="#cb44-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-96"><a href="#cb44-96" aria-hidden="true" tabindex="-1"></a><span class="fu"># b </span></span>
+<span id="cb44-99"><a href="#cb44-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-100"><a href="#cb44-100" aria-hidden="true" tabindex="-1"></a>fm <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary))</span>
+<span id="cb44-101"><a href="#cb44-101" aria-hidden="true" tabindex="-1"></a>fm</span>
+<span id="cb44-102"><a href="#cb44-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-103"><a href="#cb44-103" aria-hidden="true" tabindex="-1"></a>95% Confidence interval for the difference in salary between male and females is -697.82 and 3030.56 </span>
+<span id="cb44-104"><a href="#cb44-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-105"><a href="#cb44-105" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-106"><a href="#cb44-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-107"><a href="#cb44-107" aria-hidden="true" tabindex="-1"></a><span class="fu"># c</span></span>
+<span id="cb44-108"><a href="#cb44-108" aria-hidden="true" tabindex="-1"></a>Rank and year are significant predictors of salary, while all others were not.</span>
+<span id="cb44-109"><a href="#cb44-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-110"><a href="#cb44-110" aria-hidden="true" tabindex="-1"></a>Both rank and year positively predict salary: Associate Professors and full Professors were likely to earn quite a bit more than Assistant Professors, while professors with more years in their current rank also earned more.</span>
+<span id="cb44-111"><a href="#cb44-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-112"><a href="#cb44-112" aria-hidden="true" tabindex="-1"></a>Looking at the magnitude of the coefficients, rank has a greater impact on salary than year does.</span>
+<span id="cb44-113"><a href="#cb44-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-114"><a href="#cb44-114" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-115"><a href="#cb44-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-116"><a href="#cb44-116" aria-hidden="true" tabindex="-1"></a><span class="fu"># d </span></span>
+<span id="cb44-119"><a href="#cb44-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-120"><a href="#cb44-120" aria-hidden="true" tabindex="-1"></a>salary<span class="sc">$</span>rank <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="at">ref =</span> <span class="st">"Prof"</span>)</span>
+<span id="cb44-121"><a href="#cb44-121" aria-hidden="true" tabindex="-1"></a>sal_rank <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank, salary)</span>
+<span id="cb44-122"><a href="#cb44-122" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sal_rank)</span>
+<span id="cb44-123"><a href="#cb44-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-124"><a href="#cb44-124" aria-hidden="true" tabindex="-1"></a>As we relabel the baseline category for the rank variable, we see a decreament of \$ 11890.3 salary for assistant and \$ 6483.0 salary for associate as compared to Professor. Both ranks have significance levels well below 0.05 and we can determine that rank does have a statistically significant impact on salary.</span>
+<span id="cb44-125"><a href="#cb44-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-126"><a href="#cb44-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-127"><a href="#cb44-127" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-128"><a href="#cb44-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-129"><a href="#cb44-129" aria-hidden="true" tabindex="-1"></a><span class="fu"># e </span></span>
+<span id="cb44-130"><a href="#cb44-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-133"><a href="#cb44-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-134"><a href="#cb44-134" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, salary))</span>
+<span id="cb44-135"><a href="#cb44-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-136"><a href="#cb44-136" aria-hidden="true" tabindex="-1"></a>Now, when we remove rank variable, we see cofficient for sex = -1286.54 and with rank variable it is 1166.37. Furthermore, the female salary will be 1286.54 less than the male salary without rank variable. However, the significance level is 0.332, which is very high and therefore the results cannot be found to be statistically significant. While the change of the coefficient to negative upon removal of rank is interesting, the significance level would likely prevent these results from holding up in court as an indication of discrimination on the basis of sex.</span>
+<span id="cb44-137"><a href="#cb44-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-138"><a href="#cb44-138" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-139"><a href="#cb44-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-140"><a href="#cb44-140" aria-hidden="true" tabindex="-1"></a><span class="fu"># f</span></span>
+<span id="cb44-141"><a href="#cb44-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-144"><a href="#cb44-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-145"><a href="#cb44-145" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span><span class="fu">mutate</span>(<span class="at">dean_hired =</span> <span class="fu">case_when</span>(ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"1"</span>, ysdeg <span class="sc">&gt;</span> <span class="dv">15</span> <span class="sc">~</span> <span class="st">"0"</span>))</span>
+<span id="cb44-146"><a href="#cb44-146" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> dean_hired, <span class="at">data =</span> salary))</span>
+<span id="cb44-147"><a href="#cb44-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-148"><a href="#cb44-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-149"><a href="#cb44-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-152"><a href="#cb44-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-153"><a href="#cb44-153" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex <span class="sc">+</span> rank <span class="sc">+</span> degree <span class="sc">+</span> dean_hired, <span class="at">data =</span> salary))</span>
+<span id="cb44-154"><a href="#cb44-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-155"><a href="#cb44-155" aria-hidden="true" tabindex="-1"></a>I create a boolean variable named "dean_hired" where it will be equal to 1 for employed for 15 years or less and equal to 0 employed for over 15 years. Using this variable, I fitted a regression model along with variables sex, degree, rank and hired. To avoid multicollinearity I skipped year and ysdeg variables.Furthermore, our new variable is a product of ysdeg, hence, its not needed to be included.  </span>
+<span id="cb44-156"><a href="#cb44-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-157"><a href="#cb44-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-158"><a href="#cb44-158" aria-hidden="true" tabindex="-1"></a>Based on the regression model, those hired by the current Dean are predicted to make 319 dollars more than those not hired by the Dean, which can be argued to be a insignificant salary.  Furthermore, the level of significance for the hired variable is .81, which indicates that the relationship between hired and salary is not statistically significant. Based on these factors, I would state that findings do not indicate any favorable treatment by the Dean toward faculty that the Dean specifically hired.</span>
+<span id="cb44-159"><a href="#cb44-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-160"><a href="#cb44-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-161"><a href="#cb44-161" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.7in</span><span class="co">]</span>$$</span>
+<span id="cb44-162"><a href="#cb44-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-163"><a href="#cb44-163" aria-hidden="true" tabindex="-1"></a><span class="fu">## Question 3</span></span>
+<span id="cb44-164"><a href="#cb44-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-167"><a href="#cb44-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-168"><a href="#cb44-168" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span>
+<span id="cb44-169"><a href="#cb44-169" aria-hidden="true" tabindex="-1"></a>house.selling.price</span>
+<span id="cb44-170"><a href="#cb44-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-171"><a href="#cb44-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-172"><a href="#cb44-172" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-173"><a href="#cb44-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-174"><a href="#cb44-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## a</span></span>
+<span id="cb44-175"><a href="#cb44-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-178"><a href="#cb44-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-179"><a href="#cb44-179" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price))</span>
+<span id="cb44-180"><a href="#cb44-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-181"><a href="#cb44-181" aria-hidden="true" tabindex="-1"></a>Both size and New variable positively predict selling price. As we change \$ 1 in price, it results in 116.132 change in size and 57736.283 units in New.</span>
+<span id="cb44-182"><a href="#cb44-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-183"><a href="#cb44-183" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-184"><a href="#cb44-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-185"><a href="#cb44-185" aria-hidden="true" tabindex="-1"></a><span class="fu">## b</span></span>
+<span id="cb44-186"><a href="#cb44-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-189"><a href="#cb44-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-190"><a href="#cb44-190" aria-hidden="true" tabindex="-1"></a>new_home <span class="ot">&lt;-</span> house.selling.price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(New <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb44-191"><a href="#cb44-191" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size, <span class="at">data =</span> new_home))</span>
+<span id="cb44-192"><a href="#cb44-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-193"><a href="#cb44-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-196"><a href="#cb44-196" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-197"><a href="#cb44-197" aria-hidden="true" tabindex="-1"></a>old_home <span class="ot">&lt;-</span> house.selling.price <span class="sc">%&gt;%</span> <span class="fu">filter</span>(New <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb44-198"><a href="#cb44-198" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size, <span class="at">data =</span> old_home))</span>
+<span id="cb44-199"><a href="#cb44-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-200"><a href="#cb44-200" aria-hidden="true" tabindex="-1"></a>For the filtered data wrt new home and old home, Size positively predicts price (But by a greater value wrt new homes).  Adjusted R-squared for the model is also much higher (0.91 vs. 0.58) for new home and old home respectively.</span>
+<span id="cb44-201"><a href="#cb44-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-202"><a href="#cb44-202" aria-hidden="true" tabindex="-1"></a>New_Price = 166.35 * Size - 100755.31</span>
+<span id="cb44-203"><a href="#cb44-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-204"><a href="#cb44-204" aria-hidden="true" tabindex="-1"></a>Old_Price = 104.438 * Size - 22227.808</span>
+<span id="cb44-205"><a href="#cb44-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-206"><a href="#cb44-206" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-207"><a href="#cb44-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-208"><a href="#cb44-208" aria-hidden="true" tabindex="-1"></a><span class="fu">## c</span></span>
+<span id="cb44-209"><a href="#cb44-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-212"><a href="#cb44-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-213"><a href="#cb44-213" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb44-214"><a href="#cb44-214" aria-hidden="true" tabindex="-1"></a>New_Price <span class="ot">=</span> <span class="fl">166.35</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">100755.31</span></span>
+<span id="cb44-215"><a href="#cb44-215" aria-hidden="true" tabindex="-1"></a>Old_Price <span class="ot">=</span> <span class="fl">104.438</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">22227.808</span></span>
+<span id="cb44-216"><a href="#cb44-216" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price)</span>
+<span id="cb44-217"><a href="#cb44-217" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price)</span>
+<span id="cb44-218"><a href="#cb44-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-219"><a href="#cb44-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-220"><a href="#cb44-220" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-221"><a href="#cb44-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-222"><a href="#cb44-222" aria-hidden="true" tabindex="-1"></a><span class="fu">## d</span></span>
+<span id="cb44-223"><a href="#cb44-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-226"><a href="#cb44-226" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-227"><a href="#cb44-227" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price))</span>
+<span id="cb44-228"><a href="#cb44-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-229"><a href="#cb44-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-230"><a href="#cb44-230" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-231"><a href="#cb44-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-232"><a href="#cb44-232" aria-hidden="true" tabindex="-1"></a><span class="fu">## e</span></span>
+<span id="cb44-233"><a href="#cb44-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-234"><a href="#cb44-234" aria-hidden="true" tabindex="-1"></a>The predicted selling price, based on the new regression that includes interaction between Size and Newness, would look like:</span>
+<span id="cb44-235"><a href="#cb44-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-236"><a href="#cb44-236" aria-hidden="true" tabindex="-1"></a>price_with_sizeAndNew = ( -22227.81 + 104.44 * Size ) + ( -78527.50 + 61.92 * Size )</span>
+<span id="cb44-237"><a href="#cb44-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-238"><a href="#cb44-238" aria-hidden="true" tabindex="-1"></a>price_with_size = -22227.81 + 104.44 * Size</span>
+<span id="cb44-239"><a href="#cb44-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-240"><a href="#cb44-240" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-241"><a href="#cb44-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-242"><a href="#cb44-242" aria-hidden="true" tabindex="-1"></a><span class="fu">## f</span></span>
+<span id="cb44-243"><a href="#cb44-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-246"><a href="#cb44-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-247"><a href="#cb44-247" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">3000</span></span>
+<span id="cb44-248"><a href="#cb44-248" aria-hidden="true" tabindex="-1"></a>New_Price_withSizeAndNew <span class="ot">=</span> ( <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size ) <span class="sc">+</span>( <span class="sc">-</span> <span class="fl">78527.50</span> <span class="sc">+</span> <span class="fl">61.92</span> <span class="sc">*</span> Size )</span>
+<span id="cb44-249"><a href="#cb44-249" aria-hidden="true" tabindex="-1"></a>Old_Price_withSize <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size</span>
+<span id="cb44-250"><a href="#cb44-250" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price_withSizeAndNew)</span>
+<span id="cb44-251"><a href="#cb44-251" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price_withSize)</span>
+<span id="cb44-252"><a href="#cb44-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb44-253"><a href="#cb44-253" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-254"><a href="#cb44-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-255"><a href="#cb44-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## g</span></span>
+<span id="cb44-256"><a href="#cb44-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-259"><a href="#cb44-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb44-260"><a href="#cb44-260" aria-hidden="true" tabindex="-1"></a>Size <span class="ot">&lt;-</span> <span class="dv">1500</span></span>
+<span id="cb44-261"><a href="#cb44-261" aria-hidden="true" tabindex="-1"></a>New_Price_withSizeAndNew <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size <span class="sc">-</span> <span class="fl">78527.50</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">61.92</span> <span class="sc">*</span> Size <span class="sc">*</span> <span class="dv">1</span></span>
+<span id="cb44-262"><a href="#cb44-262" aria-hidden="true" tabindex="-1"></a>Old_Price_withSize <span class="ot">=</span> <span class="sc">-</span><span class="fl">22227.81</span> <span class="sc">+</span> <span class="fl">104.44</span> <span class="sc">*</span> Size</span>
+<span id="cb44-263"><a href="#cb44-263" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"New Price = %f"</span>, New_Price_withSizeAndNew)</span>
+<span id="cb44-264"><a href="#cb44-264" aria-hidden="true" tabindex="-1"></a><span class="fu">sprintf</span>(<span class="st">"Old Price = %f"</span>, Old_Price_withSize)</span>
+<span id="cb44-265"><a href="#cb44-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span> </span>
+<span id="cb44-266"><a href="#cb44-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-267"><a href="#cb44-267" aria-hidden="true" tabindex="-1"></a>As size of home goes up, the difference in predicted selling prices between old and new homes becomes larger.</span>
+<span id="cb44-268"><a href="#cb44-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-269"><a href="#cb44-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-270"><a href="#cb44-270" aria-hidden="true" tabindex="-1"></a>$$<span class="sc">\\</span><span class="co">[</span><span class="ot">0.2in</span><span class="co">]</span>$$</span>
+<span id="cb44-271"><a href="#cb44-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-272"><a href="#cb44-272" aria-hidden="true" tabindex="-1"></a><span class="fu">## h</span></span>
+<span id="cb44-273"><a href="#cb44-273" aria-hidden="true" tabindex="-1"></a>When we apply the interaction (having both size and new variable), then we see a significantly large negative coefficient. The adjusted r-squared for the model with Size and New variable combined is 0.7363 and the adjusted r-squared for the first model with just Size variable is 0.7169. The increase in the adjusted r-squared with the interaction model could be due to an additional variable or could indicate a slightly better fit for the prediction of the data. Although both models have almost similar adjusted r-squared value, I would prefer the model with interaction (with Size and New variable) because the regression indicates that the interaction term is statistically significant to selling price prediction, so I feel it is necessary to utilize an equation that factors for this.</span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
