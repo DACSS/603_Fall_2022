@@ -1,0 +1,229 @@
+---
+title: "Homework 1 - Example"
+author: "Omer Yalcin"
+description: "The first homework on descriptive statistics and probability"
+date: "09/20/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw1
+  - desriptive statistics 
+  - probability
+---
+
+# Question 1
+
+## a
+
+For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is 
+y^ = ???10,536 + 53.8x1 + 2.84x2.
+
+A particular home of 1240 square feet on a lot of 18,000 square feet sold for $145,000. Find the predicted selling price and the residual, and interpret.
+
+```{r, echo=T}
+-10536+53.8*1240+2.84*18000 
+```
+$107,297 is the predictive price.
+
+
+```{r}
+145000-107296
+```
+The  House was overpaid by 37,704.
+
+
+B.For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?
+
+```{r}
+x1240 = 53.8*(1240) + 2.84*(18000) - 10536
+x1241 = 53.8*(1241) + 2.84*(18000) - 10536
+x1242 = 53.8*(1242) + 2.84*(18000) - 10536
+x1241-x1240
+```
+$53.8 
+
+```{r}
+53.8/2.84
+```
+The Lot Size is 19 Square Feet 
+
+
+
+
+
+According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?
+
+```{r, echo=T}
+library(dplyr)
+library(alr4)
+data("salary")
+"Female" <- salary %>%
+  filter(sex == "Female")
+"Male" <- salary %>%
+  filter(sex == "Male")
+t.test(Female$salary, Male$salary)
+```
+
+Based on the T test we can conclude that it's a Null Hypothesis. 
+
+B.Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.
+
+```{r}
+"Fit" <- lm(salary ~ rank + sex + degree + ysdeg + year, data = salary)
+summary(Fit)
+confint(Fit, level = .95)
+```
+
+
+
+
+
+
+
+C.Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variables
+
+
+The only predictive variables are Rank and Year according to the model.
+
+
+Change the baseline category for the rank variable. Interpret the coefficients related to rank again.
+```{r}
+"relevel_sex" <- relevel(salary$sex, ref = "Female")
+
+"New_Fit" <- lm(salary ~ rank + relevel_sex + degree + ysdeg + year, data = salary)
+summary(New_Fit)
+```
+When using Relevel, we see a significant change in the coefficient, the coefficient of Gender is negative showing a negative relationship. 
+
+
+Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, "[a] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be 'tainted.' " Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. 
+
+Exclude the variable rank, refit, and summarize how your findings changed, if they did.
+
+
+
+```{r}
+"Fit_No_Rank" <- lm(salary ~ sex + degree + ysdeg + year, data = salary)
+summary(Fit_No_Rank)
+```
+
+When Rank is excluded from Predictor variables,variables degree, ysdeg, and year all find an increase in significance. 
+
+
+
+
+
+
+
+
+Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.
+
+```{r}
+salary$New_Hire <- ifelse(salary$ysdeg <= 15, 1, 0)
+
+New_Dean <- lm(salary ~ New_Hire + sex + degree , data = salary)
+summary(New_Dean)
+```
+
+
+The current Model actually shows that New Hires are actually being paid. So being a new hire does not explain the difference.
+
+
+
+
+
+
+
+
+##QUESTION 3
+
+
+
+A.Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.
+
+```{r}
+library("smss")
+data("house.selling.price")
+Price_Model <- lm(Price ~ Size + New, data = house.selling.price)
+summary(Price_Model)
+```
+B.Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes.
+
+Price Increases are done by 116.32 for every additional square foot.
+
+
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+
+
+# New Home
+```{r}
+116.132*(3000) + 17505.416
+```
+```{r}
+116.132*(3000) - 40230.867
+```
+
+
+
+
+
+
+
+D.Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results
+
+```{r}
+New_Price_Model <- lm(Price ~ Size + New + Size*New, data = house.selling.price)
+summary(New_Price_Model)
+```
+
+
+
+E.Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.
+
+
+The New Size variable has a high significance and Positive Coefficient.This shows both variables together are is a much better combination.
+
+
+
+F. Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+```{r}
+104.438*(3000) + 61.916*(3000) - 100755.31
+```
+
+
+
+```{r}
+104.438*(3000) - 22227.808
+```
+
+
+
+G.Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.
+
+```{r}
+# New Home
+104.438*(1500) + 61.916*(1500) - 100755.31
+
+```
+
+
+```{r}
+# Old Home 
+104.438*(1500) - 22227.808
+```
+
+
+Newer and Larger homes are the most expensive whereas old smaller houses are least Expensive.
+
+
+3H.Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?
+
+
+The second model I think is better as it has more variability and accounts for the fact that combining Size and New is much better, the signifiance is greatly improved.
+
+
