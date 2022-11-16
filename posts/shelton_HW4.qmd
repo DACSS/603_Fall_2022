@@ -1,0 +1,299 @@
+---
+title: "Homework 4 Solution"
+author: "Dane Shelton"
+desription: "Multiple Linear Regression"
+date: "11/14/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - shelton
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message=FALSE)
+```
+
+
+## Homework 4
+
+:::panel-tabset
+
+## Q1
+
+### (a)
+
+```{r}
+#| label: (1a)
+#| collapse: true
+#| echo: true
+
+(pred_1 <- -10536 + 53.8*(1240) + 2.84*(18000))
+
+(resid_1 <- 145000 - pred_1)
+
+```
+
+- The model provided predicts the selling price of a 1,240-sqft house build on a 18,000-sqft lot to be $107,296.
+
+- The residual **(Actual-Predicted)** for this prediction is $37,704. The large positive value indicated the model under-predicts selling price for this house. 
+
+- The high residual could be due to a competitive market (cash offers, bidding, etc.), location, or even amenities/renovations within the house, all confounders the model doesn't account for.
+
+### (b)
+
+- When lot size is fixed, the model predicts selling price to increase $53.80 for each 1-sqft increase in house size.
+
+### (c)
+
+- $53.8/2.84 = 18.94$ For fixed home size, lot size would need to increase by 18.94-sqft to have the same effect as a one unit increase in home size.
+
+## Q2
+
+### (a)
+
+```{r}
+#| label: (2a)
+#| include: true
+#| collapse: true
+
+salary <- alr4::salary
+
+(by_sex <- t.test(formula=`salary`~`sex`, data=salary))
+
+```
+At `alpha=0.05` we do not have sufficient evidence to reject the null hypothesis, **H0: There is no difference in Male and Female mean salaries**. We cannot conclude a difference exists between male and female salaries.
+
+
+### (b)
+
+```{r}
+#| label: (2b)
+#| include: true
+#| collapse: true
+ 
+salary_1 <- lm(salary ~.,
+               data = salary)
+summary(salary_1)
+
+print('95% Confidence Interval:')
+
+(confint.lm(salary_1, level = 0.95))
+```
+
+We can see the results of our hypothesis test in **(a)** are confirmed by the confidence interval for `sexFemale` which contains 0.
+
+### (c)
+
+**degreePhD: 1388.61, p-value 0.180** 
+
+- `degree` is a categorical variable with 2 levels: Masters and PhD. Our coefficient of 1388.61 suggests that with all other variables held constant, the model finds the difference in mean salary between PhD recipients and Masters recipients at the university to be $1388.61, with faculty holding a PhD earning more.
+
+- The p-value of 0.180 indicates that the variable is not significant at the `alpha= .05` level, we cannot conclude that degree level is useful in predicting `salary` at the university *(H0: B slope degreePhD = 0)*. There is not a significant difference between salary of Masters and Phd faculty.
+
+
+**rankAssoc: 5292.36, p-value .00003**
+
+- `rank` is a categorical variable with 3 levels: `Asst`,`Assoc`, `Prof`, representing the rank of a faculty member. `Asst` is the base category in this model, so our coefficient of 5292.36 suggests that with all other variables held constant, there is a $5,292.36 difference in mean salary between Assistant and Associate professors on campus, with associate professors earning more.
+
+- the p-value is far below our default `alpha=0.05`. We can reject the null hypothesis that the effect is 0, and conclude that there is a difference between the salaries of the groups `Asst` and `Assoc`, the variable is significant in predicting `salary`.
+
+**rankProf: 11118.76, p-value: < 0.005**
+
+- A coefficient of 11118.76 suggests that with all other variables held constant, there is a $11,118.76 difference in mean salary between Assistant and full Professors on campus, with full Professors earning more.
+
+- the p-value is far below our default `alpha=0.05`. We can reject the null hypothesis that the effect is 0, and conclude that there is a difference between the salaries of the groups `Asst` and `Prof`, the variable is significant in predicting `salary`.
+
+**sexFemale: 1166.37, p-value 0.214**
+
+- `sex` is a categorical varible with two levels: `Male` and `Female`. A coefficient of 1166.37 indicated that with all other variables held constant, the model observed a $1,166.37 difference in mean salary between males and females, with females earning more.
+
+- the p-value of 0.214  is greater than our alpha value, indicating this variable is not useful in predicting `salary` of faculty members. We cannot conclude there is a significant difference between earnings of different `sex` levels.
+
+**year: 476.31, p-value < .0005**
+
+- `year` is a continuous variable describing the number of years a faculty member has spent at their current rank. A coefficient of 476.31 suggests that with all other variables held constant, a 1 year increase in experience at a particular `rank` will result in a $476.31 increase in predicted salary.
+
+- the p-value is far below our default `alpha=0.05`. We can reject the null hypothesis that the effect is 0, and conclude the variable is significant in predicting `salary`.
+
+**ysdeg: -124.57, p-value 0.115**
+
+- `ysdeg` is a continuous variable describing the number of years since a faculty member earned their highest degree. A coefficient of -124.57 suggests that with all other variables held constant, a 1 year increase in years since highest degree earned will result in a $124.57 decrease in predicted salary.
+
+- the p-value of 0.115  is greater than our alpha value, indicating this variable is not useful in predicting `salary` of faculty members. We cannot conclude there is a significant relationship between `salary` and `ysdeg`.
+
+### (d)
+
+```{r}
+#| label: rank relevel
+#| echo: true
+#| collapse: true
+#| output: true
+
+rank_redo<- salary %>%
+              mutate(rank=relevel(rank, ref = 'Prof'))
+ 
+# refit model
+salary_2 <- lm(salary ~.,
+               data = rank_redo)
+summary(salary_2)
+```
+
+- While the difference in predicted mean `salary` remains the same for the `Assist` group, after changing the reference level of the variable from `Assistant` to `Professor`, the relationship between full professors and associate professors has changed. Associate professors are seen to make $5,826.40 less than full professors, a 534 dollar increase (in value) from the model where `Assistants` are used the point of reference.
+
+### (e)
+```{r}
+#| label: (2e)
+#| include: true
+#| collapse: true
+ 
+salary_3 <- lm(salary ~ . - rank,
+               data = salary)
+summary(salary_3)
+```
+- While `sex` is still insignificant in the model for predicting salary, we see the value of the coefficient change sign, along with `ysdeg`. 
+
+- Two variables are now considered significant that were previously in predicting `salary` when `rank` was included in the model, `ysdeg` and `degree`.
+
+### (f)
+```{r}
+#| label: (2f)
+#| include: true
+#| collapse: true
+
+dean_edit <- salary %>%
+              mutate(dean = 
+                       case_when(`ysdeg` > 15 ~ 'Old',
+                                 `ysdeg` <= 15 ~ 'New'))
+salary_4 <- lm(salary ~ . - rank - ysdeg,
+               data = dean_edit)
+summary(salary_4)
+```
+
+- I removed `rank` and `ysdeg` as both could  exhibit multicollinearity with the hiring of the new Dean. Knowing the `dean` appointed newer graduates upon their appointment would allow `ysdeg` to predict `dean` for those with under 15 years of their degree; also one can progress through `ranks` within 15 years so this could correlate with `dean` also.
+
+- With a coefficient for `deanOld` of around 4500, the model predicts that those hired by the `Old` dean have a higher mean `salary` as a group compared to those hired by the `New` dean, contrary to the suggested hypothesis.
+
+## Q3
+
+### (a)
+```{r}
+#| label: (3a)
+#| include: true
+#| collapse: true
+
+data("house.selling.price")
+house <- house.selling.price
+
+house_1 <- lm(Price ~ Size+New, data=house)
+summary(house_1)
+
+```
+**Size: 116.132, p-value < .005**
+
+- `Size` is a continuous variable with a positive coefficient of 116.132 suggesting that for every one sqft increase, predicted `Price` will increase by $116.13, `New` held constant.
+
+**New: 57736.28, p-value < .005**
+
+- `New` is a categorical variable with two levels, `new=1` and `old=0`. The coefficient of 57736.28 suggests that as a group, our model predicts new houses to have a mean selling price that is $57,736.28 greater than old houses of the same size.
+
+**Both variables are significant at `alpha=0.05`, indicating that they are useful in predicting `price` for our data, their effect has a magnitude different from zero.**
+
+### (b)
+
+The full prediction equation follows the form $Price = -40230.867 + 116.132*Size + 57736.28*New$
+
+Interpretation of variables, coefficients, and p-values are in (a).
+
+**New Homes:** $Price = -40230.867 + 116.132*Size + 57736.28$
+
+**Old Homes:** $Price = -40230.867 + 116.132*Size$
+
+### (c)
+
+```{r}
+#| label: (3c)
+#| include: true
+#| collapse: true
+
+new_3000 <- data.frame(`Size`=3000,`New`=1)
+new_pred <- predict(house_1, newdata=new_3000)
+print(c('New 3000 sqft House:',new_pred))
+
+old_3000 <- data.frame(`Size`=3000,`New`=0)
+old_pred <- predict(house_1, newdata=old_3000)
+print(c('Old 3000 sqft House:',old_pred))
+```
+
+
+### (d)
+```{r}
+#| label: (3d)
+#| include: true
+#| collapse: true
+#| 
+house_2 <- lm(Price ~ Size+New+ Size*New, data=house)
+summary(house_2)
+```
+### (e)
+
+The full prediction equation follows the form $Price = -22227.808 + 104.438*Size -78527.502*New + 61.916*Size:New$
+
+Interpretation of variables, coefficients, and p-values are in (a).
+
+**New Homes:** $Price = -22227.808 + 104.438*Size -78527.502 + 61.916*Size$
+
+**Old Homes:** $Price = -22227.808 + 104.438*Size$
+
+### (f)
+
+```{r}
+#| label: (3f)
+#| include: true
+#| collapse: true
+
+new_3000_int <- data.frame(`Size`=3000,`New`=1)
+new_pred_int <- predict(house_2, newdata=new_3000_int)
+print(c('New 3000 sqft House:',new_pred_int))
+
+old_3000_int <- data.frame(`Size`=3000,`New`=0)
+old_pred_int <- predict(house_2, newdata=old_3000_int)
+print(c('Old 3000 sqft House:',old_pred_int))
+```
+
+### (g)
+
+```{r}
+#| label: (3g)
+#| include: true
+#| collapse: true
+
+new_1500_int <- data.frame(`Size`=1500,`New`=1)
+new_pred_int2 <- predict(house_2, newdata=new_1500_int)
+print(c('New 1500 sqft House:',new_pred_int2))
+
+old_1500_int <- data.frame(`Size`=1500,`New`=0)
+old_pred_int2 <- predict(house_2, newdata=old_1500_int)
+print(c('Old 1500 sqft House:',old_pred_int2))
+```
+
+- The difference in price between old and new homes increases with an increase in size. The impact of New has a different magnitude at different sizes.
+
+### (h)
+
+- I would select the model with an interaction term has it has a larger Adjusted R-sq value as well as a smaller Residual Standard Error value, indicating a slighly better fit than the model without interactions.
+
+:::
+
