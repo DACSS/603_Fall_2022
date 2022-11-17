@@ -1,0 +1,165 @@
+---
+title: "Homework 4"
+author: "Donny Snyder"
+desription: "Homework 4 Submission"
+date: "11/14/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - regression
+---
+
+```{r}
+library(tidyverse)
+library(alr4)
+library(smss)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+```
+
+# Question 1
+
+```{r, echo=T}
+predictSell <- -10536 + (53.8 * 1240) + (2.84 * 18000)
+realSell <- 145000
+residual <- realSell - predictSell
+ratioLottoHome <- 53.8/2.84
+
+```
+
+#Question 1A
+The predicted selling price is 107,296 dollars, the residual is 37,704 dollars. The predicted selling price undershot the actual selling price. 
+
+#Question 1B
+With a fixed lot size, the house selling price will increase by 53.8 for each square foot. This is because as the house is getting bigger, the house is selling for more, because the house is more valuable than the empty lot space.
+
+#Question 1C
+The lot would have to increase ~18.94 square feet to have the same impact as a one square foot increase size in the home.
+
+
+#Question 2
+```{r, echo=T}
+data <- salary
+
+model1 <- lm(salary~sex, data = data)
+summary(model1)
+
+model2 <- lm(salary~degree+rank+sex+year+ysdeg, data = data)
+summary(model2)
+
+confint(model2)
+
+data$rank <- factor(data$rank, levels = c("Prof", "Assoc", "Asst"))
+
+model3 <- lm(salary~degree+rank+sex+year+ysdeg, data = data)
+summary(model3)
+
+model4 <- lm(salary~degree+sex+year+ysdeg, data = data)
+summary(model4)
+
+data$dean <- NA
+
+x = 1
+while(x < 53){
+  if(data$ysdeg[x] > 15){
+    data$dean[x] = 0
+  }
+  else{
+    data$dean[x] = 1
+  }
+ x = x + 1   
+}
+
+model5 <- lm(data = data, salary~sex+year+dean+degree)
+summary(model5)
+
+
+```
+
+# Question 2A
+As shown in model1, it seems like the mean salary is the same, as the null hypothesis that there is no difference cannot be rejected with the p-value of 0.0706.
+
+# Question 2B
+The 95% confidence interval for pay differences between males and females is between -697.8183 and 3030.56452.
+
+# Question 2C
+There is demonstrated statistically significant evidence that rank and years in current rank show significant results on an increase in salary. Rank as a professor shows the strongest effect, with rank as an associate professor also showing a high effect, as well as years in current rank. Rank has the highest slope for statistically significantly raising salary, particularly among full professors. All other relationships are not statistically significant.
+
+# Question 2D
+Changing the baseline changes the direction of the relationship for associate and assistant professors. It shows that relative to full professors, associate, and assistant professors receive less.
+
+# Question 2E
+Excluding rank makes the degreePhD and years after degree variables more important, as rank was likely previously explaining their variance. Without being able to rely on rank, these serve as proxies for professors receiving more money due to being a higher rank. however, there is also no statistically significant of discrimination based on sex.
+
+# Question 2F
+There is actually some evidence that the dean has been making less generous offers than previously, per model 5. Multicollinearity can make it harder to make inferences. I avoided it by excluding degree and years after degree variables, as rank explains salary better than those.
+
+# Question 3
+
+```{r, echo=T}
+summary(house.selling.price)
+data2 <- house.selling.price
+
+model1 <- lm(data = data2, Price~Size+New)
+summary(model1)
+
+predictNew <- (116.132*3000) + 57736.283*1 - 40230.867
+
+predictNotNew <- (116.132*3000) + 57736.283*0 - 40230.867
+
+model2 <- lm(data = data2, Price~Size+New+Size*New)
+summary(model2)
+
+predictNew2 <- 104.438*3000 - 78527.502 + 61.916*3000 - 22227.808
+
+predictNotNew2 <- 104.438*3000 - 22227.808
+
+predictNew3 <- 104.438*1500 - 78527.502 + 61.916*1500 - 22227.808
+
+predictNotNew3 <- 104.438*1500 - 22227.808
+
+
+
+```
+
+# Question 3A
+Size of home and how new the home is both statistically significantly increase the selling prices of homes. 
+
+# Question 3B
+New Home Price = 116.132(size in square feet) + 57736.283(if New) - 40230.867
+
+Not New Home Price = 116.132(size in square feet) - 40230.867
+
+# Question 3C
+New Home Prediction = 365901.416
+No New Home Prediction = 308165.133
+
+# Question 3D
+It seems like Size and New have a positive interaction effect. Being a new home and being larger are interrelated. This also removes the statistical significance of being new.
+
+# Question 3E
+New home Prediction = 104.438(size in square feet) - 78527.502(if new) + 61.916(new times size) - 22227.808
+
+Not new home Prediction = 104.438(size in square feet) + 22227.808
+
+# Question 3F
+New Home Prediction = 398306.69
+
+No New Home Prediction = 291086.192
+
+# Question 3G
+New Home Prediction = 
+148775.69
+
+No New Home Prediction = 134429.192
+
+As size of home gets smaller, newness tends to matter less towards increasing the predicted selling price, so the disparity between new and not new homes tends to decrease.
+
+# Question 3H
+I think that I prefer the interaction model. It is more responsive to size than just merely adding over 50k for being either new or not new, in a binary. It's good to have more of a gradient measure like this interaction provides in multiple ways.
