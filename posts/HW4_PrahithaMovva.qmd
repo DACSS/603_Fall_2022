@@ -1,0 +1,295 @@
+---
+title: "Homework 4 - Prahitha Movva"
+author: "Prahitha Movva"
+description: "The fourth homework"
+date: "11/17/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - multiple regression
+  - interaction term
+  - covariance
+---
+
+
+```{r}
+library(tidyverse)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE)
+```
+
+
+
+## Question 1
+
+### A
+
+Given prediction equation: y = -10536 + 53.8x1 + 2.84x2 where x1 is the size of the home (sq ft) and x2 is the lot size (sq ft)
+
+```{r}
+lot.size = 18000
+home.size = 1240
+actual.price = 145000
+
+predicted.price = -10536 + (53.8*home.size) + (2.84*lot.size)
+print(predicted.price)
+
+residual = actual.price - predicted.price
+print(residual)
+```
+
+Using the prediction equation, the value that we get is \$107,296 and the residual is \$37,704. The residual tells us that the house was under-priced (under-predicted) by \$37,704.
+
+
+### B
+
+For a fixed lot size (say k), our prediction equation becomes y = -10536 + 53.8x1 + 2.84k where x1 (home size) is the only variable. So for each square-foot increase in home size, the house selling price predicted by the model increases by $53.8
+
+```{r}
+y1 = -10536 + (53.8*1) + 2.84
+y2 = -10536 + (53.8*2) + 2.84
+
+y2 - y1
+```
+
+
+### C
+
+For a fixed home size (say k), our prediction equation becomes y = -10536 + 53.8k + 2.84x2 where x2 (lot size) is the only variable. So for each square-foot increase in lot size, the house selling price predicted by the model increases by \$2.84. For this to be equal to \$53.8 we need to multiply it by 19.94366 - i.e., an increase by 18.94366. 
+
+```{r}
+53.8/2.84
+```
+
+
+```{r}
+y1 = -10536 + (53.8*1) + 2.84
+y2 = -10536 + (53.8*2) + 2.84
+print(y2 - y1)
+
+y1 = -10536 + (53.8*1) + 2.84
+y2 = -10536 + (53.8*1) + (2.84*(1 + 18.94366))
+print(y2 - y1)
+```
+
+
+
+## Question 2
+
+### A
+
+H0: Mean salary for men and women is the same
+
+Ha: Mean salary for men and women is NOT the same
+
+We can test this using a two-sample t-test
+
+```{r}
+data(salary)
+
+# testing for variance
+var.test(salary ~ sex, data=salary)
+```
+
+The p-value of F-test is 0.6525 which is greater than the significance level (alpha = 0.05). So we can say that there is no significant difference between the variances of the two sets of data.
+
+```{r}
+t.test(salary ~ sex, data=salary, var.equal=TRUE)
+```
+
+The p-value of t-test is 0.0706 which is greater than the significance level (alpha = 0.05). So we can say that there is no significant difference in the mean salary between male and female faculty (at a 5% significance level).
+
+
+### B
+
+```{r}
+model = lm(salary ~ degree + rank + sex + year + ysdeg, data=salary)
+confint(model)
+```
+
+From sexFemale, we can say that the 95% confidence interval for the difference in salary between males and females is [-697.8183, 3030.56452]
+
+
+### C
+
+```{r}
+summary(model)
+```
+
+#### (a)
+At a 95% confidence level, only rank and year are (statistically) significant predictors of salary. 
+
+#### (b)
+Since we now know that rank and year are the significant variables, we will only consider those for interpretation. Associate Professors (rankAssoc) and Full Professors (rankProf) earn more than Assistant Professors (baseline category) by \$5292.36 and \$11118.76 respectively. Similarly, professors with more working experience (year) earn more. However, rank has a higher effect on salary than year as the coefficient for rank is much higher.
+
+
+### D
+
+```{r}
+salary$rank <- relevel(salary$rank, ref='Assoc')
+model.modified = lm(salary ~ degree + rank + sex + year + ysdeg, data=salary)
+summary(model.modified)
+```
+
+```{r}
+5826.40 + 5292.36
+```
+
+
+We see similar results as above. Since the baseline category is now Associate Professor, we see a negative coefficient for Assistant Professor category which says that Associate Professors make \$5292.36 more than Assistant Professors. Similarly, Full Professors make \$5826.40 more than Associate Professors.
+
+
+### E
+
+```{r}
+summary(lm(salary ~ degree + sex + year + ysdeg, data=salary))
+```
+
+
+In addition to the variable year, degreePhD and ysdeg are also significantly contributing to salary. However, the p-value for sexFemale is still much greater than 0.05, meaning - sex is not significant when predicting for salary (at a 95% confidence level). We also observe that the coefficients for degreePhD, sexFemale and ysdeg got reversed (positive to negative and vice-versa). This suggests that professors with an MS are earning approximately \$3300 more than the professors with a PhD, male professors are earning around \$1286 more than female professors. We also see that the R-squared value has dropped - so this model does a poor job in explaining the variation in comparison with the other model where we included rank.
+
+
+### F
+
+```{r}
+salary <- mutate(salary, dean = case_when(ysdeg < 15 ~ "New",
+                                         ysdeg >=15 ~ "Old"))
+```
+
+Since the hypothesis depends on ysdeg and we created a new variable using it, I'm assuming that removing ysdeg should remove any multicollinearity.
+
+```{r}
+vif(lm(salary ~ dean + degree + sex + rank + year + ysdeg, data=salary))
+```
+
+As a rule of thumb, a vif score over 5 is a problem. So I will be removing ysdeg from the predictors.
+
+```{r}
+summary(lm(salary ~ dean + degree + sex + rank + year, data=salary))
+```
+
+We see a negative coefficient for deanOld with a p-value less than 0.05 which suggests that the hypothesis is true. The faculty hired by the new dean make \$2421.6 more than the old faculty.
+
+
+
+## Question 3
+
+### A
+
+```{r}
+data("house.selling.price")
+summary(lm(Price ~ Size + New, data = house.selling.price))
+```
+
+Both size and new are significant at a 95% confidence level. The coefficient for size suggests that for 1 square foot increase in the size of home, the price increases by \$116.132 (considering that both are of the same condition - either old/new) and that for new suggests that if the home is new, the price increases by \$57736.283 when compared to that of an old home of the same size.
+
+
+### B
+
+Using the coefficients from above, the prediction equation becomes:
+
+price = -40230.867 + (116.132 * home.size) + (57736.283 * home.new)
+
+Separate equations for new and not new homes: 
+
+price.old = -40230.867 + (116.132 * home.size)
+price.new = -40230.867 + (116.132 * home.size) + 57736.283
+
+
+### C
+
+#### (i)
+
+```{r}
+price.new = -40230.867 + (116.132 * 3000) + 57736.283
+price.new
+```
+
+#### (ii)
+
+```{r}
+price.old = -40230.867 + (116.132 * 3000)
+price.old
+```
+
+
+### D
+
+```{r}
+summary(lm(Price ~ Size * New, data = house.selling.price))
+```
+
+
+### E
+
+```{r}
+data.old <- subset(house.selling.price, New == 0)
+data.new <- subset(house.selling.price, New == 1)
+
+
+ggplot() +
+  geom_smooth(data=data.old, aes(x = Size, y = Price), 
+              method = "lm", se = FALSE, color = "blue") +
+  geom_point(data=data.old, aes(x = Size, y = Price), color = "blue") +
+  geom_smooth(data=data.new, aes(x = Size, y = Price), 
+              method = "lm", se = FALSE, color = "red") +
+  geom_point(data=data.new, aes(x = Size, y = Price), color = "red")
+```
+
+The red line and dots represent the new homes whereas the blue line and dots the not new homes.
+
+
+### F
+
+From the coefficients that we got in D, the prediction equations become:
+
+price = -22227.808 + (104.438 * home.size) + (-78527.502 * home.new) + (61.916 * home.size * home.new)
+
+price.old = -22227.808 + (104.438 * home.size)
+
+price.new = -22227.808 + (104.438 * home.size) - 78527.502 + (61.916 * home.size)
+
+#### (i)
+
+```{r}
+price.new = -22227.808 + (104.438 * 3000) - 78527.502 + (61.916 * 3000)
+price.new
+```
+
+#### (ii)
+
+```{r}
+price.old = -22227.808 + (104.438 * 3000)
+price.old
+```
+
+
+### G
+
+#### (i)
+
+```{r}
+price.new = -22227.808 + (104.438 * 1500) - 78527.502 + (61.916 * 1500)
+price.new
+```
+
+#### (ii)
+
+```{r}
+price.old = -22227.808 + (104.438 * 1500)
+price.old
+```
+
+The difference in the price for new and not new homes of the same size seems to be less for smaller homes. This could suggest that size contributes more to price than the condition of the home.
+
+
+### H
+
+I would prefer the second model with interaction as both the multiple R-squared and adjusted R-squared for that model are higher than that without interaction.
+
