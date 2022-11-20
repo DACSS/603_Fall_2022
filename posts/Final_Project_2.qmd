@@ -1,0 +1,309 @@
+---
+
+title: "Final_Project_2"
+author: "Mani Kanta Gogula"
+description: "Project Analysis"
+date: "11/11/2022"
+format:
+  html:
+    df-print: paged
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - Project Analysis
+  - 
+---
+
+Introduction :
+
+Heart Disease in the United States
+Heart disease is the leading cause of death for men, women, and people of most racial and ethnic groups in the United States.1
+One person dies every 34 seconds in the United States from cardiovascular disease.1
+About 697,000 people in the United States died from heart disease in 2020—that’s 1 in every 5 deaths.1,2
+Heart disease cost the United States about $229 billion each year from 2017 to 2018.3 This includes the cost of health care services, medicines, and lost productivity due to death.
+
+
+Research :
+
+1. Examining the relationship between maximum heart rate one can achieve during excercise and likelihood of developing heart disease .
+
+2. Using Multiple logistic regression confounding effects of age and gender.
+
+ Loading Packages and Dataset :
+
+
+```{r}
+library(readr)
+library(tidyverse)
+library(dplyr)
+heart_cleveland_upload <- read_csv("posts/heart_cleveland_upload.csv")
+head(heart_cleveland_upload)
+```
+```{r}
+colnames(heart_cleveland_upload)
+```
+
+In the respective Data set , We have 14 variables :
+
+AGE       : Age in years
+SEX       : Sex(1=MALE;O=FEMALE)
+CP        : chest Pain type
+         0:typical angina
+         1:atypical angina
+         2:non-anginal pain
+         3:asymptomatic
+TRESTBPS  :Resting blood pressure (in mm            Hg on admission to the       hospital)
+
+CHOL      :Serum cholestrol in mg/dl
+FBS       :Fasting blood sugar> 120mg/dl( 1=true ; 0=false)
+RESTECG   :Resting electrocardiographic results (0=Normal ;1=having ST-T Wave abnormality ; 2=Showing probable or definite left ventricular hypertrophy 
+THALACH   : Maximum heart acheived
+EXANG     :Excercise induced angina (1=Yes ; 0=No)
+OLDPEAK   :ST depression induced by excercise relative to rest
+SLOPE     :The slope of the peak excercise relative to rest
+          Value 0 :upsloping
+          Value 1 :Flat
+          Value 2 :Downsloping
+CA        :Number of major vessels (0-3) colored by fluroscopy
+CONDITION :0=no disease , 1= disease
+  
+
+
+```{r}
+dim(heart_cleveland_upload)
+```
+
+
+```{r}
+summary(heart_cleveland_upload)
+```
+
+ Recoding the sex variable into categorical variable where 0 as Female and 1 as Male 
+
+```{r}
+heart_cleveland_upload$sex[heart_cleveland_upload$sex == 0] <- "female"
+heart_cleveland_upload$sex[heart_cleveland_upload$sex == 1] <- "male"
+head(heart_cleveland_upload)
+```
+CHI-SQUARED TEST:
+ Chi-Square test in R is a statistical method which used to determine if a categorical variable have a significant correlation between them. The two variables are selected from the same population.
+
+Particularly in this test, we have to check the p-values. Moreover, like all statistical tests, we assume this test as a null hypothesis and an alternate hypothesis.
+
+The main thing is, we reject the null hypothesis if the p-value that comes out in the result is less than a predetermined significance level, which is 0.05 usually, then we reject the null hypothesis.
+
+H0: The two variables are independent.
+H1: The two variables relate to each other.
+
+In the case of a null hypothesis, a chi-square test is to test the two variables that are independent.
+
+
+```{r}
+heart_sex<- chisq.test(heart_cleveland_upload$sex,heart_cleveland_upload$condition)
+print(heart_sex)
+```
+
+ We have a high chi-squared value and a p-value of less than 0.05 significance level. So we reject the null hypothesis and conclude that sex and condition have a significant relationship.
+ 
+
+
+```{r}
+# Does age have an effect? Age is continuous, so we use t-test here
+heart_age<-t.test(heart_cleveland_upload$age ~ heart_cleveland_upload$condition)
+print(heart_age)
+```
+
+Here’s how to interpret the results of the t-test:
+
+data: This tells us the data that was used in the two sample t-test. In this case, we used the variables called age and condition.
+
+t: This is the t test-statistic. In this case, it is -4.0636.
+
+df: This is the degrees of freedom associated with the t test-statistic. In this case, it’s 294.66
+
+p-value: This is the p-value that corresponds to a t test-statistic of -4.0636 and df = 294.66. The p-value turns out to be 0.00006204. 
+
+alternative hypothesis: This tells us the alternative hypothesis used for this particular t-test. In this case, the alternative hypothesis is that the true difference in means between the two groups is not equal to zero.
+
+95 percent confidence interval: This tells us the 95% confidence interval for the true difference in means between the two groups. It turns out to be [-6.108, -2.12].
+
+Because the p-value of our test (0.00006204) is less than alpha = 0.05, we reject the null hypothesis of the test. This means we have sufficient evidence to say that the mean of group 0 and group 1 is different.
+
+
+
+```{r}
+heart_thalach<-t.test(heart_cleveland_upload$thalach ~ heart_cleveland_upload$condition)
+print(heart_thalach)
+
+```
+data: This tells us the data that was used in the two sample t-test. In this case, we used the variables called thalach and condition.
+
+t: This is the t test-statistic. In this case, it is 7.9286.
+
+df: This is the degrees of freedom associated with the t test-statistic. In this case, it’s 266.44
+
+p-value: This is the p-value that corresponds to a t test-statistic of 7.9286  and df = 266.44. The p-value turns out to be 0.00000000000006108. 
+
+alternative hypothesis: This tells us the alternative hypothesis used for this particular t-test. In this case, the alternative hypothesis is that the true difference in means between the two groups is not equal to zero.
+
+95 percent confidence interval: This tells us the 95% confidence interval for the true difference in means between the two groups. It turns out to be [14.636, 24.30715].
+
+Because the p-value of our test (0.0000000000000610) is less than alpha = 0.05, we reject the null hypothesis of the test. This means we have sufficient evidence to say that the mean of group 0 and group 1 is different.
+
+ Exploring the association graphically
+
+```{r}
+# Recode condition to be labelled
+heart_cleveland_upload %>% mutate(condition_labelled = ifelse(condition == 0, "No disease", "Disease")) ->heart_cleveland_upload
+
+# age vs condition
+ggplot(data = heart_cleveland_upload, aes(x = condition_labelled, y = age)) + geom_boxplot()
+```
+
+```{r}
+# sex vs condition
+ggplot(data = heart_cleveland_upload, aes(x = condition_labelled, fill = sex)) + geom_bar(position = "fill") + ylab("Sex %")
+```
+Logistics Regression :
+
+Logistic regression is a predictive modelling algorithm that is used when the Y variable is binary categorical. That is, it can take only two values like 1 or 0. The goal is to determine a mathematical equation that can be used to predict the probability of event 1. Once the equation is established, it can be used to predict the Y when only the Xs are known.
+
+
+ Logistic regression is a classic predictive modelling technique and still remains a popular choice for modelling binary categorical variables.
+
+Another advantage of logistic regression is that it computes a prediction probability score of an event. More on that when you actually start building the models.
+
+Building the model and classifying the Y is only half work done. Actually, not even half. Because, the scope of evaluation metrics to judge the efficacy of the model is vast and requires careful judgement to choose the right model. In the next part, I will discuss various evaluation metrics that will help to understand how well the classification model performs from different perspectives.
+
+In this Project , I have used two Models to compare various Metrics Like AUC, Accuracy and propse best model based on these metrics.
+
+Model 1 : Our goal in Model is to predict condition of the patient based on different input parameters.
+
+In Model 1 , I have used age, sex and thalach as my input variables and predicted the condition of the patient.
+
+```{r}
+# using glm function from base R and specify the family argument as binomial
+model <- glm(data = heart_cleveland_upload, condition ~ age + sex + thalach, family = "binomial" )
+
+# extract the model summary
+summary(model)
+```
+
+In the output above, the first thing we see is the call, this is R reminding us what the model we ran was, what options we specified, etc.
+
+Next we see the deviance residuals, which are a measure of model fit. This part of output shows the distribution of the deviance residuals for individual cases used in the model. 
+
+The next part of the output shows the coefficients, their standard errors, the z-statistic (sometimes called a Wald z-statistic), and the associated p-values.. The logistic regression coefficients give the change in the log odds of the outcome for a one unit increase in the predictor variable.
+
+For every one unit change in age, the log odds of likelihood of developing heart disease increases by 0.03.
+For a one unit increase in sexmale, the log odds likelihood of developing heart disease increases by 1.46
+
+Below the table of coefficients are fit indices, including the null and deviance residuals and the AIC. 
+
+Prediction :
+
+
+Let's say a patient have a profile with age 45, sex =male and thalach 150. And we now predict the chances of that patient likelihood of developing heart disease based on our model 1
+
+
+```{r}
+# get the predicted probability in our dataset using the predict() function
+# We include the argument type=”response” in order to get our prediction.
+pred_prob <- predict(model, heart_cleveland_upload, type="response")
+
+# create a decision rule using probability 0.5 as cutoff and save the predicted decision into the main data frame
+heart_cleveland_upload$pred_condition <- ifelse(pred_prob >= 0.5, 1, 0)
+
+# create a newdata data frame to save a new case information
+newdata <- data.frame(age=45, sex='female', thalach=150)
+
+# predict probability for this new case and print out the predicted value
+p_new <- predict(model, newdata, type="response")
+p_new
+```
+
+We see that this patient have 18% of chance developing heart disease.
+
+METRICS :
+
+Are the predictions accurate? How well does the model fit our data? We are going to use some common metrics to evaluate the model performance. The most straightforward one is-
+Accuracy, which is the proportion of the total number of predictions that were correct. 
+On the other hand, we can calculate the classification error rate using 1- accuracy. However, accuracy can be misleading when the response is rare (i.e., imbalanced response). Another popular metric is
+Area Under the ROC curve (AUC), has the advantage that it's independent of the change in the proportion of responders. AUC ranges from 0 to 1. The closer it gets to 1 the better the model performance. Lastly, a confusion matrix is an N X N matrix, where N is the level of outcome. For the problem at hand, we have N=2, and hence we get a 2 X 2 matrix. It cross-tabulates the predicted outcome levels against the true outcome levels.
+
+
+
+```{r}
+# load Metrics package
+library(Metrics)
+
+# calculate auc, accuracy, clasification error
+auc <- auc(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition) 
+accuracy <- accuracy(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition)
+classification_error <- ce(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition) 
+
+# print out the metrics on to screen
+print(paste("AUC=", auc))
+print(paste("Accuracy=", accuracy))
+print(paste("Classification Error=", classification_error))
+
+# confusion matrix
+table(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition, dnn=c("True Status", "Predicted Status")) # confusion matrix
+```
+
+After these metrics are calculated,  For a 45 years old female who has a max heart rate of 150, our model generated a heart disease probability of 0.18 indicating low risk of heart disease. Although our model has an overall accuracy of 0.71, there are cases that were misclassified as shown in the confusion matrix. One way to improve our current model is to include other relevant predictors from the dataset into our model.
+
+MODEL 2 : In Model 1 , I have used age, sex and chol as my input variables and predicted the condition of the patient.
+
+
+
+```{r}
+model_2 <- glm(data = heart_cleveland_upload, condition ~ age + sex + chol, family = "binomial" )
+
+# extract the model summary
+summary(model_2)
+```
+```{r}
+# get the predicted probability in our dataset using the predict() function
+# We include the argument type=”response” in order to get our prediction.
+pred_prob_2 <- predict(model_2, heart_cleveland_upload, type="response")
+
+# create a decision rule using probability 0.5 as cutoff and save the predicted decision into the main data frame
+heart_cleveland_upload$pred_condition_2 <- ifelse(pred_prob_2 >= 0.5, 1, 0)
+
+# create a newdata data frame to save a new case information
+newdata_2 <- data.frame(age=45, sex='female', chol=150)
+
+# predict probability for this new case and print out the predicted value
+p_new_2 <- predict(model_2, newdata_2, type="response")
+p_new_2
+```
+
+We see that this patient have 8.6% of chance developing heart disease. i.e indicating low risk of heart disease.
+
+
+```{r}
+# load Metrics package
+library(Metrics)
+
+# calculate auc, accuracy, clasification error
+auc <- auc(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition_2) 
+accuracy <- accuracy(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition_2)
+classification_error <- ce(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition_2) 
+
+# print out the metrics on to screen
+print(paste("AUC=", auc))
+print(paste("Accuracy=", accuracy))
+print(paste("Classification Error=", classification_error))
+
+# confusion matrix
+table(heart_cleveland_upload$condition, heart_cleveland_upload$pred_condition_2, dnn=c("True Status", "Predicted Status")) # confusion matrix
+```
+
+When we compare our Model 1 and Model 2 based on metrics - AUC, Accuray . 
+
+Model 1 has a accuracy of 71 % and Model 2 has a acuuracy of 67 %. Based on these two models , We can conculde that Model 1 is the best model with predictor variables age , sex and thalach to predict likelihood of developing heart disease.
+
