@@ -2,21 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Steph Roberts">
 <meta name="dcterms.date" content="2022-10-09">
 
-<title>- Final Project: Diabetes Prediction - Part 2</title>
+<title>Final Project: Diabetes Prediction - Part 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -123,9 +128,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<meta name="twitter:title" content="- Final Project: Diabetes Prediction - Part 2">
+<meta name="twitter:title" content="Final Project: Diabetes Prediction - Part 2">
 <meta name="twitter:description" content="According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death.">
 <meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -135,27 +141,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
-    <img src="../images/UMass White Wordmark Horiz.png" alt="">
-  </a>
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">Contributors</a>
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div class="quarto-toggle-container">
@@ -171,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -216,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">October 9, 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -228,17 +240,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(Hmisc): there is no package called 'Hmisc'</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in library(pscl): there is no package called 'pscl'</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="diabetes-risk-factors" class="level3">
@@ -271,28 +289,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diabetes2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diabetes2.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
-<pre><code>Error: 'diabetes2.csv' does not exist in current working directory ('C:/Users/srika/OneDrive/Desktop/DACSS/603_Fall_2022/posts').</code></pre>
+<pre><code>Error: 'diabetes2.csv' does not exist in current working directory ('/home/runner/work/603_Fall_2022/603_Fall_2022/posts').</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in object[[i]]: object of type 'closure' is not subsettable</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                              
@@ -307,8 +325,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check for null entries</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#check for null entries</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] FALSE</code></pre>
@@ -317,37 +335,37 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check number of 0s in each column</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check number of 0s in each column</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
-<pre><code>Error in df == 0: comparison (1) is possible only for atomic and list types</code></pre>
+<pre><code>Error in df == 0: comparison (==) is possible only for atomic and list types</code></pre>
 </div>
 </div>
 <p>Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables that should logically have 0s. Those values, if true, are likely incompatible with life. To reduce the amount of data we exclude, we will only remove observations that have 0s for our explanatory variables. We will remove those cases from analysis.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove rows with 0 in respective columns</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">apply</span>(df[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>)],<span class="dv">1</span>,<span class="cf">function</span>(z) <span class="sc">!</span><span class="fu">any</span>(z<span class="sc">==</span><span class="dv">0</span>)),] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove rows with 0 in respective columns</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">apply</span>(df[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>)],<span class="dv">1</span>,<span class="cf">function</span>(z) <span class="sc">!</span><span class="fu">any</span>(z<span class="sc">==</span><span class="dv">0</span>)),] </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in df[c(2, 6, 8)]: object of type 'closure' is not subsettable</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Verify 0s are gone in selected rows</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Verify 0s are gone in selected rows</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
-<pre><code>Error in df == 0: comparison (1) is possible only for atomic and list types</code></pre>
+<pre><code>Error in df == 0: comparison (==) is possible only for atomic and list types</code></pre>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check cleaned data frame</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check cleaned data frame</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>function (x, df1, df2, ncp, log = FALSE)  </code></pre>
@@ -356,8 +374,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize df</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize df</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in object[[i]]: object of type 'closure' is not subsettable</code></pre>
@@ -367,15 +385,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pregnancies"</span>, <span class="st">"glucose"</span>, <span class="st">"bp"</span>, <span class="st">"skin_thickness"</span>, <span class="st">"insulin"</span>, <span class="st">"bmi"</span>, <span class="st">"dpf"</span>, <span class="st">"age"</span>, <span class="st">"diabetes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pregnancies"</span>, <span class="st">"glucose"</span>, <span class="st">"bp"</span>, <span class="st">"skin_thickness"</span>, <span class="st">"insulin"</span>, <span class="st">"bmi"</span>, <span class="st">"dpf"</span>, <span class="st">"age"</span>, <span class="st">"diabetes"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `colnames&lt;-`(`*tmp*`, value = c("pregnancies", "glucose", "bp", : attempt to set 'colnames' on an object with less than two dimensions</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>NULL</code></pre>
@@ -386,19 +404,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot matrix</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot matrix</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in as.data.frame.default(x): cannot coerce class '"function"' to a data.frame</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histograms of each variable</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist.data.frame</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Histograms of each variable</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">hist.data.frame</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
-<pre><code>Error in for (v in x) {: invalid for() loop sequence</code></pre>
+<pre><code>Error in hist.data.frame(df): could not find function "hist.data.frame"</code></pre>
 </div>
 </div>
 <p>The scatterplot matix shows that our variables generally lack linear relationships. Logistics regression may be best for analyzing this type of data.</p>
@@ -406,14 +424,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in df[, c(1, 2, 6, 8, 9)]: object of type 'closure' is not subsettable</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in pairs(bgap): object 'bgap' not found</code></pre>
@@ -422,16 +440,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `ggplot()`:
-!   You're passing a function as global data.
-  Have you misspelled the `data` argument in `ggplot()`</code></pre>
+! `data` cannot be a function.
+ℹ Have you misspelled the `data` argument in `ggplot()`</code></pre>
 </div>
 </div>
 <p>About a third of our sample have diabetes.</p>
@@ -441,54 +459,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in nrow(.): object 'bgap' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in 1:nrow(df): argument of length 0</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'bgap' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in eval(expr, envir, enclos): object 'bgap' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in nrow(train): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in nrow(test): object 'test' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in head(train): object 'train' not found</code></pre>
@@ -498,40 +516,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using all independent variables</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using all independent variables</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, and age</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, and age</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI and glucose</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI and glucose</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model with BMI, glucose, and pregnancies (without age)</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Model with BMI, glucose, and pregnancies (without age)</span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
@@ -541,25 +559,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generalized linear model can be best for predicting categorical outcome</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Generalized linear model can be best for predicting categorical outcome</span></span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(mbmi): object 'mbmi' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(data = train, aes(x = bmi, y = diabetes)): object 'train' not found</code></pre>
@@ -569,24 +587,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(mgluc): object 'mgluc' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(data = train, aes(x = glucose, y = diabetes)): object 'train' not found</code></pre>
@@ -597,7 +615,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>bmi, train<span class="sc">$</span>glucose, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>bmi, train<span class="sc">$</span>glucose, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in cor.test(train$bmi, train$glucose, method = "pearson"): object 'train' not found</code></pre>
@@ -608,24 +626,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
-<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in is.data.frame(data): object 'train' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(mage): object 'mage' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb80-3"><a href="#cb80-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(data = train, aes(x = age, y = diabetes)): object 'train' not found</code></pre>
@@ -639,8 +657,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(all_var): object 'all_var' not found</code></pre>
@@ -650,15 +668,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(bga): object 'bga' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(train, aes(x = age, y = bmi, color = glucose)): object 'train' not found</code></pre>
@@ -668,15 +686,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(bg): object 'bg' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(train, aes(x = glucose, y = bmi, color = diabetes)): object 'train' not found</code></pre>
@@ -686,16 +704,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
-<span id="cb92-2"><a href="#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
-<span id="cb92-3"><a href="#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(ia): object 'ia' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(train, aes(x = age, y = bmi, color = pregnancies)): object 'train' not found</code></pre>
@@ -705,15 +723,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
-<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in summary(bgp): object 'bgp' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ggplot(train, aes(x = pregnancies, y = bmi, color = glucose)): object 'train' not found</code></pre>
@@ -724,8 +742,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ANOVA test on interaction model</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ia, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co">#ANOVA test on interaction model</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ia, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in anova(ia, test = "Chisq"): object 'ia' not found</code></pre>
@@ -736,8 +754,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check pseudo R2 for interaction model</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Check pseudo R2 for interaction model</span></span>
+<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in pR2(ia): could not find function "pR2"</code></pre>
@@ -750,43 +768,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply model to test data</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia ,test,<span class="at">type=</span><span class="st">'response'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply model to test data</span></span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia ,test,<span class="at">type=</span><span class="st">'response'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in predict(ia, test, type = "response"): object 'ia' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fitted.results <span class="sc">&gt;</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fitted.results <span class="sc">&gt;</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in ifelse(fitted.results &gt; 0.5, 1, 0): object 'fitted.results' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb108"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">mean</span>(fitted.results <span class="sc">!=</span> test<span class="sc">$</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">mean</span>(fitted.results <span class="sc">!=</span> test<span class="sc">$</span>diabetes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in mean(fitted.results != test$diabetes): object 'fitted.results' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb110"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">cbind</span>(test, fitted.results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">cbind</span>(test, fitted.results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in cbind(test, fitted.results): object 'test' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb112"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'Accuracy'</span>,<span class="dv">1</span><span class="sc">-</span>pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'Accuracy'</span>,<span class="dv">1</span><span class="sc">-</span>pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in paste("Accuracy", 1 - pred): object 'pred' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb114"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in head(output): object 'output' not found</code></pre>
@@ -796,8 +814,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb116"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
-<span id="cb116-2"><a href="#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb118"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
+<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-error">
 <pre><code>Error in plot(ia): object 'ia' not found</code></pre>
@@ -889,6 +907,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -940,7 +968,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -962,7 +992,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1041,352 +1088,371 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb118" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb118-2"><a href="#cb118-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project: Diabetes Prediction - Part 2"</span></span>
-<span id="cb118-3"><a href="#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Steph Roberts"</span></span>
-<span id="cb118-4"><a href="#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Final Project Draft 2"</span></span>
-<span id="cb118-5"><a href="#cb118-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/9/2022"</span></span>
-<span id="cb118-6"><a href="#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb118-7"><a href="#cb118-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb118-8"><a href="#cb118-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb118-9"><a href="#cb118-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb118-10"><a href="#cb118-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb118-11"><a href="#cb118-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb118-12"><a href="#cb118-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb118-13"><a href="#cb118-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalproject</span></span>
-<span id="cb118-14"><a href="#cb118-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - Steph Roberts</span></span>
-<span id="cb118-15"><a href="#cb118-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - dataset</span></span>
-<span id="cb118-16"><a href="#cb118-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - ggplot2</span></span>
-<span id="cb118-17"><a href="#cb118-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb118-18"><a href="#cb118-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-21"><a href="#cb118-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-22"><a href="#cb118-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb118-23"><a href="#cb118-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb118-24"><a href="#cb118-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-25"><a href="#cb118-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb118-26"><a href="#cb118-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb118-27"><a href="#cb118-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb118-28"><a href="#cb118-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
-<span id="cb118-29"><a href="#cb118-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span>
-<span id="cb118-30"><a href="#cb118-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
-<span id="cb118-31"><a href="#cb118-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-32"><a href="#cb118-32" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb118-33"><a href="#cb118-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-34"><a href="#cb118-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-35"><a href="#cb118-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diabetes risk factors</span></span>
-<span id="cb118-36"><a href="#cb118-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-37"><a href="#cb118-37" aria-hidden="true" tabindex="-1"></a>According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death. The WHO states close to 1.5 million people died due to diabetes and its complication in 2019 alone. It is a growing problem that requires dedicated research to aim at the slowdown and prevention of future cases. </span>
-<span id="cb118-38"><a href="#cb118-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-39"><a href="#cb118-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Questions</span></span>
-<span id="cb118-40"><a href="#cb118-40" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What risk factors are most predictive of diabetes? </span>
-<span id="cb118-41"><a href="#cb118-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-42"><a href="#cb118-42" aria-hidden="true" tabindex="-1"></a>Research on Diabetes is ongoing and in-depth within the medical field. The prevalence and incidence of diabetes mellitus type 2 (DQ2) have increased consistently for decades, giving way to an increase in mortality related to diabetes. Commonly in the medical field, many risk factors are used to measure a patient’s risk of developing DM2, such as obesity, family history, hypertension and changes in fasting blood sugar levels. </span>
-<span id="cb118-43"><a href="#cb118-43" aria-hidden="true" tabindex="-1"></a>Moreno et al. (2018) studied risk parameters for diabetes and concluded "risk of being diabetic rises in patients whose father has suffered an acute myocardial infarction, in those whose mother or father is diabetic and in patients with a high waist perimeter." </span>
-<span id="cb118-44"><a href="#cb118-44" aria-hidden="true" tabindex="-1"></a>Their focus on family history leaves room for studies more focused on individual medical factors, such as blood pressure, BMI, number of pregnancies, etc. That is the aim of this project.</span>
-<span id="cb118-45"><a href="#cb118-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-46"><a href="#cb118-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-47"><a href="#cb118-47" aria-hidden="true" tabindex="-1"></a>M. L. M. V. J. A. (2018, June 11). Predictive risk model for the diagnosis of diabetes mellitus type 2 in a follow-up study 15 Years on: Prodi2 study. European journal of public health. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/29897477/ </span>
-<span id="cb118-48"><a href="#cb118-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-49"><a href="#cb118-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-50"><a href="#cb118-50" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Can the use of regression analysis help predict risk of diabetes based on several medical variables?</span>
-<span id="cb118-51"><a href="#cb118-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-52"><a href="#cb118-52" aria-hidden="true" tabindex="-1"></a>Other research, such as a Edlitz &amp; Segal (2022) study titled Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards, does focus on using individual medical factors to predict risk of diabetes through regression. This project aims to conduct similar analysis on different data. </span>
-<span id="cb118-53"><a href="#cb118-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-54"><a href="#cb118-54" aria-hidden="true" tabindex="-1"></a>E. Y. S. E. (2022, June 22). Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards. eLife. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/35731045/ </span>
-<span id="cb118-55"><a href="#cb118-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-56"><a href="#cb118-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis</span></span>
-<span id="cb118-57"><a href="#cb118-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-58"><a href="#cb118-58" aria-hidden="true" tabindex="-1"></a>Body mass index (BMI), glucose, and age are positive predictors of diabetes mellitus type 2.  </span>
-<span id="cb118-59"><a href="#cb118-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-60"><a href="#cb118-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-61"><a href="#cb118-61" aria-hidden="true" tabindex="-1"></a>Both hypothesis have been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. </span>
-<span id="cb118-62"><a href="#cb118-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-63"><a href="#cb118-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Statistics</span></span>
-<span id="cb118-64"><a href="#cb118-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-65"><a href="#cb118-65" aria-hidden="true" tabindex="-1"></a>The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0, 11 patients had a body mass index of 0, 28 others had a diastolic blood pressure of 0, 192 others had skin fold thickness readings of 0, and 140 others had serum insulin levels of 0. After cleaning the data by removing the cases with numbers that are incompatible with life, 392 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.</span>
-<span id="cb118-66"><a href="#cb118-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-67"><a href="#cb118-67" aria-hidden="true" tabindex="-1"></a>The datasets consists of 9 medical predictor (independent) variables and one target (dependent) variable, outcome.  </span>
-<span id="cb118-68"><a href="#cb118-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-69"><a href="#cb118-69" aria-hidden="true" tabindex="-1"></a>**Pregnancies:** Number of times a woman has been pregnant</span>
-<span id="cb118-70"><a href="#cb118-70" aria-hidden="true" tabindex="-1"></a>**Glucose:** Plasma Glucose concentration of 2 hours in an oral glucose tolerance test</span>
-<span id="cb118-71"><a href="#cb118-71" aria-hidden="true" tabindex="-1"></a>**BloodPressure:** Diastolic Blood Pressure (mm hg)</span>
-<span id="cb118-72"><a href="#cb118-72" aria-hidden="true" tabindex="-1"></a>**SkinThickness:** Triceps skin fold thickness(mm)</span>
-<span id="cb118-73"><a href="#cb118-73" aria-hidden="true" tabindex="-1"></a>**Insulin:** 2 hour serum insulin(mu U/ml)</span>
-<span id="cb118-74"><a href="#cb118-74" aria-hidden="true" tabindex="-1"></a>**BMI:** Body Mass Index ((weight in kg/height in m)^2)</span>
-<span id="cb118-75"><a href="#cb118-75" aria-hidden="true" tabindex="-1"></a>**Age:** Age(years)</span>
-<span id="cb118-76"><a href="#cb118-76" aria-hidden="true" tabindex="-1"></a>**DiabetesPedigreeFunction:** scores likelihood of diabetes based on family history</span>
-<span id="cb118-77"><a href="#cb118-77" aria-hidden="true" tabindex="-1"></a>**Outcome:** 0(doesn't have diabetes) or 1 (has diabetes)</span>
-<span id="cb118-78"><a href="#cb118-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-79"><a href="#cb118-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-82"><a href="#cb118-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-83"><a href="#cb118-83" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diabetes2.csv"</span>)</span>
-<span id="cb118-84"><a href="#cb118-84" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
-<span id="cb118-85"><a href="#cb118-85" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
-<span id="cb118-86"><a href="#cb118-86" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
-<span id="cb118-87"><a href="#cb118-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-90"><a href="#cb118-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-91"><a href="#cb118-91" aria-hidden="true" tabindex="-1"></a><span class="co">#check for null entries</span></span>
-<span id="cb118-92"><a href="#cb118-92" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(df)</span>
-<span id="cb118-93"><a href="#cb118-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-96"><a href="#cb118-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-97"><a href="#cb118-97" aria-hidden="true" tabindex="-1"></a><span class="co">#Check number of 0s in each column</span></span>
-<span id="cb118-98"><a href="#cb118-98" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span>
-<span id="cb118-99"><a href="#cb118-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-100"><a href="#cb118-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-101"><a href="#cb118-101" aria-hidden="true" tabindex="-1"></a>Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables that should logically have 0s. Those values, if true, are likely incompatible with life. To reduce the amount of data we exclude, we will only remove observations that have 0s for our explanatory variables. We will remove those cases from analysis.</span>
-<span id="cb118-102"><a href="#cb118-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-105"><a href="#cb118-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-106"><a href="#cb118-106" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove rows with 0 in respective columns</span></span>
-<span id="cb118-107"><a href="#cb118-107" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">apply</span>(df[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>)],<span class="dv">1</span>,<span class="cf">function</span>(z) <span class="sc">!</span><span class="fu">any</span>(z<span class="sc">==</span><span class="dv">0</span>)),] </span>
-<span id="cb118-108"><a href="#cb118-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-109"><a href="#cb118-109" aria-hidden="true" tabindex="-1"></a><span class="co">#Verify 0s are gone in selected rows</span></span>
-<span id="cb118-110"><a href="#cb118-110" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span>
-<span id="cb118-111"><a href="#cb118-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-112"><a href="#cb118-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-115"><a href="#cb118-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-116"><a href="#cb118-116" aria-hidden="true" tabindex="-1"></a><span class="co">#Check cleaned data frame</span></span>
-<span id="cb118-117"><a href="#cb118-117" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span>
-<span id="cb118-118"><a href="#cb118-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-119"><a href="#cb118-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-122"><a href="#cb118-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-123"><a href="#cb118-123" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize df</span></span>
-<span id="cb118-124"><a href="#cb118-124" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
-<span id="cb118-125"><a href="#cb118-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-126"><a href="#cb118-126" aria-hidden="true" tabindex="-1"></a>At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70.66, a BMI of 33, and age of 30.86 are reasonably accurate of our population. The data is clean and ready for analysis. </span>
-<span id="cb118-127"><a href="#cb118-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-130"><a href="#cb118-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-131"><a href="#cb118-131" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns</span></span>
-<span id="cb118-132"><a href="#cb118-132" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pregnancies"</span>, <span class="st">"glucose"</span>, <span class="st">"bp"</span>, <span class="st">"skin_thickness"</span>, <span class="st">"insulin"</span>, <span class="st">"bmi"</span>, <span class="st">"dpf"</span>, <span class="st">"age"</span>, <span class="st">"diabetes"</span>)</span>
-<span id="cb118-133"><a href="#cb118-133" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
-<span id="cb118-134"><a href="#cb118-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-135"><a href="#cb118-135" aria-hidden="true" tabindex="-1"></a>We have 752 observations and 9 variables with which to work. </span>
-<span id="cb118-136"><a href="#cb118-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-137"><a href="#cb118-137" aria-hidden="true" tabindex="-1"></a>Let's get familiar with the data set by observing the scatterplot matrix and histograms for each variable.</span>
-<span id="cb118-138"><a href="#cb118-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-141"><a href="#cb118-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-142"><a href="#cb118-142" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot matrix</span></span>
-<span id="cb118-143"><a href="#cb118-143" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(df)</span>
-<span id="cb118-144"><a href="#cb118-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-145"><a href="#cb118-145" aria-hidden="true" tabindex="-1"></a><span class="co">#Histograms of each variable</span></span>
-<span id="cb118-146"><a href="#cb118-146" aria-hidden="true" tabindex="-1"></a><span class="fu">hist.data.frame</span>(df)</span>
-<span id="cb118-147"><a href="#cb118-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-148"><a href="#cb118-148" aria-hidden="true" tabindex="-1"></a>The scatterplot matix shows that our variables generally lack linear relationships. Logistics regression may be best for analyzing this type of data. </span>
-<span id="cb118-149"><a href="#cb118-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-150"><a href="#cb118-150" aria-hidden="true" tabindex="-1"></a>The histograms show us the distribution of all our variables. Pregnancies is right skewed with more women having a smaller number of pregnancies and a small number having over 10. Glucose appears to follow a close-to-normal distribution with the mean just over 100. BMI follows a similar pattern with a central value of just over 30. Age is right skewed with the majority of the sample appearing to be in their 20s and slower tapering off to ages in their 50s. This is a good place to start. The only variable we cannot view in a histogram is the outcome variable due to its binary nature as a dummy variable. </span>
-<span id="cb118-151"><a href="#cb118-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-154"><a href="#cb118-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-155"><a href="#cb118-155" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span>
-<span id="cb118-156"><a href="#cb118-156" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span>
-<span id="cb118-157"><a href="#cb118-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-158"><a href="#cb118-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-161"><a href="#cb118-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-162"><a href="#cb118-162" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
-<span id="cb118-163"><a href="#cb118-163" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
-<span id="cb118-164"><a href="#cb118-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
-<span id="cb118-165"><a href="#cb118-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
-<span id="cb118-166"><a href="#cb118-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)</span>
-<span id="cb118-167"><a href="#cb118-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-168"><a href="#cb118-168" aria-hidden="true" tabindex="-1"></a>About a third of our sample have diabetes. </span>
-<span id="cb118-169"><a href="#cb118-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-170"><a href="#cb118-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis Testing</span></span>
-<span id="cb118-171"><a href="#cb118-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-174"><a href="#cb118-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-175"><a href="#cb118-175" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
-<span id="cb118-176"><a href="#cb118-176" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb118-177"><a href="#cb118-177" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
-<span id="cb118-178"><a href="#cb118-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb118-179"><a href="#cb118-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb118-180"><a href="#cb118-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span>
-<span id="cb118-181"><a href="#cb118-181" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span>
-<span id="cb118-182"><a href="#cb118-182" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span>
-<span id="cb118-183"><a href="#cb118-183" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span>
-<span id="cb118-184"><a href="#cb118-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-185"><a href="#cb118-185" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span>
-<span id="cb118-186"><a href="#cb118-186" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span>
-<span id="cb118-187"><a href="#cb118-187" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span>
-<span id="cb118-188"><a href="#cb118-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-189"><a href="#cb118-189" aria-hidden="true" tabindex="-1"></a>As a reminder, pregnancies, age, and BMI are all right skewed. So, we will use the logarithm of those variables in our regressions. </span>
-<span id="cb118-190"><a href="#cb118-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-193"><a href="#cb118-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-194"><a href="#cb118-194" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using all independent variables</span></span>
-<span id="cb118-195"><a href="#cb118-195" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
-<span id="cb118-196"><a href="#cb118-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-197"><a href="#cb118-197" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, and age</span></span>
-<span id="cb118-198"><a href="#cb118-198" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
-<span id="cb118-199"><a href="#cb118-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-200"><a href="#cb118-200" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI and glucose</span></span>
-<span id="cb118-201"><a href="#cb118-201" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
-<span id="cb118-202"><a href="#cb118-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-203"><a href="#cb118-203" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
-<span id="cb118-204"><a href="#cb118-204" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
-<span id="cb118-205"><a href="#cb118-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-206"><a href="#cb118-206" aria-hidden="true" tabindex="-1"></a><span class="co">#Model with BMI, glucose, and pregnancies (without age)</span></span>
-<span id="cb118-207"><a href="#cb118-207" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
-<span id="cb118-208"><a href="#cb118-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-209"><a href="#cb118-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-210"><a href="#cb118-210" aria-hidden="true" tabindex="-1"></a>Our hypothesis involves the BMI, glucose, and age variables. First we can take a look at them individually. </span>
-<span id="cb118-211"><a href="#cb118-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-214"><a href="#cb118-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-215"><a href="#cb118-215" aria-hidden="true" tabindex="-1"></a><span class="co">#Generalized linear model can be best for predicting categorical outcome</span></span>
-<span id="cb118-216"><a href="#cb118-216" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
-<span id="cb118-217"><a href="#cb118-217" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train)</span>
-<span id="cb118-218"><a href="#cb118-218" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span>
-<span id="cb118-219"><a href="#cb118-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-220"><a href="#cb118-220" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-221"><a href="#cb118-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb118-222"><a href="#cb118-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
-<span id="cb118-223"><a href="#cb118-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-224"><a href="#cb118-224" aria-hidden="true" tabindex="-1"></a>Interpretation: The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.019. The standard errors are small. Our t-values are large compared to our standard error and relatively far from 0. All that, combined with a very small p-value of &lt; 5.15e-11, indicate we can reject the null hypothesis and conclude a relationship between BMI and diabetes. </span>
-<span id="cb118-225"><a href="#cb118-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-228"><a href="#cb118-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-229"><a href="#cb118-229" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
-<span id="cb118-230"><a href="#cb118-230" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train)</span>
-<span id="cb118-231"><a href="#cb118-231" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span>
-<span id="cb118-232"><a href="#cb118-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-233"><a href="#cb118-233" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-234"><a href="#cb118-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb118-235"><a href="#cb118-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
-<span id="cb118-236"><a href="#cb118-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-237"><a href="#cb118-237" aria-hidden="true" tabindex="-1"></a>Interpretation: Interestingly, the values of this regression mirror that of the BMI regression. With a very small p-value, &lt; 2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. </span>
-<span id="cb118-238"><a href="#cb118-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-239"><a href="#cb118-239" aria-hidden="true" tabindex="-1"></a>The similarities is regression model values between BMI and glucose sparked a curiosity. Let's see if BMI and glucose are specifically correlated to one another. </span>
-<span id="cb118-242"><a href="#cb118-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-243"><a href="#cb118-243" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>bmi, train<span class="sc">$</span>glucose, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb118-244"><a href="#cb118-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-245"><a href="#cb118-245" aria-hidden="true" tabindex="-1"></a>This shows a very small p-value of 8.477e-09, which is well under the significance level alpha = 0.5. However, the correlation coefficient suggests a weak positive correlation. This suggests the variables are only weakly related.</span>
-<span id="cb118-246"><a href="#cb118-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-247"><a href="#cb118-247" aria-hidden="true" tabindex="-1"></a>Let's continue with our regression model hypothesis testing of individual variables. </span>
-<span id="cb118-250"><a href="#cb118-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-251"><a href="#cb118-251" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
-<span id="cb118-252"><a href="#cb118-252" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train)</span>
-<span id="cb118-253"><a href="#cb118-253" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span>
-<span id="cb118-254"><a href="#cb118-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-255"><a href="#cb118-255" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-256"><a href="#cb118-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb118-257"><a href="#cb118-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
-<span id="cb118-258"><a href="#cb118-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-259"><a href="#cb118-259" aria-hidden="true" tabindex="-1"></a>Interpretation: Similar to the previous variable, age also has small residuals and standard error. It shows a p-value of 1.12e-06, indicating a relationship between age and diabetes. </span>
-<span id="cb118-260"><a href="#cb118-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-261"><a href="#cb118-261" aria-hidden="true" tabindex="-1"></a>The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is true. Next, we can investigate models that could help predict the outcome using these variables. </span>
-<span id="cb118-262"><a href="#cb118-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-263"><a href="#cb118-263" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Comparisons</span></span>
-<span id="cb118-264"><a href="#cb118-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-267"><a href="#cb118-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-268"><a href="#cb118-268" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
-<span id="cb118-269"><a href="#cb118-269" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span>
-<span id="cb118-270"><a href="#cb118-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-271"><a href="#cb118-271" aria-hidden="true" tabindex="-1"></a>We can see with the all variable model that collectively, independent variables including pregnancies, glucose, bmi, dpf and even blood pressure have low p-values. That suggests those variables have a relationship with the outcome variable. We can use AIC as an indicator of model fitness, with this model being 517.97. Let's compare this with the following models.</span>
-<span id="cb118-272"><a href="#cb118-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-275"><a href="#cb118-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-276"><a href="#cb118-276" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
-<span id="cb118-277"><a href="#cb118-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span>
-<span id="cb118-278"><a href="#cb118-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-279"><a href="#cb118-279" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-280"><a href="#cb118-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-281"><a href="#cb118-281" aria-hidden="true" tabindex="-1"></a>The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. </span>
-<span id="cb118-282"><a href="#cb118-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-285"><a href="#cb118-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-286"><a href="#cb118-286" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
-<span id="cb118-287"><a href="#cb118-287" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span>
-<span id="cb118-288"><a href="#cb118-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-289"><a href="#cb118-289" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-290"><a href="#cb118-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-291"><a href="#cb118-291" aria-hidden="true" tabindex="-1"></a>This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. </span>
-<span id="cb118-292"><a href="#cb118-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-295"><a href="#cb118-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-296"><a href="#cb118-296" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
-<span id="cb118-297"><a href="#cb118-297" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
-<span id="cb118-298"><a href="#cb118-298" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span>
-<span id="cb118-299"><a href="#cb118-299" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-300"><a href="#cb118-300" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-301"><a href="#cb118-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-302"><a href="#cb118-302" aria-hidden="true" tabindex="-1"></a>With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. </span>
-<span id="cb118-303"><a href="#cb118-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-306"><a href="#cb118-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-307"><a href="#cb118-307" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
-<span id="cb118-308"><a href="#cb118-308" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span>
-<span id="cb118-309"><a href="#cb118-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-310"><a href="#cb118-310" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-311"><a href="#cb118-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-312"><a href="#cb118-312" aria-hidden="true" tabindex="-1"></a>Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, the model including BMI and glucose and controlling for an interaction between age and pregnancy has the best fit of all models tested. </span>
-<span id="cb118-313"><a href="#cb118-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-314"><a href="#cb118-314" aria-hidden="true" tabindex="-1"></a>We can use ANOVA to analyze the table of deviance of our regression model. </span>
-<span id="cb118-315"><a href="#cb118-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-318"><a href="#cb118-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-319"><a href="#cb118-319" aria-hidden="true" tabindex="-1"></a><span class="co">#ANOVA test on interaction model</span></span>
-<span id="cb118-320"><a href="#cb118-320" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ia, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
-<span id="cb118-321"><a href="#cb118-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-322"><a href="#cb118-322" aria-hidden="true" tabindex="-1"></a>All of our variables have small p-values and appear good predictors of the diabetes outcome, with the exception of age. However, age is needed for the interaction variable. </span>
-<span id="cb118-323"><a href="#cb118-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-324"><a href="#cb118-324" aria-hidden="true" tabindex="-1"></a>Let's check one more thing to ensure we have a good fit. </span>
-<span id="cb118-327"><a href="#cb118-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-328"><a href="#cb118-328" aria-hidden="true" tabindex="-1"></a><span class="co">#Check pseudo R2 for interaction model</span></span>
-<span id="cb118-329"><a href="#cb118-329" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(ia)</span>
-<span id="cb118-330"><a href="#cb118-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-331"><a href="#cb118-331" aria-hidden="true" tabindex="-1"></a>With a McFadden R-squared of 0.27, this model can be considered an excellent fit. </span>
-<span id="cb118-332"><a href="#cb118-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-333"><a href="#cb118-333" aria-hidden="true" tabindex="-1"></a><span class="fu">## Diagnostics</span></span>
-<span id="cb118-334"><a href="#cb118-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-337"><a href="#cb118-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-338"><a href="#cb118-338" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply model to test data</span></span>
-<span id="cb118-339"><a href="#cb118-339" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia ,test,<span class="at">type=</span><span class="st">'response'</span>)</span>
-<span id="cb118-340"><a href="#cb118-340" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fitted.results <span class="sc">&gt;</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
-<span id="cb118-341"><a href="#cb118-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-342"><a href="#cb118-342" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">mean</span>(fitted.results <span class="sc">!=</span> test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-343"><a href="#cb118-343" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">cbind</span>(test, fitted.results)</span>
-<span id="cb118-344"><a href="#cb118-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-345"><a href="#cb118-345" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'Accuracy'</span>,<span class="dv">1</span><span class="sc">-</span>pred))</span>
-<span id="cb118-346"><a href="#cb118-346" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
-<span id="cb118-347"><a href="#cb118-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-348"><a href="#cb118-348" aria-hidden="true" tabindex="-1"></a>Testing the interaction model on the test data produces the correct outcome 79% of the time. </span>
-<span id="cb118-349"><a href="#cb118-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-352"><a href="#cb118-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-353"><a href="#cb118-353" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
-<span id="cb118-354"><a href="#cb118-354" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ia)</span>
-<span id="cb118-355"><a href="#cb118-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-356"><a href="#cb118-356" aria-hidden="true" tabindex="-1"></a>**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. They start at close to 0 and taper off to a negative slope. Another group of residuals starts large and tapers on a negative slope toward 0. </span>
-<span id="cb118-357"><a href="#cb118-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-358"><a href="#cb118-358" aria-hidden="true" tabindex="-1"></a>**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top), which aligns with our individual variable histogram interpretations. It follows that a model combining variables with right skews may also be skewed to the right. However, it also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."</span>
-<span id="cb118-359"><a href="#cb118-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-360"><a href="#cb118-360" aria-hidden="true" tabindex="-1"></a>**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. The red line does roughly travel horizontal across the plot. However, there is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. </span>
-<span id="cb118-361"><a href="#cb118-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-362"><a href="#cb118-362" aria-hidden="true" tabindex="-1"></a>**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. </span>
-<span id="cb118-363"><a href="#cb118-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-364"><a href="#cb118-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-365"><a href="#cb118-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-366"><a href="#cb118-366" aria-hidden="true" tabindex="-1"></a>*</span>
-<span id="cb118-367"><a href="#cb118-367" aria-hidden="true" tabindex="-1"></a>Plan to work on fixing the heteroscedasticity by log transforming BMI, pregnancies, and age when those variables are included in models because they are right skewed data. However, it is taking time figuring out how to do a multiple logistics regression without errors..</span>
-<span id="cb118-368"><a href="#cb118-368" aria-hidden="true" tabindex="-1"></a>*</span>
+<div class="sourceCode" id="cb120" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb120-2"><a href="#cb120-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project: Diabetes Prediction - Part 2"</span></span>
+<span id="cb120-3"><a href="#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Steph Roberts"</span></span>
+<span id="cb120-4"><a href="#cb120-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Final Project Draft 2"</span></span>
+<span id="cb120-5"><a href="#cb120-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "10/9/2022"</span></span>
+<span id="cb120-6"><a href="#cb120-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb120-7"><a href="#cb120-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb120-8"><a href="#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb120-9"><a href="#cb120-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb120-10"><a href="#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb120-11"><a href="#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb120-12"><a href="#cb120-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb120-13"><a href="#cb120-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - finalproject</span></span>
+<span id="cb120-14"><a href="#cb120-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - Steph Roberts</span></span>
+<span id="cb120-15"><a href="#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - dataset</span></span>
+<span id="cb120-16"><a href="#cb120-16" aria-hidden="true" tabindex="-1"></a><span class="co">  - ggplot2</span></span>
+<span id="cb120-17"><a href="#cb120-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb120-18"><a href="#cb120-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-21"><a href="#cb120-21" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-22"><a href="#cb120-22" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb120-23"><a href="#cb120-23" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb120-24"><a href="#cb120-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-25"><a href="#cb120-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb120-26"><a href="#cb120-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb120-27"><a href="#cb120-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb120-28"><a href="#cb120-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span>
+<span id="cb120-29"><a href="#cb120-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pscl)</span>
+<span id="cb120-30"><a href="#cb120-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb120-31"><a href="#cb120-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-32"><a href="#cb120-32" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb120-33"><a href="#cb120-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-34"><a href="#cb120-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-35"><a href="#cb120-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diabetes risk factors</span></span>
+<span id="cb120-36"><a href="#cb120-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-37"><a href="#cb120-37" aria-hidden="true" tabindex="-1"></a>According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death. The WHO states close to 1.5 million people died due to diabetes and its complication in 2019 alone. It is a growing problem that requires dedicated research to aim at the slowdown and prevention of future cases. </span>
+<span id="cb120-38"><a href="#cb120-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-39"><a href="#cb120-39" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Questions</span></span>
+<span id="cb120-40"><a href="#cb120-40" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>What risk factors are most predictive of diabetes? </span>
+<span id="cb120-41"><a href="#cb120-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-42"><a href="#cb120-42" aria-hidden="true" tabindex="-1"></a>Research on Diabetes is ongoing and in-depth within the medical field. The prevalence and incidence of diabetes mellitus type 2 (DQ2) have increased consistently for decades, giving way to an increase in mortality related to diabetes. Commonly in the medical field, many risk factors are used to measure a patient’s risk of developing DM2, such as obesity, family history, hypertension and changes in fasting blood sugar levels. </span>
+<span id="cb120-43"><a href="#cb120-43" aria-hidden="true" tabindex="-1"></a>Moreno et al. (2018) studied risk parameters for diabetes and concluded "risk of being diabetic rises in patients whose father has suffered an acute myocardial infarction, in those whose mother or father is diabetic and in patients with a high waist perimeter." </span>
+<span id="cb120-44"><a href="#cb120-44" aria-hidden="true" tabindex="-1"></a>Their focus on family history leaves room for studies more focused on individual medical factors, such as blood pressure, BMI, number of pregnancies, etc. That is the aim of this project.</span>
+<span id="cb120-45"><a href="#cb120-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-46"><a href="#cb120-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-47"><a href="#cb120-47" aria-hidden="true" tabindex="-1"></a>M. L. M. V. J. A. (2018, June 11). Predictive risk model for the diagnosis of diabetes mellitus type 2 in a follow-up study 15 Years on: Prodi2 study. European journal of public health. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/29897477/ </span>
+<span id="cb120-48"><a href="#cb120-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-49"><a href="#cb120-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-50"><a href="#cb120-50" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>Can the use of regression analysis help predict risk of diabetes based on several medical variables?</span>
+<span id="cb120-51"><a href="#cb120-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-52"><a href="#cb120-52" aria-hidden="true" tabindex="-1"></a>Other research, such as a Edlitz &amp; Segal (2022) study titled Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards, does focus on using individual medical factors to predict risk of diabetes through regression. This project aims to conduct similar analysis on different data. </span>
+<span id="cb120-53"><a href="#cb120-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-54"><a href="#cb120-54" aria-hidden="true" tabindex="-1"></a>E. Y. S. E. (2022, June 22). Prediction of type 2 diabetes mellitus onset using logistic regression-based scorecards. eLife. Retrieved October 9, 2022, from https://pubmed.ncbi.nlm.nih.gov/35731045/ </span>
+<span id="cb120-55"><a href="#cb120-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-56"><a href="#cb120-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis</span></span>
+<span id="cb120-57"><a href="#cb120-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-58"><a href="#cb120-58" aria-hidden="true" tabindex="-1"></a>Body mass index (BMI), glucose, and age are positive predictors of diabetes mellitus type 2.  </span>
+<span id="cb120-59"><a href="#cb120-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-60"><a href="#cb120-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-61"><a href="#cb120-61" aria-hidden="true" tabindex="-1"></a>Both hypothesis have been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. </span>
+<span id="cb120-62"><a href="#cb120-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-63"><a href="#cb120-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descriptive Statistics</span></span>
+<span id="cb120-64"><a href="#cb120-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-65"><a href="#cb120-65" aria-hidden="true" tabindex="-1"></a>The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0, 11 patients had a body mass index of 0, 28 others had a diastolic blood pressure of 0, 192 others had skin fold thickness readings of 0, and 140 others had serum insulin levels of 0. After cleaning the data by removing the cases with numbers that are incompatible with life, 392 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.</span>
+<span id="cb120-66"><a href="#cb120-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-67"><a href="#cb120-67" aria-hidden="true" tabindex="-1"></a>The datasets consists of 9 medical predictor (independent) variables and one target (dependent) variable, outcome.  </span>
+<span id="cb120-68"><a href="#cb120-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-69"><a href="#cb120-69" aria-hidden="true" tabindex="-1"></a>**Pregnancies:** Number of times a woman has been pregnant</span>
+<span id="cb120-70"><a href="#cb120-70" aria-hidden="true" tabindex="-1"></a>**Glucose:** Plasma Glucose concentration of 2 hours in an oral glucose tolerance test</span>
+<span id="cb120-71"><a href="#cb120-71" aria-hidden="true" tabindex="-1"></a>**BloodPressure:** Diastolic Blood Pressure (mm hg)</span>
+<span id="cb120-72"><a href="#cb120-72" aria-hidden="true" tabindex="-1"></a>**SkinThickness:** Triceps skin fold thickness(mm)</span>
+<span id="cb120-73"><a href="#cb120-73" aria-hidden="true" tabindex="-1"></a>**Insulin:** 2 hour serum insulin(mu U/ml)</span>
+<span id="cb120-74"><a href="#cb120-74" aria-hidden="true" tabindex="-1"></a>**BMI:** Body Mass Index ((weight in kg/height in m)^2)</span>
+<span id="cb120-75"><a href="#cb120-75" aria-hidden="true" tabindex="-1"></a>**Age:** Age(years)</span>
+<span id="cb120-76"><a href="#cb120-76" aria-hidden="true" tabindex="-1"></a>**DiabetesPedigreeFunction:** scores likelihood of diabetes based on family history</span>
+<span id="cb120-77"><a href="#cb120-77" aria-hidden="true" tabindex="-1"></a>**Outcome:** 0(doesn't have diabetes) or 1 (has diabetes)</span>
+<span id="cb120-78"><a href="#cb120-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-79"><a href="#cb120-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-82"><a href="#cb120-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-83"><a href="#cb120-83" aria-hidden="true" tabindex="-1"></a>df<span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"diabetes2.csv"</span>)</span>
+<span id="cb120-84"><a href="#cb120-84" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
+<span id="cb120-85"><a href="#cb120-85" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb120-86"><a href="#cb120-86" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(df)</span>
+<span id="cb120-87"><a href="#cb120-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-90"><a href="#cb120-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-91"><a href="#cb120-91" aria-hidden="true" tabindex="-1"></a><span class="co">#check for null entries</span></span>
+<span id="cb120-92"><a href="#cb120-92" aria-hidden="true" tabindex="-1"></a><span class="fu">is.null</span>(df)</span>
+<span id="cb120-93"><a href="#cb120-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-96"><a href="#cb120-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-97"><a href="#cb120-97" aria-hidden="true" tabindex="-1"></a><span class="co">#Check number of 0s in each column</span></span>
+<span id="cb120-98"><a href="#cb120-98" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb120-99"><a href="#cb120-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-100"><a href="#cb120-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-101"><a href="#cb120-101" aria-hidden="true" tabindex="-1"></a>Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables that should logically have 0s. Those values, if true, are likely incompatible with life. To reduce the amount of data we exclude, we will only remove observations that have 0s for our explanatory variables. We will remove those cases from analysis.</span>
+<span id="cb120-102"><a href="#cb120-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-105"><a href="#cb120-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-106"><a href="#cb120-106" aria-hidden="true" tabindex="-1"></a><span class="co">#Remove rows with 0 in respective columns</span></span>
+<span id="cb120-107"><a href="#cb120-107" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[<span class="fu">apply</span>(df[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>)],<span class="dv">1</span>,<span class="cf">function</span>(z) <span class="sc">!</span><span class="fu">any</span>(z<span class="sc">==</span><span class="dv">0</span>)),] </span>
+<span id="cb120-108"><a href="#cb120-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-109"><a href="#cb120-109" aria-hidden="true" tabindex="-1"></a><span class="co">#Verify 0s are gone in selected rows</span></span>
+<span id="cb120-110"><a href="#cb120-110" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(df<span class="sc">==</span><span class="dv">0</span>)</span>
+<span id="cb120-111"><a href="#cb120-111" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-112"><a href="#cb120-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-115"><a href="#cb120-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-116"><a href="#cb120-116" aria-hidden="true" tabindex="-1"></a><span class="co">#Check cleaned data frame</span></span>
+<span id="cb120-117"><a href="#cb120-117" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(df)</span>
+<span id="cb120-118"><a href="#cb120-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-119"><a href="#cb120-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-122"><a href="#cb120-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-123"><a href="#cb120-123" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize df</span></span>
+<span id="cb120-124"><a href="#cb120-124" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb120-125"><a href="#cb120-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-126"><a href="#cb120-126" aria-hidden="true" tabindex="-1"></a>At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70.66, a BMI of 33, and age of 30.86 are reasonably accurate of our population. The data is clean and ready for analysis. </span>
+<span id="cb120-127"><a href="#cb120-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-130"><a href="#cb120-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-131"><a href="#cb120-131" aria-hidden="true" tabindex="-1"></a><span class="co">#Rename columns</span></span>
+<span id="cb120-132"><a href="#cb120-132" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"pregnancies"</span>, <span class="st">"glucose"</span>, <span class="st">"bp"</span>, <span class="st">"skin_thickness"</span>, <span class="st">"insulin"</span>, <span class="st">"bmi"</span>, <span class="st">"dpf"</span>, <span class="st">"age"</span>, <span class="st">"diabetes"</span>)</span>
+<span id="cb120-133"><a href="#cb120-133" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(df)</span>
+<span id="cb120-134"><a href="#cb120-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-135"><a href="#cb120-135" aria-hidden="true" tabindex="-1"></a>We have 752 observations and 9 variables with which to work. </span>
+<span id="cb120-136"><a href="#cb120-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-137"><a href="#cb120-137" aria-hidden="true" tabindex="-1"></a>Let's get familiar with the data set by observing the scatterplot matrix and histograms for each variable.</span>
+<span id="cb120-138"><a href="#cb120-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-141"><a href="#cb120-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-142"><a href="#cb120-142" aria-hidden="true" tabindex="-1"></a><span class="co">#Scatterplot matrix</span></span>
+<span id="cb120-143"><a href="#cb120-143" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(df)</span>
+<span id="cb120-144"><a href="#cb120-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-145"><a href="#cb120-145" aria-hidden="true" tabindex="-1"></a><span class="co">#Histograms of each variable</span></span>
+<span id="cb120-146"><a href="#cb120-146" aria-hidden="true" tabindex="-1"></a><span class="fu">hist.data.frame</span>(df)</span>
+<span id="cb120-147"><a href="#cb120-147" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-148"><a href="#cb120-148" aria-hidden="true" tabindex="-1"></a>The scatterplot matix shows that our variables generally lack linear relationships. Logistics regression may be best for analyzing this type of data. </span>
+<span id="cb120-149"><a href="#cb120-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-150"><a href="#cb120-150" aria-hidden="true" tabindex="-1"></a>The histograms show us the distribution of all our variables. Pregnancies is right skewed with more women having a smaller number of pregnancies and a small number having over 10. Glucose appears to follow a close-to-normal distribution with the mean just over 100. BMI follows a similar pattern with a central value of just over 30. Age is right skewed with the majority of the sample appearing to be in their 20s and slower tapering off to ages in their 50s. This is a good place to start. The only variable we cannot view in a histogram is the outcome variable due to its binary nature as a dummy variable. </span>
+<span id="cb120-151"><a href="#cb120-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-154"><a href="#cb120-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-155"><a href="#cb120-155" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span>
+<span id="cb120-156"><a href="#cb120-156" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span>
+<span id="cb120-157"><a href="#cb120-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-158"><a href="#cb120-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-161"><a href="#cb120-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-162"><a href="#cb120-162" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
+<span id="cb120-163"><a href="#cb120-163" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
+<span id="cb120-164"><a href="#cb120-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
+<span id="cb120-165"><a href="#cb120-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
+<span id="cb120-166"><a href="#cb120-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)</span>
+<span id="cb120-167"><a href="#cb120-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-168"><a href="#cb120-168" aria-hidden="true" tabindex="-1"></a>About a third of our sample have diabetes. </span>
+<span id="cb120-169"><a href="#cb120-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-170"><a href="#cb120-170" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis Testing</span></span>
+<span id="cb120-171"><a href="#cb120-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-174"><a href="#cb120-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-175"><a href="#cb120-175" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
+<span id="cb120-176"><a href="#cb120-176" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb120-177"><a href="#cb120-177" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
+<span id="cb120-178"><a href="#cb120-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb120-179"><a href="#cb120-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb120-180"><a href="#cb120-180" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span>
+<span id="cb120-181"><a href="#cb120-181" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span>
+<span id="cb120-182"><a href="#cb120-182" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span>
+<span id="cb120-183"><a href="#cb120-183" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span>
+<span id="cb120-184"><a href="#cb120-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-185"><a href="#cb120-185" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span>
+<span id="cb120-186"><a href="#cb120-186" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span>
+<span id="cb120-187"><a href="#cb120-187" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span>
+<span id="cb120-188"><a href="#cb120-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-189"><a href="#cb120-189" aria-hidden="true" tabindex="-1"></a>As a reminder, pregnancies, age, and BMI are all right skewed. So, we will use the logarithm of those variables in our regressions. </span>
+<span id="cb120-190"><a href="#cb120-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-193"><a href="#cb120-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-194"><a href="#cb120-194" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using all independent variables</span></span>
+<span id="cb120-195"><a href="#cb120-195" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb120-196"><a href="#cb120-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-197"><a href="#cb120-197" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, and age</span></span>
+<span id="cb120-198"><a href="#cb120-198" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb120-199"><a href="#cb120-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-200"><a href="#cb120-200" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI and glucose</span></span>
+<span id="cb120-201"><a href="#cb120-201" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb120-202"><a href="#cb120-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-203"><a href="#cb120-203" aria-hidden="true" tabindex="-1"></a><span class="co">#Model using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
+<span id="cb120-204"><a href="#cb120-204" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb120-205"><a href="#cb120-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-206"><a href="#cb120-206" aria-hidden="true" tabindex="-1"></a><span class="co">#Model with BMI, glucose, and pregnancies (without age)</span></span>
+<span id="cb120-207"><a href="#cb120-207" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> binomial)</span>
+<span id="cb120-208"><a href="#cb120-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-209"><a href="#cb120-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-210"><a href="#cb120-210" aria-hidden="true" tabindex="-1"></a>Our hypothesis involves the BMI, glucose, and age variables. First we can take a look at them individually. </span>
+<span id="cb120-211"><a href="#cb120-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-214"><a href="#cb120-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-215"><a href="#cb120-215" aria-hidden="true" tabindex="-1"></a><span class="co">#Generalized linear model can be best for predicting categorical outcome</span></span>
+<span id="cb120-216"><a href="#cb120-216" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
+<span id="cb120-217"><a href="#cb120-217" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train)</span>
+<span id="cb120-218"><a href="#cb120-218" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span>
+<span id="cb120-219"><a href="#cb120-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-220"><a href="#cb120-220" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb120-221"><a href="#cb120-221" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb120-222"><a href="#cb120-222" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
+<span id="cb120-223"><a href="#cb120-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-224"><a href="#cb120-224" aria-hidden="true" tabindex="-1"></a>Interpretation: The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.019. The standard errors are small. Our t-values are large compared to our standard error and relatively far from 0. All that, combined with a very small p-value of &lt; 5.15e-11, indicate we can reject the null hypothesis and conclude a relationship between BMI and diabetes. </span>
+<span id="cb120-225"><a href="#cb120-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-228"><a href="#cb120-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-229"><a href="#cb120-229" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
+<span id="cb120-230"><a href="#cb120-230" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train)</span>
+<span id="cb120-231"><a href="#cb120-231" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span>
+<span id="cb120-232"><a href="#cb120-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-233"><a href="#cb120-233" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb120-234"><a href="#cb120-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb120-235"><a href="#cb120-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
+<span id="cb120-236"><a href="#cb120-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-237"><a href="#cb120-237" aria-hidden="true" tabindex="-1"></a>Interpretation: Interestingly, the values of this regression mirror that of the BMI regression. With a very small p-value, &lt; 2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. </span>
+<span id="cb120-238"><a href="#cb120-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-239"><a href="#cb120-239" aria-hidden="true" tabindex="-1"></a>The similarities is regression model values between BMI and glucose sparked a curiosity. Let's see if BMI and glucose are specifically correlated to one another. </span>
+<span id="cb120-242"><a href="#cb120-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-243"><a href="#cb120-243" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(train<span class="sc">$</span>bmi, train<span class="sc">$</span>glucose, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb120-244"><a href="#cb120-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-245"><a href="#cb120-245" aria-hidden="true" tabindex="-1"></a>This shows a very small p-value of 8.477e-09, which is well under the significance level alpha = 0.5. However, the correlation coefficient suggests a weak positive correlation. This suggests the variables are only weakly related.</span>
+<span id="cb120-246"><a href="#cb120-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-247"><a href="#cb120-247" aria-hidden="true" tabindex="-1"></a>Let's continue with our regression model hypothesis testing of individual variables. </span>
+<span id="cb120-250"><a href="#cb120-250" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-251"><a href="#cb120-251" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
+<span id="cb120-252"><a href="#cb120-252" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train)</span>
+<span id="cb120-253"><a href="#cb120-253" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span>
+<span id="cb120-254"><a href="#cb120-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-255"><a href="#cb120-255" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb120-256"><a href="#cb120-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb120-257"><a href="#cb120-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
+<span id="cb120-258"><a href="#cb120-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-259"><a href="#cb120-259" aria-hidden="true" tabindex="-1"></a>Interpretation: Similar to the previous variable, age also has small residuals and standard error. It shows a p-value of 1.12e-06, indicating a relationship between age and diabetes. </span>
+<span id="cb120-260"><a href="#cb120-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-261"><a href="#cb120-261" aria-hidden="true" tabindex="-1"></a>The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is true. Next, we can investigate models that could help predict the outcome using these variables. </span>
+<span id="cb120-262"><a href="#cb120-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-263"><a href="#cb120-263" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Comparisons</span></span>
+<span id="cb120-264"><a href="#cb120-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-267"><a href="#cb120-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-268"><a href="#cb120-268" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
+<span id="cb120-269"><a href="#cb120-269" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span>
+<span id="cb120-270"><a href="#cb120-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-271"><a href="#cb120-271" aria-hidden="true" tabindex="-1"></a>We can see with the all variable model that collectively, independent variables including pregnancies, glucose, bmi, dpf and even blood pressure have low p-values. That suggests those variables have a relationship with the outcome variable. We can use AIC as an indicator of model fitness, with this model being 517.97. Let's compare this with the following models.</span>
+<span id="cb120-272"><a href="#cb120-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-275"><a href="#cb120-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-276"><a href="#cb120-276" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
+<span id="cb120-277"><a href="#cb120-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span>
+<span id="cb120-278"><a href="#cb120-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-279"><a href="#cb120-279" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb120-280"><a href="#cb120-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-281"><a href="#cb120-281" aria-hidden="true" tabindex="-1"></a>The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. </span>
+<span id="cb120-282"><a href="#cb120-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-285"><a href="#cb120-285" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-286"><a href="#cb120-286" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
+<span id="cb120-287"><a href="#cb120-287" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span>
+<span id="cb120-288"><a href="#cb120-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-289"><a href="#cb120-289" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb120-290"><a href="#cb120-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-291"><a href="#cb120-291" aria-hidden="true" tabindex="-1"></a>This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. </span>
+<span id="cb120-292"><a href="#cb120-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-295"><a href="#cb120-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-296"><a href="#cb120-296" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
+<span id="cb120-297"><a href="#cb120-297" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
+<span id="cb120-298"><a href="#cb120-298" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span>
+<span id="cb120-299"><a href="#cb120-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-300"><a href="#cb120-300" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb120-301"><a href="#cb120-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-302"><a href="#cb120-302" aria-hidden="true" tabindex="-1"></a>With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. </span>
+<span id="cb120-303"><a href="#cb120-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-306"><a href="#cb120-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-307"><a href="#cb120-307" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
+<span id="cb120-308"><a href="#cb120-308" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span>
+<span id="cb120-309"><a href="#cb120-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-310"><a href="#cb120-310" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb120-311"><a href="#cb120-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-312"><a href="#cb120-312" aria-hidden="true" tabindex="-1"></a>Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, the model including BMI and glucose and controlling for an interaction between age and pregnancy has the best fit of all models tested. </span>
+<span id="cb120-313"><a href="#cb120-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-314"><a href="#cb120-314" aria-hidden="true" tabindex="-1"></a>We can use ANOVA to analyze the table of deviance of our regression model. </span>
+<span id="cb120-315"><a href="#cb120-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-318"><a href="#cb120-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-319"><a href="#cb120-319" aria-hidden="true" tabindex="-1"></a><span class="co">#ANOVA test on interaction model</span></span>
+<span id="cb120-320"><a href="#cb120-320" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(ia, <span class="at">test =</span> <span class="st">"Chisq"</span>)</span>
+<span id="cb120-321"><a href="#cb120-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-322"><a href="#cb120-322" aria-hidden="true" tabindex="-1"></a>All of our variables have small p-values and appear good predictors of the diabetes outcome, with the exception of age. However, age is needed for the interaction variable. </span>
+<span id="cb120-323"><a href="#cb120-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-324"><a href="#cb120-324" aria-hidden="true" tabindex="-1"></a>Let's check one more thing to ensure we have a good fit. </span>
+<span id="cb120-327"><a href="#cb120-327" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-328"><a href="#cb120-328" aria-hidden="true" tabindex="-1"></a><span class="co">#Check pseudo R2 for interaction model</span></span>
+<span id="cb120-329"><a href="#cb120-329" aria-hidden="true" tabindex="-1"></a><span class="fu">pR2</span>(ia)</span>
+<span id="cb120-330"><a href="#cb120-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-331"><a href="#cb120-331" aria-hidden="true" tabindex="-1"></a>With a McFadden R-squared of 0.27, this model can be considered an excellent fit. </span>
+<span id="cb120-332"><a href="#cb120-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-333"><a href="#cb120-333" aria-hidden="true" tabindex="-1"></a><span class="fu">## Diagnostics</span></span>
+<span id="cb120-334"><a href="#cb120-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-337"><a href="#cb120-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-338"><a href="#cb120-338" aria-hidden="true" tabindex="-1"></a><span class="co">#Apply model to test data</span></span>
+<span id="cb120-339"><a href="#cb120-339" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia ,test,<span class="at">type=</span><span class="st">'response'</span>)</span>
+<span id="cb120-340"><a href="#cb120-340" aria-hidden="true" tabindex="-1"></a>fitted.results <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(fitted.results <span class="sc">&gt;</span> <span class="fl">0.5</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb120-341"><a href="#cb120-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-342"><a href="#cb120-342" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">mean</span>(fitted.results <span class="sc">!=</span> test<span class="sc">$</span>diabetes)</span>
+<span id="cb120-343"><a href="#cb120-343" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">cbind</span>(test, fitted.results)</span>
+<span id="cb120-344"><a href="#cb120-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-345"><a href="#cb120-345" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">'Accuracy'</span>,<span class="dv">1</span><span class="sc">-</span>pred))</span>
+<span id="cb120-346"><a href="#cb120-346" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(output)</span>
+<span id="cb120-347"><a href="#cb120-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-348"><a href="#cb120-348" aria-hidden="true" tabindex="-1"></a>Testing the interaction model on the test data produces the correct outcome 79% of the time. </span>
+<span id="cb120-349"><a href="#cb120-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-352"><a href="#cb120-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb120-353"><a href="#cb120-353" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
+<span id="cb120-354"><a href="#cb120-354" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ia)</span>
+<span id="cb120-355"><a href="#cb120-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb120-356"><a href="#cb120-356" aria-hidden="true" tabindex="-1"></a>**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. They start at close to 0 and taper off to a negative slope. Another group of residuals starts large and tapers on a negative slope toward 0. </span>
+<span id="cb120-357"><a href="#cb120-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-358"><a href="#cb120-358" aria-hidden="true" tabindex="-1"></a>**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top), which aligns with our individual variable histogram interpretations. It follows that a model combining variables with right skews may also be skewed to the right. However, it also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."</span>
+<span id="cb120-359"><a href="#cb120-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-360"><a href="#cb120-360" aria-hidden="true" tabindex="-1"></a>**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. The red line does roughly travel horizontal across the plot. However, there is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. </span>
+<span id="cb120-361"><a href="#cb120-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-362"><a href="#cb120-362" aria-hidden="true" tabindex="-1"></a>**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. </span>
+<span id="cb120-363"><a href="#cb120-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-364"><a href="#cb120-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-365"><a href="#cb120-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-366"><a href="#cb120-366" aria-hidden="true" tabindex="-1"></a>*</span>
+<span id="cb120-367"><a href="#cb120-367" aria-hidden="true" tabindex="-1"></a>Plan to work on fixing the heteroscedasticity by log transforming BMI, pregnancies, and age when those variables are included in models because they are right skewed data. However, it is taking time figuring out how to do a multiple logistics regression without errors..</span>
+<span id="cb120-368"><a href="#cb120-368" aria-hidden="true" tabindex="-1"></a>*</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
