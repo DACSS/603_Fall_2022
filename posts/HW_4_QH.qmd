@@ -93,15 +93,21 @@ salary %>%
 ```
 ## 2b
 
-In the summary, since there is no code next to the sexFemale variable, we can see that it has not met a significant threshold. This shows we did obtain a 95% confidence interval. 
+
 ```{r}
 
-fit <- summary(lm(salary ~ ., data = salary))
+fit <- lm(salary ~ ., data = salary)
 
 fit
 
-``` 
 
+``` 
+This shows that a female may earn between negative $697 and $3030 compared to a male employee.
+```{r}
+
+confint(fit, "sexFemale")
+
+```
 ## 2c
 Degree does not appear to be significant when it comes to the outcome of salary. The R squared is actually a negative number so it really is not an appropriate measure of salary. 
 ```{r}
@@ -144,15 +150,17 @@ m5
 I may want to use the par function but I cannot find the proper way to type it out. Will revisit. 
 
 ## 2d
+The two models seem to be very similar, but the Estimate coefficients have been altered drastically. Relevel reorders the Prof coefficients so it looks like an increase in salary as an Assistant Prof means a decrease in salary.
 
 ```{r}
 
-#rank <- relevel(rank)
+rank2 <- relevel(salary$rank, "Prof")
 
-relevel_mod <- lm(salary ~ rank, data = salary)
+relevel_mod <- lm(salary ~ rank2, data = salary)
 
 summary(relevel_mod)
 
+m2
 ```
 
 ## 2e

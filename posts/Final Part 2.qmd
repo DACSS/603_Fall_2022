@@ -1,0 +1,290 @@
+---
+title: "Final Part 2"
+author: "Quinn He"
+desription: "Part 2 of Final Project"
+date: "11/21/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - Quinn
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(sf)
+library(mapview)
+#library(summarytools)
+library(GGally)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+## Notes from class
+
+Why did I choose particular interaction terms?
+
+Why did I choose the variables I did for certain models? There must be a reason for each different model
+
+
+
+## Data Read-in
+
+Here is the Miami housing dataset I am using for the project.
+```{r}
+
+miami_housing <- read_csv("~/Documents/DACSS Program/data/miami-housing.csv")
+
+```
+
+Below I read in data I may end up using that relates to the county and state election data. For now, my main data set is miami_housing.
+```{r}
+
+county_election <- read_csv("~/Documents/DACSS Program/data/president_county.csv")
+state_election <- read_csv("~/Documents/DACSS Program/data/president_state.csv")
+
+president_county <- read_csv("~/Documents/DACSS Program/data/president_county_candidate.csv")
+
+```
+
+## Information about data set
+
+The dataset contains information on 13,932 single-family homes sold in Miami .
+
+Names before column rename:
+PARCELNO: unique identifier for each property. About 1% appear multiple times.
+SALE_PRC: sale price ($)
+LND_SQFOOT: land area (square feet)
+TOTLVGAREA: floor area (square feet)
+SPECFEATVAL: value of special features (e.g., swimming pools) ($)
+RAIL_DIST: distance to the nearest rail line (an indicator of noise) (feet)
+OCEAN_DIST: distance to the ocean (feet)
+WATER_DIST: distance to the nearest body of water (feet)
+CNTR_DIST: distance to the Miami central business district (feet)
+SUBCNTR_DI: distance to the nearest subcenter (feet)
+HWY_DIST: distance to the nearest highway (an indicator of noise) (feet)
+age: age of the structure
+avno60plus: dummy variable for airplane noise exceeding an acceptable level
+structure_quality: quality of the structure
+month_sold: sale month in 2016 (1 = jan)
+LATITUDE
+LONGITUDE
+
+I first want to rename some columns because I am not a fan of the format of the stock column names,
+
+```{r}
+
+miami_housing <- miami_housing %>% 
+  rename("latitude" = "LATITUDE",
+         "longitude" = "LONGITUDE",
+         "sale_price" = "SALE_PRC",  
+         "land_sqfoot" = "LND_SQFOOT",  
+         "floor_sqfoot" = "TOT_LVG_AREA",
+         "special_features" = "SPEC_FEAT_VAL",  
+         "dist_2_rail" = "RAIL_DIST",  
+         "dist_2_ocean" = "OCEAN_DIST", 
+         "dist_2_nearest_water" = "WATER_DIST",  
+         "dist_2_biz_center" = "CNTR_DIST",  
+         "dis_2_nearest_subcenter"= "SUBCNTR_DI", 
+         "dist_2_hiway" = "HWY_DIST", #close distance is a negative trait 
+         "home_age" = "age") 
+
+
+```
+
+I wonder if it would be worth creating another column called "county" based off of the longitude and latitude coordinates. This would make some graphs more interesting since I could fill by county in a ggplot graph. 
+
+## Research Question
+
+Does the saying "location, location, location" really matter when it comes to housing prices in Miami or are there other factors as well that contribute to price?
+
+## Hypothesis
+
+Outcome variable: Sale price of houses in Miami
+
+Explanatory variable: Distance from the ocean, measured in feet
+
+Hypothesis: Houses closer (lower dist_2_ocean) will have a higher price than houses farther.
+
+## Descriptive Statistics
+
+I'll have to go further in depth into this research that I found.
+
+According to Redfin, the median sale price for houses in Miami is $530,000. https://www.redfin.com/city/11458/FL/Miami/housing-market
+
+https://www.proquest.com/docview/222418064?pq-origsite=gscholar&fromopenview=true
+- This study found that increase in house prices from 2003-2004 was largely due to interest rates, housing construction, unemployment, and household income. 
+
+https://link.springer.com/article/10.1023/A:1007751112669
+
+https://onlinelibrary.wiley.com/doi/abs/10.1111/j.1475-4932.2005.00243.x?casa_token=Lk-oinHQfCoAAAAA:3YFA9GRG6r9UwIJa8-8Z40x77ENRHm07d9CQ7dLdRZD5VoGjSVB4hUUcKU8yWiJapg0csSONiwxZzqWJ
+
+https://www.sciencedirect.com/science/article/pii/S1051137712000228?casa_token=DwJ93qbzqLAAAAAA:8vClfNoxs09D_UL4BCg-Ds36vurfjk8t0uK6Hft50ytFeWo3-XaFlsj5r0WBW4lB1jGqgoaqwXA
+
+https://link.springer.com/article/10.1007/s11146-007-9053-7
+
+https://eprints.gla.ac.uk/221903/1/221903.pdf
+
+## Exploratory Analysis
+
+```{r}
+
+str(miami_housing)
+
+```
+```{r}
+
+summary(miami_housing)
+
+
+```
+At a glance, I do not care about summary statistics for longitude and latitude. Sale price is worth noting with a minimum of $72,000 and a max of $2.6 million. There are some pretty old homes in the data set with the most at almost 100 years old. A minimum age of zero may be something to watch out for because it is not clear as to if the home is less than 1 year old. I must also find out how the distance is measured. I believe distance in this data set is measured in feet so we can see there may be a few water front properties that I will guess fetch a high sale price. Homes farther away may be cheaper if they are not located near another desirable location. 
+
+While typically a negative, the distance to highway can be viewed as a positive trait to a home. For the sake of this analysis and to go with typical association with close proximity to a highway, I will view closer distance as a negative. 
+
+Another note, is I will have one linear model, m1, to act as the model with all of the variables in it. I want it as a baseline model to see the factor all of the variables play in house price. Since multicollinearity may be a factor, I will not use this model too much. 
+
+```{r}
+
+m1 <- lm(sale_price ~ ., data = miami_housing)
+
+
+```
+
+# Hypothesis Testing
+
+```{r}
+
+t.test(miami_housing$sale_price)
+
+```
+
+
+# Checking for Multicollinearity
+I want to run a correlation matrix for some of the variables so I can see if there will be issues of multicollinearity. This is checking for multicollinearity for the distance_to variables
+```{r}
+
+ggpairs(miami_housing, columns = 8:13)
+
+
+```
+Thankfully, it looks like I only have to keep note of a few variables that look to be highly correlated with one another. Distance to business center and subcenter must be in the same area, or at least close enough because 0.766 seems a bit too correlated. Ocean distance and water distance are worth noting, but not to the same degree as the prior two variables since 0.49 is just below what I would consider significant.  
+
+# Simple Linear Regression
+
+By running a few linear models, I am getting closer to the conclusion that there is no one inidicator of sale price, but multiple. Multiple linear regression models will have to be run in order to make a sound conclusion as to what is the most significant indicator of price for single family homes. 
+```{r}
+
+m2 <- lm(sale_price ~ dist_2_ocean, data = miami_housing)
+
+
+```
+
+```{r}
+
+m3 <- lm(sale_price ~ home_age, data = miami_housing)
+
+```
+
+```{r}
+
+m4 <- lm(sale_price ~ land_sqfoot, data = miami_housing)
+
+```
+
+```{r}
+
+summary(lm(sale_price ~ longitude*latitude, data = miami_housing))
+
+```
+According to this model with longitude and latitude as interaction terms, they alone are not too significant in the prediction of house prices. 
+
+```{r}
+
+stargazer(m2, m3, m4, type = "text", ci.level = 0.9)
+
+```
+# Visualization
+I don't love looking at the notation for sale price, but for now it will do. This visualization of price and distance to ocean is about how I expected it would go. We can see homes closer to the ocean go for the most amount of money, but at the ~40,000 and ~60,000ft distance, there is a spike. This I would like to figure out. 
+
+
+```{r}
+
+ggplot(miami_housing, aes(x = dist_2_ocean, y = sale_price))+
+  geom_point()+
+  geom_smooth(method = lm)
+
+
+```
+
+I use mapview here just to get a birds-eye view of the entire Miami area. 
+```{r}
+mapview(miami_housing, xcol= "longitude", ycol = "latitude", legend = mapviewGetOption("sale_price"),crs = 4269, grid = FALSE)
+
+```
+
+# Multiple Linear Regression
+
+```{r}
+
+m5 <- lm(sale_price ~ land_sqfoot + dist_2_biz_center*dist_2_ocean + dist_2_hiway + structure_quality*home_age, data = miami_housing)
+
+#summary(m5)
+
+```
+
+This first model I ran is a good start. An adjusted R-squared is quite high when I compare it with the first model. Every variable is considered significant here, even the interaction terms. I chose to have distance to ocean and business center interact because I deemed those two as the most important distance variables and I wanted them both to be taken into account together. Home age and structure quality also interact because typically a home that is older will have a poorer structure. Let me check this to see if they are correlated. 
+
+```{r}
+
+cor.test(miami_housing$home_age, miami_housing$structure_quality, method = "kendall")
+
+```
+There appears to be no correlation between structure and age, which is interesting because their reaction is significant according to the model. This model is a good starting place to see what factors the most in sale price.
+
+```{r}
+
+m6 <- lm(sale_price ~ land_sqfoot + floor_sqfoot + dist_2_nearest_water*dist_2_biz_center*dis_2_nearest_subcenter + dist_2_hiway, data = miami_housing)
+
+#summary(m6)
+
+```
+This model seems to fit better than the previous one with an adjusted R squared of 0.6. The F statistic is higher than that of the previous model which I will take note of later. First I want to run other models and see how they compare.
+
+
+```{r}
+
+m7 <- lm(log(sale_price) ~ land_sqfoot*floor_sqfoot + dist_2_nearest_water*dist_2_biz_center*dis_2_nearest_subcenter + dist_2_hiway + special_features, data = miami_housing)
+
+summary(m7)
+
+m7.1 <- lm(sale_price ~ land_sqfoot*floor_sqfoot + dist_2_nearest_water*dist_2_biz_center*dis_2_nearest_subcenter + dist_2_hiway + special_features, data = miami_housing)
+
+
+```
+I want to run the par function on this model to see where it's at but to also get a sense of at least one models diagnostics. 
+```{r}
+
+par(mfrow = c(2,3)); plot(m7, which = 1:6) #log
+
+par(mfrow = c(2,3)); plot(m7.1, which = 1:6) #unlog
+```
+I must check if the first graph is horizontal enough to meet the qualified standards. No data set is perfect so I need to confirm this is fine to keep. The data may be slightly skewed since the data is linear until the 2 mark of Theoretical Quantities. This indicates the model and data set are not normally distributed. 
+
+The fitted values and residuals graph checks for linearity and constant variance assumptions. The constant variance assumption is violated here. 
+
+I logged the sale price which seemed to correct the plots tremendously. The QQ and residuals fitted seemed to even out and fall along the lines of a normal distribution. 
+
+Initially, before I logged sales_price, the QQ plot was not as linear as I would have hoped. After logging the sales_price variable, it fixed the residuals vs fitted graph as well as the QQ plot. I created another model to compare the logged and unlogged diagnostic graphs. Currently, I do not think I will include this in the final project. 
+
+
+
