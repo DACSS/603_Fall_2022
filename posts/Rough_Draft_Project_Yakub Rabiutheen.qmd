@@ -1,0 +1,674 @@
+---
+title: "Project Rough Draft Proposal"
+author: "Yakub Rabiutheen"
+description: "British Vs French Colonies Economic and Democratic Outcomes"
+date: "10/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalproject1
+  - desriptive statistics 
+  - probability
+---
+
+# Research Question
+
+The Research Question in this Project explores the Democratic Outcomes of Ex-French and British Colonies. How do French and British Colonies differ in terms of their Democratic ranking?
+
+
+In terms of Colonial rule, Patrick Ziltener and  Daniel Künzler have come up with a scale to categorize the different levels of colonial rule(Ziltener & Kunzler,2013).
+
+0 = no colonial domination / not applicable
+1 = semi-colonialism
+2 = indirect rule with little interference in internal affairs v
+3 = indirect rule with strong interference in internal affairs
+4 = direct rule
+
+This Project looks at countries with ranking 2-4, as Semi-Colonial Countries are not official colonies.
+
+
+For both former French and Former British Colonies, there are 3 categories of Colonial Rule for both of them.
+
+2. Weakly Influenced Colonies
+3. Strongly Influenced Colonies
+4. Directly Ruled Colonies.
+
+
+# Hypopthesis
+
+1. British Colonies on average as a whole have better Democratic Outcomes than French Colonies?
+2. Colonies that are Weakly Ruled have better Democratic Outcomes compared to Strongly Ruled Colonies that might have a much stronger Anti Western Bias due to disliking the Strong Influence of Colonies.
+
+#Colonial Powers Hypopthesis.
+
+
+
+```{r}
+library(stargazer)
+library(texreg)
+library(arm)
+library(foreign)
+library(car)
+library(xtable)
+library(Hmisc)
+```
+#Descriptive Statistics.
+
+
+
+
+
+
+
+```{r}
+data <- read.csv("_data/complete.data.csv")
+attach(data)
+```
+
+
+
+
+
+
+
+
+
+```{r}
+head(data)
+```
+
+```{r}
+library(dplyr)
+french_colonies=filter(data,f_french==1)
+british_colonies=filter(data,f_brit==1)
+n_b<-sum(data$f_brit==1,na.rm=TRUE)
+cat("Number of British  Colonies is",n_b)
+```
+
+
+
+
+Reading the Polity Data from Polity Project,https://www.systemicpeace.org/polityproject.html
+```{r}
+library(readxl)
+polity_data <- read_excel("_data/p5v2018.xls")
+```
+
+
+
+Joining Polity Data with Colonial Transformation Dataset.
+```{r}
+polity_british<-left_join(british_colonies, polity_data, by=c('name'='country'))
+
+```
+
+
+
+```{r}
+ggplot(data=polity_british, aes(x=idep, y=democ1,color=continent)) +
+  geom_line()+
+  geom_point()
+```
+
+Average vs Median Democratic Ranking
+```{r}
+polity_british %>% group_by(name) %>% summarize(median_democractic_ranking = mean(democ, na.rm = TRUE))
+polity_british %>% group_by() %>% summarize(Average_democractic_ranking = mean(democ, na.rm = TRUE))
+```
+
+
+
+```{r}
+polity_british %>% group_by(name) %>% summarize(median_autocratic_ranking = median(autoc, na.rm = TRUE))
+```
+
+Colonial Transformation Dataset and filtering for British Colonies
+```{r}
+###
+library(readxl)
+colonial_transformation_data <- read_excel("_data/Colonial_transformation_data.xls")
+names(colonial_transformation_data)[3] <- 'colonial transformation'
+british_colonial_transforamtion<-filter(colonial_transformation_data,`colonial transformation`=="UK")
+names(british_colonial_transforamtion)[9] <- 'Violent Independence'
+library(dplyr) 
+violent_indep<-british_colonial_transforamtion %>%
+select(`Violent Independence`,`Country Name`)%>%
+filter(`Violent Independence`== "1")
+violent_indep
+```
+
+Rewritting Column Names
+```{r}
+names(british_colonial_transforamtion)[15] <- 'trade policy'
+names(british_colonial_transforamtion)[17] <- 'colonial investment'
+names(british_colonial_transforamtion)[11] <- 'colonial donimation'
+```
+
+
+
+Filtering for Direct Rule
+```{r}
+direct_rule<-british_colonial_transforamtion %>%
+filter(`colonial donimation`== "4")
+direct_rule$`Country Name`
+```
+
+```{r}
+polity_uk_direct_rule<-left_join( direct_rule,polity_data, by=c('Country Name'='country'))
+```
+
+
+
+```{r}
+polity_uk_direct_rule<-polity_uk_direct_rule %>% filter(year==2018)
+```
+
+```{r}
+uk_direct_rule_democracy <-aggregate(polity_uk_direct_rule$democ, list(polity_uk_direct_rule$`Country Name`), mean)
+uk_direct_rule_democracy
+mean(polity_uk_direct_rule$autoc,na.rm=TRUE)
+mean(polity_uk_direct_rule$democ,na.rm=TRUE)
+```
+
+Summary Table of Averages for Direct Rule
+```{r}
+polity_uk_direct.data<-left_join(polity_uk_direct_rule,british_colonies, by=c('Country Name'='name'))
+polity_uk_direct.descriptive= subset(polity_uk_direct.data[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+polity_uk_direct.descriptive<-as.data.frame(polity_uk_direct.descriptive) 
+polity_uk_direct.descriptive = stargazer(polity_uk_direct.descriptive, title="Ex-British Colonies that were Directly Ruled",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("5pt"),type='text')
+```
+
+
+
+
+```{r}
+
+strong_inteference<-british_colonial_transforamtion %>%
+filter(`colonial donimation`== "3")
+```
+
+
+Summary Table of Averages for Strong Interference Rule
+```{r}
+polity_uk_strong_interference<-left_join(strong_inteference,polity_data, by=c('Country Name'='country'))
+
+strong_interference_democ <- aggregate(polity_uk_strong_interference$democ,list(polity_uk_strong_interference$`Country Name`),mean)
+strong_interference_democ
+mean(strong_interference_democ$x,na.rm=TRUE)
+mean(polity_uk_strong_interference$autoc,na.rm=TRUE)
+```
+```{r}
+polity_uk_strong.data<-left_join(polity_uk_strong_interference,british_colonies, by=c('Country Name'='name'))
+```
+
+
+
+```{r}
+polity_uk_strong.data<-polity_uk_strong.data %>% filter(year==2018)
+polity_uk_strong.descriptive= subset(polity_uk_strong.data[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+polity_uk_strong.descriptive<-as.data.frame(polity_uk_strong.descriptive) 
+polity_uk_strong.descriptive = stargazer(polity_uk_strong.descriptive, title="Ex-British Colonies that had Strong Colonial Influence",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("3pt"),type='text')
+```
+
+
+
+
+
+
+```{r}
+weak_inteference_colony<-british_colonial_transforamtion %>%
+filter(`colonial donimation`== "2")
+
+sum(weak_inteference_colony$`trade policy`==1)
+sum(weak_inteference_colony$`trade policy`>1)
+```
+
+```{r}
+polity__uk_weak<-left_join(weak_inteference_colony,polity_data, by=c('Country Name'='country'))
+polity_uk_weak.data<-left_join(polity__uk_weak,british_colonies, by=c('Country Name'='name'))
+```
+
+
+
+Summary Table of Averages for Weak Interference Rule
+```{r}
+polity_uk_weak.data<-polity_uk_weak.data %>% filter(year==2018)
+polity_uk_weak.descriptive= subset(polity_uk_weak.data[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+polity_uk_weak.descriptive<-as.data.frame(polity_uk_weak.descriptive) 
+polity_uk_weak.descriptive = stargazer(polity_uk_weak.descriptive, title="Ex-British Colonies that had Weak Colonial Influence",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("3pt"),type='text')
+```
+
+
+
+
+
+##Summary  For All Three Colony Groups
+
+As seen below, it seems that British Colonies that were either Directly ruled or had Weak Influence had the Best Democratic Outcomes.
+```{r}
+polity_uk_direct.descriptive
+polity_uk_strong.descriptive
+polity_uk_weak.descriptive
+```
+
+List of Colonies under each Colony Group
+```{r}
+unique(polity_uk_direct.data$`Country Name`)
+```
+
+
+
+
+```{r}
+unique(polity_uk_strong.data$`Country Name`)
+```
+
+
+```{r}
+unique(polity_uk_weak.data$`Country Name`)
+```
+
+##Regressions Democracy vs Durability using Data from Polity Dataset
+```{r}
+general_british.fit = lm(durable~democ+autoc, data=polity_british)
+general_british.fit
+```
+
+
+
+```{r}
+uk_direct_rule.fit = lm(durable~democ+autoc, data=polity_uk_direct.data)
+uk_direct_rule.fit
+```
+
+
+
+
+```{r}
+uk_weak.fit = lm(durable~democ+autoc, data=polity_uk_weak.data)
+uk_weak.fit
+```
+
+
+
+```{r}
+uk_strong_rule.fit = lm(durable~democ+autoc, data=polity_uk_strong.data)
+uk_strong_rule.fit
+```
+
+
+
+##Conclusion
+
+The overall conclusion is that UK Colonies as a whole had greater stability under a Democracy than under more Autocratic rule.When you categorize it by type of colonial rule,  Directly Ruled Colonies had the best stability under Democratic rule compared to Weakly and Strongly Influenced Colonies. Weakly Influenced Colonies still had more Stability  with Democratic rule in contrast to Strongly Influenced Colonies that had worst relationship between durability and democracy, as well highest trend of more stability under autocracy.
+
+
+
+
+
+
+##French Colonialism
+
+
+
+Modern Day Average Democratic Rankings of French vs British Colonialism
+
+
+As shown below, on average Modern Day British Colonies had better Democratic Outcomes compared to French Colonies.
+```{r}
+polity_french<-left_join(french_colonies, polity_data, by=c('name'='country'))
+demo_french<-polity_french %>% filter(year==2018)%>% select(democ,name)
+mean(demo_french$democ)
+```
+
+
+
+```{r}
+demo_british<-polity_british %>% filter(year==2018)%>% select(democ,name)
+mean(demo_british$democ)
+```
+
+
+
+
+
+
+
+
+
+
+```{r}
+french_colonial_transforamtion<-filter(colonial_transformation_data,`colonial transformation`=="F")
+names(french_colonial_transforamtion)[11] <- 'colonial donimation'
+direct_french_colony<-french_colonial_transforamtion %>%
+filter(`colonial donimation`== "4")
+direct_french_colony$`colonial donimation`
+```
+
+Join Colonial Transformation Dataset with Polity Dataset with filter for Directly ruled colonies.
+```{r}
+
+direct_rule_french<-left_join(direct_french_colony,polity_french, by=c('Country Name'='name'))
+unique(direct_rule_french$`Country Name`)
+```
+
+
+Summary Table of Directly Ruled Colonies 
+```{r}
+direct_rule_french<-direct_rule_french %>% filter(year==2018)
+direct_rule_french.descriptive= subset(direct_rule_french[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+direct_rule_french.descriptive<-as.data.frame(direct_rule_french.descriptive) 
+direct_rule_french.descriptive= stargazer(direct_rule_french.descriptive, title="Ex-French Colonies that had Direct Colonial Influence",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("3pt"),type='text')
+```
+
+
+
+Filter for Strongly Ruled Colonies
+```{r}
+strong_french_colony<-french_colonial_transforamtion %>%
+filter(`colonial donimation`== "3")
+strong_french_colony$`colonial donimation`
+strong_rule_french<-left_join(strong_french_colony,polity_french, by=c('Country Name'='name'))
+
+```
+
+Summary Table of Strongly Ruled Colonies
+```{r}
+strong_rule_french<-strong_rule_french %>% filter(year==2018)
+strong_rule_french.descriptive= subset(strong_rule_french[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+strong_rule_french.descriptive<-as.data.frame(strong_rule_french.descriptive) 
+strong_rule_french.descriptive= stargazer(strong_rule_french.descriptive, title="Ex-French Colonies that had Strong Colonial Influence",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("3pt"),type='text')
+```
+
+
+
+
+
+
+```{r}
+weak_french_colony<-french_colonial_transforamtion %>%
+filter(`colonial donimation`== "2")
+weak_french_colony$`colonial donimation`
+weak_rule_french<-left_join(weak_french_colony,polity_french, by=c('Country Name'='name'))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+weak_rule_french<-weak_rule_french %>% filter(year==2018)
+weak_rule_french.descriptive= subset(weak_rule_french[ ,c("democ", "autoc", "logpgp12", 
+                             "avexpr", "currentinst", "cons00a", 
+                             "cons1", "euro1900", 
+                             "logem4", "mortality", "extmort4")])
+weak_rule_french.descriptive<-as.data.frame(weak_rule_french.descriptive) 
+weak_rule_french.descriptive = stargazer(weak_rule_french.descriptive, title="Ex-French Colonies that had Weak Colonial Influence",
+               covariate.labels=c("Democratic Ranking",
+                                  "Autocratic Ranking", 
+                                  "Log GDP per capital PPP in 2012",
+                                  "Average protection against expropriation
+                                  risk, 1985-1995",
+                                  "Ease of Doing Business Index, 2012",
+                                  "Constraint on executive in 1900",
+                                  "Constraint on executive in first year 
+                                  of independence",
+                                  "European settlements in 1900",
+                                  "Log settler mortality",
+                                  "Settler mortality", 
+                                  "Corrected mortality"),
+                                   font.size=c("scriptsize"),
+                                   digits=2,
+                                   column.sep.width=c("3pt"),type='text')
+```
+
+
+## All Summary Tables
+
+As shown below, Directly Ruled Colonies had average of Positive Democratic Rankings in contrast to Weak and Strong Colonies that had negative Democratic Rankings on Average. 
+```{r}
+direct_rule_french.descriptive
+weak_rule_french.descriptive
+strong_rule_french.descriptive
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##Regression Analysis Democracy vs Autocracy for Durability
+
+
+```{r}
+unique((strong_rule_french$`Country Name`))
+```
+
+
+
+```{r}
+unique(direct_rule_french$`Country Name`)
+```
+
+
+
+
+```{r}
+unique(weak_rule_french$`Country Name`)
+```
+
+
+
+```{r}
+general_french.fit = lm(durable~democ+autoc, data=polity_french)
+direct_rule_french.fit = lm(durable~democ+autoc, data=direct_rule_french)
+strong_rule_french.fit= lm(durable~democ+autoc, data=strong_rule_french)
+weak_rule_french.fit = lm(durable~democ+autoc, data=weak_rule_french)
+```
+
+```{r}
+general_french.fit
+```
+
+
+As shown below, the former UK colonies had much greater stability under Democracy than Autocracy, Post-Independence. In contrast to former French Colonies. This is relevant as if Democracy is shown to bring less stablity in a post-colonial country that might create a preference for autocracy.
+```{r}
+general_british.fit
+```
+
+
+
+
+
+
+
+
+Direct French Ruled Ex Colonies had much more stability Post-Independence under an Autocracy than a Democratic Government. 
+
+```{r}
+direct_rule_french.fit
+```
+
+
+French Colonies that were Strongly Ruled had more Stability in a Autocracy than a Democracy.
+
+
+```{r}
+strong_rule_french.fit
+
+```
+
+French Colonies that were Weakly Ruled had more Stability in a Autocracy than a Democracy.
+```{r}
+weak_rule_french.fit
+```
+
+
+##Conclusion
+
+My findings have found that on average British Colonies had better Democratic Outcomes than French Colonies, when divided into groups, Direct Rule Colonies that were British had positive Democratic outcomes on average compared to Weak and Strong Ruled Colonies. My analysis of French Colonies had similar findings that directly ruled colonies had better Democratic outcomes compared to Weak and Strong ruled colonies. For both French and British Colonies, Strong Ruled Colonies had the worst average Democratic Rankings.
+
+
+
+
+
+# References
+McWhinney, E. (1960, December 14). Declaration on the granting of Independence to colonial countries and Peoples. United Nations. Retrieved October 10, 2022, from https://legal.un.org/avl/ha/dicc/dicc.html 
+Ziltener, Patrick, and Daniel Künzler. 'Impacts of Colonialism: A Research Survey'. Journal of World-Systems Research 19, no. 2 (2013): 290-311.
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
