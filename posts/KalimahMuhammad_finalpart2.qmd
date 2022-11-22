@@ -1,0 +1,177 @@
+---
+title: "Final Part 2"
+author: "Kalimah Muhammad"
+desription: "Final Part 2: Analyses"
+date: "11/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpt2
+  - Kalimah Muhammad
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+performance<- read_csv("_data/CompleteDataAndBiases.csv")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background
+Researchers have examined the differences impacting student achievement among genders for decades. Early meta-analyses conducted by Hyde (1990) revealed no significant difference between the groups’ cognitive abilities; yet intelligence and self-perception of ability, or self-esteem, were determined as the strongest predictors of academic success (Spinath et al., 2010, Booth and Gerard, 2011). Some research explains differences in achievement partially by stereotype threat (ST). Stereotype threat, originally used to research the vulnerability of racial stereotypes on aptitude tests, is defined as “being at risk of confirming, as self-characteristic, a negative stereotype about one's group” (Steele and Aronson, 1995). Conventional research has focused on gender differences to stereotype threat (Moè & Putwain, 2020), and two prevailing theories have emerged. 
+
+The first theory suggests that ST affects male and female students differently. Here male students achieve better outcomes when stereotype threat is present than stereotype lift, and the reverse is true for female students who are adversely impacted by stereotype threat and positively impacted by stereotype lift (Johnson et al., 2012). Other studies debunk this theory suggesting no evidence of ST as a phenomenon in female students (Warne, 2022), particularly in the domain of mathematical achievement (Ganley et al., 2013). A second theory exists that the effects of ST may not be fully realized outcomes immediately but affect achievement over time as chronic ST impacts working memory and intellectual helplessness in girls’ math scores (Bedyńska, Krejtz, and Sedek, 2019) and male language arts scores (Bedyńska, Krejtz, and Sedek, 2020). 
+
+## Hypotheses  
+This study tests both theories as an assumption in predicting student achievement based on actual student performance data and predictions based on the participants' exposure to three types of stereotypes activation:  
+-No stereotypes,    
+-Case-based stereotypes where students were shown three student profiles in which one female student had a high grade and two male students had low grades, and    
+-Statistical stereotypes where students were shown statistics that boys performed less well in school than girls.   
+
+Based on this experiment and prior research, I will test the following hypotheses:
+1. Does exposure to negative stereotypes about male achievement and positive stereotypes of female achievement result in higher predicted achievement among both male and female students?   
+2. Is there a statistically significant difference between male and female achievement based on the type of stereotype activation within each group?  
+
+```{r}
+performance<- arrange(performance,(index)) #arrange table by index in ascending order
+```
+
+## Data
+Data for this project was collected from Kaggle (Performance vs. Predicted Performance, 2022) and is a collection of existing student performance data from a study by Cortez and Silva (2008) on predicting secondary school student performance and the collector’s addition of stereotype activation for machine learning. The data included information on actual student demographics such as gender, parents' highest level of education, as well as time studying vs. free time, number of absences, and grade on a final exam, among other variables.
+
+A few important variables to define include:  
+-Index - number of students included in the original and predicted data (N=856 of the original 991 students)  
+-Participant ID - number associated with participants making predictions (N=107)  
+-Sex - student's sex (binary: 'F' - female or 'M' - male)  
+-Studytime - weekly study time is categorized as 1= less than 2 hours, 2= 2-5 hours and 3= 5+ hours  
+-Freetime - free time after school group as 1 = low, 2= medium, 3 = high  
+-Goout - how often a student goes out with friends where 1 is very low and 4 is very often  
+-Absences - number of school absences 1 - 7 where 7 represents any absences equal to or above 7  
+-Walc - weekend alcohol consumption  
+-Parents_edu - the higher of original variables mother's edu and father's edu, where 4 = the highest level of education  
+-G3 - final grade (numeric: from 0 to 20)   
+-Reason - The reason for why a student chose to go to the school in question. The levels are close to home, school's reputation, school's curricular and other  
+-PredictedGrade - the grade participants predicted based on actual data and their exposed level of StereotypeActivation  
+-StereotypeActivation - see three levels of stereotype activation above  
+-Pass - A binary variable showing whether G3 is a passing grade (i.e. >=10) or not  
+-PassFailStrategy - A binary variable showing whether the PredictedGrade is a passing grade (i.e. >=10) or not  
+
+Below is a summary of the variables.  
+
+```{r}
+summary(performance)
+```
+
+The next two graphs compare the actual final grades vs. the predicted grade for both genders.  
+
+```{r}
+ggplot(performance, aes(x=G3, fill=sex))+ geom_histogram(position = "dodge")+labs(x="Students Actual Final Grade (G3)")
+ggplot(performance, aes(x=PredictedGrade, fill=sex))+ geom_histogram(position = "dodge")+labs(x="Students Predicted Final Grade (PredictedGrade)")
+```
+
+In the first graph, there is a fairly normal distribution of actual grades for both male and female students. Male students are more concentrated near the median value of 10 while female students are skewed slightly higher near the 11 value. However, in the second graph of predicted grades for both groups of students, predicted values are skewed higher than actual. Grade predictions for female students are significantly higher than actual as well as predictions for male students.   
+
+```{r}
+by_sex<-performance%>% group_by(sex)
+by_sex%>% summarise(mean(studytime))
+by_sex%>% summarise(mean(freetime))
+by_sex%>% summarise(mean(goout))
+by_sex%>% summarise(mean(absences))
+by_sex%>% summarise(mean(G3))
+by_sex%>% summarise(mean(PredictedGrade))
+```
+
+The above tables summarize differences in the mean values for several variables of interest by gender. Here we see, female students score slightly higher in  study time (2.07 vs. 1.7) and  while lower in free time (2.07 vs, 2.3), goout (3 vs. 3.05), absences (2.7 vs. 2.9). These would suggest female students may have a slightly higher grade based on good practices which is proven by the actual grades in G3 (12.15 vs. 11.80). However, the larger discrepancies in predicted rages (14.0 for females vs. 12.28 for males) may be attributed to the stereotype activation.   
+
+Additionally we can perform a t-test on both male and female actual and predicted score.   
+
+```{r}
+#create two tables for female students and male students
+f_performance<-performance%>%
+filter(sex=="F") 
+
+m_performance<-performance%>%
+filter(sex=="M") 
+
+t.test(f_performance$G3)
+
+t.test(m_performance$G3)
+
+t.test(f_performance$PredictedGrade)
+
+t.test(m_performance$PredictedGrade)
+```
+
+Based on the above tests, we can say with a 95% confidence that the following groups have the following means:  
+Actual female grade - 12.14953   
+Predicted female grade - 14.01636     
+Actual male grade - 11.79439   
+Predicted male grade - 12.27336   
+
+The graph below calculates the mean predicted grade for both groups based on the type of stereotype activation.   
+
+```{r}
+performance%>%
+group_by(sex, StereotypeActivation)%>%
+summarise(mean(PredictedGrade))
+```
+
+In the cross tabulation above, participants predicted the grade of female students 1 - 2.35 points higher than the average actual female performance (12.15). For male students, predictions were closer to the average actual performance (11.80) ranging at a difference of 0.16 - 0.88 points. With no stereotype activation, males students garnered their highest predicted average at 12.68 suggesting introducing stereotypes negatively affected predictions in male students although still higher than actual performance. For female students, introducing statistics of lower male performance garnered the highest grade prediction for female students. For both genders, case based stereotype activation which included one example of a high female score and two examples of lower male scores produced the lowest predicted grades.   
+
+This may suggest that other variables in the study having an influential role in predicting scores outside of stereotype activation.   
+
+## Methodology and Results   
+To test my hypotheses, I will examine if the predicted grade was higher or lower than the actual grade among the genders controlling for various types of stereotype activation. Here the response variable is the predicted grade, and the explanatory variables are the types of gender as controlled by the exposure of the types of stereotype activation.   
+
+1. Does exposure to negative stereotypes about male achievement and positive stereotypes of female achievement result in higher predicted achievement among both male and female students?   
+Based on the cross tabulation above, exposure to negative statistics of male performance, resulted in the highest prediction for female grades even more than no stereotype exposure. However, those same statistics resulted in lower prediction of male grades than no stereotype exposure.   
+
+2. Is there a statistically significant difference between male and female achievement based on the type of stereotype activation within each group?   
+
+```{r}
+summary(lm(PredictedGrade ~ StereotypeActivation, data=f_performance))
+summary(lm(PredictedGrade ~ StereotypeActivation, data=m_performance))
+```
+
+Here, there appears that activating stereotype statistics resulted in a statistically significant difference in prediction of female grades. For predictions in male students, case based stereotypes resulted in the lowest predictions.   
+
+```{r}
+performance_fit<-lm(PredictedGrade ~ StereotypeActivation*sex, data=performance)
+performance_fit
+summary(performance_fit) #fit based on gender, predicted grade, and stereotype activation
+```
+
+When adding gender as an interacting variables, r-squared and the adjusted r-squared increased and we find a statistically significant result for male grades predicted after exposure to case based stereotypes.   
+
+#### Sources    
+Bedyńska, S., Krejtz, I. & Sedek, G. Chronic stereotype threat and mathematical achievement in age cohorts of secondary school girls: mediational role of working memory, and intellectual helplessness. Soc Psychol Educ 22, 321–335 (2019). https://doi.org/10.1007/s11218-019-09478-6
+
+Bedyńska, S., Krejtz, I., Rycielski, P. et al. Stereotype threat as an antecedent to domain identification and achievement in language arts in boys: a cross-sectional study. Soc Psychol Educ 23, 755–771 (2020). https://doi.org/10.1007/s11218-020-09557-z
+
+Booth MZ, Gerard JM. Self-esteem and academic achievement: a comparative study of adolescent students in England and the United States. Compare. 2011 Sep;41(5):629-648. doi: 10.1080/03057925.2011.566688
+
+Cortez, P. and Silva, A. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7
+
+Ganley, C. M., Mingle, L. A., Ryan, A. M., Ryan, K., Vasilyeva, M., & Perry, M. (2013). An examination of stereotype threat effects on girls’ mathematics performance. Developmental Psychology, 49(10), 1886–1897. https://doi.org/10.1037/a0031412
+
+Hyde, Janet Shibley. "Meta-analysis and the psychology of gender differences." Signs: Journal of Women in Culture and Society 16.1 (1990): 55-73. 
+
+Johnson, H., Barnard-Brak, L., Saxon, T., & Johnson, M.K. (2012) An Experimental Study of the Effects of Stereotype Threat and Stereotype Lift on Men and Women's Performance in Mathematics, The Journal of Experimental Education, 80:2, 137-149, DOI: 10.1080/00220973.2011.567312
+
+Moè, A., & Putwain, D. W. (2020). An evaluative message fosters mathematics performance in male students but decreases intrinsic motivation in female students. Educational Psychology, 1–20. https://doi.org/10.1080/01443410.2020.1730767 
+
+Spinath, B., Harald Freudenthaler, H., & Neubauer, A. C. (2010). Domain-specific school achievement in boys and girls as predicted by intelligence, personality and motivation. Personality and Individual Differences, 48(4), 481-486. https://doi.org/10.1016/j.paid.2009.11.028
+
+Steele, Claude M., and Joshua Aronson. "Stereotype threat and the intellectual test performance of African Americans." Journal of personality and social psychology 69.5 (1995): 797.
+
+Warne, R. T. (2022). No Strong Evidence of Stereotype Threat in Females: A Reassessment of the  Meta-Analysis. Journal of Advanced Academics, 33(2), 171–186. https://doi.org/10.1177/1932202X211061517
+
+Data source: Anonymous. (2022). <i>Performance vs. Predicted Performance</i> [Data set]. Kaggle. https://doi.org/10.34740/KAGGLE/DSV/4282405

@@ -1,0 +1,209 @@
+---
+title: 'Homework #4'
+author: "Kalimah Muhammad"
+date: "11/14/2022"
+desription: "Homework #4"
+format:
+  
+  html:
+    toc: yes
+    code-fold: yes
+    code-copy: yes
+    code-tools: yes
+categories: 
+  - hw4
+  - Kalimah Muhammad
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is 
+ŷ = −10,536 + 53.8x1 + 2.84x2.
+
+### 1.A
+A particular home of 1240 square feet on a lot of 18,000 square feet sold for $145,000. Find the predicted selling price and the residual, and interpret.
+
+```{r} 
+test <- data.frame(sq=c(1240), lot=c(18000), price=c(145000))
+test_fit <- lm(price~sq+lot, data=test)
+predict(test_fit)
+summary(test_fit)
+```
+
+### 1.B
+For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?  The selling price would increase by 2,374.01 for each sqaure foot.
+
+### 1.C
+According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size? 2.84.
+
+## Question 2
+(Data file: salary in alr4 R package). The data file concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.
+
+```{r} 
+data(salary) #load salary data
+```
+
+### 2.A 
+Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings.
+
+```{r} 
+t.test(salary ~ sex, data=salary)
+```
+Based on the above t.test, the average male salary is higher than the average female salary, 24,696.79 to 21,357.14 respectively. 
+
+### 2.B
+Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.
+
+```{r} 
+salaryfit<-lm(salary ~ degree + rank + sex + year + ysdeg, data=salary)
+salaryfit
+summary(salaryfit)
+pairs(salary)
+```
+### 2.C 
+Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variables.
+
+-MS degree: baseline estimate   
+-PHD degree: increase in estimate   
+-Rank Asst.: significantly lowers estimate, statistically significant   
+-Rank Assoc.: significantly lowers estimate, statistically significant  
+-Rank Prof.: baseline estimate, statistically significant   
+-Female: increase in estimate  
+-Year: statistically significant  
+-Year since degree: minimally lowers estimate  
+
+From the pairs graph, we also see an association between rank, year, years since degree, and salary.  
+
+### 2.D
+Change the baseline category for the rank variable. Interpret the coefficients related to rank again.
+
+```{r}
+salary$rank <-relevel(salary$rank, ref="Prof")
+lm(salary ~ rank, data=salary)
+summary(lm(salary ~ rank, data=salary))
+```
+Here, we can see higher salary associated with higher ranking (Professor compared to Assistant and Associate Professor) based on the estimate and coefficient values.  
+
+### 2.E 
+Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, “[a] variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be ‘tainted.’ ” Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts. 
+
+Exclude the variable rank, refit, and summarize how your findings changed, if they did.  
+
+```{r} 
+salaryfit2<-lm(salary ~ degree + sex + year + ysdeg, data=salary)
+salaryfit2
+summary(salaryfit2)
+```
+
+Excluding rank, variables for degree, year, and years since degree become more significant. 
+
+### 2.F
+Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.
+
+Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?
+
+```{r} 
+salary2 <- salary%>%
+  mutate(new_dean= year<'16') #create column determining if new dean present
+
+t.test(salary ~ new_dean, data=salary2)
+
+summary(lm(salary ~ new_dean, data=salary2))
+```
+
+Based on the two-sample t-test and regression model, faculty hired by the new dean 15 years ago have a slightly higher salary than those hired prior. This may be attributed to the rank or experience of those hired under the new dean's tenure so we will perform another model using the interacting term rank and degree.
+
+```{r} 
+summary(lm(salary ~ degree + rank *new_dean, data=salary2))
+```
+
+Once controlled for the dean status, faculty hired as Assistant and Associate Professors during the prior dean's tenure were estimated considerably less.
+
+### 3.A
+Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient.
+
+```{r} 
+data(house.selling.price) #load data
+summary(lm(Price ~ Size + New, data=house.selling.price))
+```
+
+Newness appears as the most statistically significant variable in determining price followed by size.
+
+### 3.B
+Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes.
+
+```{r} 
+summary(lm(Price ~ New*Size, data=house.selling.price))
+```
+
+Older homes are estimated less than newer homes but the size of a newer home is the most statistically significant. 
+
+### 3.C
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r} 
+old <- data.frame(Size=c(3000), New = 0)
+predict((lm(Price~Size+New, data=house.selling.price)), old)
+
+new <- data.frame(Size=c(3000), New = 1)
+predict((lm(Price~Size+New, data=house.selling.price)), new)
+```
+
+### 3.D
+Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results.
+
+```{r} 
+old <- data.frame(Size=c(3000), New = 0)
+predict((lm(Price~Size*New, data=house.selling.price)), old)
+
+new <- data.frame(Size=c(3000), New = 1)
+predict((lm(Price~Size*New, data=house.selling.price)), new)
+```
+
+### 3.E
+Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.
+
+When the interacting term is added both the price of the older home decreases and the price for the newer home increases. This creates a greater range in variability compared to the first model. 
+
+### 3.F
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r} 
+old <- data.frame(Size=c(3000), New = 0)
+predict((lm(Price~Size+New, data=house.selling.price)), old)
+
+new <- data.frame(Size=c(3000), New = 1)
+predict((lm(Price~Size+New, data=house.selling.price)), new)
+```
+
+For an older home, the price for a 3000sq home is predicted at 308,163.90. For a new home, the predicted price would be 365,900.20.
+
+### 3.G
+Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.
+
+```{r} 
+old2 <- data.frame(Size=c(1500), New = 0)
+predict((lm(Price~ Size + New, data=house.selling.price)), old2)
+
+new2 <- data.frame(Size=c(1500), New = 1)
+predict((lm(Price~ Size + New, data=house.selling.price)), new2)
+```
+
+For an older home, the price for a 1500sq home is predicted at 133,966.50. For a new home, the predicted price would be 191,702.80.
+
+As the size of the home doubles, the predicted price of both the older and newer home increased by the same value of 174,197.40.
+
+### 3.H
+Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?
+The model that adds whether the home is new rather than multiply by it, is a better model more reflective of the actual rates. 
