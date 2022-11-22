@@ -349,11 +349,10 @@ sample estimates:
 </section>
 <section id="b-1" class="level2">
 <h2 class="anchored" data-anchor-id="b-1">2b</h2>
-<p>In the summary, since there is no code next to the sexFemale variable, we can see that it has not met a significant threshold. This shows we did obtain a 95% confidence interval.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary))</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -362,25 +361,22 @@ sample estimates:
 Call:
 lm(formula = salary ~ ., data = salary)
 
-Residuals:
-    Min      1Q  Median      3Q     Max 
--4045.2 -1094.7  -361.5   813.2  9193.1 
-
 Coefficients:
-            Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) 15746.05     800.18  19.678  &lt; 2e-16 ***
-degreePhD    1388.61    1018.75   1.363    0.180    
-rankAssoc    5292.36    1145.40   4.621 3.22e-05 ***
-rankProf    11118.76    1351.77   8.225 1.62e-10 ***
-sexFemale    1166.37     925.57   1.260    0.214    
-year          476.31      94.91   5.018 8.65e-06 ***
-ysdeg        -124.57      77.49  -1.608    0.115    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 2398 on 45 degrees of freedom
-Multiple R-squared:  0.855, Adjusted R-squared:  0.8357 
-F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
+(Intercept)    degreePhD    rankAssoc     rankProf    sexFemale         year  
+    15746.0       1388.6       5292.4      11118.8       1166.4        476.3  
+      ysdeg  
+     -124.6  </code></pre>
+</div>
+</div>
+<p>This shows that a female may earn between negative $697 and $3030 compared to a male employee.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit, <span class="st">"sexFemale"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              2.5 %   97.5 %
+sexFemale -697.8183 3030.565</code></pre>
 </div>
 </div>
 </section>
@@ -390,8 +386,8 @@ F-statistic: 44.24 on 6 and 45 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree, <span class="at">data =</span> salary))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree, <span class="at">data =</span> salary))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -418,8 +414,8 @@ F-statistic: 0.2443 on 1 and 50 DF,  p-value: 0.6233</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary))</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>m2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -447,8 +443,8 @@ F-statistic: 75.17 on 2 and 49 DF,  p-value: 1.174e-15</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary))</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>m3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -475,8 +471,8 @@ F-statistic: 3.413 on 1 and 50 DF,  p-value: 0.0706</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> year, <span class="at">data =</span> salary))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>m4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> year, <span class="at">data =</span> salary))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>m4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -503,8 +499,8 @@ F-statistic: 48.22 on 1 and 50 DF,  p-value: 7.341e-09</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>m5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>m5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -531,14 +527,40 @@ F-statistic: 41.82 on 1 and 50 DF,  p-value: 4.102e-08</code></pre>
 </section>
 <section id="d" class="level2">
 <h2 class="anchored" data-anchor-id="d">2d</h2>
+<p>The two models seem to be very similar, but the Estimate coefficients have been altered drastically. Relevel reorders the Prof coefficients so it looks like an increase in salary as an Assistant Prof means a decrease in salary.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#rank &lt;- relevel(rank)</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>relevel_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(relevel_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>rank2 <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="st">"Prof"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>relevel_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank2, <span class="at">data =</span> salary)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(relevel_mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = salary ~ rank2, data = salary)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-5209.0 -1819.2  -417.8  1586.6  8386.0 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  29659.0      669.3  44.316  &lt; 2e-16 ***
+rank2Asst   -11890.3      972.4 -12.228  &lt; 2e-16 ***
+rank2Assoc   -6483.0     1043.0  -6.216 1.09e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2993 on 49 degrees of freedom
+Multiple R-squared:  0.7542,    Adjusted R-squared:  0.7442 
+F-statistic: 75.17 on 2 and 49 DF,  p-value: 1.174e-15</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>m2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -569,7 +591,7 @@ F-statistic: 75.17 on 2 and 49 DF,  p-value: 1.174e-15</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -602,17 +624,17 @@ F-statistic: 20.11 on 4 and 47 DF,  p-value: 1.048e-09</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hired_by_new_dean =</span> <span class="fu">case_when</span>(</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    T <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hired_by_new_dean =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    T <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg<span class="sc">*</span>hired_by_new_dean, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg<span class="sc">*</span>hired_by_new_dean, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -640,7 +662,7 @@ F-statistic: 18.57 on 3 and 48 DF,  p-value: 3.909e-08</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -670,15 +692,15 @@ F-statistic: 41.82 on 1 and 50 DF,  p-value: 4.102e-08</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Both size and whether the house is new or not are statistically significant as per the significance codes related to the p values. The adjusted R squared is also pretty high which indicates this model is a good fit. Going by the significance codes, Size is more important when it comes to the model compared to the New variable.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span><span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span><span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price)</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -709,8 +731,8 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>        1         2         3         4         5         6         7         8 
@@ -742,15 +764,15 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="ot">&lt;-</span> <span class="fu">cbind</span>(house.selling.price, pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="ot">&lt;-</span> <span class="fu">cbind</span>(house.selling.price, pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="sc">%&gt;%</span> </span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(New) <span class="sc">%&gt;%</span> </span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Price_actual =</span> <span class="fu">mean</span>(Price), <span class="at">Price_prediction =</span> <span class="fu">mean</span>(pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(New) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Price_actual =</span> <span class="fu">mean</span>(Price), <span class="at">Price_prediction =</span> <span class="fu">mean</span>(pred))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
@@ -766,9 +788,9 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
@@ -778,9 +800,9 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>variable2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>variable2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
@@ -794,9 +816,9 @@ F-statistic: 126.3 on 2 and 97 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -837,16 +859,16 @@ F-statistic: 93.15 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>var4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>var4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>House is new.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
@@ -857,7 +879,7 @@ F-statistic: 93.15 on 3 and 96 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
@@ -1176,276 +1198,301 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb54" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Homework 4"</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Quinn He"</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Something to describe what I did"</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "08/02/2022"</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb54-12"><a href="#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb54-13"><a href="#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - hw4</span></span>
-<span id="cb54-14"><a href="#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb54-15"><a href="#cb54-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-18"><a href="#cb54-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-19"><a href="#cb54-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
-<span id="cb54-20"><a href="#cb54-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb54-21"><a href="#cb54-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-22"><a href="#cb54-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb54-23"><a href="#cb54-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span>
-<span id="cb54-24"><a href="#cb54-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
-<span id="cb54-25"><a href="#cb54-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
-<span id="cb54-26"><a href="#cb54-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-27"><a href="#cb54-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb54-28"><a href="#cb54-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-29"><a href="#cb54-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-30"><a href="#cb54-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1a</span></span>
-<span id="cb54-31"><a href="#cb54-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-32"><a href="#cb54-32" aria-hidden="true" tabindex="-1"></a>Based off the equation given in the question, the predicted value is $107,296 for a home with the parameters given.</span>
-<span id="cb54-33"><a href="#cb54-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-36"><a href="#cb54-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-37"><a href="#cb54-37" aria-hidden="true" tabindex="-1"></a>val1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> (<span class="fl">53.8</span><span class="sc">*</span><span class="dv">1240</span>) <span class="sc">+</span> (<span class="fl">2.84</span><span class="sc">*</span><span class="dv">18000</span>)</span>
-<span id="cb54-38"><a href="#cb54-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-39"><a href="#cb54-39" aria-hidden="true" tabindex="-1"></a>val1</span>
-<span id="cb54-40"><a href="#cb54-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-41"><a href="#cb54-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-42"><a href="#cb54-42" aria-hidden="true" tabindex="-1"></a>The residual is 37,704. </span>
-<span id="cb54-43"><a href="#cb54-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-46"><a href="#cb54-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-47"><a href="#cb54-47" aria-hidden="true" tabindex="-1"></a><span class="dv">145000</span> <span class="sc">-</span> <span class="dv">107296</span></span>
-<span id="cb54-48"><a href="#cb54-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-49"><a href="#cb54-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-50"><a href="#cb54-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-51"><a href="#cb54-51" aria-hidden="true" tabindex="-1"></a>It's hard to analyze a single residual, but it seems like the number is off by more than it should. There isn't enough data to make a concrete conclusion. </span>
-<span id="cb54-52"><a href="#cb54-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-53"><a href="#cb54-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1b</span></span>
-<span id="cb54-54"><a href="#cb54-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-55"><a href="#cb54-55" aria-hidden="true" tabindex="-1"></a>The house size is predicted to increase by $53.80 for each square foot increase of the house because of the 53.8 variable.</span>
-<span id="cb54-56"><a href="#cb54-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-57"><a href="#cb54-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1c</span></span>
-<span id="cb54-58"><a href="#cb54-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-59"><a href="#cb54-59" aria-hidden="true" tabindex="-1"></a>I'm going to use the equation from before, but increase the square foot by 1.</span>
-<span id="cb54-62"><a href="#cb54-62" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-63"><a href="#cb54-63" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> (<span class="fl">53.8</span><span class="sc">*</span><span class="dv">1241</span>) <span class="sc">+</span> (<span class="fl">2.84</span><span class="sc">*</span><span class="dv">18000</span>)</span>
-<span id="cb54-64"><a href="#cb54-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-65"><a href="#cb54-65" aria-hidden="true" tabindex="-1"></a>val</span>
-<span id="cb54-66"><a href="#cb54-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-67"><a href="#cb54-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-70"><a href="#cb54-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-71"><a href="#cb54-71" aria-hidden="true" tabindex="-1"></a>val<span class="sc">-</span>val1</span>
-<span id="cb54-72"><a href="#cb54-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-73"><a href="#cb54-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-74"><a href="#cb54-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-75"><a href="#cb54-75" aria-hidden="true" tabindex="-1"></a>Lot size would need to increase by 53.8. </span>
-<span id="cb54-76"><a href="#cb54-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-77"><a href="#cb54-77" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2a</span></span>
-<span id="cb54-78"><a href="#cb54-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-81"><a href="#cb54-81" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-82"><a href="#cb54-82" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"salary"</span>)</span>
-<span id="cb54-83"><a href="#cb54-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-84"><a href="#cb54-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-85"><a href="#cb54-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-86"><a href="#cb54-86" aria-hidden="true" tabindex="-1"></a>It appears the mean salary for men is about $3,000 more than the mean salary of women, indicating sex does play a factor in salary. The mean salary is not the same for both men and women. Even with a boxplot, it's easy to observe the difference in salary across both genders. </span>
-<span id="cb54-89"><a href="#cb54-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-90"><a href="#cb54-90" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(salary<span class="sc">$</span>salary <span class="sc">~</span> salary<span class="sc">$</span>sex, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
-<span id="cb54-91"><a href="#cb54-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-92"><a href="#cb54-92" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-93"><a href="#cb54-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-94"><a href="#cb54-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-97"><a href="#cb54-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-98"><a href="#cb54-98" aria-hidden="true" tabindex="-1"></a>salary <span class="sc">%&gt;%</span> </span>
-<span id="cb54-99"><a href="#cb54-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> salary))<span class="sc">+</span></span>
-<span id="cb54-100"><a href="#cb54-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb54-101"><a href="#cb54-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-102"><a href="#cb54-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-103"><a href="#cb54-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2b</span></span>
-<span id="cb54-104"><a href="#cb54-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-105"><a href="#cb54-105" aria-hidden="true" tabindex="-1"></a>In the summary, since there is no code next to the sexFemale variable, we can see that it has not met a significant threshold. This shows we did obtain a 95% confidence interval. </span>
-<span id="cb54-108"><a href="#cb54-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-109"><a href="#cb54-109" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary))</span>
-<span id="cb54-110"><a href="#cb54-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-111"><a href="#cb54-111" aria-hidden="true" tabindex="-1"></a>fit</span>
-<span id="cb54-112"><a href="#cb54-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-113"><a href="#cb54-113" aria-hidden="true" tabindex="-1"></a><span class="in">```</span> </span>
-<span id="cb54-114"><a href="#cb54-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-115"><a href="#cb54-115" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2c</span></span>
-<span id="cb54-116"><a href="#cb54-116" aria-hidden="true" tabindex="-1"></a>Degree does not appear to be significant when it comes to the outcome of salary. The R squared is actually a negative number so it really is not an appropriate measure of salary. </span>
-<span id="cb54-119"><a href="#cb54-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-120"><a href="#cb54-120" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree, <span class="at">data =</span> salary))</span>
-<span id="cb54-121"><a href="#cb54-121" aria-hidden="true" tabindex="-1"></a>m1</span>
-<span id="cb54-122"><a href="#cb54-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-123"><a href="#cb54-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-124"><a href="#cb54-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-125"><a href="#cb54-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-126"><a href="#cb54-126" aria-hidden="true" tabindex="-1"></a>Rank actually does have significance in the outcome of salary. Both Assoc and Prof have significant p values and the R squared is about 0.74 which indicates some level of significance. In this model, I can assume that if you are a professor, you can observe an increase in $11,890. </span>
-<span id="cb54-129"><a href="#cb54-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-130"><a href="#cb54-130" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary))</span>
-<span id="cb54-131"><a href="#cb54-131" aria-hidden="true" tabindex="-1"></a>m2</span>
-<span id="cb54-132"><a href="#cb54-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-133"><a href="#cb54-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-134"><a href="#cb54-134" aria-hidden="true" tabindex="-1"></a>According to this model, sex is not relevant when it comes to the outcome variable, containing a low R squared and an insignificant p value.</span>
-<span id="cb54-137"><a href="#cb54-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-138"><a href="#cb54-138" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary))</span>
-<span id="cb54-139"><a href="#cb54-139" aria-hidden="true" tabindex="-1"></a>m3</span>
-<span id="cb54-140"><a href="#cb54-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-141"><a href="#cb54-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-142"><a href="#cb54-142" aria-hidden="true" tabindex="-1"></a>The years someone has been in their position does have a significant impact on their salary, which makes sense because, usually, the longer someone is in a job, the more opportunities they will have for a promotion.</span>
-<span id="cb54-145"><a href="#cb54-145" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-146"><a href="#cb54-146" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> year, <span class="at">data =</span> salary))</span>
-<span id="cb54-147"><a href="#cb54-147" aria-hidden="true" tabindex="-1"></a>m4</span>
-<span id="cb54-148"><a href="#cb54-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-149"><a href="#cb54-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-150"><a href="#cb54-150" aria-hidden="true" tabindex="-1"></a>I think years since highest degree earned falls under the same logic as the years column since, presummably, many of the years spent in the job were years also in the ysdeg column. I expect that with every 1 year increase in years after highest degree, there will be a $390 increase in salary. </span>
-<span id="cb54-153"><a href="#cb54-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-154"><a href="#cb54-154" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
-<span id="cb54-155"><a href="#cb54-155" aria-hidden="true" tabindex="-1"></a>m5</span>
-<span id="cb54-156"><a href="#cb54-156" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-157"><a href="#cb54-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-158"><a href="#cb54-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-159"><a href="#cb54-159" aria-hidden="true" tabindex="-1"></a>I may want to use the par function but I cannot find the proper way to type it out. Will revisit. </span>
-<span id="cb54-160"><a href="#cb54-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-161"><a href="#cb54-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2d</span></span>
-<span id="cb54-162"><a href="#cb54-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-165"><a href="#cb54-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-166"><a href="#cb54-166" aria-hidden="true" tabindex="-1"></a><span class="co">#rank &lt;- relevel(rank)</span></span>
-<span id="cb54-167"><a href="#cb54-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-168"><a href="#cb54-168" aria-hidden="true" tabindex="-1"></a>relevel_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary)</span>
-<span id="cb54-169"><a href="#cb54-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-170"><a href="#cb54-170" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(relevel_mod)</span>
-<span id="cb54-171"><a href="#cb54-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-172"><a href="#cb54-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-173"><a href="#cb54-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-174"><a href="#cb54-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2e</span></span>
-<span id="cb54-175"><a href="#cb54-175" aria-hidden="true" tabindex="-1"></a>If you compare this model with models that contain the rank variable, you'll see that rank actually does play a significant role in salary. Rank always has a p value worth noting as seen with the significance codes. The adjusted R squared is also much lower in this model than any model containing rank as an explanatory variable. </span>
-<span id="cb54-178"><a href="#cb54-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-179"><a href="#cb54-179" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, <span class="at">data =</span> salary))</span>
-<span id="cb54-180"><a href="#cb54-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-181"><a href="#cb54-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-182"><a href="#cb54-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-183"><a href="#cb54-183" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2f</span></span>
-<span id="cb54-184"><a href="#cb54-184" aria-hidden="true" tabindex="-1"></a>I'm trying to make a new column for someone hired within the 15 year period of the new Dean. Now the new column should have a 1 if the person was hired with 15 years or less from earning their highest degree and people will have a -1 if its more. The 1 will indicate if they have been hired by the new dean and we may see an increase in salary for those people.  </span>
-<span id="cb54-187"><a href="#cb54-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-188"><a href="#cb54-188" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span> </span>
-<span id="cb54-189"><a href="#cb54-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hired_by_new_dean =</span> <span class="fu">case_when</span>(</span>
-<span id="cb54-190"><a href="#cb54-190" aria-hidden="true" tabindex="-1"></a>    ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb54-191"><a href="#cb54-191" aria-hidden="true" tabindex="-1"></a>    T <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span></span>
-<span id="cb54-192"><a href="#cb54-192" aria-hidden="true" tabindex="-1"></a>  ))</span>
-<span id="cb54-193"><a href="#cb54-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-194"><a href="#cb54-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-195"><a href="#cb54-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-198"><a href="#cb54-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-199"><a href="#cb54-199" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg<span class="sc">*</span>hired_by_new_dean, <span class="at">data =</span> salary))</span>
-<span id="cb54-200"><a href="#cb54-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-201"><a href="#cb54-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-202"><a href="#cb54-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-205"><a href="#cb54-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-206"><a href="#cb54-206" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
-<span id="cb54-207"><a href="#cb54-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-208"><a href="#cb54-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-209"><a href="#cb54-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-210"><a href="#cb54-210" aria-hidden="true" tabindex="-1"></a>With an interaction between ysdeg and the new column I created to separate people hired by the new dean, I can see the first model is slightly a better fit with an R squared of 0.5 and all significantly low p values. We can conclude that if you were hired by the new dean, you are more likely to have a higher salary. I avoided multicollinearity by putting an interaction symbol for ysdeg and hired_by_new_dean. I'd be worried about ysdeg and hired_by_new interacting with each other to cause multicollinearity. </span>
-<span id="cb54-211"><a href="#cb54-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-212"><a href="#cb54-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-213"><a href="#cb54-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3a</span></span>
-<span id="cb54-214"><a href="#cb54-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-217"><a href="#cb54-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-218"><a href="#cb54-218" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span>
-<span id="cb54-219"><a href="#cb54-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-220"><a href="#cb54-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-221"><a href="#cb54-221" aria-hidden="true" tabindex="-1"></a>Both size and whether the house is new or not are statistically significant as per the significance codes related to the p values. The adjusted R squared is also pretty high which indicates this model is a good fit. Going by the significance codes, Size is more important when it comes to the model compared to the New variable. </span>
-<span id="cb54-224"><a href="#cb54-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-225"><a href="#cb54-225" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span><span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price)</span>
-<span id="cb54-226"><a href="#cb54-226" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
-<span id="cb54-227"><a href="#cb54-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-228"><a href="#cb54-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-229"><a href="#cb54-229" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3b </span></span>
-<span id="cb54-230"><a href="#cb54-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-231"><a href="#cb54-231" aria-hidden="true" tabindex="-1"></a>According to my prediction model, the mean for both actual price and predicted price are exactly the same, which I find odd because would there not be some variation? I used the predict function on the model then added them together so the data was easier to work with. I suppose I could have created a test set and a training set, but I think that was outside the scope of the homework. </span>
-<span id="cb54-234"><a href="#cb54-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-235"><a href="#cb54-235" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model)</span>
-<span id="cb54-236"><a href="#cb54-236" aria-hidden="true" tabindex="-1"></a>pred</span>
-<span id="cb54-237"><a href="#cb54-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-238"><a href="#cb54-238" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="ot">&lt;-</span> <span class="fu">cbind</span>(house.selling.price, pred)</span>
-<span id="cb54-239"><a href="#cb54-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-240"><a href="#cb54-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-241"><a href="#cb54-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-242"><a href="#cb54-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-245"><a href="#cb54-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-246"><a href="#cb54-246" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="sc">%&gt;%</span> </span>
-<span id="cb54-247"><a href="#cb54-247" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(New) <span class="sc">%&gt;%</span> </span>
-<span id="cb54-248"><a href="#cb54-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Price_actual =</span> <span class="fu">mean</span>(Price), <span class="at">Price_prediction =</span> <span class="fu">mean</span>(pred))</span>
-<span id="cb54-249"><a href="#cb54-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-250"><a href="#cb54-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-251"><a href="#cb54-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-252"><a href="#cb54-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-253"><a href="#cb54-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-254"><a href="#cb54-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-255"><a href="#cb54-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3c</span></span>
-<span id="cb54-256"><a href="#cb54-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-259"><a href="#cb54-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-260"><a href="#cb54-260" aria-hidden="true" tabindex="-1"></a>variable1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
-<span id="cb54-261"><a href="#cb54-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-262"><a href="#cb54-262" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable1)</span>
-<span id="cb54-263"><a href="#cb54-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-264"><a href="#cb54-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-265"><a href="#cb54-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-268"><a href="#cb54-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-269"><a href="#cb54-269" aria-hidden="true" tabindex="-1"></a>variable2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
-<span id="cb54-270"><a href="#cb54-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-271"><a href="#cb54-271" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable2)</span>
-<span id="cb54-272"><a href="#cb54-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-273"><a href="#cb54-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-274"><a href="#cb54-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-275"><a href="#cb54-275" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3d</span></span>
-<span id="cb54-276"><a href="#cb54-276" aria-hidden="true" tabindex="-1"></a>The interaction between New and Size actually is more significant than New solely alone. Overall, the model is a pretty good fit since its R squared is 0.73.</span>
-<span id="cb54-279"><a href="#cb54-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-280"><a href="#cb54-280" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price)</span>
-<span id="cb54-281"><a href="#cb54-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-282"><a href="#cb54-282" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
-<span id="cb54-283"><a href="#cb54-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-284"><a href="#cb54-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-285"><a href="#cb54-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3e</span></span>
-<span id="cb54-286"><a href="#cb54-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-287"><a href="#cb54-287" aria-hidden="true" tabindex="-1"></a>New home price = -22228 + 104 + -78527 + 62</span>
-<span id="cb54-288"><a href="#cb54-288" aria-hidden="true" tabindex="-1"></a>Old home price = -22228 + 104</span>
-<span id="cb54-289"><a href="#cb54-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-290"><a href="#cb54-290" aria-hidden="true" tabindex="-1"></a>I included the last two numbers in the first equation because those are the interaction terms. </span>
-<span id="cb54-291"><a href="#cb54-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-292"><a href="#cb54-292" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3f </span></span>
-<span id="cb54-293"><a href="#cb54-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-294"><a href="#cb54-294" aria-hidden="true" tabindex="-1"></a>Repeat question</span>
-<span id="cb54-295"><a href="#cb54-295" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-296"><a href="#cb54-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-297"><a href="#cb54-297" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3g </span></span>
-<span id="cb54-298"><a href="#cb54-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-299"><a href="#cb54-299" aria-hidden="true" tabindex="-1"></a>The whether the home is new or not impacts the price of the house in a pretty significant way. About a $60,000 difference in price is not something to dismiss. With the same lot size, a home that is new will fetch significantly more money than the same home, but old. </span>
-<span id="cb54-302"><a href="#cb54-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-303"><a href="#cb54-303" aria-hidden="true" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
-<span id="cb54-304"><a href="#cb54-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-305"><a href="#cb54-305" aria-hidden="true" tabindex="-1"></a>var4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
-<span id="cb54-306"><a href="#cb54-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-307"><a href="#cb54-307" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-308"><a href="#cb54-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-309"><a href="#cb54-309" aria-hidden="true" tabindex="-1"></a>House is new.</span>
-<span id="cb54-312"><a href="#cb54-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-313"><a href="#cb54-313" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var4)</span>
-<span id="cb54-314"><a href="#cb54-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-315"><a href="#cb54-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-316"><a href="#cb54-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-317"><a href="#cb54-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-318"><a href="#cb54-318" aria-hidden="true" tabindex="-1"></a>House is old.</span>
-<span id="cb54-321"><a href="#cb54-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb54-322"><a href="#cb54-322" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var3)</span>
-<span id="cb54-323"><a href="#cb54-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-324"><a href="#cb54-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb54-325"><a href="#cb54-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-326"><a href="#cb54-326" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3h</span></span>
-<span id="cb54-327"><a href="#cb54-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-328"><a href="#cb54-328" aria-hidden="true" tabindex="-1"></a>I prefer the model with interaction between size and new because its adjusted R squared is slightly higher than that of the model without interaction. Be it only 0.02 points, it still shows a better fit compared to the other model. The p value for the interaction between new and old is also labeled as significant in the interaction model. They are so similar, but again I would choose the interaction model because the adjusted R squared is slightly higher.</span>
+<div class="sourceCode" id="cb58" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Homework 4"</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Quinn He"</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "Something to describe what I did"</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "08/02/2022"</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - hw4</span></span>
+<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-19"><a href="#cb58-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb58-20"><a href="#cb58-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb58-21"><a href="#cb58-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-22"><a href="#cb58-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb58-23"><a href="#cb58-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span>
+<span id="cb58-24"><a href="#cb58-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb58-25"><a href="#cb58-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span>
+<span id="cb58-26"><a href="#cb58-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-27"><a href="#cb58-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb58-28"><a href="#cb58-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-29"><a href="#cb58-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-30"><a href="#cb58-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1a</span></span>
+<span id="cb58-31"><a href="#cb58-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-32"><a href="#cb58-32" aria-hidden="true" tabindex="-1"></a>Based off the equation given in the question, the predicted value is \$107,296 for a home with the parameters given.</span>
+<span id="cb58-33"><a href="#cb58-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-36"><a href="#cb58-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-37"><a href="#cb58-37" aria-hidden="true" tabindex="-1"></a>val1 <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> (<span class="fl">53.8</span><span class="sc">*</span><span class="dv">1240</span>) <span class="sc">+</span> (<span class="fl">2.84</span><span class="sc">*</span><span class="dv">18000</span>)</span>
+<span id="cb58-38"><a href="#cb58-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-39"><a href="#cb58-39" aria-hidden="true" tabindex="-1"></a>val1</span>
+<span id="cb58-40"><a href="#cb58-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-41"><a href="#cb58-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-42"><a href="#cb58-42" aria-hidden="true" tabindex="-1"></a>The residual is 37,704.</span>
+<span id="cb58-43"><a href="#cb58-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-46"><a href="#cb58-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-47"><a href="#cb58-47" aria-hidden="true" tabindex="-1"></a><span class="dv">145000</span> <span class="sc">-</span> <span class="dv">107296</span></span>
+<span id="cb58-48"><a href="#cb58-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-49"><a href="#cb58-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-50"><a href="#cb58-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-51"><a href="#cb58-51" aria-hidden="true" tabindex="-1"></a>It's hard to analyze a single residual, but it seems like the number is off by more than it should. There isn't enough data to make a concrete conclusion.</span>
+<span id="cb58-52"><a href="#cb58-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-53"><a href="#cb58-53" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1b</span></span>
+<span id="cb58-54"><a href="#cb58-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-55"><a href="#cb58-55" aria-hidden="true" tabindex="-1"></a>The house size is predicted to increase by \$53.80 for each square foot increase of the house because of the 53.8 variable.</span>
+<span id="cb58-56"><a href="#cb58-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-57"><a href="#cb58-57" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1c</span></span>
+<span id="cb58-58"><a href="#cb58-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-59"><a href="#cb58-59" aria-hidden="true" tabindex="-1"></a>I'm going to use the equation from before, but increase the square foot by 1.</span>
+<span id="cb58-60"><a href="#cb58-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-63"><a href="#cb58-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-64"><a href="#cb58-64" aria-hidden="true" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">10536</span> <span class="sc">+</span> (<span class="fl">53.8</span><span class="sc">*</span><span class="dv">1241</span>) <span class="sc">+</span> (<span class="fl">2.84</span><span class="sc">*</span><span class="dv">18000</span>)</span>
+<span id="cb58-65"><a href="#cb58-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-66"><a href="#cb58-66" aria-hidden="true" tabindex="-1"></a>val</span>
+<span id="cb58-67"><a href="#cb58-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-68"><a href="#cb58-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-71"><a href="#cb58-71" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-72"><a href="#cb58-72" aria-hidden="true" tabindex="-1"></a>val<span class="sc">-</span>val1</span>
+<span id="cb58-73"><a href="#cb58-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-74"><a href="#cb58-74" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-75"><a href="#cb58-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-76"><a href="#cb58-76" aria-hidden="true" tabindex="-1"></a>Lot size would need to increase by 53.8.</span>
+<span id="cb58-77"><a href="#cb58-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-78"><a href="#cb58-78" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2a</span></span>
+<span id="cb58-79"><a href="#cb58-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-82"><a href="#cb58-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-83"><a href="#cb58-83" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"salary"</span>)</span>
+<span id="cb58-84"><a href="#cb58-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-85"><a href="#cb58-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-86"><a href="#cb58-86" aria-hidden="true" tabindex="-1"></a>It appears the mean salary for men is about \$3,000 more than the mean salary of women, indicating sex does play a factor in salary. The mean salary is not the same for both men and women. Even with a boxplot, it's easy to observe the difference in salary across both genders.</span>
+<span id="cb58-87"><a href="#cb58-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-90"><a href="#cb58-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-91"><a href="#cb58-91" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(salary<span class="sc">$</span>salary <span class="sc">~</span> salary<span class="sc">$</span>sex, <span class="at">mu =</span> <span class="dv">0</span>, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
+<span id="cb58-92"><a href="#cb58-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-93"><a href="#cb58-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-94"><a href="#cb58-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-97"><a href="#cb58-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-98"><a href="#cb58-98" aria-hidden="true" tabindex="-1"></a>salary <span class="sc">%&gt;%</span> </span>
+<span id="cb58-99"><a href="#cb58-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> sex, <span class="at">y =</span> salary))<span class="sc">+</span></span>
+<span id="cb58-100"><a href="#cb58-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb58-101"><a href="#cb58-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-102"><a href="#cb58-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-103"><a href="#cb58-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-104"><a href="#cb58-104" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2b</span></span>
+<span id="cb58-105"><a href="#cb58-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-108"><a href="#cb58-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-109"><a href="#cb58-109" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> ., <span class="at">data =</span> salary)</span>
+<span id="cb58-110"><a href="#cb58-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-111"><a href="#cb58-111" aria-hidden="true" tabindex="-1"></a>fit</span>
+<span id="cb58-112"><a href="#cb58-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-113"><a href="#cb58-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-114"><a href="#cb58-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-115"><a href="#cb58-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-116"><a href="#cb58-116" aria-hidden="true" tabindex="-1"></a>This shows that a female may earn between negative \$697 and \$3030 compared to a male employee.</span>
+<span id="cb58-117"><a href="#cb58-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-120"><a href="#cb58-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-121"><a href="#cb58-121" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(fit, <span class="st">"sexFemale"</span>)</span>
+<span id="cb58-122"><a href="#cb58-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-123"><a href="#cb58-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-124"><a href="#cb58-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-125"><a href="#cb58-125" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2c</span></span>
+<span id="cb58-126"><a href="#cb58-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-127"><a href="#cb58-127" aria-hidden="true" tabindex="-1"></a>Degree does not appear to be significant when it comes to the outcome of salary. The R squared is actually a negative number so it really is not an appropriate measure of salary.</span>
+<span id="cb58-128"><a href="#cb58-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-131"><a href="#cb58-131" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-132"><a href="#cb58-132" aria-hidden="true" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree, <span class="at">data =</span> salary))</span>
+<span id="cb58-133"><a href="#cb58-133" aria-hidden="true" tabindex="-1"></a>m1</span>
+<span id="cb58-134"><a href="#cb58-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-135"><a href="#cb58-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-136"><a href="#cb58-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-137"><a href="#cb58-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-138"><a href="#cb58-138" aria-hidden="true" tabindex="-1"></a>Rank actually does have significance in the outcome of salary. Both Assoc and Prof have significant p values and the R squared is about 0.74 which indicates some level of significance. In this model, I can assume that if you are a professor, you can observe an increase in \$11,890.</span>
+<span id="cb58-139"><a href="#cb58-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-142"><a href="#cb58-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-143"><a href="#cb58-143" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> rank, <span class="at">data =</span> salary))</span>
+<span id="cb58-144"><a href="#cb58-144" aria-hidden="true" tabindex="-1"></a>m2</span>
+<span id="cb58-145"><a href="#cb58-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-146"><a href="#cb58-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-147"><a href="#cb58-147" aria-hidden="true" tabindex="-1"></a>According to this model, sex is not relevant when it comes to the outcome variable, containing a low R squared and an insignificant p value.</span>
+<span id="cb58-148"><a href="#cb58-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-151"><a href="#cb58-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-152"><a href="#cb58-152" aria-hidden="true" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> sex, <span class="at">data =</span> salary))</span>
+<span id="cb58-153"><a href="#cb58-153" aria-hidden="true" tabindex="-1"></a>m3</span>
+<span id="cb58-154"><a href="#cb58-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-155"><a href="#cb58-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-156"><a href="#cb58-156" aria-hidden="true" tabindex="-1"></a>The years someone has been in their position does have a significant impact on their salary, which makes sense because, usually, the longer someone is in a job, the more opportunities they will have for a promotion.</span>
+<span id="cb58-157"><a href="#cb58-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-160"><a href="#cb58-160" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-161"><a href="#cb58-161" aria-hidden="true" tabindex="-1"></a>m4 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> year, <span class="at">data =</span> salary))</span>
+<span id="cb58-162"><a href="#cb58-162" aria-hidden="true" tabindex="-1"></a>m4</span>
+<span id="cb58-163"><a href="#cb58-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-164"><a href="#cb58-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-165"><a href="#cb58-165" aria-hidden="true" tabindex="-1"></a>I think years since highest degree earned falls under the same logic as the years column since, presummably, many of the years spent in the job were years also in the ysdeg column. I expect that with every 1 year increase in years after highest degree, there will be a \$390 increase in salary.</span>
+<span id="cb58-166"><a href="#cb58-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-169"><a href="#cb58-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-170"><a href="#cb58-170" aria-hidden="true" tabindex="-1"></a>m5 <span class="ot">&lt;-</span> <span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
+<span id="cb58-171"><a href="#cb58-171" aria-hidden="true" tabindex="-1"></a>m5</span>
+<span id="cb58-172"><a href="#cb58-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-173"><a href="#cb58-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-174"><a href="#cb58-174" aria-hidden="true" tabindex="-1"></a>I may want to use the par function but I cannot find the proper way to type it out. Will revisit.</span>
+<span id="cb58-175"><a href="#cb58-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-176"><a href="#cb58-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2d</span></span>
+<span id="cb58-177"><a href="#cb58-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-178"><a href="#cb58-178" aria-hidden="true" tabindex="-1"></a>The two models seem to be very similar, but the Estimate coefficients have been altered drastically. Relevel reorders the Prof coefficients so it looks like an increase in salary as an Assistant Prof means a decrease in salary.</span>
+<span id="cb58-179"><a href="#cb58-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-182"><a href="#cb58-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-183"><a href="#cb58-183" aria-hidden="true" tabindex="-1"></a>rank2 <span class="ot">&lt;-</span> <span class="fu">relevel</span>(salary<span class="sc">$</span>rank, <span class="st">"Prof"</span>)</span>
+<span id="cb58-184"><a href="#cb58-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-185"><a href="#cb58-185" aria-hidden="true" tabindex="-1"></a>relevel_mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(salary <span class="sc">~</span> rank2, <span class="at">data =</span> salary)</span>
+<span id="cb58-186"><a href="#cb58-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-187"><a href="#cb58-187" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(relevel_mod)</span>
+<span id="cb58-188"><a href="#cb58-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-189"><a href="#cb58-189" aria-hidden="true" tabindex="-1"></a>m2</span>
+<span id="cb58-190"><a href="#cb58-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-191"><a href="#cb58-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-192"><a href="#cb58-192" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2e</span></span>
+<span id="cb58-193"><a href="#cb58-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-194"><a href="#cb58-194" aria-hidden="true" tabindex="-1"></a>If you compare this model with models that contain the rank variable, you'll see that rank actually does play a significant role in salary. Rank always has a p value worth noting as seen with the significance codes. The adjusted R squared is also much lower in this model than any model containing rank as an explanatory variable.</span>
+<span id="cb58-195"><a href="#cb58-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-198"><a href="#cb58-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-199"><a href="#cb58-199" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> degree <span class="sc">+</span> sex <span class="sc">+</span> year <span class="sc">+</span> ysdeg, <span class="at">data =</span> salary))</span>
+<span id="cb58-200"><a href="#cb58-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-201"><a href="#cb58-201" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-202"><a href="#cb58-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-203"><a href="#cb58-203" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2f</span></span>
+<span id="cb58-204"><a href="#cb58-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-205"><a href="#cb58-205" aria-hidden="true" tabindex="-1"></a>I'm trying to make a new column for someone hired within the 15 year period of the new Dean. Now the new column should have a 1 if the person was hired with 15 years or less from earning their highest degree and people will have a -1 if its more. The 1 will indicate if they have been hired by the new dean and we may see an increase in salary for those people.</span>
+<span id="cb58-206"><a href="#cb58-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-209"><a href="#cb58-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-210"><a href="#cb58-210" aria-hidden="true" tabindex="-1"></a>salary <span class="ot">&lt;-</span> salary <span class="sc">%&gt;%</span> </span>
+<span id="cb58-211"><a href="#cb58-211" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hired_by_new_dean =</span> <span class="fu">case_when</span>(</span>
+<span id="cb58-212"><a href="#cb58-212" aria-hidden="true" tabindex="-1"></a>    ysdeg <span class="sc">&lt;=</span> <span class="dv">15</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb58-213"><a href="#cb58-213" aria-hidden="true" tabindex="-1"></a>    T <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb58-214"><a href="#cb58-214" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb58-215"><a href="#cb58-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-216"><a href="#cb58-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-217"><a href="#cb58-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-220"><a href="#cb58-220" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-221"><a href="#cb58-221" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg<span class="sc">*</span>hired_by_new_dean, <span class="at">data =</span> salary))</span>
+<span id="cb58-222"><a href="#cb58-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-223"><a href="#cb58-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-224"><a href="#cb58-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-225"><a href="#cb58-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-228"><a href="#cb58-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-229"><a href="#cb58-229" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(salary <span class="sc">~</span> ysdeg, <span class="at">data =</span> salary))</span>
+<span id="cb58-230"><a href="#cb58-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-231"><a href="#cb58-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-232"><a href="#cb58-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-233"><a href="#cb58-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-234"><a href="#cb58-234" aria-hidden="true" tabindex="-1"></a>With an interaction between ysdeg and the new column I created to separate people hired by the new dean, I can see the first model is slightly a better fit with an R squared of 0.5 and all significantly low p values. We can conclude that if you were hired by the new dean, you are more likely to have a higher salary. I avoided multicollinearity by putting an interaction symbol for ysdeg and hired_by_new_dean. I'd be worried about ysdeg and hired_by_new interacting with each other to cause multicollinearity.</span>
+<span id="cb58-235"><a href="#cb58-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-236"><a href="#cb58-236" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3a</span></span>
+<span id="cb58-237"><a href="#cb58-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-240"><a href="#cb58-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-241"><a href="#cb58-241" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"house.selling.price"</span>)</span>
+<span id="cb58-242"><a href="#cb58-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-243"><a href="#cb58-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-244"><a href="#cb58-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-245"><a href="#cb58-245" aria-hidden="true" tabindex="-1"></a>Both size and whether the house is new or not are statistically significant as per the significance codes related to the p values. The adjusted R squared is also pretty high which indicates this model is a good fit. Going by the significance codes, Size is more important when it comes to the model compared to the New variable.</span>
+<span id="cb58-246"><a href="#cb58-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-249"><a href="#cb58-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-250"><a href="#cb58-250" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span><span class="fu">lm</span>(Price <span class="sc">~</span> Size <span class="sc">+</span> New, <span class="at">data =</span> house.selling.price)</span>
+<span id="cb58-251"><a href="#cb58-251" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
+<span id="cb58-252"><a href="#cb58-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-253"><a href="#cb58-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-254"><a href="#cb58-254" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3b</span></span>
+<span id="cb58-255"><a href="#cb58-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-256"><a href="#cb58-256" aria-hidden="true" tabindex="-1"></a>According to my prediction model, the mean for both actual price and predicted price are exactly the same, which I find odd because would there not be some variation? I used the predict function on the model then added them together so the data was easier to work with. I suppose I could have created a test set and a training set, but I think that was outside the scope of the homework.</span>
+<span id="cb58-257"><a href="#cb58-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-260"><a href="#cb58-260" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-261"><a href="#cb58-261" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model)</span>
+<span id="cb58-262"><a href="#cb58-262" aria-hidden="true" tabindex="-1"></a>pred</span>
+<span id="cb58-263"><a href="#cb58-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-264"><a href="#cb58-264" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="ot">&lt;-</span> <span class="fu">cbind</span>(house.selling.price, pred)</span>
+<span id="cb58-265"><a href="#cb58-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-266"><a href="#cb58-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-267"><a href="#cb58-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-268"><a href="#cb58-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-271"><a href="#cb58-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-272"><a href="#cb58-272" aria-hidden="true" tabindex="-1"></a>new.house.selling.price <span class="sc">%&gt;%</span> </span>
+<span id="cb58-273"><a href="#cb58-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(New) <span class="sc">%&gt;%</span> </span>
+<span id="cb58-274"><a href="#cb58-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Price_actual =</span> <span class="fu">mean</span>(Price), <span class="at">Price_prediction =</span> <span class="fu">mean</span>(pred))</span>
+<span id="cb58-275"><a href="#cb58-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-276"><a href="#cb58-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-277"><a href="#cb58-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-278"><a href="#cb58-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-279"><a href="#cb58-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-280"><a href="#cb58-280" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3c</span></span>
+<span id="cb58-281"><a href="#cb58-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-284"><a href="#cb58-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-285"><a href="#cb58-285" aria-hidden="true" tabindex="-1"></a>variable1 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
+<span id="cb58-286"><a href="#cb58-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-287"><a href="#cb58-287" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable1)</span>
+<span id="cb58-288"><a href="#cb58-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-289"><a href="#cb58-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-290"><a href="#cb58-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-293"><a href="#cb58-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-294"><a href="#cb58-294" aria-hidden="true" tabindex="-1"></a>variable2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">3000</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
+<span id="cb58-295"><a href="#cb58-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-296"><a href="#cb58-296" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> variable2)</span>
+<span id="cb58-297"><a href="#cb58-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-298"><a href="#cb58-298" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-299"><a href="#cb58-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-300"><a href="#cb58-300" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3d</span></span>
+<span id="cb58-301"><a href="#cb58-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-302"><a href="#cb58-302" aria-hidden="true" tabindex="-1"></a>The interaction between New and Size actually is more significant than New solely alone. Overall, the model is a pretty good fit since its R squared is 0.73.</span>
+<span id="cb58-303"><a href="#cb58-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-306"><a href="#cb58-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-307"><a href="#cb58-307" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Price <span class="sc">~</span> Size<span class="sc">*</span>New, <span class="at">data =</span> house.selling.price)</span>
+<span id="cb58-308"><a href="#cb58-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-309"><a href="#cb58-309" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span>
+<span id="cb58-310"><a href="#cb58-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-311"><a href="#cb58-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-312"><a href="#cb58-312" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3e</span></span>
+<span id="cb58-313"><a href="#cb58-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-314"><a href="#cb58-314" aria-hidden="true" tabindex="-1"></a>New home price = -22228 + 104 + -78527 + 62 Old home price = -22228 + 104</span>
+<span id="cb58-315"><a href="#cb58-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-316"><a href="#cb58-316" aria-hidden="true" tabindex="-1"></a>I included the last two numbers in the first equation because those are the interaction terms.</span>
+<span id="cb58-317"><a href="#cb58-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-318"><a href="#cb58-318" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3f</span></span>
+<span id="cb58-319"><a href="#cb58-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-320"><a href="#cb58-320" aria-hidden="true" tabindex="-1"></a>Repeat question</span>
+<span id="cb58-321"><a href="#cb58-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-322"><a href="#cb58-322" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3g</span></span>
+<span id="cb58-323"><a href="#cb58-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-324"><a href="#cb58-324" aria-hidden="true" tabindex="-1"></a>The whether the home is new or not impacts the price of the house in a pretty significant way. About a \$60,000 difference in price is not something to dismiss. With the same lot size, a home that is new will fetch significantly more money than the same home, but old.</span>
+<span id="cb58-325"><a href="#cb58-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-328"><a href="#cb58-328" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-329"><a href="#cb58-329" aria-hidden="true" tabindex="-1"></a>var3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">0</span>)</span>
+<span id="cb58-330"><a href="#cb58-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-331"><a href="#cb58-331" aria-hidden="true" tabindex="-1"></a>var4 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Size =</span> <span class="dv">1500</span>, <span class="at">New =</span> <span class="dv">1</span>)</span>
+<span id="cb58-332"><a href="#cb58-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-333"><a href="#cb58-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-334"><a href="#cb58-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-335"><a href="#cb58-335" aria-hidden="true" tabindex="-1"></a>House is new.</span>
+<span id="cb58-336"><a href="#cb58-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-339"><a href="#cb58-339" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-340"><a href="#cb58-340" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var4)</span>
+<span id="cb58-341"><a href="#cb58-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-342"><a href="#cb58-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-343"><a href="#cb58-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-344"><a href="#cb58-344" aria-hidden="true" tabindex="-1"></a>House is old.</span>
+<span id="cb58-345"><a href="#cb58-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-348"><a href="#cb58-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb58-349"><a href="#cb58-349" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model, <span class="at">newdata =</span> var3)</span>
+<span id="cb58-350"><a href="#cb58-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-351"><a href="#cb58-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb58-352"><a href="#cb58-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-353"><a href="#cb58-353" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3h</span></span>
+<span id="cb58-354"><a href="#cb58-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-355"><a href="#cb58-355" aria-hidden="true" tabindex="-1"></a>I prefer the model with interaction between size and new because its adjusted R squared is slightly higher than that of the model without interaction. Be it only 0.02 points, it still shows a better fit compared to the other model. The p value for the interaction between new and old is also labeled as significant in the interaction model. They are so similar, but again I would choose the interaction model because the adjusted R squared is slightly higher.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
