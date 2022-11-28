@@ -1,0 +1,233 @@
+---
+title: "HW 4"
+author: "Karen Detter"
+desription: "HW 4 - Modeling"
+date: "08/02/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+### A.
+
+$\hat{y}$ (predicted selling price) =
+```{r}
+yhat <- (-10536 + (53.8*1240) + (2.84*18000))
+yhat
+```
+
+residual = observed - predicted
+```{r}
+res <- 145000 - 107296
+res
+```
+
+The home in question sold for $37,704 more than the equation predicted, indicating that other variables that were not included in the equation have an impact on selling price.
+
+### B.
+
+For fixed lot size, the house selling price is predicted to increase 53.8 for each square foot in home size. When lot size is fixed, that variable is disregarded, leaving $\hat{y}$ = 53.8$x_{1}$, which means that for each unit of x, the predicted value of y will increase by 53.8.
+
+### C.
+```{r}
+incr <- 53.8 / 2.84
+incr
+```
+
+Lot size ($x_{2}$) would need to increase by 18.94 units to have the same impact as a one unit increase in home size ($x_{1}$).
+
+## Question 2
+
+### A.
+```{r}
+#test hypothesis with two sample t-test
+
+data("salary")
+t.test(salary ~ sex, data = salary)
+```
+
+Although the sample estimate means show a difference in salary between men and women, the null hypothesis that there is no difference between the two groups cannot be rejected on the basis of this test alone, due to the p-value of .09 being higher than the threshhold of .05.
+
+### B.
+```{r}
+#run a multiple linear regression with all variables explaining salary
+
+model <- lm(salary ~ ., data = salary)
+summary(model)
+```
+```{r}
+#obtain a 95% confidence interval for difference in salary by sex
+
+confint(model, 'sexFemale')
+```
+
+Because the confidence interval includes 0, it was correct to reject the null hypothesis.
+
+### C.
+
+In this model, the **intercept** shows a base expected salary of 15746 for all observations in the data set, without consideration of any other variables. **Rank** and **years in current rank** show statistically significant effects on **salary**. 
+
+Gaining a level of **degree** (from Masters to PhD) is associated with a salary increase of 1389, but not within the statistically significant threshhold. 
+
+Moving from **rankAsst** to **rankAssoc** corresponds to an increase in salary of 5292, and moving from **rankAsst** to **rankProf** yields a salary increase of 11119. 
+
+Each unit of **years in current rank** corresponds to a salary increase of 476, while each unit of **years since highest degree** is associated with a *decrease* in salary of 125, although this association is not statistically significant.
+
+Being **female** is associated with an increase in salary of 1166, but the relationship is not at the level of statistical significance.
+
+### D.
+```{r}
+#change baseline for rank category
+salary$rank <- relevel(salary$rank, ref = 'Prof')
+
+summary(lm(salary ~ ., data = salary))
+```
+
+Having the rank of Associate correlates to a salary of 5826 less than the salary correlated to the rank of Professor, and the rank of Assistant correlates to a salary of 11119 less than that of the Professor rank.
+
+### E.
+```{r}
+#refit model excluding the rank variable
+model_alt <- lm(salary ~ degree + sex + year + ysdeg, data = salary)
+summary(model_alt)
+```
+
+In this model, being female is associated with a salary decrease of 1287, but the effect is, again, well outside the acceptable range of statistical significance.
+
+### F.
+```{r}
+#create new variable for hiring dean
+hiring_dean <- salary %>%
+              mutate(dean = 
+                       case_when(`ysdeg` > 15 ~ 'prev',
+                                 `ysdeg` <= 15 ~ 'new'))
+
+#fit new model to test hypothesis while avoiding multicollinearity
+dean_model <- lm(salary ~ . - ysdeg, data = hiring_dean)
+summary(dean_model)
+```
+
+Because the variable *ysdeg* would, by nature, be highly correlated to the variable *dean*, *ysdeg* was omitted in the model examining the effect of *dean* on salary.
+
+The resulting model shows a statistically significant (p = .05) effect of hiring dean on salary, with hiring by the previous dean correlating to a decrease in salary of 2163.
+
+## Question 3
+
+### A.
+```{r}
+data("house.selling.price")
+summary(lm(Price ~ Size + New, data = house.selling.price))
+```
+
+Size and whether a house is new each have a statistically significant effect on house price, both with p-values well below the significance threshhold of .05.
+
+Each unit of size is associated with an increase in price of 116, and new houses are associated with a price increase of 57736.
+
+### B.
+
+**prediction equation:**
+
+$\hat{y}$ = -40231 + 116$x_{1}$ + 57736$x_{2}$
+
+**where** y = house selling price, $x_{1}$ = house size (in sq ft), $x_{2}$ = house is new
+
+**alternative prediction equation:**
+
+$\hat{y}$ = -40231 + 116$x_{1}$ + 0$x_{2}$
+
+**where** y = house selling price, $x_{1}$ = house size (in sq ft), $x_{2}$ = house is not new
+
+### C.
+
+*(i)*
+
+**3000 sq ft, new house:**
+
+$\hat{y}$ = -40231 + 116(3000) + 57736
+          = -40231 + 348000 + 57736
+          = -40231 + 405736
+          = $365,505
+
+*(ii)*
+
+**3000 sq ft, not new house:**
+
+$\hat{y}$ = -40231 + 116(3000) + 0
+          = -40231 + 348000
+          = $307,769
+
+### D.
+```{r}
+#fit model with an interaction term between variables
+
+summary(lm(Price ~ Size + New + Size*New, data = house.selling.price))
+```
+
+### E.
+
+The prediction equations generated from this model are:
+
+**(i) New**
+
+Price = -22228 + 104(Size) - 78528 + 62(Size)
+
+**(ii) Not New**
+
+Price = -22228 + 104(Size)
+
+Therefore, new houses are associated with an additional price increase of 62 per unit of size increase.
+
+### F.
+
+*Predicted Prices:*
+
+**(i) 3000 sq ft New House**
+
+Price = -22228 + 104(3000) - 78528 + 62(3000)
+      = $397,244
+
+**(ii) 3000 sq ft Not New House**
+
+Price = -22228 + 104(3000)
+      = $289,772
+
+### G.
+
+*Predicted Prices:*
+
+**(i) 1500 sq ft New House**
+
+Price = -22228 + 104(1500) - 78528 + 62(1500)
+      = $148,244
+
+**(ii) 1500 sq ft Not New House**
+
+Price = -22228 + 104(1500)
+      = $133,772
+
+The ratio between the predicted selling prices of the new and not new, 1500 sq ft house is 1.108.
+The ratio between the predicted selling prices of the new and not new, 3000 sq ft house is 1.371.
+
+As size increases, the price difference between new and not new houses also increases, indicating that there *is* an interaction between *Size* and *New*.
+
+### H.
+
+The model with the interaction term between *Size* and *New* seems to better represent the relationship between these variables and *Price*. Also, the Adjusted $R^{2}$ for this model is a bit higher, indicating that it explains a higher portion of the variance than the original model.
