@@ -23,8 +23,7 @@ categories:
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-library(Hmisc)
-library(pscl)
+
 library(magrittr)
 
 knitr::opts_chunk$set(echo = TRUE)
@@ -34,7 +33,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death. The WHO states close to 1.5 million people died due to diabetes and its complication in 2019 alone. It is a growing problem that requires dedicated research to aim at the slowdown and prevention of future cases. 
 
-## Research Questions
+## Research Question
+
 1. What risk factors are most predictive of diabetes? 
 
 Research on Diabetes is ongoing and in-depth within the medical field. The prevalence and incidence of diabetes mellitus type 2 (DQ2) have increased consistently for decades, giving way to an increase in mortality related to diabetes. Commonly in the medical field, many risk factors are used to measure a patient’s risk of developing DM2, such as obesity, family history, hypertension and changes in fasting blood sugar levels. 
@@ -55,28 +55,27 @@ E. Y. S. E. (2022, June 22). Prediction of type 2 diabetes mellitus onset using 
 
 Body mass index (BMI), glucose, and age are positive predictors of diabetes mellitus type 2.  
 
-
-Both hypothesis have been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. 
+This hypothesis has been tested in the above mentioned studies. The contribution from this project will be the additional support for or against the hypotheses from the analysis of different data. 
 
 ## Descriptive Statistics
 
-The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0, 11 patients had a body mass index of 0, 28 others had a diastolic blood pressure of 0, 192 others had skin fold thickness readings of 0, and 140 others had serum insulin levels of 0. After cleaning the data by removing the cases with numbers that are incompatible with life, 392 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.
+The data was collected by the “National Institute of Diabetes and Digestive and Kidney Diseases” as part of the Pima Indians Diabetes Database (PIDD). A total of 768 cases are available in PIDD. However, 5 patients had a glucose of 0 and 11 patients had a body mass index of 0. After cleaning the data by removing the cases with numbers that are incompatible with life in categories important to the current research, 752 cases remained. All patients belong to the Pima Indian heritage (subgroup of Native Americans), and are females aged 21 years and above.
 
 The datasets consists of 9 medical predictor (independent) variables and one target (dependent) variable, outcome.  
 
-**Pregnancies:** Number of times a woman has been pregnant
-**Glucose:** Plasma Glucose concentration of 2 hours in an oral glucose tolerance test
-**BloodPressure:** Diastolic Blood Pressure (mm hg)
-**SkinThickness:** Triceps skin fold thickness(mm)
-**Insulin:** 2 hour serum insulin(mu U/ml)
-**BMI:** Body Mass Index ((weight in kg/height in m)^2)
-**Age:** Age(years)
-**DiabetesPedigreeFunction:** scores likelihood of diabetes based on family history
-**Outcome:** 0(doesn't have diabetes) or 1 (has diabetes)
+**Pregnancies:** Number of times a woman has been pregnant  
+**Glucose:** Plasma Glucose concentration of 2 hours in an oral glucose tolerance test  
+**BloodPressure:** Diastolic Blood Pressure (mm hg)  
+**SkinThickness:** Triceps skin fold thickness(mm)  
+**Insulin:** 2 hour serum insulin(mu U/ml)  
+**BMI:** Body Mass Index ((weight in kg/height in m)^2)  
+**Age:** Age(years)  
+**DiabetesPedigreeFunction:** scores likelihood of diabetes based on family history  
+**Outcome:** 0 (doesn't have diabetes) or 1 (has diabetes)
 
 
 ```{r}
-df<- read_csv("diabetes2.csv")
+df<- read_csv("_data/diabetes2.csv")
 dim(df)
 summary(df)
 head(df)
@@ -94,7 +93,7 @@ Glucose, blood pressure, skin thickness, insulin, BMI and Age are not variables 
 
 ```{r}
 #Remove rows with 0 in respective columns
-df <- df[apply(df[c(2,6,8)],1,function(z) !any(z==0)),] 
+df <- df[apply(df[c(2,6)],1,function(z) !any(z==0)),] 
 
 #Verify 0s are gone in selected rows
 colSums(df==0)
@@ -109,14 +108,14 @@ glimpse(df)
 #Summarize df
 summary(df)
 ```
-At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70.66, a BMI of 33, and age of 30.86 are reasonably accurate of our population. The data is clean and ready for analysis. 
+At a glance, this summary is more fitting after having cleaned our data. An average of 3 pregnancies, considering our 21+ female population, makes sense. A mean glucose of 122, blood pressure of 70, a BMI of 33, and age of 33 are reasonably accurate for our population. 
 
 ```{r}
 #Rename columns
 colnames(df) <- c("pregnancies", "glucose", "bp", "skin_thickness", "insulin", "bmi", "dpf", "age", "diabetes")
 dim(df)
 ```
-We have 752 observations and 9 variables with which to work. 
+We have 752 observations and 9 variables with which to work. The data is clean and ready for analysis. 
 
 Let's get familiar with the data set by observing the scatterplot matrix and histograms for each variable.
 
@@ -165,19 +164,19 @@ head(train)
 As a reminder, pregnancies, age, and BMI are all right skewed. So, we will use the logarithm of those variables in our regressions. 
 
 ```{r}
-#Model using all independent variables
+#Model 1 using all independent variables
 all_var <- glm(diabetes ~ ., data = train, family = binomial)
 
-#Model using BMI, glucose, and age
+#Model 2 using BMI, glucose, and age
 bga <- glm(diabetes ~ . -pregnancies, data = train, family = binomial)
 
-#Model using BMI and glucose
+#Model 3 using BMI and glucose
 bg <- glm(diabetes ~ .-age -pregnancies, data = train, family = binomial)
 
-#Model using BMI, glucose, age, and an interaction between pregnancies and age.
+#Model 4 using BMI, glucose, age, and an interaction between pregnancies and age.
 ia <- glm(diabetes ~ glucose + bmi + age*pregnancies, data = train, family = binomial)
 
-#Model with BMI, glucose, and pregnancies (without age)
+#Model 5 with BMI, glucose, and pregnancies (without age)
 bgp <- glm(diabetes ~ . -age, data = train, family = binomial)
 ```
 
@@ -228,11 +227,14 @@ The hypothesis that BMI, glucose tolerance results, and age are positively assoc
 
 ## Model Comparisons
 
+### Model 1
 ```{r}
 #Summarize model including BMI, glucose, age, and pregnancies
 summary(all_var)
 ```
 We can see with the all variable model that collectively, independent variables including pregnancies, glucose, bmi, dpf and even blood pressure have low p-values. That suggests those variables have a relationship with the outcome variable. We can use AIC as an indicator of model fitness, with this model being 517.97. Let's compare this with the following models.
+
+### Model 2
 
 ```{r}
 #Summarize BMI, glucose, and age model
@@ -242,6 +244,8 @@ ggplot(train, aes(x=age, y=bmi, color=glucose)) + geom_point() + facet_grid(~dia
 ```
 The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. 
 
+### Model 3 
+
 ```{r}
 #Summarize BMI and glucose model
 summary(bg)
@@ -249,6 +253,8 @@ summary(bg)
 ggplot(train, aes(x=glucose, y=bmi, color=diabetes)) + geom_point() + facet_grid(~diabetes)
 ```
 This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. 
+
+### Model 4
 
 ```{r}
 #Summarize model including interaction between age and pregnancies 
@@ -259,18 +265,20 @@ ggplot(train, aes(x=age, y=bmi, color=pregnancies)) + geom_point() + facet_grid(
 ```
 With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. 
 
+### Model 5 
+
 ```{r}
 #Summarize model including without age
 summary(bgp)
 
 ggplot(train, aes(x=pregnancies, y=bmi, color=glucose)) + geom_point() + facet_grid(~diabetes)
 ```
-Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, the model including BMI and glucose and controlling for an interaction between age and pregnancy has the best fit of all models tested. 
+Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, model 4 which includes BMI and glucose and controls for an interaction between age and pregnancy has the best fit of all models tested. 
 
 We can use ANOVA to analyze the table of deviance of our regression model. 
 
 ```{r}
-#ANOVA test on interaction model
+#ANOVA test on interaction model 4
 anova(ia, test = "Chisq")
 ```
 All of our variables have small p-values and appear good predictors of the diabetes outcome, with the exception of age. However, age is needed for the interaction variable. 
@@ -280,9 +288,11 @@ Let's check one more thing to ensure we have a good fit.
 #Check pseudo R2 for interaction model
 pR2(ia)
 ```
-With a McFadden R-squared of 0.27, this model can be considered an excellent fit. 
+With a McFadden R-squared of 0.27, model 4 can be considered an excellent fit. 
 
 ## Diagnostics
+
+To test the model, the next step is to apply it to the test subset of data. 
 
 ```{r}
 #Apply model to test data
@@ -311,6 +321,6 @@ plot(ia)
 
 
 
-*
-Plan to work on fixing the heteroscedasticity by log transforming BMI, pregnancies, and age when those variables are included in models because they are right skewed data. However, it is taking time figuring out how to do a multiple logistics regression without errors..
-*
+
+*Plan to work on fixing the heteroscedasticity by log transforming BMI, pregnancies, and age when those variables are included in models because they are right skewed data. However, it is taking time figuring out how to do a multiple logistics regression without errors..*
+
