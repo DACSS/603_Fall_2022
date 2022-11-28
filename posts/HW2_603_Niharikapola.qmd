@@ -1,0 +1,213 @@
+---
+title: "Homework-2"
+author: "Niharika Pola"
+description: "Homework-2"
+date: "17/10/2022"
+format:
+  html:
+    df-print: paged
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw2
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(ggplot2)
+library(stats)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1:
+
+```{r}
+procedure <- c("Bypass", "Angiography")
+s_size <- c(539, 847)
+mean_wait_time <- c(19, 18)
+s_sd <- c(10, 9)
+
+surgery <- data.frame(procedure, s_size, mean_wait_time, s_sd)
+surgery
+```
+
+```{r}
+standard_error <- s_sd / sqrt(s_size)
+standard_error
+```
+
+```{r}
+confidence_level <- 0.90
+tail_area <- (1-confidence_level)/2
+tail_area
+```
+
+```{r}
+t_score <- qt(p = 1-tail_area, df = s_size-1)
+t_score
+```
+
+```{r}
+CI <- c(mean_wait_time - t_score * standard_error,
+        mean_wait_time + t_score * standard_error)
+CI
+```
+
+We can be 90% confident that the population mean wait time for the bypass procedure is between 18.29029 and 19.70971 days.
+
+We can be 90% confident that the population mean wait time for the angiography procedure is between 17.49078 and 18.50922 days.
+
+From the above results, we can be sure that confidence interval of angiography procedure is narrower.
+
+## Question 2
+
+```{r}
+prop.test(567, 1031, conf.level = .95)
+```
+
+The point estimate, p, of the proportion of all adult Americans who believe that a college education is essential for success is 0.5499515 and confidence interval at 95% confidence level for p is \[0.5189682, 0.5805580\].
+
+## Question 3
+
+```{r}
+ME <- 5
+z <- 1.96
+s_sd <- (200-30)/4
+
+s_size <- ((z*s_sd)/ME)^2
+s_size
+```
+
+The necessary size for the sample is 278.
+
+## Question-4
+
+### A
+
+We assume that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ ≠ 500
+
+We will reject the null hypothesis at a p-value less than or equal to 0.05
+
+```{r}
+s_mean <- 410
+μ <- 500
+s_sd <- 90
+s_size <- 9
+```
+
+### Calculating test-statistic
+
+```{r}
+p <- 2*pt(t_score, s_size-1)
+p
+```
+
+The test-statistic is -3 and p-value is 0.01707168. As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the mean income of female employees is not equal to \$500.
+
+### B
+
+We assume that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ \< 500
+
+We will reject the null hypothesis at a p-value less than 0.05
+
+```{r}
+p <- pt(t_score, s_size-1, lower.tail = TRUE)
+p
+```
+
+The p-value is 0.008535841. As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the mean income of female employees is less than \$500.
+
+### C
+
+We assume that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ \> 500
+
+We will reject the null hypothesis at a p-value less than 0.05
+
+```{r}
+p <- pt(t_score, s_size-1, lower.tail = FALSE)
+p
+```
+
+The p-value is 0.9914642. As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the mean income of female employees is greater than \$500.
+
+## Question 5
+
+### A
+
+We assume that the sample is random and that the population has a normal distribution.
+
+Null hypothesis: H0: μ = 500
+
+Alternative hypothesis: Ha: μ ≠ 500
+
+We will reject the null hypothesis at a p-value less than 0.05
+
+### Calculating t-statistic and p-value for Jones
+
+```{r}
+s_mean <- 519.5
+μ <- 500
+se <- 10
+s_size <- 1000
+
+jt <- (s_mean-μ)/se
+jt
+
+p <- 2*pt(jt, s_size-1, lower.tail = FALSE)
+p
+```
+
+### Calculating t-statistic and p-value for Smith
+
+```{r}
+s_mean <- 519.7
+μ <- 500
+se <- 10
+s_size <- 1000
+
+jt <- (s_mean-μ)/se
+jt
+
+p <- 2*pt(jt, s_size-1, lower.tail = FALSE)
+p
+```
+
+The test-statistic is 1.95, p-value is 0.05145555 for Jones and the test-statistic is 1.97, p-value is 0.05145555 for Smith.
+
+### B
+
+The p-value is 0.05145555 for Jones. As p-value is greater than the 0.05, we fail to reject the null hypothesis. The p-value is 0.04911426 for Jones. As p-value is less than the 0.05, we reject the null hypothesis. Therefore, the result is statistically significant for Smith, but not Jones.
+
+### C
+
+If we fail to report the P-value and simply state whether the P-value is less than/equal to or greater than the defined significance level of the test, one cannot determine the strength of the conclusion. In the Jones/Smith example, reporting the results only as \*P ≤ 0.05\* versus \*P \> 0.05\* will lead to different conclusions about very similar results.
+
+## Question 6
+
+```{r}
+gas_taxes <- c(51.27, 47.43, 38.89, 41.95, 28.61, 41.29, 52.19, 49.48, 35.02, 48.13, 39.28, 54.41, 41.66, 30.28, 18.49, 38.72, 33.41, 45.02)
+
+t.test(gas_taxes, mu = 18.4, conf.level = .95)
+```
+
+The 95% confidence interval for the mean tax per gallon is 36.23386 through 45.49169. We cannot conclude with 95% confidence that the mean tax is less than 45 cents, since the 95% confidence interval contains values above 45 cents.
