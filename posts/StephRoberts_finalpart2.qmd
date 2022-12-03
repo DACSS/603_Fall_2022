@@ -132,6 +132,7 @@ The scatterplot matix shows that our variables generally lack linear relationshi
 The histograms show us the distribution of all our variables. Pregnancies is right skewed with more women having a smaller number of pregnancies and a small number having over 10. Glucose appears to follow a close-to-normal distribution with the mean just over 100. BMI follows a similar pattern with a central value of just over 30. Age is right skewed with the majority of the sample appearing to be in their 20s and slower tapering off to ages in their 50s. This is a good place to start. The only variable we cannot view in a histogram is the outcome variable due to its binary nature as a dummy variable. 
 
 ```{r}
+#Visualize relationship of variables
 bgap <- as.data.frame(df[, c(1,2,6,8,9)])
 pairs(bgap)
 ```
@@ -143,8 +144,31 @@ ggplot(df, aes(x=factor(diabetes))) +
   scale_x_discrete(labels=c('No Diabetes','Diabetes'))+
   xlab("Outcome")+
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
+table(df$diabetes)
 ```
 About a third of our sample have diabetes, with 264 cases with diabetes and 488 without. 
+
+```{r}
+#Boxplot of BMI vs. diabetes
+
+boxplot(bmi~diabetes, df, names=c("No Diabetes", "Diabetes"), col=c("darkolivegreen2", "tomato"), ylab="Body Mass Index", xlab=" ")
+```
+The interquartile range(IQR) for BMI between those without and those with diabetes is roughly the same size. However, the diabetes IQR and median is distinctly higher on the BMI range than for those without the disease.
+
+```{r}
+#Boxplot of glucose vs. diabetes
+
+boxplot(glucose~diabetes, df, names=c("No Diabetes", "Diabetes"), col=c("darkolivegreen2", "tomato"), ylab="Plasma Glucose", xlab=" ")
+```
+The difference in IQR for plasma glucose measured against diabetes is remarkable. The median for those with diabetes exceeds the upper quartile of those without. 
+
+```{r}
+#Boxplot of age vs. diabetes
+
+boxplot(age~diabetes, df, names=c("No Diabetes", "Diabetes"), col=c("darkolivegreen2", "tomato"), ylab="age", xlab=" ")
+```
+Not as starkly different as the previous variable, but age also has an IQR difference where diabetes is higher on the range. All 3 of these boxplots tend to suggest those with diabetes have higher values in the variables in question. Let's take a closer look at the stats to measure our hypothesis.
 
 ## Hypothesis Testing
 
