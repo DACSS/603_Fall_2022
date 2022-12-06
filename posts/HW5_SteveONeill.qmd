@@ -1,0 +1,215 @@
+---
+title: "Homework 5"
+author: "Steve O'Neill"
+description: "Homework 5"
+date: "11/27/2022"
+df-paged: true
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+---
+
+```{r}
+library(smss)
+library(tidyverse)
+data(house.selling.price.2)
+```
+
+*For the house.selling.price.2 data the tables below show a correlation matrix and a model fit using four predictors of selling price.*
+
+In this data, the variables are meant as:
+
+`P`: selling price
+
+`Be`: number of bedrooms
+
+`Ba`: number of bathrooms
+
+`New`: whether new (1 = yes, 0 = no)
+
+Here is my impression of the correlation matrix:
+
+```{r}
+cor(house.selling.price.2)
+```
+
+And regression output:
+
+```{r}
+fit <- lm(P ~ ., data=house.selling.price.2)
+summary(fit)
+```
+
+## Automated variable selection
+
+*For backward elimination, which variable would be deleted first? Why?*
+
+If I was doing backward elimination, I would pick a significance level (let's say alpha = .05) and, at each stage, delete the variable with the largest p-value. I would stop when all variables are significant.
+
+In this example, I would delete the `Be` (bedroom) variable.
+
+```{r}
+summary(lm(P ~ . - Be, data=house.selling.price.2))
+```
+
+*For forward selection, which variable would be added first? Why?*
+
+Like backward elimination, I would also predetermine a significance level (say, 5%). But here I would begin with no explanatory variable.
+
+The `Size` variable would be added first in forward selection.
+
+```{r}
+intercept_only <- lm(P ~ 1, data=house.selling.price.2)
+
+step(intercept_only, direction = "forward", scope=~ S + Be + Ba + New)
+```
+
+*Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?*
+
+As pointed out, `Be` does have a substantial correlation with `P` at .59. However, the large P-values in multiple regression indicate that while holding other variables fixed, it does not 'explain' the response variable of `P`, price.
+
+*Using software with these four predictors, find the model that would be selected using each criterion:*
+
+I'm not sure if I exactly get the question, but I will arbitrarily compare some models that I have made from combinations of the predictors.
+
+```{r}
+mod1 <- lm(P ~ S, data=house.selling.price.2)
+mod2 <- lm(P ~ S + New, data=house.selling.price.2)
+mod3 <- lm(P ~ S + New + Ba, data=house.selling.price.2)
+mod4 <- lm(P ~ .,data=house.selling.price.2)
+
+#A few with interaction variables
+
+mod5 <- lm(P ~ S + New + S*New, data=house.selling.price.2)
+mod6 <- lm(P ~ S + New + Ba + S*New, data=house.selling.price.2)
+mod7 <- lm(P ~ . + S * New, data=house.selling.price.2)
+```
+
+###R2
+
+```{r}
+summary(mod1)$r.squared
+summary(mod2)$r.squared
+summary(mod3)$r.squared
+summary(mod4)$r.squared
+summary(mod5)$r.squared
+summary(mod6)$r.squared
+summary(mod7)$r.squared
+```
+Using 'highest R-squared' as our criteria, `P ~ . + S * New` is the winner. That one includes all the predictor variables in the equation, with size and newness as interaction variables.
+
+###Adjusted R2
+
+```{r}
+summary(mod1)$adj.r.squared
+summary(mod2)$adj.r.squared
+summary(mod3)$adj.r.squared
+summary(mod4)$adj.r.squared
+summary(mod5)$adj.r.squared
+summary(mod6)$adj.r.squared
+summary(mod7)$adj.r.squared
+```
+Adjusted R-squared penalizes for adding more explanatory variables to the regression. However, it is still a virtual tie between `P ~ S + New + Ba + S*New` and `P ~ . + S * New`. Still, the latter wins. 
+
+###PRESS
+
+This elegant function is found on [Github](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0) and requires no additional libraries.
+
+```{r}
+PRESS <- function(linear.model) {
+  #' calculate the predictive residuals
+  pr <- residuals(linear.model)/(1-lm.influence(linear.model)$hat)
+  #' calculate the PRESS
+  PRESS <- sum(pr^2)
+  
+  return(PRESS)
+}
+```
+
+According to a comparison of the PRESS statistics, the best model is `P ~ S + New + Ba + S*New` with a PRESS of 27501.78
+```{r}
+PRESS(mod1)
+PRESS(mod2)
+PRESS(mod3)
+PRESS(mod4)
+PRESS(mod5)
+PRESS(mod6)
+PRESS(mod7)
+```
+###AIC
+
+According to AIC, the best (lowest) score is 774.9558, associated with the model `P ~ S + New + Ba + S*New`
+```{r}
+AIC(mod1)
+AIC(mod2)
+AIC(mod3)
+AIC(mod4)
+AIC(mod5)
+AIC(mod6)
+AIC(mod7)
+```
+###BIC
+
+According to BIC, the best model is the same - `P ~ S + New + Ba + S*New`, with a statistic of 790.1514.
+
+```{r}
+BIC(mod1)
+BIC(mod2)
+BIC(mod3)
+BIC(mod4)
+BIC(mod5)
+BIC(mod6)
+BIC(mod7)
+```
+
+*Explain which model you prefer and why.*
+
+I prefer the model favored by AIC and BIC, `P ~ S + New + Ba + S*New`. Intuitively, it makes sense that bedrooms are not a significant driver of a house's price, although bathrooms are. And the size of a house is more consequential on the outcome of price when the building is newer.
+
+
+```{r}
+par(mfrow = c(2,3)); plot(mod2, which = 1:6)
+par(mfrow = c(2,3)); plot(mod5, which = 1:6)
+par(mfrow = c(2,3)); plot(mod6, which = 1:6)
+par(mfrow = c(2,3)); plot(mod7, which = 1:6)
+```
+
+# Question 2
+
+```{r}
+data(trees)
+trees
+```
+
+*From the documentation: "This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labeled Girth in the data. It is measured at 4 ft 6 in above the ground."*
+
+*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular, *
+
+*fit a multiple regression model with  the Volume as the outcome and Girth and Height as the explanatory variables*
+
+```{r}
+mod8 <- lm(Volume ~ Girth + Height, data = trees)
+```
+
+*Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?*
+
+These plots show some significant issues with the regression `Volume ~ Girth + Height`. 
+
+1. The 'Residuals vs Fitted' graph is U-shaped, indicating an issue with linearity. 
+
+2. The Normal Q-Q graph actually looks pretty good except for a wild outlier - this shows an issue with normality.
+
+3. The Scale-Location graph should also be flat, but isn't. This indicates an issue with homoscedasticity.
+
+4. The Cook's distance graph shows a clear outlier in one of the observations. A 'high leverage' observation (above the benchmark of 1 or n/4) may effect the regression if it were taken out.
+
+5. The Residuals vs Leverage plot and Cook's dist vs Leverage plot also show the influence of this outlier.
+
+```{r}
+par(mfrow = c(2,3)); plot(mod8, which = 1:6)
+```
