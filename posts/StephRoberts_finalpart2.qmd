@@ -23,7 +23,8 @@ categories:
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
-
+library(pROC)
+library(Hmisc)
 library(magrittr)
 
 knitr::opts_chunk$set(echo = TRUE)
@@ -117,7 +118,7 @@ dim(df)
 ```
 We have 752 observations and 9 variables with which to work. The data is clean and ready for analysis. 
 
-Let's get familiar with the data set by observing the scatterplot matrix and histograms for each variable.
+Let's get familiar with the data set by observing the histograms for each variable.
 
 ```{r}
 #Scatterplot matrix
@@ -140,11 +141,34 @@ pairs(bgap)
 ggplot(df, aes(x=factor(diabetes))) +
   geom_bar(fill = "#0073C2FF")+
   scale_x_discrete(labels=c('No Diabetes','Diabetes'))+
-  xlab("Outcome")
+  xlab("Outcome")+
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 ```
-About a third of our sample have diabetes. 
+About a third of our sample have diabetes, with 264 cases with diabetes and 488 without. 
 
 ## Hypothesis Testing
+
+To test our hypothesis we could use either linear regression or logistics regression. Considering the outcome variable is binary, logistics regression is likely going to be best. First, though, let's try to plot a linear regression as a type of diagnostics test. 
+
+### Diagnostics
+
+```{r}
+dlm <- lm(diabetes ~ bmi + glucose + age, data = df)
+
+
+#Diagnostic plot of model
+plot(dlm)
+```
+**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. This is likely due to our model representing two distinct outcomes. It therefore breaks normality. 
+
+**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top). It  also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."
+
+**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. There is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. 
+
+**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. 
+
+**Conclusion**: A linear regression does not appear to be the best regression analysis to use for this data. Instead, we will work with logistics regression to test our hypothesis, then train and test the data. 
+
 
 ```{r}
 #Create training and test data
@@ -161,78 +185,119 @@ nrow(train)
 nrow(test)
 head(train)
 ```
-As a reminder, pregnancies, age, and BMI are all right skewed. So, we will use the logarithm of those variables in our regressions. 
-
-```{r}
-#Model 1 using all independent variables
-all_var <- glm(diabetes ~ ., data = train, family = binomial)
-
-#Model 2 using BMI, glucose, and age
-bga <- glm(diabetes ~ . -pregnancies, data = train, family = binomial)
-
-#Model 3 using BMI and glucose
-bg <- glm(diabetes ~ .-age -pregnancies, data = train, family = binomial)
-
-#Model 4 using BMI, glucose, age, and an interaction between pregnancies and age.
-ia <- glm(diabetes ~ glucose + bmi + age*pregnancies, data = train, family = binomial)
-
-#Model 5 with BMI, glucose, and pregnancies (without age)
-bgp <- glm(diabetes ~ . -age, data = train, family = binomial)
-```
-
 Our hypothesis involves the BMI, glucose, and age variables. First we can take a look at them individually. 
 
 ```{r}
-#Generalized linear model can be best for predicting categorical outcome
+#Logistics regression is best for binomial outcome variables 
 #Regression model on BMI
-mbmi <- glm(diabetes ~ bmi, data = train)
+mbmi <- glm(diabetes ~ bmi, data = train, family = binomial(link = "logit"))
 summary(mbmi)
 
-ggplot(data = train, aes(x =bmi, y = diabetes)) +
-  geom_point() +
-  geom_smooth(method = 'lm')
+exp(mbmi$coefficients)
+
+ggplot(train, aes(x =bmi, y = diabetes)) +
+  geom_point(alpha=.5, col="steelblue") +
+  geom_smooth(method = 'glm', se=FALSE, method.args = list(family=binomial))
 ```
-Interpretation: The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.019. The standard errors are small. Our t-values are large compared to our standard error and relatively far from 0. All that, combined with a very small p-value of < 5.15e-11, indicate we can reject the null hypothesis and conclude a relationship between BMI and diabetes. 
+Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in BMI multiplies the odds of diabetes by 1.096. The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.091. The very small p-value of 5.58e-13 indicates we can reject the null hypothesis and conclude a relationship between BMI and diabetes. 
 
 ```{r}
 #Regression model on glucose 
-mgluc <- glm(diabetes ~ glucose, data = train)
+mgluc <- glm(diabetes ~ glucose, data = train, family = binomial(link = "logit"))
 summary(mgluc)
 
+exp(mgluc$coefficients)
+
 ggplot(data = train, aes(x = glucose, y = diabetes)) +
-  geom_point() +
-  geom_smooth(method = 'lm')
+  geom_point(alpha=.5, col="darkseagreen") +
+  geom_smooth(method = 'glm', se=FALSE, method.args = list(family=binomial))
 ```
-Interpretation: Interestingly, the values of this regression mirror that of the BMI regression. With a very small p-value, < 2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. 
+Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in plasma glucose concentration multiplies the odds of diabetes by 1.040. With a very small p-value, <2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. 
 
-The similarities is regression model values between BMI and glucose sparked a curiosity. Let's see if BMI and glucose are specifically correlated to one another. 
-```{r}
-cor.test(train$bmi, train$glucose, method = "pearson")
-```
-This shows a very small p-value of 8.477e-09, which is well under the significance level alpha = 0.5. However, the correlation coefficient suggests a weak positive correlation. This suggests the variables are only weakly related.
-
-Let's continue with our regression model hypothesis testing of individual variables. 
 ```{r}
 #Regression model on age
-mage <- glm(diabetes ~ age, data = train)
+mage <- glm(diabetes ~ age, data = train, family = binomial(link = "logit"))
 summary(mage)
 
-ggplot(data = train, aes(x = age, y = diabetes)) +
-  geom_point() +
-  geom_smooth(method = 'lm')
-```
-Interpretation: Similar to the previous variable, age also has small residuals and standard error. It shows a p-value of 1.12e-06, indicating a relationship between age and diabetes. 
+exp(mage$coefficients)
 
-The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is true. Next, we can investigate models that could help predict the outcome using these variables. 
+ggplot(data = train, aes(x = age, y = diabetes)) +
+  geom_point(alpha=.5, col="coral") +
+  geom_smooth(method = 'glm', se=FALSE, method.args = list(family=binomial))
+```
+Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in age (years) multiplies the odds of diabetes by 1.037. The estimate shows us that one unit increase of age (1 year), increases the l Similar to the previous variable, age has a small standard error. It shows a p-value of 2.71e-06, indicating a relationship between age and diabetes. 
+
+The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is supported. The small p-values show the variables are significant at 1% level of significance. We are able to reject the null hypothesis. Next, we can investigate models that could help predict the outcome using these variables. 
 
 ## Model Comparisons
+
+```{r}
+#Model 1 using all independent variables - pregnancies, glucose, bmi, age
+all_var <- glm(diabetes ~ ., data = train, family = binomial(link = "logit"))
+
+#Model 2 using BMI, glucose, and age
+bga <- glm(diabetes ~ . -pregnancies, data = train, family = binomial(link = "logit"))
+
+#Model 3 using BMI and glucose
+bg <- glm(diabetes ~ .-age -pregnancies, data = train, family = binomial(link = "logit"))
+
+#Model 4 using BMI, glucose, age, and an interaction between pregnancies and age.
+ia <- glm(diabetes ~ glucose + bmi + age*pregnancies, data = train, family = binomial(link = "logit"))
+
+#Model 5 with BMI, glucose, and pregnancies (without age)
+bgp <- glm(diabetes ~ . -age, data = train, family = binomial(link = "logit"))
+```
 
 ### Model 1
 ```{r}
 #Summarize model including BMI, glucose, age, and pregnancies
 summary(all_var)
 ```
-We can see with the all variable model that collectively, independent variables including pregnancies, glucose, bmi, dpf and even blood pressure have low p-values. That suggests those variables have a relationship with the outcome variable. We can use AIC as an indicator of model fitness, with this model being 517.97. Let's compare this with the following models.
+We can see with the all variable model that pregnancies, glucose, and bmi have low p-values. That suggests those variables have a relationship with the outcome variable. 
+
+```{r}
+#Find Odds ratios
+exp(all_var$coefficients)
+```
+The odds ratio for pregnancies, glucose, bmi, and age are 1.130, 1.036, 1.085, and 1.013 respectively. They are all greater than 1, suggesting each variable increases the likelihood of the outcome variable. 
+
+```{r}
+#Classify test set
+test$pred_prob_mod1 <- predict(all_var, newdata = test, type = "response")
+test$pred_class_mod1 <- ifelse(test$pred_prob_mod1 > 0.5, 1, 0)
+glimpse(test)
+```
+
+```{r}
+#Create confusion matrix
+cm_mod1 <- table(test$pred_class_mod1, test$diabetes)
+print(cm_mod1)
+```
+The predicted outcomes are in rows and true outcomes in columns.
+
+```{r}
+#Calculate precision, recall and F-score
+tp1 <- cm_mod1[2,2]
+tn1 <- cm_mod1[1,1]
+fp1 <- cm_mod1[2,1] 
+fn1 <- cm_mod1[1,2] 
+
+precision1 <- tp1 / (tp1 + fp1)
+recall1 <- tp1 / (tp1 + fn1)
+f1_score1 <- 2 * ((precision1 * recall1 ) / (precision1 + recall1)) 
+accuracy1 <- (tp1 + tn1) / (tp1 + tn1 + fp1 + fn1)
+
+cat('Precision of Model 1:', precision1,'\n')
+cat('Recall of Model 1:', recall1,'\n')
+cat('F1 of Model 1:', f1_score1,'\n' )
+cat('Accuracy of Model 1:', accuracy1)
+```
+
+```{r}
+#Build ROC curve
+plot(roc(test$diabetes ~ test$pred_prob_mod1), print.auc = TRUE, legacy.axes=T)
+```
+The ROC curve a decent size with a area under the curve (AUC) of 0.842. Lets compare this model to our others as we go. 
 
 ### Model 2
 
@@ -244,6 +309,46 @@ ggplot(train, aes(x=age, y=bmi, color=glucose)) + geom_point() + facet_grid(~dia
 ```
 The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. 
 
+```{r}
+#Find Odds ratios
+exp(bga$coefficients)
+```
+
+```{r}
+#Classify test set
+test$pred_prob_mod2 <- predict(bga, newdata = test, type = "response")
+test$pred_class_mod2 <- ifelse(test$pred_prob_mod2 > 0.5, 1, 0)
+```
+
+```{r}
+#Create confusion matrix
+cm_mod2 <- table(test$pred_class_mod2, test$diabetes)
+print(cm_mod2)
+```
+
+```{r}
+#Calculate precision, recall and F-score
+tp2 <- cm_mod2[2,2]
+tn2 <- cm_mod2[1,1]
+fp2 <- cm_mod2[2,1] 
+fn2 <- cm_mod2[1,2] 
+
+precision2 <- tp2 / (tp2 + fp2)
+recall2 <- tp2 / (tp2 + fn2)
+f1_score2 <- 2 * ((precision2 * recall2 ) / (precision2 + recall2)) 
+accuracy2 <- (tp2 + tn2) / (tp2 + tn2 + fp2 + fn2)
+
+cat('Precision of Model 2:', precision2,'\n')
+cat('Recall of Model 2:', recall2,'\n')
+cat('F1 of Model 2:', f1_score2,'\n' )
+cat('Accuracy of Model 2:', accuracy2)
+```
+```{r}
+#Build ROC curve
+plot(roc(test$diabetes ~ test$pred_prob_mod2), print.auc = TRUE, legacy.axes=T)
+```
+Model 2 presents an AUC of 0.846, slightly bigger than model 1. It does become starkly less smooth around 0.6 on the y axis, sensitivity. Let's see if the any other models present this way.
+
 ### Model 3 
 
 ```{r}
@@ -253,6 +358,46 @@ summary(bg)
 ggplot(train, aes(x=glucose, y=bmi, color=diabetes)) + geom_point() + facet_grid(~diabetes)
 ```
 This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. 
+
+```{r}
+#Find Odds ratios
+exp(bg$coefficients)
+```
+
+```{r}
+#Classify test set
+test$pred_prob_mod3 <- predict(bg, newdata = test, type = "response")
+test$pred_class_mod3 <- ifelse(test$pred_prob_mod3 > 0.5, 1, 0)
+```
+
+```{r}
+#Create confusion matrix
+cm_mod3 <- table(test$pred_class_mod3, test$diabetes)
+print(cm_mod3)
+```
+```{r}
+#Calculate precision, recall and F-score
+tp3 <- cm_mod3[2,2]
+tn3 <- cm_mod3[1,1]
+fp3 <- cm_mod3[2,1] 
+fn3 <- cm_mod3[1,2] 
+
+precision3 <- tp3 / (tp3 + fp3)
+recall3 <- tp3 / (tp3 + fn3)
+f1_score3 <- 2 * ((precision3 * recall3 ) / (precision3 + recall3)) 
+accuracy3 <- (tp3 + tn3) / (tp3 + tn3 + fp3 + fn3)
+
+cat('Precision of Model 3:', precision3,'\n')
+cat('Recall of Model 3:', recall3,'\n')
+cat('F1 of Model 3:', f1_score3,'\n' )
+cat('Accuracy of Model 3:', accuracy3)
+```
+
+```{r}
+#Build ROC curve
+plot(roc(test$diabetes ~ test$pred_prob_mod3), print.auc = TRUE, legacy.axes=T)
+```
+Model 3 has a lower AUC (0.840) than model 1 (0.842) and model 2 (0.846).
 
 ### Model 4
 
@@ -265,6 +410,47 @@ ggplot(train, aes(x=age, y=bmi, color=pregnancies)) + geom_point() + facet_grid(
 ```
 With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. 
 
+```{r}
+#Find Odds ratios
+exp(ia$coefficients)
+```
+
+```{r}
+#Classify test set
+test$pred_prob_mod4 <- predict(ia, newdata = test, type = "response")
+test$pred_class_mod4 <- ifelse(test$pred_prob_mod4 > 0.5, 1, 0)
+```
+
+```{r}
+#Create confusion matrix
+cm_mod4 <- table(test$pred_class_mod4, test$diabetes)
+print(cm_mod4)
+```
+```{r}
+#Calculate precision, recall and F-score
+tp4 <- cm_mod4[2,2]
+tn4 <- cm_mod4[1,1]
+fp4 <- cm_mod4[2,1] 
+fn4 <- cm_mod4[1,2] 
+
+precision4 <- tp4 / (tp4 + fp4)
+recall4 <- tp4 / (tp4 + fn4)
+f1_score4 <- 2 * ((precision4 * recall4 ) / (precision4 + recall4)) 
+accuracy4 <- (tp4 + tn4) / (tp4 + tn4 + fp4 + fn4)
+
+cat('Precision of Model 4:', precision4,'\n')
+cat('Recall of Model 4:', recall4,'\n')
+cat('F1 of Model 4:', f1_score4,'\n' )
+cat('Accuracy of Model 4:', accuracy4)
+```
+
+```{r}
+#Build ROC curve
+plot(roc(test$diabetes ~ test$pred_prob_mod4), print.auc = TRUE, legacy.axes=T)
+```
+
+Model 4 has similar AUC to 1 and 3. 
+
 ### Model 5 
 
 ```{r}
@@ -275,52 +461,61 @@ ggplot(train, aes(x=pregnancies, y=bmi, color=glucose)) + geom_point() + facet_g
 ```
 Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, model 4 which includes BMI and glucose and controls for an interaction between age and pregnancy has the best fit of all models tested. 
 
-We can use ANOVA to analyze the table of deviance of our regression model. 
+```{r}
+#Find Odds ratios
+exp(bgp$coefficients)
+```
 
 ```{r}
-#ANOVA test on interaction model 4
-anova(ia, test = "Chisq")
+#Classify test set
+test$pred_prob_mod5 <- predict(bgp, newdata = test, type = "response")
+test$pred_class_mod5 <- ifelse(test$pred_prob_mod5 > 0.5, 1, 0)
 ```
-All of our variables have small p-values and appear good predictors of the diabetes outcome, with the exception of age. However, age is needed for the interaction variable. 
-
-Let's check one more thing to ensure we have a good fit. 
-```{r}
-#Check pseudo R2 for interaction model
-pR2(ia)
-```
-With a McFadden R-squared of 0.27, model 4 can be considered an excellent fit. 
-
-## Diagnostics
-
-To test the model, the next step is to apply it to the test subset of data. 
 
 ```{r}
-#Apply model to test data
-fitted.results <- predict(ia ,test,type='response')
-fitted.results <- ifelse(fitted.results > 0.5,1,0)
-
-pred <- mean(fitted.results != test$diabetes)
-output <- cbind(test, fitted.results)
-
-print(paste('Accuracy',1-pred))
-head(output)
+#Create confusion matrix
+cm_mod5 <- table(test$pred_class_mod5, test$diabetes)
+print(cm_mod5)
 ```
-Testing the interaction model on the test data produces the correct outcome 79% of the time. 
 
 ```{r}
-#Diagnostic plot of model
-plot(ia)
+#Calculate precision, recall and F-score
+tp5 <- cm_mod5[2,2]
+tn5 <- cm_mod5[1,1]
+fp5 <- cm_mod5[2,1] 
+fn5 <- cm_mod5[1,2] 
+
+precision5 <- tp5 / (tp5 + fp5)
+recall5 <- tp5 / (tp5 + fn5)
+f1_score5 <- 2 * ((precision5 * recall5 ) / (precision5 + recall5)) 
+accuracy5 <- (tp5 + tn5) / (tp5 + tn5 + fp5 + fn5)
+
+cat('Precision of Model 5:', precision5,'\n')
+cat('Recall of Model5:', recall5,'\n')
+cat('F1 of Model 5:', f1_score5,'\n' )
+cat('Accuracy of Model 5:', accuracy5)
 ```
-**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. They start at close to 0 and taper off to a negative slope. Another group of residuals starts large and tapers on a negative slope toward 0. 
-
-**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top), which aligns with our individual variable histogram interpretations. It follows that a model combining variables with right skews may also be skewed to the right. However, it also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."
-
-**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. The red line does roughly travel horizontal across the plot. However, there is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. 
-
-**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. 
 
 
+```{r}
+#Build ROC curve
+plot(roc(test$diabetes ~ test$pred_prob_mod5), print.auc = TRUE, legacy.axes=T)
+```
 
+### Choosing a model:
 
-*Plan to work on fixing the heteroscedasticity by log transforming BMI, pregnancies, and age when those variables are included in models because they are right skewed data. However, it is taking time figuring out how to do a multiple logistics regression without errors..*
+```{r}
+#Create table to compare models
+auc1<-(0.842)
+auc2<-(0.846)
+auc3<-(0.840)
+auc4<-(0.841)
+auc5<-(0.838)
+comp_mods <- matrix(c(accuracy1, accuracy2, accuracy3, accuracy4, accuracy5, f1_score1, f1_score2, f1_score3, f1_score4, f1_score5, recall1, recall2, recall3, recall4, recall5, precision1, precision2, precision3, precision4, precision5, auc1, auc2, auc3, auc4, auc5), ncol=5, byrow=TRUE)
+colnames(comp_mods) <- c('Model 1','Model 2','Model 3', 'Model4', 'Model5')
+rownames(comp_mods) <- c('Accuracy','F1 Score','Recall', 'Prescision', 'AUC')
+comp_mods <- as.table(comp_mods)
+comp_mods
+```
+Model 3 has the highest accuracy, with 2 close behind it. The F1 score, which is the harmonic mean, takes both recall and precision into account. Model 2 has the highest F1 score with Model 3 close behind. Model 2 also has the highest AUC. Model 2, which used BMI, glucose, and age as predictor values for diabetes, looks like the best fit. 
 
