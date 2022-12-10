@@ -1,0 +1,193 @@
+---
+title: "Homework 5"
+author: "Shoshana Buck"
+editor: visual
+desription: "fifth homework"
+date: "12/09/22"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - Shoshana Buck
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+```{r}
+data(house.selling.price)
+house.selling.price
+```
+
+### 1a.
+
+For backward elimination, which variable would be deleted first? Why?
+
+'Beds' would be the variable that would be deleted first because it has the highest p-value.
+
+### 1b.
+
+For forward selection, which variable would be added first? Why?
+
+'New' and 'Size' are two variables that would be added first because it has the smallest p-value. However, looking at the correlation matrix 'Size' has a higher correlation (0.89) with 'Price' than 'New' (0.357), so 'Size' would be added first.
+
+### 1c.
+
+Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?
+
+I think that 'Beds' has a large p-value because there are too many variables and or redundant interaction terms. I think also the fact that there are only 100 observations does not get an large enough sample which causes for such a high p-value in 'Beds.'
+
+### 1d.
+
+Using software with these four predictors, find the model that would be selected using each criterion:
+
+```{r}
+hsp<-lm(Price~ .-Taxes - case, data = house.selling.price)
+hsp2<- lm(Price~ .- Taxes - case- Beds, data = house.selling.price)
+hsp3<- lm (Price~ .- Taxes - case- Beds - Baths, data = house.selling.price)
+hsp4<- lm (Price~ .- Taxes - case- Beds-New, data = house.selling.price)
+```
+
+### R2 & Adjusted R2
+
+```{r}
+summary(hsp)
+summary(hsp2)
+summary(hsp3)
+summary(hsp4)
+
+```
+
+### PRESS
+
+```{r}
+#hsp
+res<- resid(hsp)
+p<- resid(hsp)/(1-lm.influence(hsp)$hat)
+PRESS<- sum(p^2)
+PRESS
+
+#hsp2
+res2<- resid(hsp2)
+p2<- resid(hsp2)/(1-lm.influence(hsp2)$hat)
+PRESS2<- sum(p2^2)
+PRESS2
+
+#hsp3
+res3<- resid(hsp3)
+p3<- resid(hsp3)/(1-lm.influence(hsp3)$hat)
+PRESS3<- sum(p3^2)
+PRESS3
+
+#hsp4
+res4<- resid(hsp4)
+p4<- resid(hsp4)/(1-lm.influence(hsp4)$hat)
+PRESS4<- sum(p4^2)
+PRESS4
+```
+
+### AIC
+
+```{r}
+AIC(hsp)
+AIC(hsp2)
+AIC(hsp3)
+AIC(hsp4)
+```
+
+### BIC
+
+```{r}
+BIC(hsp)
+BIC(hsp2)
+BIC(hsp3)
+BIC(hsp4)
+```
+
+### 1e.
+
+Explain which model you prefer and why.
+
+I prefer using the AIC or BIC model because they penalize the addition of variables and the smaller the output value is the better the model is.
+
+## Question 2
+
+```{r}
+data(trees)
+trees
+```
+
+### 2a.
+
+fit a multiple regression model with the Volume as the outcome and Girth and Height as the explanatory variables.
+
+```{r}
+t<- lm(Volume ~ Girth + Height, data = trees)
+summary(t)
+```
+
+### 2b.
+
+Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?
+
+```{r}
+par(mfrow = c (2,3)); plot(t,which = 1:6)
+```
+
+After running a diagnostic plot on the models I think that the Residuals vs Fitted and Scale- Location have been violated in the regression assumptions.
+
+Residuals vs Fitted graph the residuals should be more uniform and in an arch that is surrounding the red line.
+
+Scale-Location residuals should be more uniform and surrounding the red line.
+
+### Question 3
+
+```{r}
+data(florida)
+florida
+```
+
+### 3a.
+
+Run a simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable. Produce the regression diagnostic plots. Is Palm Beach County an outlier based on the diagnostic plots? Why or why not?
+
+```{r}
+flo<-lm(Buchanan ~ Bush, data = florida)
+summary(flo)
+```
+
+### Diagnostic plot
+
+```{r}
+par(mfrow = c (2,3)); plot(flo,which = 1:6)
+```
+
+Based on the diagnostic plots 'Palm Beach' is an outlier. Most of the residuals are grouped together don't violate the the regression assumptions. However, in all of the plots the 'Palm Beach' residual violates all of the regression assumptions. For example, in the Residuals vs Fitted plot the data is uniform and linear. The 'Palm Beach' residual is no where near the rest of the residuals.
+
+### 3b.
+
+Take the log of both variables (Bush vote and Buchanan Vote) and repeat the analysis in (a). Does your findings change?
+
+```{r}
+log_flo<- lm(log(Buchanan) ~ log(Bush), data = florida)
+summary(log_flo)
+```
+
+```{r}
+par(mfrow = c (2,3)); plot(log_flo,which = 1:6)
+```
+
+Yes, the findings did change after I logged 'Buchanan' and 'Bush.' After running a diagnostic plot the Residuals vs Fitted residuals are more uniform and evenly dispersed across the line. The scale-location has a similar pattern as the Residuals vs Fitted, there is more uniformity and even dispersement of residuals. Furthermore, the Normal Q-Q residuals seem to be better fit to the line because there are linear and uniform.
