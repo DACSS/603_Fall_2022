@@ -1,0 +1,132 @@
+---
+title: "DACSS 603 HW 5"
+author: "Karen Kimble"
+desription: "Homework 5 for DACSS 603"
+date: "12/9/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+category: HW5
+---
+
+```{r}
+# Setup
+library(tidyverse)
+library(plyr)
+library(alr4)
+library(smss)
+```
+
+## Question 1
+
+### Part A
+
+The first variable to be deleted would be beds because it has the largest p-value, and backward elimination begins with deleting the variable with the largest p-value.
+
+### Part B
+
+The first variable added in forward selection would be size because it has the smallest p-value.
+
+### Part C
+
+Beds has such a large p-value despite its correlation with price because it also has strong correlations with other variables. This may cause multicollinearity.
+
+### Part D
+
+```{r}
+# Model 1
+
+model <- lm(P ~ . , data = house.selling.price.2)
+model1 <- step(model)
+summary(model1)
+```
+
+```{r}
+# Model 2
+
+model <- lm(P ~ . , data = house.selling.price.2)
+model2 <- step(model, direction = c("forward"))
+summary(model2)
+```
+
+Based on R-squared, we would want to pick Model 2 since it has a higher R-squared. This model includes all four predictor variables and was picked using forward selection. However, if judging by the Adjusted R-squared criteria, we would want to pick Model 1 since that has a higher Adjusted R-squared. Model 1 was chosen using backward eliminiation and does not include the Bed variable.
+
+```{r}
+# Calculating PRESS
+
+PRESS <- function(linear.model) {
+
+  pr <- residuals(linear.model)/(1-lm.influence(linear.model)$hat)
+
+  PRESS <- sum(pr^2)
+  
+  return(PRESS)
+}
+
+PRESS(model1)
+PRESS(model2)
+```
+
+For the PRESS criteria, the model we would want to pick is Model 1, which was found using backward elimination and only includes New, Bath, and Size as predictor variables.
+
+```{r}
+AIC(model1)
+AIC(model2)
+```
+
+Judging by the AIC, Model 1 is a better fit because it has a lower AIC.
+
+```{r}
+BIC(model1)
+BIC(model2)
+```
+
+Model 1 is also a better fit from the BIC criteria because it also has a lower BIC. Overall, judging by all five criteria, Model 1 would be the best fit since it has better results in four out of the five.
+
+### Part E
+
+As stated before, Model 1 has better results in four out of the five criteria (Adjusted R-Squared, PRESS, AIC, and BIC). Thus, the model I would prefer overall is Model 1, which omitted the Bed variable. The Bed variable also had an extremely high p-value compared to the other variables, so it would make sense to construct a model without it.
+
+## Question 2
+
+### Part A
+
+```{r}
+model <- lm(Volume ~ Girth + Height, data = trees)
+summary(model)
+```
+
+### Part B
+
+```{r}
+plot(model)
+```
+
+There are some regression assumptions that are violated because of the data present in the plots. In the Residuals vs. Fitted plot, the line is not linear, indicating that the variances of the error terms are not equal and there may not be a linear relationship. The Scale-Location plot also shows a non-linear line, indicating that the assumption of constant variance is violated. The other two plots, Normal Q-Q and Residuals vs. Leverage, are normal.
+
+## Question 3
+
+### Part A
+
+```{r}
+model <- lm(Buchanan ~ Bush, data = florida)
+plot(model)
+```
+
+Palm Beach is an outlier based on the diagnostic plots for the model because, while all the other data points are fairly close together, the Palm Beach data point is extremely far in each plot. Additionally, in the Residuals vs. Leverage plot, the Palm Beach point is outside of Cook's distance, meaning it is an outlier with extreme influence on the data.
+
+### Part B
+
+```{r}
+model <- lm(log(Buchanan) ~ log(Bush), data = florida)
+plot(model)
+```
+
+The findings do change somewhat because in the new model using logs, the Palm Beach data point is now inside Cook's distance, meaning it has less influence over the data and is less of an outlier. The distance between Palm Beach and the other data points has been reduced, but it still seems to remain somewhat of an outlier but much less than in the previous model.
+
+
+
+
