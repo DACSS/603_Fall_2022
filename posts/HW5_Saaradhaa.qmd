@@ -1,0 +1,107 @@
+---
+title: "Homework 5"
+author: "Saaradhaa M"
+date: "12/06/2022"
+format: 
+  html:
+    df-print: paged
+    toc: true
+    code-copy: true
+    code-tools: true
+    css: "styles.css"
+categories:
+  - hw5
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+# Qn 1A
+
+`Beds`, as it has the largest p-value.
+
+# Qn 1B
+
+`Size`, as it would produce the smallest p-value.
+
+# Qn 1C
+
+`Beds` is highly correlated with `Size`, so multicollinearity might be a possible reason for this.
+
+# Qn 1D
+
+The model with all predictors has the highest R^2^.
+
+```{r}
+#| label: 1d
+#| message: false
+data(house.selling.price.2)
+summary(lm(P ~ ., house.selling.price.2))
+```
+
+The model below without `Beds` has the highest adjusted R^2^ and lowest PRESS/BIC/AIC.
+
+```{r}
+#| label: 1dar
+#| message: false
+
+model <- lm(P ~ .-Be, house.selling.price.2)
+
+PRESS <- function(model) {
+  pr <- residuals(model)/(1-lm.influence(model)$hat)
+  PRESS <- sum(pr^2)
+  return(PRESS)
+}
+
+PRESS(model)
+BIC(model)
+AIC(model)
+```
+
+# Qn 1E
+
+I prefer the model without `Beds` because it doesn't seem to be adding great value to the regression model, and the other 4 measures (adjusted R^2^, PRESS, AIC and BIC) are better ways of assessing a multiple regression model than just R^2^.
+
+# Qn 2A
+
+```{r}
+data(trees)
+model2 <- lm(Volume ~ poly(Girth, 2) + Height, trees)
+summary(model2)
+```
+
+# Qn 2B
+
+```{r}
+par(mfrow = c(2,3)); plot(model2, which = 1:6)
+```
+
+Scale-Location plot indicates heteroskedasticity. Cook's distance, residuals vs. leverage and Cook's distance vs. leverage plots indicate 3 outliers. 
+
+# Qn 3A
+
+```{r}
+data(florida)
+model3a <- lm(Buchanan ~ Bush, florida)
+par(mfrow = c(2,3)); plot(model3a, which = 1:6)
+```
+
+It seems to stick out in all 6 plots, so I would say it's an outlier.
+
+# Qn 3B
+
+```{r}
+model3b <- lm(log(Buchanan) ~ log(Bush), florida)
+par(mfrow = c(2,3)); plot(model3b, which = 1:6)
+```
+
+Palm Beach still seems to be an outlier, but the diagnostic plots look more normal than in the previous model.
