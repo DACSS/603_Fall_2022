@@ -1,0 +1,138 @@
+---
+title: 'Homework #5'
+author: "Kalimah Muhammad"
+date: "12/9/2022"
+desription: "Homework #5"
+format:
+  
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories: 
+  - hw5
+  - Kalimah Muhammad
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+```{r}
+data("house.selling.price.2") #load housing data
+summary(lm(P ~ ., data = house.selling.price.2))
+```
+
+### 1.A
+
+For backward elimination, the first variable that should be deleted is Beds as it has the largest p-value in the regression model at 0.486763.
+
+### 1.B
+
+For forward selection, the first variable that should be added is New since it has the lowest p-value at 4.3e-06.
+
+### 1.C
+
+The BEDS variable could have a large p-value and high correlation because it no longer becomes significant compared to the other variables are added.
+
+### 1.D
+
+```{r}
+#model 1
+house_model1 <-lm(P ~ New, data = house.selling.price.2)
+summary(house_model1)
+
+#model 2
+house_model2 <-lm(P ~ S, data = house.selling.price.2)
+summary(house_model2)
+
+#model 3
+house_model3 <-lm(P ~ Ba, data = house.selling.price.2)
+summary(house_model3)
+
+#model 4
+house_model4 <-lm(P ~ Be, data = house.selling.price.2)
+summary(house_model4)
+
+#summary of AIC comparisons
+house.selling.price.2%>%
+summarise(AIC(house_model1), AIC(house_model2), AIC(house_model3), AIC(house_model4))
+  
+#summary of BIC comparisons        
+house.selling.price.2%>%
+summarise(BIC(house_model1), BIC(house_model2), BIC(house_model3), BIC(house_model4))
+```
+
+Using software with these four predictors, find the model that would be selected using each criterion: a. R2 - Model2 with the Size variable would be the best with the highest R-squared value of 0.8079. b. Adjusted R2 - Model2 would be the best fit with the highest value at 0.8058. c. PRESS - Model2 is the best fit. d. AIC - Model2 with the Size would be the best with an AIC of 820.1439. e. BIC - Model2 with the Size would be the best with an BIC of 827.74.
+
+### 1.E
+
+The model using the Size variable resulted in the best fit model.
+
+## Question 2
+
+```{r}
+data("trees")
+```
+
+### 2.A
+
+```{r}
+tree_model1 <-lm(Volume ~ Girth + Height, trees)
+summary(tree_model1)
+
+tree_model2 <- lm(Volume ~ Girth * Height, trees)
+summary(tree_model2)
+```
+
+The best fit model to predict tree volume includes girth plus height as an interaction term. This is displayed in tree_model2.
+
+```{r}
+#create matrix of model plots
+par(mfrow = c(2,3)); plot(tree_model2, which = 1:6)
+```
+
+### 2.B
+
+A few assumptions that may be violated include:\
+- Potential heteroskedasticity as suggested in the curved red line in the Scale-Location plot suggesting standardized residuals may be changing as a product of fitting.\
+- Observation #18 has significant leverage compared to the observation's (see Cook's distance) and may indicate a larger potential influence on the model.
+
+## Question 3
+
+```{r}
+data("florida") #load data
+```
+
+### 3.A
+
+Run a simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable. Produce the regression diagnostic plots.
+
+```{r}
+fla_model <- (lm(Buchanan ~ Bush, data=florida))
+summary(fla_model)
+par(mfrow = c(2,3)); plot(fla_model, which = 1:6)
+```
+
+Palm Beach County is an outlier. This may be due to this county having the most Buchanan votes (3404).
+
+### 3.B
+
+```{r}
+fla_model2 <- (lm(log(Buchanan) ~ log(Bush), data=florida))
+summary(fla_model2)
+par(mfrow = c(2,3)); plot(fla_model2, which = 1:6)
+```
+
+Palm Beach County, remains as the most prominent outlier. However, the second model highlights a second tier of outliers including Glades and Liberty.
