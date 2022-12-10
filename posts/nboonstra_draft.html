@@ -256,8 +256,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(plm): there is no package called 'plm'</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'plm'
+
+The following objects are masked from 'package:dplyr':
+
+    between, lag, lead</code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -277,8 +282,12 @@ The following objects are masked from 'package:base':
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sandwich)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stargazer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library(stargazer): there is no package called 'stargazer'</code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Please cite as: 
+
+ Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
 </div>
 <details>
 <summary>Code</summary>
@@ -692,303 +701,383 @@ The following objects are masked from 'package:base':
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(dem_rate ~ highestoff_vap_rate, index = c("state", "year"), : could not find function "plm"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plm1_vap_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm1_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm1_vap, vcov. = vcovHC, type = "HC1"): object 'plm1_vap' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plm1_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(dem_rate ~ highestoff_vep_rate, index = c("state", "year"), : could not find function "plm"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plm1_vep_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm1_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm1_vep, vcov. = vcovHC, type = "HC1"): object 'plm1_vep' not found</code></pre>
-</div>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plm3_vap <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span> </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> covi_covid <span class="sc">+</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(dem_rate ~ highestoff_vap_rate + covi_covid + totfelon_vap_rate + : could not find function "plm"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plm3_vap_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm3_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm3_vap, vcov. = vcovHC, type = "HC1"): object 'plm3_vap' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plm3_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span> </span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> covi_covid <span class="sc">+</span></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(dem_rate ~ highestoff_vep_rate + covi_covid + totfelon_vap_rate + : could not find function "plm"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>plm3_vep_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm3_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm3_vep, vcov. = vcovHC, type = "HC1"): object 'plm3_vep' not found</code></pre>
-</div>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>plm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(plm1_vap,plm1_vep,plm3_vap,plm3_vep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'plm1_vap' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plm_models_clustered <span class="ot">&lt;-</span> <span class="fu">list</span>(plm1_vap_clustered,plm1_vep_clustered,plm3_vap_clustered,plm3_vep_clustered)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'plm1_vap_clustered' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  plm_models,</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models"</span>,</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic Vote Share"</span>,</span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F,</span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>)</span>
-<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(plm_models, title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models", : could not find function "stargazer"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  plm_models_clustered,</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs"</span>,</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic Vote Share"</span>,</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F,</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate(%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>)</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(plm_models_clustered, title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs", : could not find function "stargazer"</code></pre>
-</div>
-</div>
-<div class="cell">
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vap <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> state <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_basic_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vep <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
-<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> state <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
-<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
-<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_basic_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plm1_vap_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm1_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plm1_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate,</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>plm1_vep_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm1_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vap <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count) <span class="sc">+</span></span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    state <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_robust_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vep <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count) <span class="sc">+</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    state <span class="sc">-</span> <span class="dv">1</span>,</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_robust_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plm3_vap <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> covi_covid <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>plm3_vap_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm3_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>plm3_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  dem_rate <span class="sc">~</span> </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> covi_covid <span class="sc">+</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">model =</span> <span class="st">"within"</span>,</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>plm3_vep_clustered <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm3_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>logit_models <span class="ot">&lt;-</span> <span class="fu">list</span>(demwin_logit_basic_vap,demwin_logit_basic_vep,demwin_logit_robust_vap,demwin_logit_robust_vep)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>logit_models_cl <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  demwin_logit_basic_vap_cl,demwin_logit_basic_vep_cl,demwin_logit_robust_vap_cl,demwin_logit_robust_vep_cl</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>  logit_models,</span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit.stat =</span> <span class="st">"aic"</span>,</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit =</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">57</span>),</span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic State Victory"</span>,</span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratic State Win, State-Level Fixed Effects Logit Models"</span>,</span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>),</span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F</span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plm_models <span class="ot">&lt;-</span> <span class="fu">list</span>(plm1_vap,plm1_vep,plm3_vap,plm3_vep)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>plm_models_clustered <span class="ot">&lt;-</span> <span class="fu">list</span>(plm1_vap_clustered,plm1_vep_clustered,plm3_vap_clustered,plm3_vep_clustered)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  plm_models,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic Vote Share"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F,</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(logit_models, type = "text", omit.stat = "aic", omit = c(7:57), : could not find function "stargazer"</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models
+==============================================================================================================================
+                                                                    Democratic Vote Share                                     
+                               -----------------------------------------------------------------------------------------------
+                                         (1)                     (2)                     (3)                     (4)          
+------------------------------------------------------------------------------------------------------------------------------
+Turnout Rate (%VAP)                   0.256***                                         0.176**                                
+                                       (0.067)                                         (0.074)                                
+                                                                                                                              
+Turnout Rate (%VEP)                                           0.272***                                         0.167**        
+                                                               (0.063)                                         (0.069)        
+                                                                                                                              
+Cost of Voting Index                                                                  -1.120***               -1.114***       
+                                                                                       (0.336)                 (0.336)        
+                                                                                                                              
+Ineligible Felon Rate (%VAP)                                                          -2.709***               -2.781***       
+                                                                                       (0.581)                 (0.577)        
+                                                                                                                              
+Noncitizen Rate (%VAP)                                                                -0.727**                -0.833***       
+                                                                                       (0.314)                 (0.316)        
+                                                                                                                              
+Voting-Age Population (logged)                                                        18.011***               17.727***       
+                                                                                       (3.615)                 (3.638)        
+                                                                                                                              
+------------------------------------------------------------------------------------------------------------------------------
+Observations                             561                     561                     350                     350          
+R2                                      0.028                   0.036                   0.261                   0.261         
+Adjusted R2                            -0.090                  -0.081                   0.107                   0.108         
+F Statistic                    14.619*** (df = 1; 499) 18.863*** (df = 1; 499) 20.382*** (df = 5; 289) 20.422*** (df = 5; 289)
+==============================================================================================================================
+Note:                                                                                              *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  logit_models_cl,</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit.stat =</span> <span class="st">"aic"</span>,</span>
-<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit =</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">57</span>),</span>
-<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs"</span>,</span>
-<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic State Victory"</span>,</span>
-<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
-<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>),</span>
-<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F</span>
-<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  plm_models_clustered,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic Vote Share"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate(%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(logit_models_cl, type = "text", omit.stat = "aic", : could not find function "stargazer"</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs
+==================================================================
+                                      Democratic Vote Share       
+                               -----------------------------------
+                                 (1)     (2)      (3)       (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.256**           0.176            
+                               (0.116)          (0.114)           
+                                                                  
+Turnout Rate(%VEP)                     0.272**             0.167  
+                                       (0.115)            (0.108) 
+                                                                  
+Cost of Voting Index                           -1.120**  -1.114** 
+                                                (0.452)   (0.454) 
+                                                                  
+Ineligible Felon Rate (%VAP)                   -2.709*** -2.781***
+                                                (0.881)   (0.885) 
+                                                                  
+Noncitizen Rate (%VAP)                          -0.727*  -0.833** 
+                                                (0.388)   (0.386) 
+                                                                  
+Voting-Age Population (logged)                 18.011*** 17.727***
+                                                (6.093)   (6.144) 
+                                                                  
+==================================================================
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>plm_turnout_vap <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>  highestoff_vap_rate <span class="sc">~</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"within"</span>,</span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vap <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> state <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_basic_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vep <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> state <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>demwin_logit_basic_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_basic_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(highestoff_vap_rate ~ covi_covid + totfelon_vap_rate + noncitizen_vap_rate + : could not find function "plm"</code></pre>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vap <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    highestoff_vap_rate <span class="sc">+</span> covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count) <span class="sc">+</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    state <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_robust_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vep <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  dem_win <span class="sc">~</span> </span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    highestoff_vep_rate <span class="sc">+</span> covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count) <span class="sc">+</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    state <span class="sc">-</span> <span class="dv">1</span>,</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link=</span><span class="st">"logit"</span>),</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>demwin_logit_robust_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(demwin_logit_robust_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>logit_models <span class="ot">&lt;-</span> <span class="fu">list</span>(demwin_logit_basic_vap,demwin_logit_basic_vep,demwin_logit_robust_vap,demwin_logit_robust_vep)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>logit_models_cl <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  demwin_logit_basic_vap_cl,demwin_logit_basic_vep_cl,demwin_logit_robust_vap_cl,demwin_logit_robust_vep_cl</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>  logit_models,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit.stat =</span> <span class="st">"aic"</span>,</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit =</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">57</span>),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic State Victory"</span>,</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratic State Win, State-Level Fixed Effects Logit Models"</span>,</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>),</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Democratic State Win, State-Level Fixed Effects Logit Models
+==================================================================
+                                    Democratic State Victory      
+                               -----------------------------------
+                                 (1)      (2)      (3)      (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.120***           0.151*          
+                               (0.029)           (0.081)          
+                                                                  
+Turnout Rate (%VEP)                     0.134***          0.159** 
+                                        (0.026)           (0.079) 
+                                                                  
+Cost of Voting Index                             -0.951*  -0.958* 
+                                                 (0.577)  (0.577) 
+                                                                  
+Ineligible Felon Rate (%VAP)                     -2.316** -2.386**
+                                                 (1.112)  (1.118) 
+                                                                  
+Noncitizen Rate (%VAP)                           -1.037** -1.169**
+                                                 (0.486)  (0.513) 
+                                                                  
+Voting-Age Population (logged)                    1.351    0.678  
+                                                 (3.825)  (3.923) 
+                                                                  
+------------------------------------------------------------------
+Observations                     561      561      350      350   
+Log Likelihood                 -200.557 -194.623 -61.789  -61.441 
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>plm_turnout_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm_turnout_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  logit_models_cl,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit.stat =</span> <span class="st">"aic"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">omit =</span> <span class="fu">c</span>(<span class="dv">7</span><span class="sc">:</span><span class="dv">57</span>),</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Democratic State Victory"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Turnout Rate (%VAP)"</span>,<span class="st">"Turnout Rate (%VEP)"</span>,<span class="st">"Cost of Voting Index"</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Ineligible Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,<span class="st">"Voting-Age Population (logged)"</span>),</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels.include =</span> F</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm_turnout_vap, vcov. = vcovHC, type = "HC1"): object 'plm_turnout_vap' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>plm_turnout_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  highestoff_vep_rate <span class="sc">~</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"within"</span>,</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in plm(highestoff_vep_rate ~ covi_covid + totfelon_vap_rate + noncitizen_vap_rate + : could not find function "plm"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>plm_turnout_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm_turnout_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in coeftest(plm_turnout_vep, vcov. = vcovHC, type = "HC1"): object 'plm_turnout_vep' not found</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs
+==================================================================
+                                    Democratic State Victory      
+                               -----------------------------------
+                                 (1)      (2)      (3)      (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.120***           0.151*          
+                               (0.028)           (0.086)          
+                                                                  
+Turnout Rate (%VEP)                     0.134***           0.159* 
+                                        (0.027)           (0.085) 
+                                                                  
+Cost of Voting Index                             -0.951*  -0.958* 
+                                                 (0.557)  (0.561) 
+                                                                  
+Ineligible Felon Rate (%VAP)                     -2.316*  -2.386* 
+                                                 (1.368)  (1.358) 
+                                                                  
+Noncitizen Rate (%VAP)                           -1.037** -1.169**
+                                                 (0.527)  (0.561) 
+                                                                  
+Voting-Age Population (logged)                    1.351    0.678  
+                                                 (4.463)  (4.540) 
+                                                                  
+==================================================================
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>turnout_models <span class="ot">&lt;-</span> <span class="fu">list</span>(plm_turnout_vap,plm_turnout_vep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plm_turnout_vap <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  highestoff_vap_rate <span class="sc">~</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"within"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>plm_turnout_vap_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm_turnout_vap, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>plm_turnout_vep <span class="ot">&lt;-</span> <span class="fu">plm</span>(</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  highestoff_vep_rate <span class="sc">~</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>    covi_covid <span class="sc">+</span> totfelon_vap_rate <span class="sc">+</span> noncitizen_vap_rate <span class="sc">+</span> <span class="fu">log</span>(vap_count),</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"state"</span>,<span class="st">"year"</span>),</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> elections,</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"within"</span>,</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">effect =</span> <span class="st">"twoway"</span></span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>plm_turnout_vep_cl <span class="ot">&lt;-</span> <span class="fu">coeftest</span>(plm_turnout_vep, <span class="at">vcov. =</span> vcovHC, <span class="at">type =</span> <span class="st">"HC1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'plm_turnout_vap' not found</code></pre>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>turnout_models <span class="ot">&lt;-</span> <span class="fu">list</span>(plm_turnout_vap,plm_turnout_vep)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>turnout_models_cl <span class="ot">&lt;-</span> <span class="fu">list</span>(plm_turnout_vap_cl,plm_turnout_vep_cl)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  turnout_models,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models"</span>,</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Turnout"</span>,</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels =</span> <span class="fu">c</span>(<span class="st">"%VAP"</span>,<span class="st">"%VEP"</span>),</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Cost of Voting Index"</span>,<span class="st">"Inelgibile Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Voting-Age Population (logged)"</span>)</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models
+===========================================================
+                                         Turnout           
+                               ----------------------------
+                                    %VAP          %VEP     
+                                    (1)            (2)     
+-----------------------------------------------------------
+Cost of Voting Index               -0.375        -0.429    
+                                  (0.266)        (0.284)   
+                                                           
+Inelgibile Felon Rate (%VAP)     -1.348***      -0.993**   
+                                  (0.455)        (0.486)   
+                                                           
+Noncitizen Rate (%VAP)             -0.161        0.466*    
+                                  (0.249)        (0.266)   
+                                                           
+Voting-Age Population (logged)   10.363***      12.633***  
+                                  (2.804)        (2.996)   
+                                                           
+-----------------------------------------------------------
+Observations                        350            350     
+R2                                 0.095          0.105    
+Adjusted R2                        -0.089        -0.077    
+F Statistic (df = 4; 290)         7.617***      8.533***   
+===========================================================
+Note:                           *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>turnout_models_cl <span class="ot">&lt;-</span> <span class="fu">list</span>(plm_turnout_vap_cl,plm_turnout_vep_cl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  turnout_models_cl,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs"</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Turnout (%VAP, %VEP)"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Cost of Voting Index"</span>,<span class="st">"Inelgibile Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Voting-Age Population (logged)"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(expr, envir, enclos): object 'plm_turnout_vap_cl' not found</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  turnout_models,</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models"</span>,</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Turnout"</span>,</span>
-<span id="cb64-6"><a href="#cb64-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels =</span> <span class="fu">c</span>(<span class="st">"%VAP"</span>,<span class="st">"%VEP"</span>),</span>
-<span id="cb64-7"><a href="#cb64-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Cost of Voting Index"</span>,<span class="st">"Inelgibile Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,</span>
-<span id="cb64-8"><a href="#cb64-8" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Voting-Age Population (logged)"</span>)</span>
-<span id="cb64-9"><a href="#cb64-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(turnout_models, type = "text", title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models", : could not find function "stargazer"</code></pre>
-</div>
-<details>
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(</span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  turnout_models_cl,</span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"text"</span>,</span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs"</span>,</span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.caption =</span> <span class="st">"Turnout (%VAP, %VEP)"</span>,</span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">dep.var.labels =</span> <span class="cn">NULL</span>,</span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariate.labels =</span> <span class="fu">c</span>(<span class="st">"Cost of Voting Index"</span>,<span class="st">"Inelgibile Felon Rate (%VAP)"</span>,<span class="st">"Noncitizen Rate (%VAP)"</span>,</span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Voting-Age Population (logged)"</span>)</span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-error">
-<pre><code>Error in stargazer(turnout_models_cl, type = "text", title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs", : could not find function "stargazer"</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs
+===========================================================
+                                   Turnout (%VAP, %VEP)    
+                               ----------------------------
+                                                           
+                                    (1)            (2)     
+-----------------------------------------------------------
+Cost of Voting Index               -0.375        -0.429    
+                                  (0.314)        (0.333)   
+                                                           
+Inelgibile Felon Rate (%VAP)      -1.348*        -0.993    
+                                  (0.701)        (0.732)   
+                                                           
+Noncitizen Rate (%VAP)             -0.161         0.466    
+                                  (0.329)        (0.351)   
+                                                           
+Voting-Age Population (logged)    10.363**      12.633***  
+                                  (4.297)        (4.685)   
+                                                           
+===========================================================
+===========================================================
+Note:                           *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
 </div>
 </div>
 
