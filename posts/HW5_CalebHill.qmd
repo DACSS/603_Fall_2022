@@ -1,0 +1,123 @@
+---
+title: "Homework 5"
+author: "Caleb Hill"
+desription: "The fifth homework on regressions"
+date: "12/08/2022"
+format:
+  html: 
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - regression
+---
+
+# Question 1
+
+First, let's load the relevant libraries and set all the graph themes to minimal.
+
+```{r, results='hide'}
+library(readxl)
+library(tidyverse)
+library(dplyr)
+library(alr4)
+library(smss)
+library(stargazer)
+```
+
+## A
+
+Variables `Beds` would be removed first. It's P-value does not meet statistically significant threshold.
+
+## B
+
+For the opposite reason, `Size` would be added first.
+
+## C
+
+`Beds` is most likely auto-correlated with `Size`, as bedrooms make up a substantial amount of square footage in a house, driving up the price. However, that is not the only factor if pricing, as is most likely why the number -- which can be high -- does not necessarily mean we see an improved price. Conversely, this is not the case for bathrooms.
+
+## D
+
+```{r}
+data(house.selling.price.2)
+model_1 <- lm(P ~ S + Ba, data = house.selling.price.2)
+plot(model_1)
+stargazer(model_1)
+```
+
+```{r}
+PRESS <- function(model) {
+  i <- residuals(model)/(1 - lm.influence(model)$hat)
+  sum(i^2)
+}
+
+PRESS(model_1)
+```
+
+```{r}
+broom::glance(model_1)
+```
+
+Note: observation #5 is an outlier and violates many of these diagnostic plots. If we log transform either P or S, observation #7 does the same. Therefore, we will keep the model as-is and not transform it.
+
+R2 = 0.83
+Adjusted R2 = 0.83
+PRESS = 34.174.5
+AIC = 809.23
+BIC = 819.36
+
+## E
+
+I chose this model as the other two variables `Beds` and `New` either do not meet the P-value threshold or have a low correlation to `Price.` The other two variables have a high correlation with `Price.`
+
+# Question 2
+
+```{r}
+data(trees)
+head(trees)
+```
+
+## A
+
+```{r}
+model_q2 <- lm(Volume ~ Girth + Height, data = trees)
+```
+
+Fitted.
+
+## B
+
+```{r}
+plot(model_q2)
+```
+
+Both of the Residuals vs. Fitted plots are violated, as they form a U-shape instead of a horizontal line; Cook's Distance plot is violated as row 31 is outside of the 0.5 dotted line. The Normal Q-Q plot seems fine. The Scale Location plot does not look good, as it has a U-shape as well.
+
+# Question 3
+
+```{r}
+data(florida)
+head(florida)
+```
+
+## A
+
+```{r}
+model_q3a <- lm(Buchanan ~ Bush, data = florida)
+plot(model_q3a)
+```
+
+Yes, Palm Beach County is an outlier. This is especially apparent with Cook's Distance plot, as it is outside the 1.0 dotted line.
+
+## B
+
+```{r}
+model_q3b <- lm(log(Buchanan) ~ log(Bush), data = florida)
+plot(model_q3b)
+```
+
+The findings do change, as all observations that violated the tests are now within the lines/meet assumptions.
+
