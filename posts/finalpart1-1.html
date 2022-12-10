@@ -250,9 +250,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
 ✔ tibble  3.1.8      ✔ dplyr   1.0.10
-✔ tidyr   1.2.1      ✔ stringr 1.4.0 
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
 ✔ readr   2.1.3      ✔ forcats 0.5.2 
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -264,34 +264,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'sqldf' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: gsubfn</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gsubfn' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: proto</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'proto' was built under R version 4.2.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: RSQLite</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'RSQLite' was built under R version 4.2.2</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(sqldf): there is no package called 'sqldf'</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'data.table' was built under R version 4.2.2</code></pre>
-</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attaching package: 'data.table'
@@ -343,42 +322,35 @@ The following object is masked from 'package:purrr':
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"project datasets/2022.csv"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(primary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"project datasets/2022.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output-display">
-
-<div data-pagedtable="false">
-  <script data-pagedtable-source="" type="application/json">
-{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["RANK"],"name":[1],"type":["int"],"align":["right"]},{"label":["Country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["Happiness.score"],"name":[3],"type":["chr"],"align":["left"]},{"label":["Whisker.high"],"name":[4],"type":["chr"],"align":["left"]},{"label":["Whisker.low"],"name":[5],"type":["chr"],"align":["left"]},{"label":["Dystopia..1.83....residual"],"name":[6],"type":["chr"],"align":["left"]},{"label":["Explained.by..GDP.per.capita"],"name":[7],"type":["chr"],"align":["left"]},{"label":["Explained.by..Social.support"],"name":[8],"type":["chr"],"align":["left"]},{"label":["Explained.by..Healthy.life.expectancy"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Explained.by..Freedom.to.make.life.choices"],"name":[10],"type":["chr"],"align":["left"]},{"label":["Explained.by..Generosity"],"name":[11],"type":["chr"],"align":["left"]},{"label":["Explained.by..Perceptions.of.corruption"],"name":[12],"type":["chr"],"align":["left"]}],"data":[{"1":"1","2":"Finland","3":"7,821","4":"7,886","5":"7,756","6":"2,518","7":"1,892","8":"1,258","9":"0,775","10":"0,736","11":"0,109","12":"0,534","_rn_":"1"},{"1":"2","2":"Denmark","3":"7,636","4":"7,710","5":"7,563","6":"2,226","7":"1,953","8":"1,243","9":"0,777","10":"0,719","11":"0,188","12":"0,532","_rn_":"2"},{"1":"3","2":"Iceland","3":"7,557","4":"7,651","5":"7,464","6":"2,320","7":"1,936","8":"1,320","9":"0,803","10":"0,718","11":"0,270","12":"0,191","_rn_":"3"},{"1":"4","2":"Switzerland","3":"7,512","4":"7,586","5":"7,437","6":"2,153","7":"2,026","8":"1,226","9":"0,822","10":"0,677","11":"0,147","12":"0,461","_rn_":"4"},{"1":"5","2":"Netherlands","3":"7,415","4":"7,471","5":"7,359","6":"2,137","7":"1,945","8":"1,206","9":"0,787","10":"0,651","11":"0,271","12":"0,419","_rn_":"5"},{"1":"6","2":"Luxembourg*","3":"7,404","4":"7,501","5":"7,307","6":"2,042","7":"2,209","8":"1,155","9":"0,790","10":"0,700","11":"0,120","12":"0,388","_rn_":"6"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
-  </script>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in file(file, "rt"): cannot open file 'project datasets/2022.csv': No
+such file or directory</code></pre>
 </div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in file(file, "rt"): cannot open the connection</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(primary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   147 obs. of  12 variables:
- $ RANK                                      : int  1 2 3 4 5 6 7 8 9 10 ...
- $ Country                                   : chr  "Finland" "Denmark" "Iceland" "Switzerland" ...
- $ Happiness.score                           : chr  "7,821" "7,636" "7,557" "7,512" ...
- $ Whisker.high                              : chr  "7,886" "7,710" "7,651" "7,586" ...
- $ Whisker.low                               : chr  "7,756" "7,563" "7,464" "7,437" ...
- $ Dystopia..1.83....residual                : chr  "2,518" "2,226" "2,320" "2,153" ...
- $ Explained.by..GDP.per.capita              : chr  "1,892" "1,953" "1,936" "2,026" ...
- $ Explained.by..Social.support              : chr  "1,258" "1,243" "1,320" "1,226" ...
- $ Explained.by..Healthy.life.expectancy     : chr  "0,775" "0,777" "0,803" "0,822" ...
- $ Explained.by..Freedom.to.make.life.choices: chr  "0,736" "0,719" "0,718" "0,677" ...
- $ Explained.by..Generosity                  : chr  "0,109" "0,188" "0,270" "0,147" ...
- $ Explained.by..Perceptions.of.corruption   : chr  "0,534" "0,532" "0,191" "0,461" ...</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error in head(primary): object 'primary' not found</code></pre>
 </div>
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary<span class="sc">$</span>Country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code> chr [1:147] "Finland" "Denmark" "Iceland" "Switzerland" "Netherlands" ...</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error in str(primary): object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary<span class="sc">$</span>Country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in str(primary$Country): object 'primary' not found</code></pre>
 </div>
 </div>
 <p>The dataset that I have chosen is happiness 2022 dataset, one of Kaggle's dataset. This dataset gives the happiness rank and happiness score of 147 countries around the world based on 8 factors including GDP per capita, Social support, Health life expectancy, freedom to make life choices, Generosity, Perceptions of corruption and dystopia residual. The higher value of each of these 8 factors means the level of happiness is higher. Dystopia is the opposite of utopia and has the lowest happiness level. Dystopia will be considered as a reference for other countries to show how far they are from being the poorest country regarding happiness level.</p>
@@ -392,86 +364,138 @@ The following object is masked from 'package:purrr':
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing the name of columns</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span> (primary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Happiness.Rank"</span>, <span class="st">"Happiness.Score"</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Whisker.High"</span>, <span class="st">"Whisker.Low"</span>, <span class="st">"Economy"</span>, <span class="st">"Family"</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Life.Expectancy"</span>, <span class="st">"Freedom"</span>, <span class="st">"Generosity"</span>,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Trust"</span>, <span class="st">"Dystopia.Residual"</span>)</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Country: Name of countries</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Rank: Rank of the country based on the Happiness Score</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Score: Happiness measurement on a scale of 0 to 10</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.High: Upper confidence interval of happiness score</span></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.Low: Lower confidence interval of happiness score</span></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Economy: The value of all final goods and services produced within a nation in a given year</span></span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Family: Importance of having a family</span></span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Life.Expectancy: Importance of health and amount of time prople expect to live</span></span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Freedom: Importance of freedom in each country</span></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generosity: The quality of being kind and generous</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Trust: Perception of corruption in a government</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Dystopia.Residual: Plays as a reference</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Deleting unnecessary columns (Whisker.high and Whisker.low)</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing the name of columns</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span> (primary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Happiness.Rank"</span>, <span class="st">"Happiness.Score"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Whisker.High"</span>, <span class="st">"Whisker.Low"</span>, <span class="st">"Economy"</span>, <span class="st">"Family"</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Life.Expectancy"</span>, <span class="st">"Freedom"</span>, <span class="st">"Generosity"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Trust"</span>, <span class="st">"Dystopia.Residual"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in colnames(primary) &lt;- c("Country", "Happiness.Rank", "Happiness.Score", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Country: Name of countries</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Rank: Rank of the country based on the Happiness Score</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Score: Happiness measurement on a scale of 0 to 10</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.High: Upper confidence interval of happiness score</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.Low: Lower confidence interval of happiness score</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Economy: The value of all final goods and services produced within a nation in a given year</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Family: Importance of having a family</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Life.Expectancy: Importance of health and amount of time prople expect to live</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Freedom: Importance of freedom in each country</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generosity: The quality of being kind and generous</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Trust: Perception of corruption in a government</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Dystopia.Residual: Plays as a reference</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Deleting unnecessary columns (Whisker.high and Whisker.low)</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'primary' not found</code></pre>
+</div>
 </div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Israel"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Singapore"</span>, <span class="st">"Thailand"</span>, <span class="st">"Taiwan Province of China"</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Japan"</span>,</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"South Korea"</span>, <span class="st">"Turkmenistan"</span>, <span class="st">"Kazakhstan"</span>, <span class="st">"Turkey"</span>, <span class="st">"Hong Kong S.A.R., China"</span>, <span class="st">"Philippines"</span>,</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jordan"</span>, <span class="st">"China"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Lebanon"</span>, <span class="st">"Vietnam"</span>,</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Tajikistan"</span>, <span class="st">"Bhutan"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Nepal"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Palestinian Territories"</span>,</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Iran"</span>, <span class="st">"Bangladesh"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Iraq"</span>, <span class="st">"Sri Lanka"</span>, <span class="st">"Armenia"</span>, <span class="st">"India"</span>, <span class="st">"Georgia"</span>,</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Cambodia"</span>, <span class="st">"Afghanistan"</span>, <span class="st">"Yemen"</span>, <span class="st">"Syria"</span>))] <span class="ot">&lt;-</span> <span class="st">"Asia"</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Norway"</span>, <span class="st">"Denmark"</span>, <span class="st">"Iceland"</span>, <span class="st">"Switzerland"</span>, <span class="st">"Finland"</span>,</span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Netherlands"</span>, <span class="st">"Sweden"</span>, <span class="st">"Austria"</span>, <span class="st">"Ireland"</span>, <span class="st">"Germany"</span>,</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Belgium"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Czech Republic"</span>,</span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Malta"</span>, <span class="st">"France"</span>, <span class="st">"Spain"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Poland"</span>, <span class="st">"Italy"</span>,</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Russia"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Latvia"</span>, <span class="st">"Moldova"</span>, <span class="st">"Romania"</span>,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Slovenia"</span>, <span class="st">"North Cyprus"</span>, <span class="st">"Cyprus"</span>, <span class="st">"Estonia"</span>, <span class="st">"Belarus"</span>,</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Serbia"</span>, <span class="st">"Hungary"</span>, <span class="st">"Croatia"</span>, <span class="st">"Kosovo"</span>, <span class="st">"Montenegro"</span>,</span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Greece"</span>, <span class="st">"Portugal"</span>, <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Macedonia"</span>,</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Bulgaria"</span>, <span class="st">"Albania"</span>, <span class="st">"Ukraine"</span>))] <span class="ot">&lt;-</span> <span class="st">"Europe"</span></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"United States"</span>, <span class="st">"Mexico"</span>,  </span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Panama"</span>,<span class="st">"Trinidad and Tobago"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Belize"</span>, <span class="st">"Guatemala"</span>,</span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jamaica"</span>, <span class="st">"Nicaragua"</span>, <span class="st">"Dominican Republic"</span>, <span class="st">"Honduras"</span>,</span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Haiti"</span>))] <span class="ot">&lt;-</span> <span class="st">"North America"</span></span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Brazil"</span>, <span class="st">"Argentina"</span>, <span class="st">"Uruguay"</span>,</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Colombia"</span>, <span class="st">"Ecuador"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Peru"</span>,</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Paraguay"</span>, <span class="st">"Venezuela"</span>))] <span class="ot">&lt;-</span> <span class="st">"South America"</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New Zealand"</span>, <span class="st">"Australia"</span>))] <span class="ot">&lt;-</span> <span class="st">"Australia"</span></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(<span class="fu">is.na</span>(primary<span class="sc">$</span>Continent))] <span class="ot">&lt;-</span> <span class="st">"Africa"</span></span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(primary)</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving the continent column's position in the dataset to the second column</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary <span class="sc">%&gt;%</span> <span class="fu">select</span>(Country,Continent, <span class="fu">everything</span>())</span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="co">#Renaming the final dataframe to happy</span></span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>happy <span class="ot">&lt;-</span> primary</span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(happy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   147 obs. of  11 variables:
- $ Country          : int  1 2 3 4 5 6 7 8 9 10 ...
- $ Continent        : chr  "Africa" "Africa" "Africa" "Africa" ...
- $ Happiness.Rank   : chr  "Finland" "Denmark" "Iceland" "Switzerland" ...
- $ Happiness.Score  : chr  "7,821" "7,636" "7,557" "7,512" ...
- $ Economy          : chr  "2,518" "2,226" "2,320" "2,153" ...
- $ Family           : chr  "1,892" "1,953" "1,936" "2,026" ...
- $ Life.Expectancy  : chr  "1,258" "1,243" "1,320" "1,226" ...
- $ Freedom          : chr  "0,775" "0,777" "0,803" "0,822" ...
- $ Generosity       : chr  "0,736" "0,719" "0,718" "0,677" ...
- $ Trust            : chr  "0,109" "0,188" "0,270" "0,147" ...
- $ Dystopia.Residual: chr  "0,534" "0,532" "0,191" "0,461" ...</code></pre>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent &lt;- NA: object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Israel"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Singapore"</span>, <span class="st">"Thailand"</span>, <span class="st">"Taiwan Province of China"</span>,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Japan"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"South Korea"</span>, <span class="st">"Turkmenistan"</span>, <span class="st">"Kazakhstan"</span>, <span class="st">"Turkey"</span>, <span class="st">"Hong Kong S.A.R., China"</span>, <span class="st">"Philippines"</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jordan"</span>, <span class="st">"China"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Lebanon"</span>, <span class="st">"Vietnam"</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Tajikistan"</span>, <span class="st">"Bhutan"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Nepal"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Palestinian Territories"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Iran"</span>, <span class="st">"Bangladesh"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Iraq"</span>, <span class="st">"Sri Lanka"</span>, <span class="st">"Armenia"</span>, <span class="st">"India"</span>, <span class="st">"Georgia"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Cambodia"</span>, <span class="st">"Afghanistan"</span>, <span class="st">"Yemen"</span>, <span class="st">"Syria"</span>))] <span class="ot">&lt;-</span> <span class="st">"Asia"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(primary$Country %in% c("Israel", "United Arab Emirates", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Norway"</span>, <span class="st">"Denmark"</span>, <span class="st">"Iceland"</span>, <span class="st">"Switzerland"</span>, <span class="st">"Finland"</span>,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Netherlands"</span>, <span class="st">"Sweden"</span>, <span class="st">"Austria"</span>, <span class="st">"Ireland"</span>, <span class="st">"Germany"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Belgium"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Czech Republic"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Malta"</span>, <span class="st">"France"</span>, <span class="st">"Spain"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Poland"</span>, <span class="st">"Italy"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Russia"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Latvia"</span>, <span class="st">"Moldova"</span>, <span class="st">"Romania"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Slovenia"</span>, <span class="st">"North Cyprus"</span>, <span class="st">"Cyprus"</span>, <span class="st">"Estonia"</span>, <span class="st">"Belarus"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Serbia"</span>, <span class="st">"Hungary"</span>, <span class="st">"Croatia"</span>, <span class="st">"Kosovo"</span>, <span class="st">"Montenegro"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Greece"</span>, <span class="st">"Portugal"</span>, <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Macedonia"</span>,</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Bulgaria"</span>, <span class="st">"Albania"</span>, <span class="st">"Ukraine"</span>))] <span class="ot">&lt;-</span> <span class="st">"Europe"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(primary$Country %in% c("Norway", "Denmark", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"United States"</span>, <span class="st">"Mexico"</span>,  </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Panama"</span>,<span class="st">"Trinidad and Tobago"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Belize"</span>, <span class="st">"Guatemala"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jamaica"</span>, <span class="st">"Nicaragua"</span>, <span class="st">"Dominican Republic"</span>, <span class="st">"Honduras"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Haiti"</span>))] <span class="ot">&lt;-</span> <span class="st">"North America"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(primary$Country %in% c("Canada", "Costa Rica", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Brazil"</span>, <span class="st">"Argentina"</span>, <span class="st">"Uruguay"</span>,</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Colombia"</span>, <span class="st">"Ecuador"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Peru"</span>,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Paraguay"</span>, <span class="st">"Venezuela"</span>))] <span class="ot">&lt;-</span> <span class="st">"South America"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(primary$Country %in% c("Chile", "Brazil", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New Zealand"</span>, <span class="st">"Australia"</span>))] <span class="ot">&lt;-</span> <span class="st">"Australia"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(primary$Country %in% c("New Zealand", : object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(<span class="fu">is.na</span>(primary<span class="sc">$</span>Continent))] <span class="ot">&lt;-</span> <span class="st">"Africa"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in primary$Continent[which(is.na(primary$Continent))] &lt;- "Africa": object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(primary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in view(primary): object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving the continent column's position in the dataset to the second column</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary <span class="sc">%&gt;%</span> <span class="fu">select</span>(Country,Continent, <span class="fu">everything</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in select(., Country, Continent, everything()): object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Renaming the final dataframe to happy</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>happy <span class="ot">&lt;-</span> primary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in eval(expr, envir, enclos): object 'primary' not found</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(happy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-error">
+<pre><code>Error in str(happy): object 'happy' not found</code></pre>
 </div>
 </div>
 
@@ -782,150 +806,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb22" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project Part-1"</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Niharika Pola"</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Final Project Part-1"</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "12/1/2022"</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="co">    css: styles.css</span></span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - Final Project Part-1</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Background/Motivation</span></span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>What is takes for a country or a continent to be happy? Is it the economy, life-expectancy, freedom or the trust in the government? What are the factors that affect a country's or continents overall happiness? Can we predict the happiness score? The curiosity to find answers to these questions made me explore the world happiness data of 2022.</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>"This year marks the 10th anniversary of the **World Happiness Report**, which uses global survey data to report how people evaluate their own lives in more than 150 countries worldwide. The **World Happiness Report 2022** reveals a bright light in dark times. The pandemic brought not only pain and suffering but also an increase in social support and benevolence. As we battle the ills of disease and war, it is essential to remember the universal desire for happiness and the capacity of individuals to rally to each other's support in times of great need." - World Happiness Report 2022</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>The World happiness data tries to measure the happiness of the populace of every country and comes up with a score which connotes the level of happiness of the populace.</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>The data set uses various variables to measure happiness such as the GDP per capita, Freedom to make choices, life expectancy, the perception of corruption, generosity and social support.</span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>In this study, I aim to find out answers to the following research questions:</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What are the variables or factors that are affecting world's happiness, with a focus on individual countries &amp; continents. This includes analyzing the correlation between most effective variables.</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>To find out which model accurately predicts the happiness score.</span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis</span></span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>I wish to test the following hypothesis,</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Better economy of a country would lead to happiness</span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Longer life expectancy would lead to happiness</span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Having family/social support leads to happiness</span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Freedom leads to happiness</span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>People's trust in the Government leads to happiness</span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Generosity leads to happiness</span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model</span></span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>Look at each variable individually, and put all the variables together.</span>
-<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Preparation</span></span>
-<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading the data set</span></span>
-<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"project datasets/2022.csv"</span>)</span>
-<span id="cb22-68"><a href="#cb22-68" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(primary)</span>
-<span id="cb22-69"><a href="#cb22-69" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary)</span>
-<span id="cb22-70"><a href="#cb22-70" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary<span class="sc">$</span>Country)</span>
-<span id="cb22-71"><a href="#cb22-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-72"><a href="#cb22-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-73"><a href="#cb22-73" aria-hidden="true" tabindex="-1"></a>The dataset that I have chosen is happiness 2022 dataset, one of Kaggle\'s dataset. This dataset gives the happiness rank and happiness score of 147 countries around the world based on 8 factors including GDP per capita, Social support, Health life expectancy, freedom to make life choices, Generosity, Perceptions of corruption and dystopia residual. The higher value of each of these 8 factors means the level of happiness is higher. Dystopia is the opposite of utopia and has the lowest happiness level. Dystopia will be considered as a reference for other countries to show how far they are from being the poorest country regarding happiness level.</span>
-<span id="cb22-74"><a href="#cb22-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>Source of the data: World Happiness Report 2022 use data from the Gallup World Poll surveys from 2019 to 2021. They are based on answers to the main life evaluation question asked in the poll.</span>
-<span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>Some of the variable names are not clear enough and I decided to change the name of several of them a little bit. Also, I will remove whisker low and whisker high variables from my dataset because these variables give only the lower and upper confidence interval of happiness score and there is no need to use them for visualization and prediction.</span>
-<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a>The next step is adding another column to the dataset which is continent. I want to work on different continents to discover whether there are different trends for them regarding which factors play a significant role in gaining higher happiness score. Asia, Africa, North America, South America, Europe, and Australia are our six continents in this dataset. Then I moved the position of the continent column to the second column because I think with this position arrange, dataset looks better. Finally, I changed the type of continent variable to factor to be able to work with it easily for visualization.</span>
-<span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preparation of the data</span></span>
-<span id="cb22-82"><a href="#cb22-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-85"><a href="#cb22-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-86"><a href="#cb22-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing the name of columns</span></span>
-<span id="cb22-87"><a href="#cb22-87" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span> (primary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Happiness.Rank"</span>, <span class="st">"Happiness.Score"</span>,</span>
-<span id="cb22-88"><a href="#cb22-88" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Whisker.High"</span>, <span class="st">"Whisker.Low"</span>, <span class="st">"Economy"</span>, <span class="st">"Family"</span>,</span>
-<span id="cb22-89"><a href="#cb22-89" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Life.Expectancy"</span>, <span class="st">"Freedom"</span>, <span class="st">"Generosity"</span>,</span>
-<span id="cb22-90"><a href="#cb22-90" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Trust"</span>, <span class="st">"Dystopia.Residual"</span>)</span>
-<span id="cb22-91"><a href="#cb22-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-92"><a href="#cb22-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-93"><a href="#cb22-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Country: Name of countries</span></span>
-<span id="cb22-94"><a href="#cb22-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Rank: Rank of the country based on the Happiness Score</span></span>
-<span id="cb22-95"><a href="#cb22-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Score: Happiness measurement on a scale of 0 to 10</span></span>
-<span id="cb22-96"><a href="#cb22-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.High: Upper confidence interval of happiness score</span></span>
-<span id="cb22-97"><a href="#cb22-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.Low: Lower confidence interval of happiness score</span></span>
-<span id="cb22-98"><a href="#cb22-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Economy: The value of all final goods and services produced within a nation in a given year</span></span>
-<span id="cb22-99"><a href="#cb22-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Family: Importance of having a family</span></span>
-<span id="cb22-100"><a href="#cb22-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Life.Expectancy: Importance of health and amount of time prople expect to live</span></span>
-<span id="cb22-101"><a href="#cb22-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Freedom: Importance of freedom in each country</span></span>
-<span id="cb22-102"><a href="#cb22-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Generosity: The quality of being kind and generous</span></span>
-<span id="cb22-103"><a href="#cb22-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Trust: Perception of corruption in a government</span></span>
-<span id="cb22-104"><a href="#cb22-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Dystopia.Residual: Plays as a reference</span></span>
-<span id="cb22-105"><a href="#cb22-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-106"><a href="#cb22-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Deleting unnecessary columns (Whisker.high and Whisker.low)</span></span>
-<span id="cb22-107"><a href="#cb22-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-108"><a href="#cb22-108" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]</span>
-<span id="cb22-109"><a href="#cb22-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb22-110"><a href="#cb22-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-113"><a href="#cb22-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb22-114"><a href="#cb22-114" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb22-115"><a href="#cb22-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-116"><a href="#cb22-116" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Israel"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Singapore"</span>, <span class="st">"Thailand"</span>, <span class="st">"Taiwan Province of China"</span>,</span>
-<span id="cb22-117"><a href="#cb22-117" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Japan"</span>,</span>
-<span id="cb22-118"><a href="#cb22-118" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"South Korea"</span>, <span class="st">"Turkmenistan"</span>, <span class="st">"Kazakhstan"</span>, <span class="st">"Turkey"</span>, <span class="st">"Hong Kong S.A.R., China"</span>, <span class="st">"Philippines"</span>,</span>
-<span id="cb22-119"><a href="#cb22-119" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jordan"</span>, <span class="st">"China"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Lebanon"</span>, <span class="st">"Vietnam"</span>,</span>
-<span id="cb22-120"><a href="#cb22-120" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Tajikistan"</span>, <span class="st">"Bhutan"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Nepal"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Palestinian Territories"</span>,</span>
-<span id="cb22-121"><a href="#cb22-121" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Iran"</span>, <span class="st">"Bangladesh"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Iraq"</span>, <span class="st">"Sri Lanka"</span>, <span class="st">"Armenia"</span>, <span class="st">"India"</span>, <span class="st">"Georgia"</span>,</span>
-<span id="cb22-122"><a href="#cb22-122" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Cambodia"</span>, <span class="st">"Afghanistan"</span>, <span class="st">"Yemen"</span>, <span class="st">"Syria"</span>))] <span class="ot">&lt;-</span> <span class="st">"Asia"</span></span>
-<span id="cb22-123"><a href="#cb22-123" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Norway"</span>, <span class="st">"Denmark"</span>, <span class="st">"Iceland"</span>, <span class="st">"Switzerland"</span>, <span class="st">"Finland"</span>,</span>
-<span id="cb22-124"><a href="#cb22-124" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Netherlands"</span>, <span class="st">"Sweden"</span>, <span class="st">"Austria"</span>, <span class="st">"Ireland"</span>, <span class="st">"Germany"</span>,</span>
-<span id="cb22-125"><a href="#cb22-125" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Belgium"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Czech Republic"</span>,</span>
-<span id="cb22-126"><a href="#cb22-126" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Malta"</span>, <span class="st">"France"</span>, <span class="st">"Spain"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Poland"</span>, <span class="st">"Italy"</span>,</span>
-<span id="cb22-127"><a href="#cb22-127" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Russia"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Latvia"</span>, <span class="st">"Moldova"</span>, <span class="st">"Romania"</span>,</span>
-<span id="cb22-128"><a href="#cb22-128" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Slovenia"</span>, <span class="st">"North Cyprus"</span>, <span class="st">"Cyprus"</span>, <span class="st">"Estonia"</span>, <span class="st">"Belarus"</span>,</span>
-<span id="cb22-129"><a href="#cb22-129" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Serbia"</span>, <span class="st">"Hungary"</span>, <span class="st">"Croatia"</span>, <span class="st">"Kosovo"</span>, <span class="st">"Montenegro"</span>,</span>
-<span id="cb22-130"><a href="#cb22-130" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Greece"</span>, <span class="st">"Portugal"</span>, <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Macedonia"</span>,</span>
-<span id="cb22-131"><a href="#cb22-131" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Bulgaria"</span>, <span class="st">"Albania"</span>, <span class="st">"Ukraine"</span>))] <span class="ot">&lt;-</span> <span class="st">"Europe"</span></span>
-<span id="cb22-132"><a href="#cb22-132" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"United States"</span>, <span class="st">"Mexico"</span>,  </span>
-<span id="cb22-133"><a href="#cb22-133" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Panama"</span>,<span class="st">"Trinidad and Tobago"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Belize"</span>, <span class="st">"Guatemala"</span>,</span>
-<span id="cb22-134"><a href="#cb22-134" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jamaica"</span>, <span class="st">"Nicaragua"</span>, <span class="st">"Dominican Republic"</span>, <span class="st">"Honduras"</span>,</span>
-<span id="cb22-135"><a href="#cb22-135" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Haiti"</span>))] <span class="ot">&lt;-</span> <span class="st">"North America"</span></span>
-<span id="cb22-136"><a href="#cb22-136" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Brazil"</span>, <span class="st">"Argentina"</span>, <span class="st">"Uruguay"</span>,</span>
-<span id="cb22-137"><a href="#cb22-137" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Colombia"</span>, <span class="st">"Ecuador"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Peru"</span>,</span>
-<span id="cb22-138"><a href="#cb22-138" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Paraguay"</span>, <span class="st">"Venezuela"</span>))] <span class="ot">&lt;-</span> <span class="st">"South America"</span></span>
-<span id="cb22-139"><a href="#cb22-139" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New Zealand"</span>, <span class="st">"Australia"</span>))] <span class="ot">&lt;-</span> <span class="st">"Australia"</span></span>
-<span id="cb22-140"><a href="#cb22-140" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(<span class="fu">is.na</span>(primary<span class="sc">$</span>Continent))] <span class="ot">&lt;-</span> <span class="st">"Africa"</span></span>
-<span id="cb22-141"><a href="#cb22-141" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-142"><a href="#cb22-142" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(primary)</span>
-<span id="cb22-143"><a href="#cb22-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-144"><a href="#cb22-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving the continent column's position in the dataset to the second column</span></span>
-<span id="cb22-145"><a href="#cb22-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-146"><a href="#cb22-146" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary <span class="sc">%&gt;%</span> <span class="fu">select</span>(Country,Continent, <span class="fu">everything</span>())</span>
-<span id="cb22-147"><a href="#cb22-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-148"><a href="#cb22-148" aria-hidden="true" tabindex="-1"></a><span class="co">#Renaming the final dataframe to happy</span></span>
-<span id="cb22-149"><a href="#cb22-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-150"><a href="#cb22-150" aria-hidden="true" tabindex="-1"></a>happy <span class="ot">&lt;-</span> primary</span>
-<span id="cb22-151"><a href="#cb22-151" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(happy)</span>
-<span id="cb22-152"><a href="#cb22-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb42" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project Part-1"</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Niharika Pola"</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="an">description:</span><span class="co"> "Final Project Part-1"</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "12/1/2022"</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="co">    df-print: paged</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="co">    css: styles.css</span></span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb42-14"><a href="#cb42-14" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb42-15"><a href="#cb42-15" aria-hidden="true" tabindex="-1"></a><span class="co">  - Final Project Part-1</span></span>
+<span id="cb42-16"><a href="#cb42-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb42-17"><a href="#cb42-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-20"><a href="#cb42-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-21"><a href="#cb42-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb42-22"><a href="#cb42-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb42-23"><a href="#cb42-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb42-24"><a href="#cb42-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sqldf)</span>
+<span id="cb42-25"><a href="#cb42-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(data.table)</span>
+<span id="cb42-26"><a href="#cb42-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-27"><a href="#cb42-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-28"><a href="#cb42-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Background/Motivation</span></span>
+<span id="cb42-29"><a href="#cb42-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-30"><a href="#cb42-30" aria-hidden="true" tabindex="-1"></a>What is takes for a country or a continent to be happy? Is it the economy, life-expectancy, freedom or the trust in the government? What are the factors that affect a country's or continents overall happiness? Can we predict the happiness score? The curiosity to find answers to these questions made me explore the world happiness data of 2022.</span>
+<span id="cb42-31"><a href="#cb42-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-32"><a href="#cb42-32" aria-hidden="true" tabindex="-1"></a>"This year marks the 10th anniversary of the **World Happiness Report**, which uses global survey data to report how people evaluate their own lives in more than 150 countries worldwide. The **World Happiness Report 2022** reveals a bright light in dark times. The pandemic brought not only pain and suffering but also an increase in social support and benevolence. As we battle the ills of disease and war, it is essential to remember the universal desire for happiness and the capacity of individuals to rally to each other's support in times of great need." - World Happiness Report 2022</span>
+<span id="cb42-33"><a href="#cb42-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-34"><a href="#cb42-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Research Question</span></span>
+<span id="cb42-35"><a href="#cb42-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-36"><a href="#cb42-36" aria-hidden="true" tabindex="-1"></a>The World happiness data tries to measure the happiness of the populace of every country and comes up with a score which connotes the level of happiness of the populace.</span>
+<span id="cb42-37"><a href="#cb42-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-38"><a href="#cb42-38" aria-hidden="true" tabindex="-1"></a>The data set uses various variables to measure happiness such as the GDP per capita, Freedom to make choices, life expectancy, the perception of corruption, generosity and social support.</span>
+<span id="cb42-39"><a href="#cb42-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-40"><a href="#cb42-40" aria-hidden="true" tabindex="-1"></a>In this study, I aim to find out answers to the following research questions:</span>
+<span id="cb42-41"><a href="#cb42-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-42"><a href="#cb42-42" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>What are the variables or factors that are affecting world's happiness, with a focus on individual countries &amp; continents. This includes analyzing the correlation between most effective variables.</span>
+<span id="cb42-43"><a href="#cb42-43" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>To find out which model accurately predicts the happiness score.</span>
+<span id="cb42-44"><a href="#cb42-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-45"><a href="#cb42-45" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis</span></span>
+<span id="cb42-46"><a href="#cb42-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-47"><a href="#cb42-47" aria-hidden="true" tabindex="-1"></a>I wish to test the following hypothesis,</span>
+<span id="cb42-48"><a href="#cb42-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-49"><a href="#cb42-49" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Better economy of a country would lead to happiness</span>
+<span id="cb42-50"><a href="#cb42-50" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Longer life expectancy would lead to happiness</span>
+<span id="cb42-51"><a href="#cb42-51" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>Having family/social support leads to happiness</span>
+<span id="cb42-52"><a href="#cb42-52" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>Freedom leads to happiness</span>
+<span id="cb42-53"><a href="#cb42-53" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>People's trust in the Government leads to happiness</span>
+<span id="cb42-54"><a href="#cb42-54" aria-hidden="true" tabindex="-1"></a><span class="ss">6.  </span>Generosity leads to happiness</span>
+<span id="cb42-55"><a href="#cb42-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-56"><a href="#cb42-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model</span></span>
+<span id="cb42-57"><a href="#cb42-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-58"><a href="#cb42-58" aria-hidden="true" tabindex="-1"></a>Look at each variable individually, and put all the variables together.</span>
+<span id="cb42-59"><a href="#cb42-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-60"><a href="#cb42-60" aria-hidden="true" tabindex="-1"></a><span class="fu">## Data Preparation</span></span>
+<span id="cb42-61"><a href="#cb42-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-62"><a href="#cb42-62" aria-hidden="true" tabindex="-1"></a><span class="fu">### Reading the data set</span></span>
+<span id="cb42-63"><a href="#cb42-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-66"><a href="#cb42-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-67"><a href="#cb42-67" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"project datasets/2022.csv"</span>)</span>
+<span id="cb42-68"><a href="#cb42-68" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(primary)</span>
+<span id="cb42-69"><a href="#cb42-69" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary)</span>
+<span id="cb42-70"><a href="#cb42-70" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(primary<span class="sc">$</span>Country)</span>
+<span id="cb42-71"><a href="#cb42-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-72"><a href="#cb42-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-73"><a href="#cb42-73" aria-hidden="true" tabindex="-1"></a>The dataset that I have chosen is happiness 2022 dataset, one of Kaggle\'s dataset. This dataset gives the happiness rank and happiness score of 147 countries around the world based on 8 factors including GDP per capita, Social support, Health life expectancy, freedom to make life choices, Generosity, Perceptions of corruption and dystopia residual. The higher value of each of these 8 factors means the level of happiness is higher. Dystopia is the opposite of utopia and has the lowest happiness level. Dystopia will be considered as a reference for other countries to show how far they are from being the poorest country regarding happiness level.</span>
+<span id="cb42-74"><a href="#cb42-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-75"><a href="#cb42-75" aria-hidden="true" tabindex="-1"></a>Source of the data: World Happiness Report 2022 use data from the Gallup World Poll surveys from 2019 to 2021. They are based on answers to the main life evaluation question asked in the poll.</span>
+<span id="cb42-76"><a href="#cb42-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-77"><a href="#cb42-77" aria-hidden="true" tabindex="-1"></a>Some of the variable names are not clear enough and I decided to change the name of several of them a little bit. Also, I will remove whisker low and whisker high variables from my dataset because these variables give only the lower and upper confidence interval of happiness score and there is no need to use them for visualization and prediction.</span>
+<span id="cb42-78"><a href="#cb42-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-79"><a href="#cb42-79" aria-hidden="true" tabindex="-1"></a>The next step is adding another column to the dataset which is continent. I want to work on different continents to discover whether there are different trends for them regarding which factors play a significant role in gaining higher happiness score. Asia, Africa, North America, South America, Europe, and Australia are our six continents in this dataset. Then I moved the position of the continent column to the second column because I think with this position arrange, dataset looks better. Finally, I changed the type of continent variable to factor to be able to work with it easily for visualization.</span>
+<span id="cb42-80"><a href="#cb42-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-81"><a href="#cb42-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## Preparation of the data</span></span>
+<span id="cb42-82"><a href="#cb42-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-85"><a href="#cb42-85" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-86"><a href="#cb42-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Changing the name of columns</span></span>
+<span id="cb42-87"><a href="#cb42-87" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span> (primary) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Country"</span>, <span class="st">"Happiness.Rank"</span>, <span class="st">"Happiness.Score"</span>,</span>
+<span id="cb42-88"><a href="#cb42-88" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Whisker.High"</span>, <span class="st">"Whisker.Low"</span>, <span class="st">"Economy"</span>, <span class="st">"Family"</span>,</span>
+<span id="cb42-89"><a href="#cb42-89" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Life.Expectancy"</span>, <span class="st">"Freedom"</span>, <span class="st">"Generosity"</span>,</span>
+<span id="cb42-90"><a href="#cb42-90" aria-hidden="true" tabindex="-1"></a>                          <span class="st">"Trust"</span>, <span class="st">"Dystopia.Residual"</span>)</span>
+<span id="cb42-91"><a href="#cb42-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-92"><a href="#cb42-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-93"><a href="#cb42-93" aria-hidden="true" tabindex="-1"></a><span class="co"># Country: Name of countries</span></span>
+<span id="cb42-94"><a href="#cb42-94" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Rank: Rank of the country based on the Happiness Score</span></span>
+<span id="cb42-95"><a href="#cb42-95" aria-hidden="true" tabindex="-1"></a><span class="co"># Happiness.Score: Happiness measurement on a scale of 0 to 10</span></span>
+<span id="cb42-96"><a href="#cb42-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.High: Upper confidence interval of happiness score</span></span>
+<span id="cb42-97"><a href="#cb42-97" aria-hidden="true" tabindex="-1"></a><span class="co"># Whisker.Low: Lower confidence interval of happiness score</span></span>
+<span id="cb42-98"><a href="#cb42-98" aria-hidden="true" tabindex="-1"></a><span class="co"># Economy: The value of all final goods and services produced within a nation in a given year</span></span>
+<span id="cb42-99"><a href="#cb42-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Family: Importance of having a family</span></span>
+<span id="cb42-100"><a href="#cb42-100" aria-hidden="true" tabindex="-1"></a><span class="co"># Life.Expectancy: Importance of health and amount of time prople expect to live</span></span>
+<span id="cb42-101"><a href="#cb42-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Freedom: Importance of freedom in each country</span></span>
+<span id="cb42-102"><a href="#cb42-102" aria-hidden="true" tabindex="-1"></a><span class="co"># Generosity: The quality of being kind and generous</span></span>
+<span id="cb42-103"><a href="#cb42-103" aria-hidden="true" tabindex="-1"></a><span class="co"># Trust: Perception of corruption in a government</span></span>
+<span id="cb42-104"><a href="#cb42-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Dystopia.Residual: Plays as a reference</span></span>
+<span id="cb42-105"><a href="#cb42-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-106"><a href="#cb42-106" aria-hidden="true" tabindex="-1"></a><span class="co"># Deleting unnecessary columns (Whisker.high and Whisker.low)</span></span>
+<span id="cb42-107"><a href="#cb42-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-108"><a href="#cb42-108" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">5</span>)]</span>
+<span id="cb42-109"><a href="#cb42-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb42-110"><a href="#cb42-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-113"><a href="#cb42-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb42-114"><a href="#cb42-114" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb42-115"><a href="#cb42-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-116"><a href="#cb42-116" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Israel"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Singapore"</span>, <span class="st">"Thailand"</span>, <span class="st">"Taiwan Province of China"</span>,</span>
+<span id="cb42-117"><a href="#cb42-117" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Malaysia"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Japan"</span>,</span>
+<span id="cb42-118"><a href="#cb42-118" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"South Korea"</span>, <span class="st">"Turkmenistan"</span>, <span class="st">"Kazakhstan"</span>, <span class="st">"Turkey"</span>, <span class="st">"Hong Kong S.A.R., China"</span>, <span class="st">"Philippines"</span>,</span>
+<span id="cb42-119"><a href="#cb42-119" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jordan"</span>, <span class="st">"China"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Indonesia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Lebanon"</span>, <span class="st">"Vietnam"</span>,</span>
+<span id="cb42-120"><a href="#cb42-120" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Tajikistan"</span>, <span class="st">"Bhutan"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Nepal"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Palestinian Territories"</span>,</span>
+<span id="cb42-121"><a href="#cb42-121" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Iran"</span>, <span class="st">"Bangladesh"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Iraq"</span>, <span class="st">"Sri Lanka"</span>, <span class="st">"Armenia"</span>, <span class="st">"India"</span>, <span class="st">"Georgia"</span>,</span>
+<span id="cb42-122"><a href="#cb42-122" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Cambodia"</span>, <span class="st">"Afghanistan"</span>, <span class="st">"Yemen"</span>, <span class="st">"Syria"</span>))] <span class="ot">&lt;-</span> <span class="st">"Asia"</span></span>
+<span id="cb42-123"><a href="#cb42-123" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Norway"</span>, <span class="st">"Denmark"</span>, <span class="st">"Iceland"</span>, <span class="st">"Switzerland"</span>, <span class="st">"Finland"</span>,</span>
+<span id="cb42-124"><a href="#cb42-124" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Netherlands"</span>, <span class="st">"Sweden"</span>, <span class="st">"Austria"</span>, <span class="st">"Ireland"</span>, <span class="st">"Germany"</span>,</span>
+<span id="cb42-125"><a href="#cb42-125" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Belgium"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Czech Republic"</span>,</span>
+<span id="cb42-126"><a href="#cb42-126" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Malta"</span>, <span class="st">"France"</span>, <span class="st">"Spain"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Poland"</span>, <span class="st">"Italy"</span>,</span>
+<span id="cb42-127"><a href="#cb42-127" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Russia"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Latvia"</span>, <span class="st">"Moldova"</span>, <span class="st">"Romania"</span>,</span>
+<span id="cb42-128"><a href="#cb42-128" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Slovenia"</span>, <span class="st">"North Cyprus"</span>, <span class="st">"Cyprus"</span>, <span class="st">"Estonia"</span>, <span class="st">"Belarus"</span>,</span>
+<span id="cb42-129"><a href="#cb42-129" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Serbia"</span>, <span class="st">"Hungary"</span>, <span class="st">"Croatia"</span>, <span class="st">"Kosovo"</span>, <span class="st">"Montenegro"</span>,</span>
+<span id="cb42-130"><a href="#cb42-130" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Greece"</span>, <span class="st">"Portugal"</span>, <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Macedonia"</span>,</span>
+<span id="cb42-131"><a href="#cb42-131" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Bulgaria"</span>, <span class="st">"Albania"</span>, <span class="st">"Ukraine"</span>))] <span class="ot">&lt;-</span> <span class="st">"Europe"</span></span>
+<span id="cb42-132"><a href="#cb42-132" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"United States"</span>, <span class="st">"Mexico"</span>,  </span>
+<span id="cb42-133"><a href="#cb42-133" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Panama"</span>,<span class="st">"Trinidad and Tobago"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Belize"</span>, <span class="st">"Guatemala"</span>,</span>
+<span id="cb42-134"><a href="#cb42-134" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Jamaica"</span>, <span class="st">"Nicaragua"</span>, <span class="st">"Dominican Republic"</span>, <span class="st">"Honduras"</span>,</span>
+<span id="cb42-135"><a href="#cb42-135" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Haiti"</span>))] <span class="ot">&lt;-</span> <span class="st">"North America"</span></span>
+<span id="cb42-136"><a href="#cb42-136" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Chile"</span>, <span class="st">"Brazil"</span>, <span class="st">"Argentina"</span>, <span class="st">"Uruguay"</span>,</span>
+<span id="cb42-137"><a href="#cb42-137" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Colombia"</span>, <span class="st">"Ecuador"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Peru"</span>,</span>
+<span id="cb42-138"><a href="#cb42-138" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Paraguay"</span>, <span class="st">"Venezuela"</span>))] <span class="ot">&lt;-</span> <span class="st">"South America"</span></span>
+<span id="cb42-139"><a href="#cb42-139" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(primary<span class="sc">$</span>Country <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"New Zealand"</span>, <span class="st">"Australia"</span>))] <span class="ot">&lt;-</span> <span class="st">"Australia"</span></span>
+<span id="cb42-140"><a href="#cb42-140" aria-hidden="true" tabindex="-1"></a>primary<span class="sc">$</span>Continent[<span class="fu">which</span>(<span class="fu">is.na</span>(primary<span class="sc">$</span>Continent))] <span class="ot">&lt;-</span> <span class="st">"Africa"</span></span>
+<span id="cb42-141"><a href="#cb42-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-142"><a href="#cb42-142" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(primary)</span>
+<span id="cb42-143"><a href="#cb42-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-144"><a href="#cb42-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Moving the continent column's position in the dataset to the second column</span></span>
+<span id="cb42-145"><a href="#cb42-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-146"><a href="#cb42-146" aria-hidden="true" tabindex="-1"></a>primary <span class="ot">&lt;-</span> primary <span class="sc">%&gt;%</span> <span class="fu">select</span>(Country,Continent, <span class="fu">everything</span>())</span>
+<span id="cb42-147"><a href="#cb42-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-148"><a href="#cb42-148" aria-hidden="true" tabindex="-1"></a><span class="co">#Renaming the final dataframe to happy</span></span>
+<span id="cb42-149"><a href="#cb42-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-150"><a href="#cb42-150" aria-hidden="true" tabindex="-1"></a>happy <span class="ot">&lt;-</span> primary</span>
+<span id="cb42-151"><a href="#cb42-151" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(happy)</span>
+<span id="cb42-152"><a href="#cb42-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
