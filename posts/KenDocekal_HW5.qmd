@@ -1,0 +1,240 @@
+---
+title: "HW5"
+author: "Ken Docekal"
+desription: "Homework 5"
+date: "12/10/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - Ken Docekal
+
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(AER)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+## Q1
+
+
+```{r}
+
+library(smss) 
+
+data('house.selling.price.2', package = 'smss')
+
+```
+
+```{r}
+
+summary(house.selling.price.2)
+
+tibble(house.selling.price.2)
+
+```
+
+
+```{r}
+
+cor(house.selling.price.2)
+
+lm(P ~ S + Be + Ba + New, data = house.selling.price.2) |> summary()
+
+```
+
+
+
+# A
+
+Using backward elimination Beds would be eliminated first as it is the variable with the largest p-value. 
+
+
+# B 
+
+If we employ forward selection, as the variables with the lowest p-value, New or Size would be selected first. 
+ 
+ 
+# C 
+
+Bed's large p-value may be due to its high correlation with Size and therefore not statistically significant on its own as the two variables are multicollinear. 
+
+
+# D
+
+R2 - Using R squared and backward elimination the model below should be selected as it results in the greatest R squared score. 
+
+```{r}
+
+lm(P ~ S + Be + Ba + New, data = house.selling.price.2) |> summary()
+
+```
+
+
+Adjusted R2 - The model without Bed included is preferred if considering adjusted R squared in backward elimiation instead. 
+
+```{r}
+
+lm(P ~ S + Ba +  New, data = house.selling.price.2) |> summary()
+
+```
+
+
+PRESS - Using the PRESS method the model with all variables except Bed is also preferred as that model results in the lowest PRESS score of 27860.05. 
+
+```{r}
+
+library(MPV)
+
+```
+
+```{r}
+
+mod<-lm(P ~ S + Be + Ba + New, data = house.selling.price.2) 
+
+mod1<-lm(P ~ S + Ba + New, data = house.selling.price.2) 
+
+mod2<-lm(P ~ S + New, data = house.selling.price.2) 
+
+mod3<-lm(P ~ S + New, data = house.selling.price.2) 
+
+mod4<-lm(P ~ S, data = house.selling.price.2) 
+
+PRESS(mod)
+PRESS(mod1)
+PRESS(mod2)
+PRESS(mod3)
+PRESS(mod4)
+
+```
+
+
+AIC - The model with all variables but Bed, as the model with the lowest AIC score of 789.14, is preferred.
+
+```{r}
+
+AIC(mod)
+AIC(mod1)
+AIC(mod2)
+AIC(mod3)
+AIC(mod4)
+
+```
+
+
+BIC - The model with all variables but Bed, as the model with the lowest BIC score of 801.80, is preferred.
+
+```{r}
+
+BIC(mod)
+BIC(mod1)
+BIC(mod2)
+BIC(mod3)
+BIC(mod4)
+
+```
+
+
+# E
+
+I prefer the model with all variables except Bed. Tests using adjusted R squared, PRESS, AIC, and BIC as predictors all indicate this model has the greatest comparative predictive power. 
+
+
+
+## Q2
+
+```{r}
+
+summary(trees)
+
+tibble(trees)
+
+```
+
+
+
+# A
+
+```{r}
+
+lm(Volume ~ Girth + Height, data = trees)|> summary()
+
+```
+
+
+# B
+
+Based on the residual vs fitted and normal Q-Q plots this regression model does not meet the linearity assumption. Additionally the trend line in the scale-location plot indicates non-constant variance. 
+
+```{r}
+
+fit = lm(Volume ~ Girth + Height, data = trees)
+
+plot(fit, which = 1:6)
+
+```
+
+
+
+## Q3
+
+```{r}
+
+library(alr4) 
+
+data('florida', package = 'alr4')
+
+summary(florida)
+
+tibble(florida)
+
+```
+
+
+# A
+
+Based on the linear regression and plots below, Palm Beach is an outlier. The Cook's distance for Palm Beach is larger than 1 indicating an influential observation. 
+
+```{r}
+
+lm(Buchanan ~ Bush, data = florida)|> summary()
+
+fit2 = lm(Buchanan ~ Bush, data = florida)
+
+plot(fit2, which = 1:6)
+
+```
+
+
+# B
+
+Using log of both variables instead results a stronger model with a much higer adjusted R squared score of .85 compared to the non-log version's score of .38. This change does not seem to result in a change in the influence of Palm Beach however as indicated by similarities in the Cook's Distance and Scale-Location plots below. 
+
+```{r}
+
+lm(log(Buchanan) ~ log(Bush), data = florida)|> summary()
+
+fit3 = lm(log(Buchanan) ~ log(Bush), data = florida)
+
+plot(fit3, which = 1:6)
+
+```
+
+
+
+
+
+
