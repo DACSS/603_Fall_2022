@@ -1,0 +1,108 @@
+---
+title: "Homework 5"
+author: "Donny Snyder"
+desription: "Homework 5 Submission"
+date: "12/8/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - regression
+---
+
+```{r}
+library(tidyverse)
+library(alr4)
+library(smss)
+library(dplyr)
+library(ggplot2)
+library(GGally)
+library(qpcR)
+```
+
+# Question 1
+
+```{r, echo=T}
+data(house.selling.price.2)
+summary(house.selling.price.2)
+data  <- house.selling.price.2
+
+cor(data)
+
+model1 <- lm(P ~ S + Ba + New + Be ,data = data)
+backElim <- lm(P ~ S + Ba + New ,data = data)
+forSel <- lm(P ~ S + New + Ba + Be,data = data)
+
+summary(model1)
+summary(backElim)
+AIC(model1)
+AIC(backElim)
+BIC(model1)
+BIC(backElim)
+PRESS(model1)
+PRESS(backElim)
+
+```
+
+#Question 1A
+The Beds variable should be deleted first for backward elimination because it has the highest p-value
+
+#Question 1B
+The Size variable should be added first for forward selection, because it has the most explanatory value.
+
+#Question 1C
+Beds likely has such a large p-value because its variance that it explains is almost completely absorbed by size, which it is most highly correlated with.
+
+#Question 1D
+For R squared, I also prefer the backwards elimination method model, because it reduces the residuals.
+
+For adjusted R squared, I prefer the backwards elimination method model without the Bed predictor, because it reduces the residuals.
+
+For AIC I would also prefer the backwards elimination model created, because it reduces the AIC score, same with the BIC score.
+
+The PRESS metric is the only one where the value is lower for the model with all of the variables, so I would choose that for PRESS.
+
+
+#Question 2
+```{r, echo=T}
+data2 <- trees
+
+model2 <- lm(Volume ~ Girth + Height, data = data2)
+summary(model2)
+
+plot(model2)
+
+
+```
+
+# Question 2A
+Ran model in code above.
+
+# Question 2B
+It seems like some of the regression assumptions may be violated. There is something of a parabolic relationship in this model, which was left out of the residuals. THe QQ looks normal, but the spread-location plot also shows that the residuals aren't necessarily spread evenly along the range of values. The residuals vs leverage looks reasonable. It seems that there is not homoscedasticity of errors, which could be an issue for regression.
+
+# Question 3
+
+```{r, echo=T}
+data(florida)
+data3 <- florida
+
+model3 <- lm(Buchanan~Bush, data = florida)
+summary(model3)
+plot(model3)
+
+model4 <- lm(log(Buchanan)~log(Bush), data = florida)
+summary(model4)
+plot(model4)
+
+```
+
+# Question 3A
+Palm beach county is an outlier based on the diagnostic plots, given all of the plots, as it's value is by far the furthest from the fitted line.
+
+# Question 3B
+The findings change somewhat, but not that much. Palm Beach is still an outlier.
