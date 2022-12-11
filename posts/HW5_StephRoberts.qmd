@@ -1,0 +1,168 @@
+---
+title: "HW5"
+author: "Steph Roberts"
+desription: "Homework 5"
+date: "12/9/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - Steph Roberts
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(knitr)
+library(alr4)
+library(smss)
+library(qpcR)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1
+
+```{r}
+data(house.selling.price.2)
+hp <- house.selling.price.2
+
+hr <-lm(P ~., data=hp)
+summary(hr)
+```
+
+## 1A 
+For backward elimination, the beds variable would be deleted first because it has the highest p-value.
+
+## 1B 
+For forward selection, the size variable would be added first because it has the smallest p-value and is the most significant term to the model.
+
+## 1C 
+Although number of beds is correlated to the price of the house, when other variables are included in the model, such as size and baths, beds becomes redundant. Multicollinearity might explain why beds is correlated to price, but has a small p-value in the regression. 
+
+## 1D 
+
+```{r}
+#Create PRESS function
+PRESS <- function(model) {
+  pr <- residuals(model)/(1-lm.influence(model)$hat)
+  PRESS <- sum(pr^2)
+  return(PRESS)}
+
+#Create models
+mod1 <- lm(P ~ S, data=hp)
+mod2 <- lm(P ~ S + New, data=hp)
+mod3 <- lm(P ~ S + New + Ba, data=hp)
+mod4 <- lm(P ~ S + New + Ba + Be, data=hp)
+mod5 <- lm(P~ ., data=hp)
+```
+
+```{r}
+#Testing model 1
+summary(mod1)
+print(paste("The PRESS for size model is", PRESS(mod1)))
+print(paste("The AIC for size model is", AIC(mod1)))
+print(paste("The BIC for size model is", BIC(mod1)))
+```
+The model including only size on price has an R2 of 0.808, and adjusted R2 of 0.806, a PRESS of 38203.29, an AIC of 820.14, and a BIC of 827.74.
+
+```{r}
+#Testing model 2
+summary(mod2)
+print(paste("The PRESS for size model is", PRESS(mod2)))
+print(paste("The AIC for size model is", AIC(mod2)))
+print(paste("The BIC for size model is", BIC(mod2)))
+```
+The model including size and new on price has an R2 of 0.848, and adjusted R2 of 0.845, a PRESS of 31066, an AIC of 800.13, and a BIC of 810.26.
+
+```{r}
+#Testing model 3
+summary(mod3)
+print(paste("The PRESS for size model is", PRESS(mod3)))
+print(paste("The AIC for size model is", AIC(mod3)))
+print(paste("The BIC for size model is", BIC(mod3)))
+```
+The model including size, new, and baths on price has an R2 of 0.868, and adjusted R2 of 0.863, a PRESS of 27860.05, an AIC of 789.14, and a BIC of 801.80.
+
+```{r}
+#Testing model 4
+summary(mod4)
+print(paste("The PRESS for size model is", PRESS(mod4)))
+print(paste("The AIC for size model is", AIC(mod4)))
+print(paste("The BIC for size model is", BIC(mod4)))
+```
+The model including size, new, baths, and beds on price has an R2 of 0.869, and adjusted R2 of 0.863, a PRESS of 28390.22, an AIC of 790.62, and a BIC of 805.81
+
+#### Summary of models
+
+The models with the best R2 and adjusted R2 are model 3 (size, new, and baths) and model 4 (size, new, baths, and beds)
+
+The model with the best PRESS value, AIC, and BIC is model 3 (size, new, and baths).
+
+# Question 2
+
+## 2A
+
+```{r}
+#Read in data
+data(trees)
+tree <- trees
+head(tree)
+
+#Create model
+mod_tree_1 <- lm(Volume ~ Girth + Height, data=tree)
+summary(mod_tree_1)
+```
+
+## 2B
+
+```{r}
+#Plot modeal diagnostics
+plot(mod_tree_1)
+```
+The residuals vs. fitted plot shows the data is non-linear. The normal Q-Q shows the residuals have a close-to-normal distribution. The points on the scale-location show a non-random pattern, where residuals are not spread equally along the range of predictors. The assumption of homoscedasticity may be violated. The residuals vs. leverage plot shows an influential observations at point 31, beyond Cook's distance. Finding that point on all other plots, it appears to be an outlier in all cases.
+
+The diagnostic plots show that 2 assumptions may be violated: linearity and homocedasticity of errors.
+
+# Question 3
+
+## 3A
+
+```{r}
+#Read in data
+data("florida")
+fl <- florida
+
+#Create model
+fl_mod <- lm(Buchanan ~ Bush, data=fl)
+summary(fl_mod)
+```
+
+
+```{r}
+#Plot model diagnostics
+plot(fl_mod)
+```
+
+Palm Beach County is an outlier based on the residuals vs. leverage plot. It can also be observed on the residuals vs. fitted and Normal Q-Q plots. Looking at the raw data, that county has the highest votes for Buchanan and one of the highest for Bush. 
+
+## 3B
+
+```{r}
+#Create logistics model
+fl_mod_log <- lm(log(Buchanan) ~ log(Bush), data=fl)
+summary(fl_mod_log)
+```
+
+
+```{r}
+#Plot the log model
+plot(fl_mod_log)
+```
+The model does now meet the linear regression model assumptions. Palm Beach still has a non-normal residual. However, it is not outside of Cook's distance, suggesting it's influence is decreased in this model.
