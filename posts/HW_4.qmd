@@ -1,0 +1,222 @@
+---
+title: "Homework 4"
+author: "Mani Kanta Gogula"
+description: "HW_4"
+date: "11/12/2022"
+format:
+  html:
+    df-print: paged
+    css: styles.css
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - Mani Kanta Gogula
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(stats)
+library(alr4)
+library(smss)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question One
+
+## A
+
+```{r}
+Predicted_selling_price <-  -10536 + 53.8 * 1240 + 2.84 * 18000
+Predicted_selling_price
+```
+
+```{r}
+Residual <- Predicted_selling_price - 145000
+Residual
+```
+
+From the above result, we can say that the house was sold for 37704 dollars greater than predicted.
+
+## B
+
+Using the prediction equation ŷ =  -10536 + 53.8x1 + 2.84x2, where x2 equals lot size, the house selling price is expected to increase by 53.8 dollars per each square-foot increase in home size given the lot sized is fixed. This is because a fixed lot size would make 2.84x2 a set number in the prediction equation. Therefore, we would not need to factor in a change in the output based on any input. Then, we are left with the coefficient for the home size variable, which is 53.8. For x1 = 1, representing one square-foot of home size, the output would increase by 53.8 * 1 = 53.8.
+
+## C
+
+For fixed home size,
+53.8 * 1 = 2.84x2
+
+```{r}
+x2 <- 53.8/2.84
+x2
+```
+
+An increase in lot size of about 18.94 square-feet would have the same impact as an increase of 1 square-foot in home size on the predicted selling price.
+
+## Question 2
+
+```{r}
+data("salary")
+salary
+```
+
+## A
+
+```{r}
+summary(lm(salary ~ sex, data = salary))
+```
+
+The null hypothesis would be that mean salary for men and mean salary for women are equal, and the alternative hypothesis would be that the salaries are not equal. I ran a regression with sex as the explanatory variable and salary as the outcome variable. The female coefficient is -3340, which means that women do make less than men not considering any other variables. However, if we consider the other variables and also there is a significance level of 0.07, so we fail to reject the null hypothesis and therefore cannot conclude that there is a difference between mean salaries for men and women.
+
+## B
+
+```{r}
+model <- lm(salary ~ ., data = salary)
+summary(model)
+```
+
+```{r}
+confint(model)
+```
+
+Assuming there is no interaction between sex and other predictors, we can be 95% confident that the difference in salary of women compared to men falls between -697.8183 dollars and 3030.56452 dollars.
+
+## C
+
+For degree as the predictor, a PHD would be expected to increase salary by 1388.61 dollars in reference to a Masters degree salary. However, at a significance level of 0.18, we cannot conclude that degree level has a statistically significant impact on salary.
+
+For the rank variable, an Associate can expect a 5292.36 dollar increase in salary compared to Assistant, while a Professor can expect a 11118.76 dollar salary increase compared to Assistant. Both ranks have significance levels well below 0.05 and we can determine that rank does have a statistically significant impact on salary.
+
+For the variable of sex, a Female can expect a salary increase of 1166.37 dollars in comparison to Male salary, but the significance level is 0.214, so this is not a statistically significant relationship.
+
+For year, a faculty member can expect a salary increase of 476.31 dollars for an increase in 1 year of employment in his/her/their position. Additionally, the level of significance is less than 0.01 so the relationship between year and salary appears to be significant.
+
+For the ysdeg variable, an increase in years since earning highest degree can expect a decrease in salary, with a coefficient of -124.57. However, with a 0.115 level of significance, this relationship cannot be found to be statistically significant.
+
+## D
+
+```{r}
+salary$rank <- relevel(salary$rank, ref = "Prof")
+summary(lm(salary ~ rank, salary))
+```
+
+After changing the baseline category for the rank variable, an Associate can expect a 6483.0 dollar decrease in salary compared to Professor, while a Assistant can expect a 11890.3 dollar salary decrease compared to Professor. Both ranks have significance levels well below 0.05 and we can determine that rank does have a statistically significant impact on salary.
+
+## E
+
+```{r}
+summary(lm(salary ~ degree + sex + year + ysdeg, salary))
+```
+
+When removing the variable “rank”, the coefficient for sex is -1286.54 compared to the above regression that included rank with a coefficient for sex at 1166.37. The new coefficient predicts that a female salary would be 1286.54 less than a male salary, when excluding the variable of rank. However, the significance level is 0.332, which is very high and therefore the results cannot be found to be statistically significant. While the change of the coefficient to negative upon removal of rank is interesting, the significance level would likely prevent these results from holding up in court as an indication of discrimination on the basis of sex.
+
+## F
+
+```{r}
+salary <- salary %>%
+  mutate(hired = case_when(ysdeg <= 15 ~ "1", ysdeg > 15 ~ "0"))
+summary(lm(salary ~ hired, data = salary))
+```
+
+```{r}
+summary(lm(salary ~ sex + rank + degree + hired, data = salary))
+```
+
+I created a dummy variable called “hired” which coded those employed for 15 years or less (thus hired by the new Dean) as 1 and those who have been employed for over 15 years as 0. Then, I fit a new regression model and decided to include the variables of sex, rank, degree, and hired. I omitted the year and ysdeg variables to prevent overlapping or multicollinearity. Multicollinearity can be a concern when variables are highly correlated or related in some way. The idea of regression is to observe how each variable partially effects the output while holding the other variables fixed. We cannot reasonably change the year or ysdeg or hired variables individually while holding the other two fixed since they tend to “grow” in similar manners. Since the variable hired is a product of the ysdeg variable, we could not include both.
+
+Based on the regression model, those hired by the current Dean are predicted to make 319 dollars more than those not hired by the Dean. When it comes to salary, this is a rather insignificant number. Furthermore, the level of significance for the hired variable is .81, which is astronomical and indicates that the relationship between hired and salary is not statistically significant. Based on these factors, I would state that findings do not indicate any favorable treatment by the Dean toward faculty that the Dean specifically hired.
+
+## Question 3
+
+```{r}
+data("house.selling.price")
+house.selling.price
+```
+
+## A
+
+```{r}
+summary(lm(Price ~ Size + New, house.selling.price))
+```
+
+Both Size and New significantly positively predict selling price. As each predictor goes up by 1 unit, selling price rises by 116.132 dollars and 57736.283 dollars respectively.
+
+## B
+
+```{r}
+new <- house.selling.price %>% 
+  filter(New == 1)
+summary(lm(Price ~ Size, data = new))
+```
+
+```{r}
+old <- house.selling.price %>% 
+  filter(New == 0)
+summary(lm(Price ~ Size, data = old))
+```
+
+Size significantly positively predicts price for both new and old houses, but by a greater magnitude for new houses. Adjusted R-squared for the model is also much higher (0.91 vs. 0.58).
+
+New_Price = 166 * Size - 100755.31
+
+Old_Price = 104 * Size - 22227.808
+
+## C
+
+```{r}
+Size <- 3000
+New_Price = 166 * Size - 100755.31
+Old_Price = 104 * Size - 22227.808
+New_Price
+Old_Price
+```
+
+## D
+
+```{r}
+summary(lm(Price ~ Size*New, data = house.selling.price))
+```
+
+## E
+
+The predicted selling price, based on the new regression that includes interaction between Size and Newness, would look like:
+
+New_Price = -22227.81 + 104.44 * Size - 78527.50 * 1 + 61.92 * Size * 1
+
+Old_Price = -22227.81 + 104.44 * Size
+
+## F
+
+```{r}
+Size <- 3000
+New_Price = -22227.81 + 104.44 * Size - 78527.50 * 1 + 61.92 * Size * 1
+Old_Price = -22227.81 + 104.44 * Size
+New_Price
+Old_Price
+```
+
+## G
+
+```{r}
+Size <- 1500
+New_Price = -22227.81 + 104.44 * Size - 78527.50 * 1 + 61.92 * Size * 1
+Old_Price = -22227.81 + 104.44 * Size
+New_Price
+Old_Price
+``` 
+
+As size of home goes up, the difference in predicted selling prices between old and new homes becomes larger.
+
+## H
+
+The prediction model with interaction has a significantly large negative coefficient for the New variable. The adjusted r-squared for the model with interaction is 0.7363 and the adjusted r-squared for the first model without interaction is 0.7169. 
+
+---
