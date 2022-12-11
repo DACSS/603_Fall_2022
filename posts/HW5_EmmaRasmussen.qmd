@@ -1,0 +1,163 @@
+---
+title: "Homework 5"
+date: "12/1/2022"
+format:
+  html:
+    toc: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+---
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(alr4)
+library(smss)
+library(stats)
+library(stargazer)
+```
+
+```{r}
+data(house.selling.price.2)
+head(house.selling.price.2)
+
+summary(lm(P~ S + Be + Ba + New, data=house.selling.price.2))
+
+```
+
+##1a. 
+
+Beds would be deleted first in backwards elimintation because it has the highest p-value.
+
+##1b. 
+
+For forward selection, size would be added first because it has the strongest correlation with price according the the correlation matrix.
+
+##1c. 
+
+The BEDS variable is likely captured in the model by size and baths, so once all are included it is no longer significant. 
+
+##1d. 
+
+Using software with these four predictors, find the model that would be selected using each criterion:
+```{r}
+#All variables
+summary(lm(P~ S + Be + Ba + New, data=house.selling.price.2))
+fit_a<-lm(P~ S + Be + Ba + New, data=house.selling.price.2)
+
+#All variables, and interaction term
+summary(lm(P~ S + Be + Ba + New + S*New, data=house.selling.price.2))
+fit_b<-lm(P~ S + Be + Ba + New + S*New, data=house.selling.price.2)
+
+#Beds removed, with interatction
+summary(lm(P~ S + Ba + New + S*New, data=house.selling.price.2))
+fit_c<-lm(P~ S + Ba + New + S*New, data=house.selling.price.2)
+
+#Beds removed, no interaction
+summary(lm(P~ S + Ba + New, data=house.selling.price.2))
+fit_d<-lm(P~ S + Ba + New, data=house.selling.price.2)
+```
+```{r}
+stargazer(fit_a, fit_b, fit_c, fit_d, type= "text", style="apsr")
+```
+
+
+###R2 
+
+The model with the highest R-squared is fit_b (all variables, and the interaction term between size and new)
+
+lm(P~ S + Be + Ba + New + S*New)
+
+###Adjusted R2 
+
+The model with the highest adjusted R-squared is  also fit_b (but not by much, essentially the same R-squared as the same model without the BEDS variable, so I am skeptical this variable is useful)
+
+lm(P~ S + Be + Ba + New + S*New)
+
+###PRESS
+```{r}
+PRESS(fit_a)
+PRESS(fit_b)
+PRESS(fit_c)
+PRESS(fit_d)
+```
+The model with the lowest PRESS statistic is fit_c (with the interaction term but no BEDS variable)
+lm(P~ S + Ba + New + S*New)
+
+###AIC 
+
+Because all models have 93 observations, we can compare AIC and BIC. The model that minimizes AIC is fit_c but fit_b is not much worse.
+
+lm(P~ S + Ba + New + S*New)
+```{r}
+AIC(fit_a)
+AIC(fit_b)
+AIC(fit_c)
+AIC(fit_d)
+```
+
+
+###BIC 
+
+```{r}
+BIC(fit_a)
+BIC(fit_b)
+BIC(fit_c)
+BIC(fit_d)
+```
+ The model that minimizes BIC is fit_c.
+ lm(P~ S + Ba + New + S*New)
+ 
+##1e. 
+
+I prefer fit_c lm(P~ S + Ba + New + S*New) because it performs the best in terms of PRESS, AIC, and BIC, and about the same as the best one for adjusted R-squared. Because we have multiple variables included in the model I prefer to use adjusted R-squared over R-squared.
+
+##2a. 
+
+(Data file: trees from base R)
+From the documentation:
+“This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labeled Girth in the data. It is measured at 4 ft 6 in above the ground.”
+
+Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular, 
+
+fit a multiple regression model with  the Volume as the outcome and Girth  and Height as the explanatory variables
+Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?
+
+```{r}
+data(trees)
+head(trees)
+summary(lm(Volume ~ Height + Girth, data=trees))
+fit_trees<-lm(Volume ~ Height + Girth, data=trees)
+```
+##2b. 
+```{r}
+par(mfrow= c(2,3)); plot(fit_trees, which=1:6)
+```
+Constant variance (of residuals) appears to be violated from these plots (Residuals vs Fitted is funnel shaped and Scale Location is not linear)
+
+##3a. 
+```{r}
+data(florida)
+head(florida)
+```
+```{r}
+summary(lm(Buchanan~ Bush, data=florida))
+fit_florida<- (lm(Buchanan~ Bush, data=florida))
+par(mfrow= c(2,3)); plot(fit_florida, which=1:6)
+```
+
+Palm Beach (and Dade) County appears to be an outlier. Cooks distance is greater than 1, and it has high leverage.
+##3b. 
+```{r}
+summary(lm(log(Buchanan)~ log(Bush), data=florida))
+fit_florida2<- (lm(log(Buchanan)~ log(Bush), data=florida))
+par(mfrow= c(2,3)); plot(fit_florida2, which=1:6)
+```
+Palm beach could still be an potential outlier according to these plots, but the magnitude is less strong than in the previous plots. 
