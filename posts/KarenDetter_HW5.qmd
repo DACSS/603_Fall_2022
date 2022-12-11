@@ -1,0 +1,134 @@
+---
+title: "HW 5"
+author: "Karen Detter"
+desription: "Homework 5"
+date: "12/09/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Q.1
+
+## A.
+Using backward elimination would result in *Beds* being removed, because it has the highest p-value of all the variables.
+
+## B.
+Under the forward selection method, *Size* would be added first, because it has the largest t-value, indicating the greatest improvement to the null model.
+
+## C.
+The fact that *Beds* has a substantial correlation with *Price*, but a large p-value in the regression model is an indication of small sample size, since p-value is a function of both correlation coefficient and sample size.
+
+## D.
+```{r}
+#test regression models
+library(smss)
+data(house.selling.price.2)
+full <- lm(P ~ ., data = house.selling.price.2)
+forw1 <- lm(P ~ S, data = house.selling.price.2)
+forw2 <- lm(P ~ S + New, data = house.selling.price.2)
+forw3 <- lm(P ~ S + New + Ba, data = house.selling.price.2)
+```
+### a.
+I used the forward selection method to fit models, adding variables, one at a time, based on t-values (highest to lowest).
+
+$R^{2}$ is highest for the full model with all variables.
+
+### b.
+Adjusted $R^{2}$ is highest for the model of *Price* as a function of *Size*, *Baths*, and *New*.
+
+### c.
+```{r}
+#calculate PRESS statistics
+PRESS <- function(linear.model) {
+  pr <- residuals(linear.model)/(1-lm.influence(linear.model)$hat) 
+  PRESS <- sum(pr^2) 
+  return(PRESS)
+}
+PRESS(full)
+PRESS(forw1)
+PRESS(forw2)
+PRESS(forw3)
+```
+The model with *Price* as a function of *Size*, *Baths*, and *New* has the lowest PRESS calculation.
+
+### d.
+```{r}
+#calculate AIC values
+AIC(full, k=2)
+AIC(forw1, k=2)
+AIC(forw2, k=2)
+AIC(forw3, k=2)
+```
+The model with *Price* as a function of *Size*, *Baths*, and *New* has the lowest AIC calculation.
+
+### e.
+```{r}
+#calculate BIC values
+BIC(full)
+BIC(forw1)
+BIC(forw2)
+BIC(forw3)
+```
+The model with *Price* as a function of *Size*, *Baths*, and *New* has the lowest BIC calculation.
+
+## E.
+Since the model with *Price* as a function of *Size*, *Baths*, and *New* has the highest Adjusted $R^{2}$, and the lowest PRESS, AIC, and BIC calculations, I would choose it as the best one. 
+
+# Q.2
+
+## A.
+```{r}
+#fit multiple regression model
+trees_full <- lm(Volume ~ Girth + Height, data = trees)
+summary(trees_full)
+```
+
+## B.
+```{r}
+#run diagnostic plots
+par(mfrow = c(2,3)); plot(trees_full, which = 1:6)
+```
+
+From the appearance of the Residuals vs Fitted plot, it seems the assumption of a linear relationship is violated, because the residuals form a pattern of groups, instead of being randomly distributed around the 0 line.
+
+It also appears that the assumption of constant variance is violated, as the Scale-Location plot shows heteroskedasticity in the residuals because the baseline shows magnitude changes.
+
+# Q.3
+
+## a)
+```{r}
+library(alr4)
+data(florida)
+vote <- lm(Buchanan ~ Bush, data = florida)
+#produce diagnostic plots
+par(mfrow = c(2,3)); plot(vote, which = 1:6)
+```
+
+Palm Beach County is a definite outlier in this model, as it does not follow the patterns produced by the other county data in any of the diagnostic plots, and its residual values are much higher.
+
+## b)
+```{r}
+#log both variables in model
+vote_log <- lm(log(Buchanan) ~ log(Bush), data = florida)
+par(mfrow = c(2,3)); plot(vote_log, which = 1:6)
+```
+
+Palm Beach County still appears to be at the high end of the data, but it no longer appears to be an actual outlier, because it is now much closer in line with the patterns and values of the other counties.
+
+
+
