@@ -2,21 +2,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Steph Roberts">
 <meta name="dcterms.date" content="2022-10-09">
 
-<title>- Final Project: Diabetes Prediction - Part 2</title>
+<title>Final Project: Diabetes Prediction - Part 2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -123,9 +128,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 }</script>
 
 
-<meta name="twitter:title" content="- Final Project: Diabetes Prediction - Part 2">
+<meta name="twitter:title" content="Final Project: Diabetes Prediction - Part 2">
 <meta name="twitter:description" content="According to the World Health Organization (WHO), an estimated 537 million people worldwide are living with diabetes. It is a leading cause of health complications and even death.">
 <meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
 <meta name="twitter:card" content="summary">
 </head>
 
@@ -135,27 +141,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
-    <img src="../images/UMass White Wordmark Horiz.png" alt="">
-  </a>
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">Fall 2022 Posts</a>
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">Contributors</a>
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://umass.edu/sbs/dacss">DACSS</a>
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div class="quarto-toggle-container">
@@ -171,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -216,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">October 9, 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -889,6 +901,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         }
       }
     }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
   }
   const isFileUrl = () => { 
     return window.location.protocol === 'file:';
@@ -940,7 +962,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   // Switch to dark mode if need be
   if (hasAlternateSentinel()) {
     toggleColorMode(true);
-  } 
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -962,7 +986,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1041,31 +1082,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
@@ -1205,392 +1265,416 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb118-150"><a href="#cb118-150" aria-hidden="true" tabindex="-1"></a>The histograms show us the distribution of all our variables. Pregnancies is right skewed with more women having a smaller number of pregnancies and a small number having over 10. Glucose appears to follow a close-to-normal distribution with the mean just over 100. BMI follows a similar pattern with a central value of just over 30. Age is right skewed with the majority of the sample appearing to be in their 20s and slower tapering off to ages in their 50s. This is a good place to start. The only variable we cannot view in a histogram is the outcome variable due to its binary nature as a dummy variable. </span>
 <span id="cb118-151"><a href="#cb118-151" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb118-154"><a href="#cb118-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-155"><a href="#cb118-155" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span>
-<span id="cb118-156"><a href="#cb118-156" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span>
-<span id="cb118-157"><a href="#cb118-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-158"><a href="#cb118-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-161"><a href="#cb118-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-162"><a href="#cb118-162" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
-<span id="cb118-163"><a href="#cb118-163" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
-<span id="cb118-164"><a href="#cb118-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
-<span id="cb118-165"><a href="#cb118-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
-<span id="cb118-166"><a href="#cb118-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)<span class="sc">+</span></span>
-<span id="cb118-167"><a href="#cb118-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> ..count..), <span class="at">stat =</span> <span class="st">"count"</span>, <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">colour =</span> <span class="st">"white"</span>)</span>
-<span id="cb118-168"><a href="#cb118-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-169"><a href="#cb118-169" aria-hidden="true" tabindex="-1"></a>About a third of our sample have diabetes, with 264 cases with diabetes and 488 without. </span>
-<span id="cb118-170"><a href="#cb118-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-171"><a href="#cb118-171" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis Testing</span></span>
-<span id="cb118-172"><a href="#cb118-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-173"><a href="#cb118-173" aria-hidden="true" tabindex="-1"></a>To test our hypothesis we could use either linear regression or logistics regression. Considering the outcome variable is binary, logistics regression is likely going to be best. First, though, let's try to plot a linear regression as a type of diagnostics test. </span>
-<span id="cb118-174"><a href="#cb118-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-175"><a href="#cb118-175" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagnostics</span></span>
-<span id="cb118-176"><a href="#cb118-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-179"><a href="#cb118-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-180"><a href="#cb118-180" aria-hidden="true" tabindex="-1"></a>dlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(diabetes <span class="sc">~</span> bmi <span class="sc">+</span> glucose <span class="sc">+</span> age, <span class="at">data =</span> df)</span>
-<span id="cb118-181"><a href="#cb118-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-155"><a href="#cb118-155" aria-hidden="true" tabindex="-1"></a><span class="co">#Visualize relationship of variables</span></span>
+<span id="cb118-156"><a href="#cb118-156" aria-hidden="true" tabindex="-1"></a>bgap <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(df[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">9</span>)])</span>
+<span id="cb118-157"><a href="#cb118-157" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(bgap)</span>
+<span id="cb118-158"><a href="#cb118-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-159"><a href="#cb118-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-162"><a href="#cb118-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-163"><a href="#cb118-163" aria-hidden="true" tabindex="-1"></a><span class="co">#Plot outcome variable</span></span>
+<span id="cb118-164"><a href="#cb118-164" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(diabetes))) <span class="sc">+</span></span>
+<span id="cb118-165"><a href="#cb118-165" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">fill =</span> <span class="st">"#0073C2FF"</span>)<span class="sc">+</span></span>
+<span id="cb118-166"><a href="#cb118-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">'No Diabetes'</span>,<span class="st">'Diabetes'</span>))<span class="sc">+</span></span>
+<span id="cb118-167"><a href="#cb118-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"Outcome"</span>)<span class="sc">+</span></span>
+<span id="cb118-168"><a href="#cb118-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> ..count..), <span class="at">stat =</span> <span class="st">"count"</span>, <span class="at">vjust =</span> <span class="fl">1.5</span>, <span class="at">colour =</span> <span class="st">"white"</span>)</span>
+<span id="cb118-169"><a href="#cb118-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-170"><a href="#cb118-170" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>diabetes)</span>
+<span id="cb118-171"><a href="#cb118-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-172"><a href="#cb118-172" aria-hidden="true" tabindex="-1"></a>About a third of our sample have diabetes, with 264 cases with diabetes and 488 without. </span>
+<span id="cb118-173"><a href="#cb118-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-176"><a href="#cb118-176" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-177"><a href="#cb118-177" aria-hidden="true" tabindex="-1"></a><span class="co">#Boxplot of BMI vs. diabetes</span></span>
+<span id="cb118-178"><a href="#cb118-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-179"><a href="#cb118-179" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(bmi<span class="sc">~</span>diabetes, df, <span class="at">names=</span><span class="fu">c</span>(<span class="st">"No Diabetes"</span>, <span class="st">"Diabetes"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"darkolivegreen2"</span>, <span class="st">"tomato"</span>), <span class="at">ylab=</span><span class="st">"Body Mass Index"</span>, <span class="at">xlab=</span><span class="st">" "</span>)</span>
+<span id="cb118-180"><a href="#cb118-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-181"><a href="#cb118-181" aria-hidden="true" tabindex="-1"></a>The interquartile range(IQR) for BMI between those without and those with diabetes is roughly the same size. However, the diabetes IQR and median is distinctly higher on the BMI range than for those without the disease.</span>
 <span id="cb118-182"><a href="#cb118-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-183"><a href="#cb118-183" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
-<span id="cb118-184"><a href="#cb118-184" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dlm)</span>
-<span id="cb118-185"><a href="#cb118-185" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-186"><a href="#cb118-186" aria-hidden="true" tabindex="-1"></a>**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. This is likely due to our model representing two distinct outcomes. It therefore breaks normality. </span>
+<span id="cb118-185"><a href="#cb118-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-186"><a href="#cb118-186" aria-hidden="true" tabindex="-1"></a><span class="co">#Boxplot of glucose vs. diabetes</span></span>
 <span id="cb118-187"><a href="#cb118-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-188"><a href="#cb118-188" aria-hidden="true" tabindex="-1"></a>**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top). It  also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."</span>
-<span id="cb118-189"><a href="#cb118-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-190"><a href="#cb118-190" aria-hidden="true" tabindex="-1"></a>**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. There is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. </span>
+<span id="cb118-188"><a href="#cb118-188" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(glucose<span class="sc">~</span>diabetes, df, <span class="at">names=</span><span class="fu">c</span>(<span class="st">"No Diabetes"</span>, <span class="st">"Diabetes"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"darkolivegreen2"</span>, <span class="st">"tomato"</span>), <span class="at">ylab=</span><span class="st">"Plasma Glucose"</span>, <span class="at">xlab=</span><span class="st">" "</span>)</span>
+<span id="cb118-189"><a href="#cb118-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-190"><a href="#cb118-190" aria-hidden="true" tabindex="-1"></a>The difference in IQR for plasma glucose measured against diabetes is remarkable. The median for those with diabetes exceeds the upper quartile of those without. </span>
 <span id="cb118-191"><a href="#cb118-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-192"><a href="#cb118-192" aria-hidden="true" tabindex="-1"></a>**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. </span>
-<span id="cb118-193"><a href="#cb118-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-194"><a href="#cb118-194" aria-hidden="true" tabindex="-1"></a>**Conclusion**: A linear regression does not appear to be the best regression analysis to use for this data. Instead, we will work with logistics regression to test our hypothesis, then train and test the data. </span>
-<span id="cb118-195"><a href="#cb118-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-194"><a href="#cb118-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-195"><a href="#cb118-195" aria-hidden="true" tabindex="-1"></a><span class="co">#Boxplot of age vs. diabetes</span></span>
 <span id="cb118-196"><a href="#cb118-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-199"><a href="#cb118-199" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-200"><a href="#cb118-200" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
-<span id="cb118-201"><a href="#cb118-201" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb118-202"><a href="#cb118-202" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
-<span id="cb118-203"><a href="#cb118-203" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb118-204"><a href="#cb118-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb118-205"><a href="#cb118-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span>
-<span id="cb118-206"><a href="#cb118-206" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span>
-<span id="cb118-207"><a href="#cb118-207" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span>
-<span id="cb118-208"><a href="#cb118-208" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span>
-<span id="cb118-209"><a href="#cb118-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-210"><a href="#cb118-210" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span>
-<span id="cb118-211"><a href="#cb118-211" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span>
-<span id="cb118-212"><a href="#cb118-212" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span>
-<span id="cb118-213"><a href="#cb118-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-214"><a href="#cb118-214" aria-hidden="true" tabindex="-1"></a>Our hypothesis involves the BMI, glucose, and age variables. First we can take a look at them individually. </span>
-<span id="cb118-215"><a href="#cb118-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-218"><a href="#cb118-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-219"><a href="#cb118-219" aria-hidden="true" tabindex="-1"></a><span class="co">#Logistics regression is best for binomial outcome variables </span></span>
-<span id="cb118-220"><a href="#cb118-220" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
-<span id="cb118-221"><a href="#cb118-221" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-222"><a href="#cb118-222" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span>
+<span id="cb118-197"><a href="#cb118-197" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(age<span class="sc">~</span>diabetes, df, <span class="at">names=</span><span class="fu">c</span>(<span class="st">"No Diabetes"</span>, <span class="st">"Diabetes"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"darkolivegreen2"</span>, <span class="st">"tomato"</span>), <span class="at">ylab=</span><span class="st">"age"</span>, <span class="at">xlab=</span><span class="st">" "</span>)</span>
+<span id="cb118-198"><a href="#cb118-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-199"><a href="#cb118-199" aria-hidden="true" tabindex="-1"></a>Not as starkly different as the previous variable, but age also has an IQR difference where diabetes is higher on the range. All 3 of these boxplots tend to suggest those with diabetes have higher values in the variables in question. Let's take a closer look at the stats to measure our hypothesis.</span>
+<span id="cb118-200"><a href="#cb118-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-201"><a href="#cb118-201" aria-hidden="true" tabindex="-1"></a><span class="fu">## Hypothesis Testing</span></span>
+<span id="cb118-202"><a href="#cb118-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-203"><a href="#cb118-203" aria-hidden="true" tabindex="-1"></a>To test our hypothesis we could use either linear regression or logistics regression. Considering the outcome variable is binary, logistics regression is likely going to be best. First, though, let's try to plot a linear regression as a type of diagnostics test. </span>
+<span id="cb118-204"><a href="#cb118-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-205"><a href="#cb118-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### Diagnostics</span></span>
+<span id="cb118-206"><a href="#cb118-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-209"><a href="#cb118-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-210"><a href="#cb118-210" aria-hidden="true" tabindex="-1"></a>dlm <span class="ot">&lt;-</span> <span class="fu">lm</span>(diabetes <span class="sc">~</span> bmi <span class="sc">+</span> glucose <span class="sc">+</span> age, <span class="at">data =</span> df)</span>
+<span id="cb118-211"><a href="#cb118-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-212"><a href="#cb118-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-213"><a href="#cb118-213" aria-hidden="true" tabindex="-1"></a><span class="co">#Diagnostic plot of model</span></span>
+<span id="cb118-214"><a href="#cb118-214" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dlm)</span>
+<span id="cb118-215"><a href="#cb118-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-216"><a href="#cb118-216" aria-hidden="true" tabindex="-1"></a>**Residuals vs Fitted**: The residuals have 2 distinct patterns of behavior. This is likely due to our model representing two distinct outcomes. It therefore breaks normality. </span>
+<span id="cb118-217"><a href="#cb118-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-218"><a href="#cb118-218" aria-hidden="true" tabindex="-1"></a>**Normal Q-Q**: The Q-Q plot, which indicates level of asymmetry, tells us our data is not a normal distribution. It appears to have a right tail (see the points drifting from the line at the top). It  also has values away from the line on the bottom left, away from the intercept. This suggests our model also includes a left tail. This distribution seems to have "fat tails."</span>
+<span id="cb118-219"><a href="#cb118-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-220"><a href="#cb118-220" aria-hidden="true" tabindex="-1"></a>**Scale-Location**: This plots the fitted values of the model along the x-axis and the square root of the standardized residuals along the y-axis. There is a clear X pattern among residuals. This suggests our model has heteroscedasticity, which is not ideal. </span>
+<span id="cb118-221"><a href="#cb118-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-222"><a href="#cb118-222" aria-hidden="true" tabindex="-1"></a>**Residuals vs Leverage**: The points on this graph all fall within Cook's distance, indicating there are not any influential points in our regression model. </span>
 <span id="cb118-223"><a href="#cb118-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-224"><a href="#cb118-224" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mbmi<span class="sc">$</span>coefficients)</span>
+<span id="cb118-224"><a href="#cb118-224" aria-hidden="true" tabindex="-1"></a>**Conclusion**: A linear regression does not appear to be the best regression analysis to use for this data. Instead, we will work with logistics regression to test our hypothesis, then train and test the data. </span>
 <span id="cb118-225"><a href="#cb118-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-226"><a href="#cb118-226" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-227"><a href="#cb118-227" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb118-228"><a href="#cb118-228" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'glm'</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial))</span>
-<span id="cb118-229"><a href="#cb118-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-230"><a href="#cb118-230" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in BMI multiplies the odds of diabetes by 1.096. The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.091. The very small p-value of 5.58e-13 indicates we can reject the null hypothesis and conclude a relationship between BMI and diabetes. </span>
-<span id="cb118-231"><a href="#cb118-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-234"><a href="#cb118-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-235"><a href="#cb118-235" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
-<span id="cb118-236"><a href="#cb118-236" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-237"><a href="#cb118-237" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span>
-<span id="cb118-238"><a href="#cb118-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-239"><a href="#cb118-239" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mgluc<span class="sc">$</span>coefficients)</span>
-<span id="cb118-240"><a href="#cb118-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-241"><a href="#cb118-241" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-242"><a href="#cb118-242" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"darkseagreen"</span>) <span class="sc">+</span></span>
-<span id="cb118-243"><a href="#cb118-243" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'glm'</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial))</span>
-<span id="cb118-244"><a href="#cb118-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-245"><a href="#cb118-245" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in plasma glucose concentration multiplies the odds of diabetes by 1.040. With a very small p-value, &lt;2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. </span>
-<span id="cb118-246"><a href="#cb118-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-249"><a href="#cb118-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-250"><a href="#cb118-250" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
-<span id="cb118-251"><a href="#cb118-251" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-252"><a href="#cb118-252" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span>
+<span id="cb118-226"><a href="#cb118-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-229"><a href="#cb118-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-230"><a href="#cb118-230" aria-hidden="true" tabindex="-1"></a><span class="co">#Create training and test data</span></span>
+<span id="cb118-231"><a href="#cb118-231" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb118-232"><a href="#cb118-232" aria-hidden="true" tabindex="-1"></a>bgap <span class="sc">%&gt;%</span> </span>
+<span id="cb118-233"><a href="#cb118-233" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb118-234"><a href="#cb118-234" aria-hidden="true" tabindex="-1"></a>  <span class="fu">multiply_by</span>(<span class="fl">0.7</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb118-235"><a href="#cb118-235" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>() <span class="ot">-&gt;</span> training_set_size</span>
+<span id="cb118-236"><a href="#cb118-236" aria-hidden="true" tabindex="-1"></a>train_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df), training_set_size)</span>
+<span id="cb118-237"><a href="#cb118-237" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> bgap[train_indices,]</span>
+<span id="cb118-238"><a href="#cb118-238" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> bgap[<span class="sc">-</span>train_indices,]</span>
+<span id="cb118-239"><a href="#cb118-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-240"><a href="#cb118-240" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(train)</span>
+<span id="cb118-241"><a href="#cb118-241" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(test)</span>
+<span id="cb118-242"><a href="#cb118-242" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(train)</span>
+<span id="cb118-243"><a href="#cb118-243" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-244"><a href="#cb118-244" aria-hidden="true" tabindex="-1"></a>Our hypothesis involves the BMI, glucose, and age variables. First we can take a look at them individually. </span>
+<span id="cb118-245"><a href="#cb118-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-248"><a href="#cb118-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-249"><a href="#cb118-249" aria-hidden="true" tabindex="-1"></a><span class="co">#Logistics regression is best for binomial outcome variables </span></span>
+<span id="cb118-250"><a href="#cb118-250" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on BMI</span></span>
+<span id="cb118-251"><a href="#cb118-251" aria-hidden="true" tabindex="-1"></a>mbmi <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> bmi, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-252"><a href="#cb118-252" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mbmi)</span>
 <span id="cb118-253"><a href="#cb118-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-254"><a href="#cb118-254" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mage<span class="sc">$</span>coefficients)</span>
+<span id="cb118-254"><a href="#cb118-254" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mbmi<span class="sc">$</span>coefficients)</span>
 <span id="cb118-255"><a href="#cb118-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-256"><a href="#cb118-256" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
-<span id="cb118-257"><a href="#cb118-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"coral"</span>) <span class="sc">+</span></span>
+<span id="cb118-256"><a href="#cb118-256" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x =</span>bmi, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb118-257"><a href="#cb118-257" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"steelblue"</span>) <span class="sc">+</span></span>
 <span id="cb118-258"><a href="#cb118-258" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'glm'</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial))</span>
 <span id="cb118-259"><a href="#cb118-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-260"><a href="#cb118-260" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in age (years) multiplies the odds of diabetes by 1.037. The estimate shows us that one unit increase of age (1 year), increases the l Similar to the previous variable, age has a small standard error. It shows a p-value of 2.71e-06, indicating a relationship between age and diabetes. </span>
+<span id="cb118-260"><a href="#cb118-260" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in BMI multiplies the odds of diabetes by 1.096. The residuals are relatively small. The coefficient estimate suggests that for every 1 unit increase of BMI, the chance of diabetes increases 0.091. The very small p-value of 5.58e-13 indicates we can reject the null hypothesis and conclude a relationship between BMI and diabetes. </span>
 <span id="cb118-261"><a href="#cb118-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-262"><a href="#cb118-262" aria-hidden="true" tabindex="-1"></a>The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is supported. The small p-values show the variables are significant at 1% level of significance. We are able to reject the null hypothesis. Next, we can investigate models that could help predict the outcome using these variables. </span>
-<span id="cb118-263"><a href="#cb118-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-264"><a href="#cb118-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Comparisons</span></span>
-<span id="cb118-265"><a href="#cb118-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-268"><a href="#cb118-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-269"><a href="#cb118-269" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 1 using all independent variables - pregnancies, glucose, bmi, age</span></span>
-<span id="cb118-270"><a href="#cb118-270" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-271"><a href="#cb118-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-272"><a href="#cb118-272" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 2 using BMI, glucose, and age</span></span>
-<span id="cb118-273"><a href="#cb118-273" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-274"><a href="#cb118-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-275"><a href="#cb118-275" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 3 using BMI and glucose</span></span>
-<span id="cb118-276"><a href="#cb118-276" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-277"><a href="#cb118-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-278"><a href="#cb118-278" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 4 using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
-<span id="cb118-279"><a href="#cb118-279" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-280"><a href="#cb118-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-281"><a href="#cb118-281" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 5 with BMI, glucose, and pregnancies (without age)</span></span>
-<span id="cb118-282"><a href="#cb118-282" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
-<span id="cb118-283"><a href="#cb118-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-284"><a href="#cb118-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-285"><a href="#cb118-285" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 1</span></span>
-<span id="cb118-288"><a href="#cb118-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-289"><a href="#cb118-289" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
-<span id="cb118-290"><a href="#cb118-290" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span>
-<span id="cb118-291"><a href="#cb118-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-292"><a href="#cb118-292" aria-hidden="true" tabindex="-1"></a>We can see with the all variable model that pregnancies, glucose, and bmi have low p-values. That suggests those variables have a relationship with the outcome variable. </span>
+<span id="cb118-264"><a href="#cb118-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-265"><a href="#cb118-265" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on glucose </span></span>
+<span id="cb118-266"><a href="#cb118-266" aria-hidden="true" tabindex="-1"></a>mgluc <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-267"><a href="#cb118-267" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mgluc)</span>
+<span id="cb118-268"><a href="#cb118-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-269"><a href="#cb118-269" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mgluc<span class="sc">$</span>coefficients)</span>
+<span id="cb118-270"><a href="#cb118-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-271"><a href="#cb118-271" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> glucose, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb118-272"><a href="#cb118-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"darkseagreen"</span>) <span class="sc">+</span></span>
+<span id="cb118-273"><a href="#cb118-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'glm'</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial))</span>
+<span id="cb118-274"><a href="#cb118-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-275"><a href="#cb118-275" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in plasma glucose concentration multiplies the odds of diabetes by 1.040. With a very small p-value, &lt;2e-16, we can see that the plasma glucose concentrations of the 2 hour oral glucose tolerance test (GGT) are related to our outcome variable, diabetes. This makes sense as GGT is sometimes used as a diagnostic tool for diabetes. </span>
+<span id="cb118-276"><a href="#cb118-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-279"><a href="#cb118-279" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-280"><a href="#cb118-280" aria-hidden="true" tabindex="-1"></a><span class="co">#Regression model on age</span></span>
+<span id="cb118-281"><a href="#cb118-281" aria-hidden="true" tabindex="-1"></a>mage <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> age, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-282"><a href="#cb118-282" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mage)</span>
+<span id="cb118-283"><a href="#cb118-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-284"><a href="#cb118-284" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(mage<span class="sc">$</span>coefficients)</span>
+<span id="cb118-285"><a href="#cb118-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-286"><a href="#cb118-286" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> train, <span class="fu">aes</span>(<span class="at">x =</span> age, <span class="at">y =</span> diabetes)) <span class="sc">+</span></span>
+<span id="cb118-287"><a href="#cb118-287" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span>.<span class="dv">5</span>, <span class="at">col=</span><span class="st">"coral"</span>) <span class="sc">+</span></span>
+<span id="cb118-288"><a href="#cb118-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'glm'</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">method.args =</span> <span class="fu">list</span>(<span class="at">family=</span>binomial))</span>
+<span id="cb118-289"><a href="#cb118-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-290"><a href="#cb118-290" aria-hidden="true" tabindex="-1"></a>Interpretation: The exponentiation of the coefficient tells us that a 1-unit increase in age (years) multiplies the odds of diabetes by 1.037. The estimate shows us that one unit increase of age (1 year), increases the l Similar to the previous variable, age has a small standard error. It shows a p-value of 2.71e-06, indicating a relationship between age and diabetes. </span>
+<span id="cb118-291"><a href="#cb118-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-292"><a href="#cb118-292" aria-hidden="true" tabindex="-1"></a>The hypothesis that BMI, glucose tolerance results, and age are positively associated with diabetes is supported. The small p-values show the variables are significant at 1% level of significance. We are able to reject the null hypothesis. Next, we can investigate models that could help predict the outcome using these variables. </span>
 <span id="cb118-293"><a href="#cb118-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-296"><a href="#cb118-296" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-297"><a href="#cb118-297" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
-<span id="cb118-298"><a href="#cb118-298" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(all_var<span class="sc">$</span>coefficients)</span>
-<span id="cb118-299"><a href="#cb118-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-300"><a href="#cb118-300" aria-hidden="true" tabindex="-1"></a>The odds ratio for pregnancies, glucose, bmi, and age are 1.130, 1.036, 1.085, and 1.013 respectively. They are all greater than 1, suggesting each variable increases the likelihood of the outcome variable. </span>
+<span id="cb118-294"><a href="#cb118-294" aria-hidden="true" tabindex="-1"></a><span class="fu">## Model Comparisons</span></span>
+<span id="cb118-295"><a href="#cb118-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-298"><a href="#cb118-298" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-299"><a href="#cb118-299" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 1 using all independent variables - pregnancies, glucose, bmi, age</span></span>
+<span id="cb118-300"><a href="#cb118-300" aria-hidden="true" tabindex="-1"></a>all_var <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> ., <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
 <span id="cb118-301"><a href="#cb118-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-304"><a href="#cb118-304" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-305"><a href="#cb118-305" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
-<span id="cb118-306"><a href="#cb118-306" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(all_var, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb118-307"><a href="#cb118-307" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod1 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb118-308"><a href="#cb118-308" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(test)</span>
-<span id="cb118-309"><a href="#cb118-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-302"><a href="#cb118-302" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 2 using BMI, glucose, and age</span></span>
+<span id="cb118-303"><a href="#cb118-303" aria-hidden="true" tabindex="-1"></a>bga <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-304"><a href="#cb118-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-305"><a href="#cb118-305" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 3 using BMI and glucose</span></span>
+<span id="cb118-306"><a href="#cb118-306" aria-hidden="true" tabindex="-1"></a>bg <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> .<span class="sc">-</span>age <span class="sc">-</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-307"><a href="#cb118-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-308"><a href="#cb118-308" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 4 using BMI, glucose, age, and an interaction between pregnancies and age.</span></span>
+<span id="cb118-309"><a href="#cb118-309" aria-hidden="true" tabindex="-1"></a>ia <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> glucose <span class="sc">+</span> bmi <span class="sc">+</span> age<span class="sc">*</span>pregnancies, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
 <span id="cb118-310"><a href="#cb118-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-313"><a href="#cb118-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-314"><a href="#cb118-314" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
-<span id="cb118-315"><a href="#cb118-315" aria-hidden="true" tabindex="-1"></a>cm_mod1 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod1, test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-316"><a href="#cb118-316" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod1)</span>
-<span id="cb118-317"><a href="#cb118-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-318"><a href="#cb118-318" aria-hidden="true" tabindex="-1"></a>The predicted outcomes are in rows and true outcomes in columns.</span>
-<span id="cb118-319"><a href="#cb118-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-322"><a href="#cb118-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-323"><a href="#cb118-323" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
-<span id="cb118-324"><a href="#cb118-324" aria-hidden="true" tabindex="-1"></a>tp1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb118-325"><a href="#cb118-325" aria-hidden="true" tabindex="-1"></a>tn1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb118-326"><a href="#cb118-326" aria-hidden="true" tabindex="-1"></a>fp1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">2</span>,<span class="dv">1</span>] </span>
-<span id="cb118-327"><a href="#cb118-327" aria-hidden="true" tabindex="-1"></a>fn1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">1</span>,<span class="dv">2</span>] </span>
-<span id="cb118-328"><a href="#cb118-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-329"><a href="#cb118-329" aria-hidden="true" tabindex="-1"></a>precision1 <span class="ot">&lt;-</span> tp1 <span class="sc">/</span> (tp1 <span class="sc">+</span> fp1)</span>
-<span id="cb118-330"><a href="#cb118-330" aria-hidden="true" tabindex="-1"></a>recall1 <span class="ot">&lt;-</span> tp1 <span class="sc">/</span> (tp1 <span class="sc">+</span> fn1)</span>
-<span id="cb118-331"><a href="#cb118-331" aria-hidden="true" tabindex="-1"></a>f1_score1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision1 <span class="sc">*</span> recall1 ) <span class="sc">/</span> (precision1 <span class="sc">+</span> recall1)) </span>
-<span id="cb118-332"><a href="#cb118-332" aria-hidden="true" tabindex="-1"></a>accuracy1 <span class="ot">&lt;-</span> (tp1 <span class="sc">+</span> tn1) <span class="sc">/</span> (tp1 <span class="sc">+</span> tn1 <span class="sc">+</span> fp1 <span class="sc">+</span> fn1)</span>
-<span id="cb118-333"><a href="#cb118-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-334"><a href="#cb118-334" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 1:'</span>, precision1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-335"><a href="#cb118-335" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 1:'</span>, recall1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-336"><a href="#cb118-336" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 1:'</span>, f1_score1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
-<span id="cb118-337"><a href="#cb118-337" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 1:'</span>, accuracy1)</span>
-<span id="cb118-338"><a href="#cb118-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-339"><a href="#cb118-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-342"><a href="#cb118-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-343"><a href="#cb118-343" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
-<span id="cb118-344"><a href="#cb118-344" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod1), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
-<span id="cb118-345"><a href="#cb118-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-346"><a href="#cb118-346" aria-hidden="true" tabindex="-1"></a>The ROC curve a decent size with a area under the curve (AUC) of 0.842. Lets compare this model to our others as we go. </span>
-<span id="cb118-347"><a href="#cb118-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-348"><a href="#cb118-348" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 2</span></span>
+<span id="cb118-311"><a href="#cb118-311" aria-hidden="true" tabindex="-1"></a><span class="co">#Model 5 with BMI, glucose, and pregnancies (without age)</span></span>
+<span id="cb118-312"><a href="#cb118-312" aria-hidden="true" tabindex="-1"></a>bgp <span class="ot">&lt;-</span> <span class="fu">glm</span>(diabetes <span class="sc">~</span> . <span class="sc">-</span>age, <span class="at">data =</span> train, <span class="at">family =</span> <span class="fu">binomial</span>(<span class="at">link =</span> <span class="st">"logit"</span>))</span>
+<span id="cb118-313"><a href="#cb118-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-314"><a href="#cb118-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-315"><a href="#cb118-315" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 1</span></span>
+<span id="cb118-318"><a href="#cb118-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-319"><a href="#cb118-319" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including BMI, glucose, age, and pregnancies</span></span>
+<span id="cb118-320"><a href="#cb118-320" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(all_var)</span>
+<span id="cb118-321"><a href="#cb118-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-322"><a href="#cb118-322" aria-hidden="true" tabindex="-1"></a>We can see with the all variable model that pregnancies, glucose, and bmi have low p-values. That suggests those variables have a relationship with the outcome variable. </span>
+<span id="cb118-323"><a href="#cb118-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-326"><a href="#cb118-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-327"><a href="#cb118-327" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
+<span id="cb118-328"><a href="#cb118-328" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(all_var<span class="sc">$</span>coefficients)</span>
+<span id="cb118-329"><a href="#cb118-329" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-330"><a href="#cb118-330" aria-hidden="true" tabindex="-1"></a>The odds ratio for pregnancies, glucose, bmi, and age are 1.130, 1.036, 1.085, and 1.013 respectively. They are all greater than 1, suggesting each variable increases the likelihood of the outcome variable. </span>
+<span id="cb118-331"><a href="#cb118-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-334"><a href="#cb118-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-335"><a href="#cb118-335" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
+<span id="cb118-336"><a href="#cb118-336" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(all_var, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb118-337"><a href="#cb118-337" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod1 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod1 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb118-338"><a href="#cb118-338" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(test)</span>
+<span id="cb118-339"><a href="#cb118-339" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-340"><a href="#cb118-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-343"><a href="#cb118-343" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-344"><a href="#cb118-344" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
+<span id="cb118-345"><a href="#cb118-345" aria-hidden="true" tabindex="-1"></a>cm_mod1 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod1, test<span class="sc">$</span>diabetes)</span>
+<span id="cb118-346"><a href="#cb118-346" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod1)</span>
+<span id="cb118-347"><a href="#cb118-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-348"><a href="#cb118-348" aria-hidden="true" tabindex="-1"></a>The predicted outcomes are in rows and true outcomes in columns.</span>
 <span id="cb118-349"><a href="#cb118-349" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb118-352"><a href="#cb118-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-353"><a href="#cb118-353" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
-<span id="cb118-354"><a href="#cb118-354" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span>
-<span id="cb118-355"><a href="#cb118-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-356"><a href="#cb118-356" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-357"><a href="#cb118-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-358"><a href="#cb118-358" aria-hidden="true" tabindex="-1"></a>The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. </span>
-<span id="cb118-359"><a href="#cb118-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-362"><a href="#cb118-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-363"><a href="#cb118-363" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
-<span id="cb118-364"><a href="#cb118-364" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bga<span class="sc">$</span>coefficients)</span>
-<span id="cb118-365"><a href="#cb118-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-366"><a href="#cb118-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-369"><a href="#cb118-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-370"><a href="#cb118-370" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
-<span id="cb118-371"><a href="#cb118-371" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bga, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb118-372"><a href="#cb118-372" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod2 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb118-373"><a href="#cb118-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-374"><a href="#cb118-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-377"><a href="#cb118-377" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-378"><a href="#cb118-378" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
-<span id="cb118-379"><a href="#cb118-379" aria-hidden="true" tabindex="-1"></a>cm_mod2 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod2, test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-380"><a href="#cb118-380" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod2)</span>
-<span id="cb118-381"><a href="#cb118-381" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-382"><a href="#cb118-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-385"><a href="#cb118-385" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-386"><a href="#cb118-386" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
-<span id="cb118-387"><a href="#cb118-387" aria-hidden="true" tabindex="-1"></a>tp2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb118-388"><a href="#cb118-388" aria-hidden="true" tabindex="-1"></a>tn2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb118-389"><a href="#cb118-389" aria-hidden="true" tabindex="-1"></a>fp2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">2</span>,<span class="dv">1</span>] </span>
-<span id="cb118-390"><a href="#cb118-390" aria-hidden="true" tabindex="-1"></a>fn2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">1</span>,<span class="dv">2</span>] </span>
-<span id="cb118-391"><a href="#cb118-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-392"><a href="#cb118-392" aria-hidden="true" tabindex="-1"></a>precision2 <span class="ot">&lt;-</span> tp2 <span class="sc">/</span> (tp2 <span class="sc">+</span> fp2)</span>
-<span id="cb118-393"><a href="#cb118-393" aria-hidden="true" tabindex="-1"></a>recall2 <span class="ot">&lt;-</span> tp2 <span class="sc">/</span> (tp2 <span class="sc">+</span> fn2)</span>
-<span id="cb118-394"><a href="#cb118-394" aria-hidden="true" tabindex="-1"></a>f1_score2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision2 <span class="sc">*</span> recall2 ) <span class="sc">/</span> (precision2 <span class="sc">+</span> recall2)) </span>
-<span id="cb118-395"><a href="#cb118-395" aria-hidden="true" tabindex="-1"></a>accuracy2 <span class="ot">&lt;-</span> (tp2 <span class="sc">+</span> tn2) <span class="sc">/</span> (tp2 <span class="sc">+</span> tn2 <span class="sc">+</span> fp2 <span class="sc">+</span> fn2)</span>
+<span id="cb118-353"><a href="#cb118-353" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
+<span id="cb118-354"><a href="#cb118-354" aria-hidden="true" tabindex="-1"></a>tp1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb118-355"><a href="#cb118-355" aria-hidden="true" tabindex="-1"></a>tn1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb118-356"><a href="#cb118-356" aria-hidden="true" tabindex="-1"></a>fp1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">2</span>,<span class="dv">1</span>] </span>
+<span id="cb118-357"><a href="#cb118-357" aria-hidden="true" tabindex="-1"></a>fn1 <span class="ot">&lt;-</span> cm_mod1[<span class="dv">1</span>,<span class="dv">2</span>] </span>
+<span id="cb118-358"><a href="#cb118-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-359"><a href="#cb118-359" aria-hidden="true" tabindex="-1"></a>precision1 <span class="ot">&lt;-</span> tp1 <span class="sc">/</span> (tp1 <span class="sc">+</span> fp1)</span>
+<span id="cb118-360"><a href="#cb118-360" aria-hidden="true" tabindex="-1"></a>recall1 <span class="ot">&lt;-</span> tp1 <span class="sc">/</span> (tp1 <span class="sc">+</span> fn1)</span>
+<span id="cb118-361"><a href="#cb118-361" aria-hidden="true" tabindex="-1"></a>f1_score1 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision1 <span class="sc">*</span> recall1 ) <span class="sc">/</span> (precision1 <span class="sc">+</span> recall1)) </span>
+<span id="cb118-362"><a href="#cb118-362" aria-hidden="true" tabindex="-1"></a>accuracy1 <span class="ot">&lt;-</span> (tp1 <span class="sc">+</span> tn1) <span class="sc">/</span> (tp1 <span class="sc">+</span> tn1 <span class="sc">+</span> fp1 <span class="sc">+</span> fn1)</span>
+<span id="cb118-363"><a href="#cb118-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-364"><a href="#cb118-364" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 1:'</span>, precision1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-365"><a href="#cb118-365" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 1:'</span>, recall1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-366"><a href="#cb118-366" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 1:'</span>, f1_score1,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
+<span id="cb118-367"><a href="#cb118-367" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 1:'</span>, accuracy1)</span>
+<span id="cb118-368"><a href="#cb118-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-369"><a href="#cb118-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-372"><a href="#cb118-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-373"><a href="#cb118-373" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
+<span id="cb118-374"><a href="#cb118-374" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod1), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
+<span id="cb118-375"><a href="#cb118-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-376"><a href="#cb118-376" aria-hidden="true" tabindex="-1"></a>The ROC curve a decent size with a area under the curve (AUC) of 0.842. Lets compare this model to our others as we go. </span>
+<span id="cb118-377"><a href="#cb118-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-378"><a href="#cb118-378" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 2</span></span>
+<span id="cb118-379"><a href="#cb118-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-382"><a href="#cb118-382" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-383"><a href="#cb118-383" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI, glucose, and age model</span></span>
+<span id="cb118-384"><a href="#cb118-384" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bga)</span>
+<span id="cb118-385"><a href="#cb118-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-386"><a href="#cb118-386" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb118-387"><a href="#cb118-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-388"><a href="#cb118-388" aria-hidden="true" tabindex="-1"></a>The model looking at BMI, age, and glucose as explanatory variables for diabetes has an AIC of 526.6, which is a worse fit than the all variables model. </span>
+<span id="cb118-389"><a href="#cb118-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-392"><a href="#cb118-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-393"><a href="#cb118-393" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
+<span id="cb118-394"><a href="#cb118-394" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bga<span class="sc">$</span>coefficients)</span>
+<span id="cb118-395"><a href="#cb118-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb118-396"><a href="#cb118-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-397"><a href="#cb118-397" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 2:'</span>, precision2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-398"><a href="#cb118-398" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 2:'</span>, recall2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-399"><a href="#cb118-399" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 2:'</span>, f1_score2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
-<span id="cb118-400"><a href="#cb118-400" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 2:'</span>, accuracy2)</span>
-<span id="cb118-401"><a href="#cb118-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-404"><a href="#cb118-404" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-405"><a href="#cb118-405" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
-<span id="cb118-406"><a href="#cb118-406" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod2), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
-<span id="cb118-407"><a href="#cb118-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-408"><a href="#cb118-408" aria-hidden="true" tabindex="-1"></a>Model 2 presents an AUC of 0.846, slightly bigger than model 1. It does become starkly less smooth around 0.6 on the y axis, sensitivity. Let's see if the any other models present this way.</span>
-<span id="cb118-409"><a href="#cb118-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-410"><a href="#cb118-410" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 3 </span></span>
-<span id="cb118-411"><a href="#cb118-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-414"><a href="#cb118-414" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-415"><a href="#cb118-415" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
-<span id="cb118-416"><a href="#cb118-416" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span>
-<span id="cb118-417"><a href="#cb118-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-418"><a href="#cb118-418" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-419"><a href="#cb118-419" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-420"><a href="#cb118-420" aria-hidden="true" tabindex="-1"></a>This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. </span>
+<span id="cb118-399"><a href="#cb118-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-400"><a href="#cb118-400" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
+<span id="cb118-401"><a href="#cb118-401" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bga, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb118-402"><a href="#cb118-402" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod2 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb118-403"><a href="#cb118-403" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-404"><a href="#cb118-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-407"><a href="#cb118-407" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-408"><a href="#cb118-408" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
+<span id="cb118-409"><a href="#cb118-409" aria-hidden="true" tabindex="-1"></a>cm_mod2 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod2, test<span class="sc">$</span>diabetes)</span>
+<span id="cb118-410"><a href="#cb118-410" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod2)</span>
+<span id="cb118-411"><a href="#cb118-411" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-412"><a href="#cb118-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-415"><a href="#cb118-415" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-416"><a href="#cb118-416" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
+<span id="cb118-417"><a href="#cb118-417" aria-hidden="true" tabindex="-1"></a>tp2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb118-418"><a href="#cb118-418" aria-hidden="true" tabindex="-1"></a>tn2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb118-419"><a href="#cb118-419" aria-hidden="true" tabindex="-1"></a>fp2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">2</span>,<span class="dv">1</span>] </span>
+<span id="cb118-420"><a href="#cb118-420" aria-hidden="true" tabindex="-1"></a>fn2 <span class="ot">&lt;-</span> cm_mod2[<span class="dv">1</span>,<span class="dv">2</span>] </span>
 <span id="cb118-421"><a href="#cb118-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-424"><a href="#cb118-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-425"><a href="#cb118-425" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
-<span id="cb118-426"><a href="#cb118-426" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bg<span class="sc">$</span>coefficients)</span>
-<span id="cb118-427"><a href="#cb118-427" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-428"><a href="#cb118-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-431"><a href="#cb118-431" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-432"><a href="#cb118-432" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
-<span id="cb118-433"><a href="#cb118-433" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bg, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb118-434"><a href="#cb118-434" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod3 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb118-435"><a href="#cb118-435" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-436"><a href="#cb118-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-439"><a href="#cb118-439" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-440"><a href="#cb118-440" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
-<span id="cb118-441"><a href="#cb118-441" aria-hidden="true" tabindex="-1"></a>cm_mod3 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod3, test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-442"><a href="#cb118-442" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod3)</span>
-<span id="cb118-443"><a href="#cb118-443" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-446"><a href="#cb118-446" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-447"><a href="#cb118-447" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
-<span id="cb118-448"><a href="#cb118-448" aria-hidden="true" tabindex="-1"></a>tp3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb118-449"><a href="#cb118-449" aria-hidden="true" tabindex="-1"></a>tn3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb118-450"><a href="#cb118-450" aria-hidden="true" tabindex="-1"></a>fp3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">2</span>,<span class="dv">1</span>] </span>
-<span id="cb118-451"><a href="#cb118-451" aria-hidden="true" tabindex="-1"></a>fn3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">1</span>,<span class="dv">2</span>] </span>
-<span id="cb118-452"><a href="#cb118-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-453"><a href="#cb118-453" aria-hidden="true" tabindex="-1"></a>precision3 <span class="ot">&lt;-</span> tp3 <span class="sc">/</span> (tp3 <span class="sc">+</span> fp3)</span>
-<span id="cb118-454"><a href="#cb118-454" aria-hidden="true" tabindex="-1"></a>recall3 <span class="ot">&lt;-</span> tp3 <span class="sc">/</span> (tp3 <span class="sc">+</span> fn3)</span>
-<span id="cb118-455"><a href="#cb118-455" aria-hidden="true" tabindex="-1"></a>f1_score3 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision3 <span class="sc">*</span> recall3 ) <span class="sc">/</span> (precision3 <span class="sc">+</span> recall3)) </span>
-<span id="cb118-456"><a href="#cb118-456" aria-hidden="true" tabindex="-1"></a>accuracy3 <span class="ot">&lt;-</span> (tp3 <span class="sc">+</span> tn3) <span class="sc">/</span> (tp3 <span class="sc">+</span> tn3 <span class="sc">+</span> fp3 <span class="sc">+</span> fn3)</span>
-<span id="cb118-457"><a href="#cb118-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-458"><a href="#cb118-458" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 3:'</span>, precision3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-459"><a href="#cb118-459" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 3:'</span>, recall3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-460"><a href="#cb118-460" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 3:'</span>, f1_score3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
-<span id="cb118-461"><a href="#cb118-461" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 3:'</span>, accuracy3)</span>
-<span id="cb118-462"><a href="#cb118-462" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-463"><a href="#cb118-463" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-466"><a href="#cb118-466" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-467"><a href="#cb118-467" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
-<span id="cb118-468"><a href="#cb118-468" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod3), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
-<span id="cb118-469"><a href="#cb118-469" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-470"><a href="#cb118-470" aria-hidden="true" tabindex="-1"></a>Model 3 has a lower AUC (0.840) than model 1 (0.842) and model 2 (0.846).</span>
-<span id="cb118-471"><a href="#cb118-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-472"><a href="#cb118-472" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 4</span></span>
-<span id="cb118-473"><a href="#cb118-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-422"><a href="#cb118-422" aria-hidden="true" tabindex="-1"></a>precision2 <span class="ot">&lt;-</span> tp2 <span class="sc">/</span> (tp2 <span class="sc">+</span> fp2)</span>
+<span id="cb118-423"><a href="#cb118-423" aria-hidden="true" tabindex="-1"></a>recall2 <span class="ot">&lt;-</span> tp2 <span class="sc">/</span> (tp2 <span class="sc">+</span> fn2)</span>
+<span id="cb118-424"><a href="#cb118-424" aria-hidden="true" tabindex="-1"></a>f1_score2 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision2 <span class="sc">*</span> recall2 ) <span class="sc">/</span> (precision2 <span class="sc">+</span> recall2)) </span>
+<span id="cb118-425"><a href="#cb118-425" aria-hidden="true" tabindex="-1"></a>accuracy2 <span class="ot">&lt;-</span> (tp2 <span class="sc">+</span> tn2) <span class="sc">/</span> (tp2 <span class="sc">+</span> tn2 <span class="sc">+</span> fp2 <span class="sc">+</span> fn2)</span>
+<span id="cb118-426"><a href="#cb118-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-427"><a href="#cb118-427" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 2:'</span>, precision2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-428"><a href="#cb118-428" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 2:'</span>, recall2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-429"><a href="#cb118-429" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 2:'</span>, f1_score2,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
+<span id="cb118-430"><a href="#cb118-430" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 2:'</span>, accuracy2)</span>
+<span id="cb118-431"><a href="#cb118-431" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-434"><a href="#cb118-434" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-435"><a href="#cb118-435" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
+<span id="cb118-436"><a href="#cb118-436" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod2), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
+<span id="cb118-437"><a href="#cb118-437" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-438"><a href="#cb118-438" aria-hidden="true" tabindex="-1"></a>Model 2 presents an AUC of 0.846, slightly bigger than model 1. It does become starkly less smooth around 0.6 on the y axis, sensitivity. Let's see if the any other models present this way.</span>
+<span id="cb118-439"><a href="#cb118-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-440"><a href="#cb118-440" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 3 </span></span>
+<span id="cb118-441"><a href="#cb118-441" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-444"><a href="#cb118-444" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-445"><a href="#cb118-445" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize BMI and glucose model</span></span>
+<span id="cb118-446"><a href="#cb118-446" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bg)</span>
+<span id="cb118-447"><a href="#cb118-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-448"><a href="#cb118-448" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>glucose, <span class="at">y=</span>bmi, <span class="at">color=</span>diabetes)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb118-449"><a href="#cb118-449" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-450"><a href="#cb118-450" aria-hidden="true" tabindex="-1"></a>This BMI and glucose only model has a worse (higher) AIC, with 536.8, than the 2 previous models. So far, the all variable model appears the best fit. </span>
+<span id="cb118-451"><a href="#cb118-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-454"><a href="#cb118-454" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-455"><a href="#cb118-455" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
+<span id="cb118-456"><a href="#cb118-456" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bg<span class="sc">$</span>coefficients)</span>
+<span id="cb118-457"><a href="#cb118-457" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-458"><a href="#cb118-458" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-461"><a href="#cb118-461" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-462"><a href="#cb118-462" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
+<span id="cb118-463"><a href="#cb118-463" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod3 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bg, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb118-464"><a href="#cb118-464" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod3 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod3 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb118-465"><a href="#cb118-465" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-466"><a href="#cb118-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-469"><a href="#cb118-469" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-470"><a href="#cb118-470" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
+<span id="cb118-471"><a href="#cb118-471" aria-hidden="true" tabindex="-1"></a>cm_mod3 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod3, test<span class="sc">$</span>diabetes)</span>
+<span id="cb118-472"><a href="#cb118-472" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod3)</span>
+<span id="cb118-473"><a href="#cb118-473" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb118-476"><a href="#cb118-476" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-477"><a href="#cb118-477" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
-<span id="cb118-478"><a href="#cb118-478" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
-<span id="cb118-479"><a href="#cb118-479" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span>
-<span id="cb118-480"><a href="#cb118-480" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-481"><a href="#cb118-481" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-482"><a href="#cb118-482" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-483"><a href="#cb118-483" aria-hidden="true" tabindex="-1"></a>With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. </span>
-<span id="cb118-484"><a href="#cb118-484" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-487"><a href="#cb118-487" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-488"><a href="#cb118-488" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
-<span id="cb118-489"><a href="#cb118-489" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(ia<span class="sc">$</span>coefficients)</span>
-<span id="cb118-490"><a href="#cb118-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-491"><a href="#cb118-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-494"><a href="#cb118-494" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-495"><a href="#cb118-495" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
-<span id="cb118-496"><a href="#cb118-496" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod4 <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb118-497"><a href="#cb118-497" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod4 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod4 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb118-498"><a href="#cb118-498" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-499"><a href="#cb118-499" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-502"><a href="#cb118-502" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-503"><a href="#cb118-503" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
-<span id="cb118-504"><a href="#cb118-504" aria-hidden="true" tabindex="-1"></a>cm_mod4 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod4, test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-505"><a href="#cb118-505" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod4)</span>
-<span id="cb118-506"><a href="#cb118-506" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-509"><a href="#cb118-509" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-510"><a href="#cb118-510" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
-<span id="cb118-511"><a href="#cb118-511" aria-hidden="true" tabindex="-1"></a>tp4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb118-512"><a href="#cb118-512" aria-hidden="true" tabindex="-1"></a>tn4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb118-513"><a href="#cb118-513" aria-hidden="true" tabindex="-1"></a>fp4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">2</span>,<span class="dv">1</span>] </span>
-<span id="cb118-514"><a href="#cb118-514" aria-hidden="true" tabindex="-1"></a>fn4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">1</span>,<span class="dv">2</span>] </span>
-<span id="cb118-515"><a href="#cb118-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-516"><a href="#cb118-516" aria-hidden="true" tabindex="-1"></a>precision4 <span class="ot">&lt;-</span> tp4 <span class="sc">/</span> (tp4 <span class="sc">+</span> fp4)</span>
-<span id="cb118-517"><a href="#cb118-517" aria-hidden="true" tabindex="-1"></a>recall4 <span class="ot">&lt;-</span> tp4 <span class="sc">/</span> (tp4 <span class="sc">+</span> fn4)</span>
-<span id="cb118-518"><a href="#cb118-518" aria-hidden="true" tabindex="-1"></a>f1_score4 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision4 <span class="sc">*</span> recall4 ) <span class="sc">/</span> (precision4 <span class="sc">+</span> recall4)) </span>
-<span id="cb118-519"><a href="#cb118-519" aria-hidden="true" tabindex="-1"></a>accuracy4 <span class="ot">&lt;-</span> (tp4 <span class="sc">+</span> tn4) <span class="sc">/</span> (tp4 <span class="sc">+</span> tn4 <span class="sc">+</span> fp4 <span class="sc">+</span> fn4)</span>
-<span id="cb118-520"><a href="#cb118-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-521"><a href="#cb118-521" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 4:'</span>, precision4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-522"><a href="#cb118-522" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 4:'</span>, recall4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-523"><a href="#cb118-523" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 4:'</span>, f1_score4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
-<span id="cb118-524"><a href="#cb118-524" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 4:'</span>, accuracy4)</span>
-<span id="cb118-525"><a href="#cb118-525" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-526"><a href="#cb118-526" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-529"><a href="#cb118-529" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-530"><a href="#cb118-530" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
-<span id="cb118-531"><a href="#cb118-531" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod4), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
-<span id="cb118-532"><a href="#cb118-532" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-533"><a href="#cb118-533" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-534"><a href="#cb118-534" aria-hidden="true" tabindex="-1"></a>Model 4 has similar AUC to 1 and 3. </span>
-<span id="cb118-535"><a href="#cb118-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-536"><a href="#cb118-536" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 5 </span></span>
-<span id="cb118-537"><a href="#cb118-537" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-540"><a href="#cb118-540" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-541"><a href="#cb118-541" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
-<span id="cb118-542"><a href="#cb118-542" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span>
-<span id="cb118-543"><a href="#cb118-543" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-544"><a href="#cb118-544" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
-<span id="cb118-545"><a href="#cb118-545" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-546"><a href="#cb118-546" aria-hidden="true" tabindex="-1"></a>Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, model 4 which includes BMI and glucose and controls for an interaction between age and pregnancy has the best fit of all models tested. </span>
-<span id="cb118-547"><a href="#cb118-547" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-550"><a href="#cb118-550" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-551"><a href="#cb118-551" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
-<span id="cb118-552"><a href="#cb118-552" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bgp<span class="sc">$</span>coefficients)</span>
-<span id="cb118-553"><a href="#cb118-553" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-554"><a href="#cb118-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-557"><a href="#cb118-557" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-558"><a href="#cb118-558" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
-<span id="cb118-559"><a href="#cb118-559" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod5 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bgp, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb118-560"><a href="#cb118-560" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod5 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod5 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb118-561"><a href="#cb118-561" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-562"><a href="#cb118-562" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-565"><a href="#cb118-565" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-566"><a href="#cb118-566" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
-<span id="cb118-567"><a href="#cb118-567" aria-hidden="true" tabindex="-1"></a>cm_mod5 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod5, test<span class="sc">$</span>diabetes)</span>
-<span id="cb118-568"><a href="#cb118-568" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod5)</span>
-<span id="cb118-569"><a href="#cb118-569" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-570"><a href="#cb118-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-573"><a href="#cb118-573" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-574"><a href="#cb118-574" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
-<span id="cb118-575"><a href="#cb118-575" aria-hidden="true" tabindex="-1"></a>tp5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">2</span>,<span class="dv">2</span>]</span>
-<span id="cb118-576"><a href="#cb118-576" aria-hidden="true" tabindex="-1"></a>tn5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">1</span>,<span class="dv">1</span>]</span>
-<span id="cb118-577"><a href="#cb118-577" aria-hidden="true" tabindex="-1"></a>fp5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">2</span>,<span class="dv">1</span>] </span>
-<span id="cb118-578"><a href="#cb118-578" aria-hidden="true" tabindex="-1"></a>fn5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">1</span>,<span class="dv">2</span>] </span>
-<span id="cb118-579"><a href="#cb118-579" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-580"><a href="#cb118-580" aria-hidden="true" tabindex="-1"></a>precision5 <span class="ot">&lt;-</span> tp5 <span class="sc">/</span> (tp5 <span class="sc">+</span> fp5)</span>
-<span id="cb118-581"><a href="#cb118-581" aria-hidden="true" tabindex="-1"></a>recall5 <span class="ot">&lt;-</span> tp5 <span class="sc">/</span> (tp5 <span class="sc">+</span> fn5)</span>
-<span id="cb118-582"><a href="#cb118-582" aria-hidden="true" tabindex="-1"></a>f1_score5 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision5 <span class="sc">*</span> recall5 ) <span class="sc">/</span> (precision5 <span class="sc">+</span> recall5)) </span>
-<span id="cb118-583"><a href="#cb118-583" aria-hidden="true" tabindex="-1"></a>accuracy5 <span class="ot">&lt;-</span> (tp5 <span class="sc">+</span> tn5) <span class="sc">/</span> (tp5 <span class="sc">+</span> tn5 <span class="sc">+</span> fp5 <span class="sc">+</span> fn5)</span>
+<span id="cb118-477"><a href="#cb118-477" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
+<span id="cb118-478"><a href="#cb118-478" aria-hidden="true" tabindex="-1"></a>tp3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb118-479"><a href="#cb118-479" aria-hidden="true" tabindex="-1"></a>tn3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb118-480"><a href="#cb118-480" aria-hidden="true" tabindex="-1"></a>fp3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">2</span>,<span class="dv">1</span>] </span>
+<span id="cb118-481"><a href="#cb118-481" aria-hidden="true" tabindex="-1"></a>fn3 <span class="ot">&lt;-</span> cm_mod3[<span class="dv">1</span>,<span class="dv">2</span>] </span>
+<span id="cb118-482"><a href="#cb118-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-483"><a href="#cb118-483" aria-hidden="true" tabindex="-1"></a>precision3 <span class="ot">&lt;-</span> tp3 <span class="sc">/</span> (tp3 <span class="sc">+</span> fp3)</span>
+<span id="cb118-484"><a href="#cb118-484" aria-hidden="true" tabindex="-1"></a>recall3 <span class="ot">&lt;-</span> tp3 <span class="sc">/</span> (tp3 <span class="sc">+</span> fn3)</span>
+<span id="cb118-485"><a href="#cb118-485" aria-hidden="true" tabindex="-1"></a>f1_score3 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision3 <span class="sc">*</span> recall3 ) <span class="sc">/</span> (precision3 <span class="sc">+</span> recall3)) </span>
+<span id="cb118-486"><a href="#cb118-486" aria-hidden="true" tabindex="-1"></a>accuracy3 <span class="ot">&lt;-</span> (tp3 <span class="sc">+</span> tn3) <span class="sc">/</span> (tp3 <span class="sc">+</span> tn3 <span class="sc">+</span> fp3 <span class="sc">+</span> fn3)</span>
+<span id="cb118-487"><a href="#cb118-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-488"><a href="#cb118-488" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 3:'</span>, precision3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-489"><a href="#cb118-489" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 3:'</span>, recall3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-490"><a href="#cb118-490" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 3:'</span>, f1_score3,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
+<span id="cb118-491"><a href="#cb118-491" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 3:'</span>, accuracy3)</span>
+<span id="cb118-492"><a href="#cb118-492" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-493"><a href="#cb118-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-496"><a href="#cb118-496" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-497"><a href="#cb118-497" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
+<span id="cb118-498"><a href="#cb118-498" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod3), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
+<span id="cb118-499"><a href="#cb118-499" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-500"><a href="#cb118-500" aria-hidden="true" tabindex="-1"></a>Model 3 has a lower AUC (0.840) than model 1 (0.842) and model 2 (0.846).</span>
+<span id="cb118-501"><a href="#cb118-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-502"><a href="#cb118-502" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 4</span></span>
+<span id="cb118-503"><a href="#cb118-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-506"><a href="#cb118-506" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-507"><a href="#cb118-507" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including interaction between age and pregnancies </span></span>
+<span id="cb118-508"><a href="#cb118-508" aria-hidden="true" tabindex="-1"></a><span class="co">#This was chosen to see if the impact of age on diabetes is different depending on the number of pregnancies</span></span>
+<span id="cb118-509"><a href="#cb118-509" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ia)</span>
+<span id="cb118-510"><a href="#cb118-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-511"><a href="#cb118-511" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>age, <span class="at">y=</span>bmi, <span class="at">color=</span>pregnancies)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb118-512"><a href="#cb118-512" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-513"><a href="#cb118-513" aria-hidden="true" tabindex="-1"></a>With an AIC of 510.41, this model appears to be the best fit model of those we have compared. This indicated there is an interaction between age and pregnancies that has a relationship with the outcome variable. </span>
+<span id="cb118-514"><a href="#cb118-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-517"><a href="#cb118-517" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-518"><a href="#cb118-518" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
+<span id="cb118-519"><a href="#cb118-519" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(ia<span class="sc">$</span>coefficients)</span>
+<span id="cb118-520"><a href="#cb118-520" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-521"><a href="#cb118-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-524"><a href="#cb118-524" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-525"><a href="#cb118-525" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
+<span id="cb118-526"><a href="#cb118-526" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod4 <span class="ot">&lt;-</span> <span class="fu">predict</span>(ia, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb118-527"><a href="#cb118-527" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod4 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod4 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb118-528"><a href="#cb118-528" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-529"><a href="#cb118-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-532"><a href="#cb118-532" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-533"><a href="#cb118-533" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
+<span id="cb118-534"><a href="#cb118-534" aria-hidden="true" tabindex="-1"></a>cm_mod4 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod4, test<span class="sc">$</span>diabetes)</span>
+<span id="cb118-535"><a href="#cb118-535" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod4)</span>
+<span id="cb118-536"><a href="#cb118-536" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-539"><a href="#cb118-539" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-540"><a href="#cb118-540" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
+<span id="cb118-541"><a href="#cb118-541" aria-hidden="true" tabindex="-1"></a>tp4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb118-542"><a href="#cb118-542" aria-hidden="true" tabindex="-1"></a>tn4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb118-543"><a href="#cb118-543" aria-hidden="true" tabindex="-1"></a>fp4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">2</span>,<span class="dv">1</span>] </span>
+<span id="cb118-544"><a href="#cb118-544" aria-hidden="true" tabindex="-1"></a>fn4 <span class="ot">&lt;-</span> cm_mod4[<span class="dv">1</span>,<span class="dv">2</span>] </span>
+<span id="cb118-545"><a href="#cb118-545" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-546"><a href="#cb118-546" aria-hidden="true" tabindex="-1"></a>precision4 <span class="ot">&lt;-</span> tp4 <span class="sc">/</span> (tp4 <span class="sc">+</span> fp4)</span>
+<span id="cb118-547"><a href="#cb118-547" aria-hidden="true" tabindex="-1"></a>recall4 <span class="ot">&lt;-</span> tp4 <span class="sc">/</span> (tp4 <span class="sc">+</span> fn4)</span>
+<span id="cb118-548"><a href="#cb118-548" aria-hidden="true" tabindex="-1"></a>f1_score4 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision4 <span class="sc">*</span> recall4 ) <span class="sc">/</span> (precision4 <span class="sc">+</span> recall4)) </span>
+<span id="cb118-549"><a href="#cb118-549" aria-hidden="true" tabindex="-1"></a>accuracy4 <span class="ot">&lt;-</span> (tp4 <span class="sc">+</span> tn4) <span class="sc">/</span> (tp4 <span class="sc">+</span> tn4 <span class="sc">+</span> fp4 <span class="sc">+</span> fn4)</span>
+<span id="cb118-550"><a href="#cb118-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-551"><a href="#cb118-551" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 4:'</span>, precision4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-552"><a href="#cb118-552" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model 4:'</span>, recall4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-553"><a href="#cb118-553" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 4:'</span>, f1_score4,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
+<span id="cb118-554"><a href="#cb118-554" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 4:'</span>, accuracy4)</span>
+<span id="cb118-555"><a href="#cb118-555" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-556"><a href="#cb118-556" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-559"><a href="#cb118-559" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-560"><a href="#cb118-560" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
+<span id="cb118-561"><a href="#cb118-561" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod4), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
+<span id="cb118-562"><a href="#cb118-562" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-563"><a href="#cb118-563" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-564"><a href="#cb118-564" aria-hidden="true" tabindex="-1"></a>Model 4 has similar AUC to 1 and 3. </span>
+<span id="cb118-565"><a href="#cb118-565" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-566"><a href="#cb118-566" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model 5 </span></span>
+<span id="cb118-567"><a href="#cb118-567" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-570"><a href="#cb118-570" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-571"><a href="#cb118-571" aria-hidden="true" tabindex="-1"></a><span class="co">#Summarize model including without age</span></span>
+<span id="cb118-572"><a href="#cb118-572" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(bgp)</span>
+<span id="cb118-573"><a href="#cb118-573" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-574"><a href="#cb118-574" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(train, <span class="fu">aes</span>(<span class="at">x=</span>pregnancies, <span class="at">y=</span>bmi, <span class="at">color=</span>glucose)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">facet_grid</span>(<span class="sc">~</span>diabetes)</span>
+<span id="cb118-575"><a href="#cb118-575" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-576"><a href="#cb118-576" aria-hidden="true" tabindex="-1"></a>Removing age entirely increased the AIC of this model. So, the interaction model seems to be the best fit. That is, model 4 which includes BMI and glucose and controls for an interaction between age and pregnancy has the best fit of all models tested. </span>
+<span id="cb118-577"><a href="#cb118-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-580"><a href="#cb118-580" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-581"><a href="#cb118-581" aria-hidden="true" tabindex="-1"></a><span class="co">#Find Odds ratios</span></span>
+<span id="cb118-582"><a href="#cb118-582" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(bgp<span class="sc">$</span>coefficients)</span>
+<span id="cb118-583"><a href="#cb118-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb118-584"><a href="#cb118-584" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-585"><a href="#cb118-585" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 5:'</span>, precision5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-586"><a href="#cb118-586" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model5:'</span>, recall5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
-<span id="cb118-587"><a href="#cb118-587" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 5:'</span>, f1_score5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
-<span id="cb118-588"><a href="#cb118-588" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 5:'</span>, accuracy5)</span>
-<span id="cb118-589"><a href="#cb118-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-590"><a href="#cb118-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-591"><a href="#cb118-591" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-594"><a href="#cb118-594" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-595"><a href="#cb118-595" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
-<span id="cb118-596"><a href="#cb118-596" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod5), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
-<span id="cb118-597"><a href="#cb118-597" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-598"><a href="#cb118-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb118-599"><a href="#cb118-599" aria-hidden="true" tabindex="-1"></a><span class="fu">### Choosing a model:</span></span>
+<span id="cb118-587"><a href="#cb118-587" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-588"><a href="#cb118-588" aria-hidden="true" tabindex="-1"></a><span class="co">#Classify test set</span></span>
+<span id="cb118-589"><a href="#cb118-589" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_prob_mod5 <span class="ot">&lt;-</span> <span class="fu">predict</span>(bgp, <span class="at">newdata =</span> test, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb118-590"><a href="#cb118-590" aria-hidden="true" tabindex="-1"></a>test<span class="sc">$</span>pred_class_mod5 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(test<span class="sc">$</span>pred_prob_mod5 <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb118-591"><a href="#cb118-591" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-592"><a href="#cb118-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-595"><a href="#cb118-595" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-596"><a href="#cb118-596" aria-hidden="true" tabindex="-1"></a><span class="co">#Create confusion matrix</span></span>
+<span id="cb118-597"><a href="#cb118-597" aria-hidden="true" tabindex="-1"></a>cm_mod5 <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>pred_class_mod5, test<span class="sc">$</span>diabetes)</span>
+<span id="cb118-598"><a href="#cb118-598" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(cm_mod5)</span>
+<span id="cb118-599"><a href="#cb118-599" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb118-600"><a href="#cb118-600" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb118-603"><a href="#cb118-603" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb118-604"><a href="#cb118-604" aria-hidden="true" tabindex="-1"></a><span class="co">#Create table to compare models</span></span>
-<span id="cb118-605"><a href="#cb118-605" aria-hidden="true" tabindex="-1"></a>auc1<span class="ot">&lt;-</span>(<span class="fl">0.842</span>)</span>
-<span id="cb118-606"><a href="#cb118-606" aria-hidden="true" tabindex="-1"></a>auc2<span class="ot">&lt;-</span>(<span class="fl">0.846</span>)</span>
-<span id="cb118-607"><a href="#cb118-607" aria-hidden="true" tabindex="-1"></a>auc3<span class="ot">&lt;-</span>(<span class="fl">0.840</span>)</span>
-<span id="cb118-608"><a href="#cb118-608" aria-hidden="true" tabindex="-1"></a>auc4<span class="ot">&lt;-</span>(<span class="fl">0.841</span>)</span>
-<span id="cb118-609"><a href="#cb118-609" aria-hidden="true" tabindex="-1"></a>auc5<span class="ot">&lt;-</span>(<span class="fl">0.838</span>)</span>
-<span id="cb118-610"><a href="#cb118-610" aria-hidden="true" tabindex="-1"></a>comp_mods <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(accuracy1, accuracy2, accuracy3, accuracy4, accuracy5, f1_score1, f1_score2, f1_score3, f1_score4, f1_score5, recall1, recall2, recall3, recall4, recall5, precision1, precision2, precision3, precision4, precision5, auc1, auc2, auc3, auc4, auc5), <span class="at">ncol=</span><span class="dv">5</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
-<span id="cb118-611"><a href="#cb118-611" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(comp_mods) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Model 1'</span>,<span class="st">'Model 2'</span>,<span class="st">'Model 3'</span>, <span class="st">'Model4'</span>, <span class="st">'Model5'</span>)</span>
-<span id="cb118-612"><a href="#cb118-612" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(comp_mods) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Accuracy'</span>,<span class="st">'F1 Score'</span>,<span class="st">'Recall'</span>, <span class="st">'Prescision'</span>, <span class="st">'AUC'</span>)</span>
-<span id="cb118-613"><a href="#cb118-613" aria-hidden="true" tabindex="-1"></a>comp_mods <span class="ot">&lt;-</span> <span class="fu">as.table</span>(comp_mods)</span>
-<span id="cb118-614"><a href="#cb118-614" aria-hidden="true" tabindex="-1"></a>comp_mods</span>
-<span id="cb118-615"><a href="#cb118-615" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb118-616"><a href="#cb118-616" aria-hidden="true" tabindex="-1"></a>Model 3 has the highest accuracy, with 2 close behind it. The F1 score, which is the harmonic mean, takes both recall and precision into account. Model 2 has the highest F1 score with Model 3 close behind. Model 2 also has the highest AUC. Model 2, which used BMI, glucose, and age as predictor values for diabetes, looks like the best fit. </span>
+<span id="cb118-604"><a href="#cb118-604" aria-hidden="true" tabindex="-1"></a><span class="co">#Calculate precision, recall and F-score</span></span>
+<span id="cb118-605"><a href="#cb118-605" aria-hidden="true" tabindex="-1"></a>tp5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">2</span>,<span class="dv">2</span>]</span>
+<span id="cb118-606"><a href="#cb118-606" aria-hidden="true" tabindex="-1"></a>tn5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb118-607"><a href="#cb118-607" aria-hidden="true" tabindex="-1"></a>fp5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">2</span>,<span class="dv">1</span>] </span>
+<span id="cb118-608"><a href="#cb118-608" aria-hidden="true" tabindex="-1"></a>fn5 <span class="ot">&lt;-</span> cm_mod5[<span class="dv">1</span>,<span class="dv">2</span>] </span>
+<span id="cb118-609"><a href="#cb118-609" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-610"><a href="#cb118-610" aria-hidden="true" tabindex="-1"></a>precision5 <span class="ot">&lt;-</span> tp5 <span class="sc">/</span> (tp5 <span class="sc">+</span> fp5)</span>
+<span id="cb118-611"><a href="#cb118-611" aria-hidden="true" tabindex="-1"></a>recall5 <span class="ot">&lt;-</span> tp5 <span class="sc">/</span> (tp5 <span class="sc">+</span> fn5)</span>
+<span id="cb118-612"><a href="#cb118-612" aria-hidden="true" tabindex="-1"></a>f1_score5 <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> ((precision5 <span class="sc">*</span> recall5 ) <span class="sc">/</span> (precision5 <span class="sc">+</span> recall5)) </span>
+<span id="cb118-613"><a href="#cb118-613" aria-hidden="true" tabindex="-1"></a>accuracy5 <span class="ot">&lt;-</span> (tp5 <span class="sc">+</span> tn5) <span class="sc">/</span> (tp5 <span class="sc">+</span> tn5 <span class="sc">+</span> fp5 <span class="sc">+</span> fn5)</span>
+<span id="cb118-614"><a href="#cb118-614" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-615"><a href="#cb118-615" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Precision of Model 5:'</span>, precision5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-616"><a href="#cb118-616" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Recall of Model5:'</span>, recall5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span>)</span>
+<span id="cb118-617"><a href="#cb118-617" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'F1 of Model 5:'</span>, f1_score5,<span class="st">'</span><span class="sc">\n</span><span class="st">'</span> )</span>
+<span id="cb118-618"><a href="#cb118-618" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">'Accuracy of Model 5:'</span>, accuracy5)</span>
+<span id="cb118-619"><a href="#cb118-619" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-620"><a href="#cb118-620" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-621"><a href="#cb118-621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-624"><a href="#cb118-624" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-625"><a href="#cb118-625" aria-hidden="true" tabindex="-1"></a><span class="co">#Build ROC curve</span></span>
+<span id="cb118-626"><a href="#cb118-626" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">roc</span>(test<span class="sc">$</span>diabetes <span class="sc">~</span> test<span class="sc">$</span>pred_prob_mod5), <span class="at">print.auc =</span> <span class="cn">TRUE</span>, <span class="at">legacy.axes=</span>T)</span>
+<span id="cb118-627"><a href="#cb118-627" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-628"><a href="#cb118-628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-629"><a href="#cb118-629" aria-hidden="true" tabindex="-1"></a><span class="fu">### Choosing a model:</span></span>
+<span id="cb118-630"><a href="#cb118-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-633"><a href="#cb118-633" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb118-634"><a href="#cb118-634" aria-hidden="true" tabindex="-1"></a><span class="co">#Create table to compare models</span></span>
+<span id="cb118-635"><a href="#cb118-635" aria-hidden="true" tabindex="-1"></a>auc1<span class="ot">&lt;-</span>(<span class="fl">0.842</span>)</span>
+<span id="cb118-636"><a href="#cb118-636" aria-hidden="true" tabindex="-1"></a>auc2<span class="ot">&lt;-</span>(<span class="fl">0.846</span>)</span>
+<span id="cb118-637"><a href="#cb118-637" aria-hidden="true" tabindex="-1"></a>auc3<span class="ot">&lt;-</span>(<span class="fl">0.840</span>)</span>
+<span id="cb118-638"><a href="#cb118-638" aria-hidden="true" tabindex="-1"></a>auc4<span class="ot">&lt;-</span>(<span class="fl">0.841</span>)</span>
+<span id="cb118-639"><a href="#cb118-639" aria-hidden="true" tabindex="-1"></a>auc5<span class="ot">&lt;-</span>(<span class="fl">0.838</span>)</span>
+<span id="cb118-640"><a href="#cb118-640" aria-hidden="true" tabindex="-1"></a>comp_mods <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(accuracy1, accuracy2, accuracy3, accuracy4, accuracy5, f1_score1, f1_score2, f1_score3, f1_score4, f1_score5, recall1, recall2, recall3, recall4, recall5, precision1, precision2, precision3, precision4, precision5, auc1, auc2, auc3, auc4, auc5), <span class="at">ncol=</span><span class="dv">5</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb118-641"><a href="#cb118-641" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(comp_mods) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Model 1'</span>,<span class="st">'Model 2'</span>,<span class="st">'Model 3'</span>, <span class="st">'Model4'</span>, <span class="st">'Model5'</span>)</span>
+<span id="cb118-642"><a href="#cb118-642" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(comp_mods) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Accuracy'</span>,<span class="st">'F1 Score'</span>,<span class="st">'Recall'</span>, <span class="st">'Prescision'</span>, <span class="st">'AUC'</span>)</span>
+<span id="cb118-643"><a href="#cb118-643" aria-hidden="true" tabindex="-1"></a>comp_mods <span class="ot">&lt;-</span> <span class="fu">as.table</span>(comp_mods)</span>
+<span id="cb118-644"><a href="#cb118-644" aria-hidden="true" tabindex="-1"></a>comp_mods</span>
+<span id="cb118-645"><a href="#cb118-645" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb118-646"><a href="#cb118-646" aria-hidden="true" tabindex="-1"></a>Model 3 has the highest accuracy, with 2 close behind it. The F1 score, which is the harmonic mean, takes both recall and precision into account. Model 2 has the highest F1 score with Model 3 close behind. Model 2 also has the highest AUC. Model 2, which used BMI, glucose, and age as predictor values for diabetes, looks like the best fit. </span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
