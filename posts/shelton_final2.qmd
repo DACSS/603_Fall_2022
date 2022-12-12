@@ -95,6 +95,24 @@ head(florida_og)
 
 summary(florida_og)
 
+# Changing Counts to Rates and Excluding Population 
+#Surely there's a better way to do this!
+
+florida_og_rates <- florida_og %>%
+                      mutate('Homeless (Rate)' = `Homeless (Count)`/`Population`,
+                             'Poverty (Rate)' = `Poverty (Count)`/`Population`,
+                             'Drug Arrests (Rate)' = `Drug Arrests (Count)`/`Population`,
+                             'Sub Abuse Enrollment (Rate)' = 
+                               `Sub Abuse Enrollment (Count)`/`Population`,
+                             'Adult Psych Beds (Rate)' = 
+                               `Adult Psych Beds (Count)`/`Population`,
+                             'Forcible Sex (Rate)' =  `Forcible Sex (Count)`/`Population`,
+                             'Foster Care (Rate)' =  `Foster Care (Count)`/`Population`)%>%
+                      select(!contains(c('(Count)','Population')))
+
+
+                      
+                              
 florida_county <- florida_og %>%
                       group_by(County)
                         
@@ -105,8 +123,9 @@ florida_county %>%
             'Avg Median Income'= mean(`Median Inc`), 
             'Mean Poverty' = mean(`Poverty (Count)`), 
             'Avg Poverty Rate' = mean(`Poverty (Count)`)/mean(Population)) %>%
-                arrange( desc(`Mean Population`), desc(`Mean Homeless`), desc(`Avg Median Income`))%>%
-  mutate(across(c(2:3, 5:6), round, 0))
+                arrange( desc(`Mean Population`), desc(`Mean Homeless`), 
+                         desc(`Avg Median Income`))%>%
+                                  mutate(across(c(2:3, 5:6), round, 0))
                 
   
 
@@ -124,7 +143,7 @@ LATER: Plots, Isolate more variables of interest with grouping, group by year?
 
 ### on Assumption of Validity
 
-While over 10 variables are predicting `Homeless (Count)` across Florida counties, there are still limitations when attempting to comment on the magnitude of an individual stressor. Stressors influence homelessness by driving those in severe situations *out* of their home or *away* from their place of origin. `Homeless (Count)` is not an ideal measure of magnitude as the homeless population migrating to escape or avoid certain stressors would result in counties with low stressor values having a higher homeless population; this effect is left unexplained by the following models.
+While over 10 variables are predicting `Homeless (Rate)` across Florida counties, there are still limitations when attempting to comment on the magnitude of an individual stressor. Stressors influence homelessness by driving those in severe situations *out* of their home or *away* from their place of origin. `Homeless (Rate)` is not an ideal measure of magnitude as the homeless population migrating to escape or avoid certain stressors would result in counties with low stressor values having a higher homeless population; this effect is left unexplained by the following models.
 
 - The variable `Relocated (Rate)` is included as an attempt to control for new movement, however this doesn't completely capture county-to-county migration.
 
@@ -143,22 +162,21 @@ While over 10 variables are predicting `Homeless (Count)` across Florida countie
 
 # Checking Linearity of variables not supported by our literature
 
-florida_matrix <- florida_og %>%
+florida_matrix <- florida_og_rates %>%
                     select(-c('County', 
                               'Year', 
-                              'Population', 
-                              'Poverty (Count)', 
+                              'Poverty (Rate)', 
                               'Severe Housing Problems (Rate)',
-                              'Sub Abuse Enrollment (Count)',
-                              'Drug Arrests (Count)',
-                              'Adult Psych Beds (Count)',
-                              'Foster Care (Count)',
-                              'Forcible Sex (Count)' ))%>%
+                              'Sub Abuse Enrollment (Rate)',
+                              'Drug Arrests (Rate)',
+                              'Adult Psych Beds (Rate)',
+                              'Foster Care (Rate)',
+                              'Forcible Sex (Rate)' ))%>%
                       pairs()
 florida_matrix
 ```
 
-A quick look at variables with a relationship to homelessness not mentioned in Zugazaga's study, or those that needed further investigation are shown here to confirm a linear approximation is appropriate. A log transformation on `Unemployment Rate` and `Incaceration Rate` will be shown in one of the models.
+A quick look at variables with a relationship to homelessness not mentioned in Zugazaga's study, or those that needed further investigation are shown here to confirm that while the associations are weak, a linear approximation is appropriate. 
 
 ### Linear Regression Models
 
@@ -176,10 +194,10 @@ A quick look at variables with a relationship to homelessness not mentioned in Z
 
 # County Removed as too many levels; improvement: NWFL, NFL, CFL, SWFL, SOFLO categories?
 
-fit1 <- florida_og %>% 
+fit1 <- florida_og_rates %>% 
           select(-'County')%>%
             
-            lm(formula=`Homeless (Count)` ~.)
+            lm(formula=`Homeless (Rate)` ~.)
 
 summary(fit1)
 
@@ -187,11 +205,13 @@ summary(fit1)
 rss1 <- deviance(fit1)
 print(c('RSS Fit 1', rss1))
 ```
-- The first model predicts `Homeless (Count)` using all variables, without any transformations or interactions. This causes 134 observations to removed as they are missing values for `Severe Housing Problems (Rate)`. 
+- The first model predicts `Homeless (Rate)` using all variables, without any transformations or interactions. This causes 134 observations to removed as they are missing values for `Severe Housing Problems (Rate)`. 
 
-- Only 4 variables are deemed significant at `alpha = 0.05`; those without a star (see output) are deemed inconsequential in predicting `Homeless (Count)`. 
+- Only 1 variable is deemed significant at `alpha = 0.05`; those without a star (see output) are deemed inconsequential in predicting `Homeless (Rate)`  by this model. 
 
-- Looking at the signs of the predicted insignificant variables, they seem implausible - Increases in variables like `Population` or `Poverty (Count)` decreases homelessness? It is clear the movement confounder mentioned above is influencing results. Select transformations or interactions could quell issues.
+- We see the effect of `Relocated (Rate)` is negative indicating that migration can have a negative impact on homelessness by county, as mentioned in 'Assumptions on Validity' (above)
+
+- Looking at the signs and amgnitude of the predicted (insignificant) variables, they seem plausible - Increases in variables like `Drug Arrests (Rate)` or `Poverty (Rate)` decreases homelessness? It is clear the movement confounder mentioned above is influencing results. Select transformations or interactions could quell issues.
 
 :::
 
@@ -236,9 +256,9 @@ fit2 <- florida_og %>%
                    `Incarceration (Rateper1000)` = log(`Incarceration (Rateper1000)`))%>%
               fill('Severe Housing Problems (Rate)', .direction="down")%>%
                 
-                lm(formula=`Homeless (Count)` ~ . 
+                lm(formula=`Homeless (Rate)` ~ . 
                    + `Unemployment Rate`* `Population`
-                   + `Poverty (Count)`* `Median Inc`)
+                   + `Poverty (Rate)`* `Median Inc`)
 summary(fit2)
 
 bic2 <- BIC(fit2)
@@ -288,17 +308,17 @@ fit3 <- florida_og %>%
             mutate(`Incarceration (Rateper1000)` = log(`Incarceration (Rateper1000)`))%>%
             #mutate(`Unemployment Rate` = log(`Unemployment Rate`))%>%
                 
-                lm(formula=`Homeless (Count)` ~ 
-                   `Poverty (Count)`
+                lm(formula=`Homeless (Rate)` ~ 
+                   `Poverty (Rate)`
                    + `Median Inc`
                    + `Incarceration (Rateper1000)`
                    #+ `Severe Housing Problems (Rate)`
                    + `Relocated (Rate)`
-                   + `Drug Arrests (Count)`
-                   + `Adult Psych Beds (Count)`
-                   + `Forcible Sex (Count)`
-                   + `Foster Care (Count)`
-                   + `Poverty (Count)`* `Median Inc`)
+                   + `Drug Arrests (Rate)`
+                   + `Adult Psych Beds (Rate)`
+                   + `Forcible Sex (Rate)`
+                   + `Foster Care (Rate)`
+                   + `Poverty (Rate)`* `Median Inc`)
 summary(fit3)
 
 bic3 <- BIC(fit3)
@@ -335,7 +355,7 @@ diag3
 
 - Comparing Residuals Sum Squared, R^2, and BIC to evaluate `Fit 2` versus `Fit 3`, I would select `Fit 2` for both prediction and inference. Using all values, including interactions, and a log transformation results in the lowest RSS and BIC, and maximizes the Adjusted R-Squared. It provides the most appropriate diagnostic plots.
 
-**Interaction terms: `Population:Unemployment Rate` and `Median Income:Poverty (Count)`**
+**Interaction terms: `Population:Unemployment Rate` and `Median Income:Poverty (Rate)`**
 
 - I assumed the influence of the unemployment rate would change at different population values. A small unemployment rate of 2% will not have the same effect on the outcome in a county of 100,000 as a 2% rate in a county of 2.5 million. 
 
@@ -343,7 +363,7 @@ diag3
 
 - When considering the number of people living below the poverty line, it's reasonable to believe the influence of number of citizens living below the poverty line will have a greater impact on homelessness in counties with lower median incomes. 
 
-- Another negative slope, the model found the impact of `Median Inc` to decrease (taking it below zero) as `Poverty (Count)` increases.
+- Another negative slope, the model found the impact of `Median Inc` to decrease (taking it below zero) as `Poverty (Rate)` increases.
 
 **Research Question:**
 
@@ -361,7 +381,7 @@ diag3
 
 ## Was the Research Question Answered?
 
-- As hypothesized, the model proved several stressors to be significant in predicting Homeless Counts across Florida
+- As hypothesized, the model proved several stressors to be significant in predicting Homeless Rates across Florida
 
 - Unfortunately, the study is unable to make a substantial comment on *which* stressors most increased vulnerability to Homelessness, evaluating magnitude. To do this, deeper demographic variables would need to be included, as well as controlling for stressors as a *push* factor in homeless migration.
 :::
@@ -370,9 +390,9 @@ diag3
 
 ## Prediction vs Inference
 
-- The goal of this brief study was to make inferences regarding stressors' impact on `Homelessness (Counts)` in Florida. 
+- The goal of this brief study was to make inferences regarding stressors' impact on `Homelessness (Rates)` in Florida. 
 
-- If prediction was our focus, I would use new 2021 data from FL Charts without the `Homeless (Count)` column to test the efficacy of `Fit 2` as a predictive tool.
+- If prediction was our focus, I would use new 2021 data from FL Charts without the `Homeless (Rate)` column to test the efficacy of `Fit 2` as a predictive tool.
 :::
 
 ## Improvements

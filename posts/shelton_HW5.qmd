@@ -1,0 +1,219 @@
+---
+title: "Homework 5 Solution"
+author: "Dane Shelton"
+desription: "Model Selection and Evalutaion"
+date: "12/09/22"
+format:
+  html:
+    toc: true
+    df-print: paged
+    callout-appearance: "simple"
+    callout-icon: FALSE
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - shelton
+---
+
+```{r}
+#| label: setup
+#| include: false
+#| warning: false
+
+library(tidyverse)
+library(ggplot2)
+library(smss)
+library(alr4)
+library(qpcR)
+library(lme4)
+
+knitr::opts_chunk$set(warning= FALSE, message=FALSE)
+```
+
+:::{.callout-note collapse="true"}
+
+## Q1
+
+**a)** For backwards elimination, `Beds` would be removed first as it has the highest p-value, indicating it is least important in predicting `Price`.
+
+**b)** For forwards selection, `New` would be the first variable added with the model as it has the lowest p-value, indicating it is the most important/ strongest predictor of `Price` in the model.
+
+**c)** `Beds` likely has a high p-value because it has high collinearity with  `Size`, which is highly correlated with the response `Price`.
+
+**d)**
+```{r}
+#| label: q1(d)
+#| collapse: true
+#| echo: false
+#| output: false
+
+data("house.selling.price.2")
+house <- house.selling.price.2
+
+#Fit 1
+fit1<- lm(P ~ S + Ba + New + Be, data=house)
+  
+#Fit 2
+fit2 <- lm(P ~ S + Ba + New , data=house)
+  
+#Fit 3
+fit3 <- lm(P ~ S + New , data=house)
+```
+
+```{r}
+#| label: rsq + arsq
+#| collapse: true
+#| echo: true
+#| output: true
+
+(summary(fit1))
+
+(summary(fit2))
+
+(summary(fit3))
+
+```
+
+### Models
+**fit1:** Price ~ Size + Bath + New + Beds
+
+**fit2:** Price ~ Size + Bath + New 
+
+**fit3:** Price ~ Size + New 
+
+
+#### Model Evaluation
+
+**R^2^:** 
+fit1: .8689
+
+fit2: .8681
+
+fit3: .8484
+
+Using R^2^ as the model selection criterion would result in `fit`, the full model, being selected as it has the highest R^2^ value.
+
+**Adjusted R^2^:** 
+fit1: .8629
+
+fit2: .8637
+
+fit3: .845
+
+Now, with Adjusted R^2^ penalizing models for additional variables, `fit 2` would be selected as the best fitting model.
+
+**PRESS**
+
+```{r}
+#| label: PRESS
+#| output: true
+#| collapse: true
+#| echo: true
+
+(PRESS(fit1)$stat)
+(PRESS(fit2)$stat)
+(PRESS(fit3)$stat)
+```
+Using the PRESS statistic for our model selection criteria would select `fit2`, the model with the lowest value. 
+
+**AIC**
+
+```{r}
+#| label: AIC
+#| echo: true
+#| collaspe: true
+#| output: true
+
+(AIC(fit1))
+(AIC(fit2))
+(AIC(fit3))
+
+```
+
+Selecting a model using AIC as our evaluation criterion, `fit 2` is determined to be the best model (lowest value).
+
+**BIC**
+
+```{r}
+#| label: BIC
+#| echo: true
+#| collaspe: true
+#| output: true
+
+(BIC(fit1))
+(BIC(fit2))
+(BIC(fit3))
+
+```
+
+Selecting a model using BIC as our evaluation criterion, `fit 2` is determined to be the best model (lowest value).
+
+**d**: I prefer `fit2`, it satisfies all relevant model selection criterion and avoids extraneous variables. Because `Beds` is highly correlated with `Size`, it does not need to be included in the model, and `Baths` provides completeness rather than predicting price from only the `Size` of a house and whether it is `New`.
+
+:::
+
+
+:::{.callout-note collapse="true"}
+
+## Q2
+
+```{r}
+#| label: q2
+#| echo: true
+#| output: true
+#| collapse: true
+
+#A
+data("trees")
+#trees
+
+fit1 <-  lm(formula=`Volume` ~ `Girth` + `Height`, data= trees)
+
+#B
+diag1 <- autoplot(fit1, 1:6, ncol=3)
+diag1
+
+```
+
+Evaluating the `Residuals vs Fitted Values` plot, we see a clear pattern in the residuals. This indicates that the model violates the homoskedasticity assumption, all residuals share the same variance regardless of fitted value.
+
+:::
+
+:::{.callout-note collapse="true"}
+
+## Q3
+
+```{r}
+#| label: q3
+#| collapse: true
+#| echo: true
+#| output: true
+
+florida <- alr4::florida
+
+buch_bush <- lm(`Buchanan` ~ `Bush`, data=florida)
+
+diag2 <- autoplot(buch_bush, 1:6, ncol=3)
+diag2
+
+log_buch_bush <- florida %>% 
+                  mutate('Buchanan' = log(`Buchanan`),
+                         'Bush'=log(`Bush`))
+
+log_fit <- lm(`Buchanan` ~ `Bush`, log_buch_bush)
+
+diag3 <- autoplot(log_fit, 1:6, ncol=3)
+diag3
+```
+
+**a:** Yes, we see Palm Beach county identified as an outlier in all diagnostic plots, with `Fitted vs Residual Values` and `Cooks Distance` providing the most telling evidence.
+
+**b:** After taking the natural log of both variables, diagnostic plots improve but PBC is still identified as an outlier. 
+
+
+:::
+
+
+
