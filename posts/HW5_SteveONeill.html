@@ -1133,201 +1133,227 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb97-20"><a href="#cb97-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(smss)</span>
 <span id="cb97-21"><a href="#cb97-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb97-22"><a href="#cb97-22" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-23"><a href="#cb97-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-24"><a href="#cb97-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-25"><a href="#cb97-25" aria-hidden="true" tabindex="-1"></a>*For the house.selling.price.2 data the tables below show a correlation matrix and a model fit using four predictors of selling price.*</span>
+<span id="cb97-23"><a href="#cb97-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(alr4)</span>
+<span id="cb97-24"><a href="#cb97-24" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"florida"</span>)</span>
+<span id="cb97-25"><a href="#cb97-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-26"><a href="#cb97-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-27"><a href="#cb97-27" aria-hidden="true" tabindex="-1"></a>In this data, the variables are meant as:</span>
+<span id="cb97-27"><a href="#cb97-27" aria-hidden="true" tabindex="-1"></a>*For the house.selling.price.2 data the tables below show a correlation matrix and a model fit using four predictors of selling price.*</span>
 <span id="cb97-28"><a href="#cb97-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-29"><a href="#cb97-29" aria-hidden="true" tabindex="-1"></a><span class="in">`P`</span>: selling price</span>
+<span id="cb97-29"><a href="#cb97-29" aria-hidden="true" tabindex="-1"></a>In this data, the variables are meant as:</span>
 <span id="cb97-30"><a href="#cb97-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-31"><a href="#cb97-31" aria-hidden="true" tabindex="-1"></a><span class="in">`Be`</span>: number of bedrooms</span>
+<span id="cb97-31"><a href="#cb97-31" aria-hidden="true" tabindex="-1"></a><span class="in">`P`</span>: selling price</span>
 <span id="cb97-32"><a href="#cb97-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-33"><a href="#cb97-33" aria-hidden="true" tabindex="-1"></a><span class="in">`Ba`</span>: number of bathrooms</span>
+<span id="cb97-33"><a href="#cb97-33" aria-hidden="true" tabindex="-1"></a><span class="in">`Be`</span>: number of bedrooms</span>
 <span id="cb97-34"><a href="#cb97-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-35"><a href="#cb97-35" aria-hidden="true" tabindex="-1"></a><span class="in">`New`</span>: whether new (1 = yes, 0 = no)</span>
+<span id="cb97-35"><a href="#cb97-35" aria-hidden="true" tabindex="-1"></a><span class="in">`Ba`</span>: number of bathrooms</span>
 <span id="cb97-36"><a href="#cb97-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-37"><a href="#cb97-37" aria-hidden="true" tabindex="-1"></a>Here is my impression of the correlation matrix:</span>
+<span id="cb97-37"><a href="#cb97-37" aria-hidden="true" tabindex="-1"></a><span class="in">`New`</span>: whether new (1 = yes, 0 = no)</span>
 <span id="cb97-38"><a href="#cb97-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-41"><a href="#cb97-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-42"><a href="#cb97-42" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-43"><a href="#cb97-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-44"><a href="#cb97-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-45"><a href="#cb97-45" aria-hidden="true" tabindex="-1"></a>And regression output:</span>
+<span id="cb97-39"><a href="#cb97-39" aria-hidden="true" tabindex="-1"></a>Here is my impression of the correlation matrix:</span>
+<span id="cb97-40"><a href="#cb97-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-43"><a href="#cb97-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-44"><a href="#cb97-44" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-45"><a href="#cb97-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-46"><a href="#cb97-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-49"><a href="#cb97-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-50"><a href="#cb97-50" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> ., <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-51"><a href="#cb97-51" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
-<span id="cb97-52"><a href="#cb97-52" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-53"><a href="#cb97-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-54"><a href="#cb97-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Automated variable selection</span></span>
+<span id="cb97-47"><a href="#cb97-47" aria-hidden="true" tabindex="-1"></a>And regression output:</span>
+<span id="cb97-48"><a href="#cb97-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-51"><a href="#cb97-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-52"><a href="#cb97-52" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> ., <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-53"><a href="#cb97-53" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb97-54"><a href="#cb97-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-55"><a href="#cb97-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-56"><a href="#cb97-56" aria-hidden="true" tabindex="-1"></a>*For backward elimination, which variable would be deleted first? Why?*</span>
+<span id="cb97-56"><a href="#cb97-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Automated variable selection</span></span>
 <span id="cb97-57"><a href="#cb97-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-58"><a href="#cb97-58" aria-hidden="true" tabindex="-1"></a>If I was doing backward elimination, I would pick a significance level (let's say alpha = .05) and, at each stage, delete the variable with the largest p-value. I would stop when all variables are significant.</span>
+<span id="cb97-58"><a href="#cb97-58" aria-hidden="true" tabindex="-1"></a>*For backward elimination, which variable would be deleted first? Why?*</span>
 <span id="cb97-59"><a href="#cb97-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-60"><a href="#cb97-60" aria-hidden="true" tabindex="-1"></a>In this example, I would delete the <span class="in">`Be`</span> (bedroom) variable.</span>
+<span id="cb97-60"><a href="#cb97-60" aria-hidden="true" tabindex="-1"></a>If I was doing backward elimination, I would pick a significance level (let's say alpha = .05) and, at each stage, delete the variable with the largest p-value. I would stop when all variables are significant.</span>
 <span id="cb97-61"><a href="#cb97-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-64"><a href="#cb97-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-65"><a href="#cb97-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(P <span class="sc">~</span> . <span class="sc">-</span> Be, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>))</span>
-<span id="cb97-66"><a href="#cb97-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-67"><a href="#cb97-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-68"><a href="#cb97-68" aria-hidden="true" tabindex="-1"></a>*For forward selection, which variable would be added first? Why?*</span>
+<span id="cb97-62"><a href="#cb97-62" aria-hidden="true" tabindex="-1"></a>In this example, I would delete the <span class="in">`Be`</span> (bedroom) variable.</span>
+<span id="cb97-63"><a href="#cb97-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-66"><a href="#cb97-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-67"><a href="#cb97-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">lm</span>(P <span class="sc">~</span> . <span class="sc">-</span> Be, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>))</span>
+<span id="cb97-68"><a href="#cb97-68" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-69"><a href="#cb97-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-70"><a href="#cb97-70" aria-hidden="true" tabindex="-1"></a>Like backward elimination, I would also predetermine a significance level (say, 5%). But here I would begin with no explanatory variable.</span>
+<span id="cb97-70"><a href="#cb97-70" aria-hidden="true" tabindex="-1"></a>*For forward selection, which variable would be added first? Why?*</span>
 <span id="cb97-71"><a href="#cb97-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-72"><a href="#cb97-72" aria-hidden="true" tabindex="-1"></a>The <span class="in">`Size`</span> variable would be added first in forward selection.</span>
+<span id="cb97-72"><a href="#cb97-72" aria-hidden="true" tabindex="-1"></a>Like backward elimination, I would also predetermine a significance level (say, 5%). But here I would begin with no explanatory variable.</span>
 <span id="cb97-73"><a href="#cb97-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-76"><a href="#cb97-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-77"><a href="#cb97-77" aria-hidden="true" tabindex="-1"></a>intercept_only <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-78"><a href="#cb97-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-79"><a href="#cb97-79" aria-hidden="true" tabindex="-1"></a><span class="fu">step</span>(intercept_only, <span class="at">direction =</span> <span class="st">"forward"</span>, <span class="at">scope=</span><span class="sc">~</span> S <span class="sc">+</span> Be <span class="sc">+</span> Ba <span class="sc">+</span> New)</span>
-<span id="cb97-80"><a href="#cb97-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-81"><a href="#cb97-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-82"><a href="#cb97-82" aria-hidden="true" tabindex="-1"></a>*Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?*</span>
+<span id="cb97-74"><a href="#cb97-74" aria-hidden="true" tabindex="-1"></a>The <span class="in">`Size`</span> variable would be added first in forward selection.</span>
+<span id="cb97-75"><a href="#cb97-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-78"><a href="#cb97-78" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-79"><a href="#cb97-79" aria-hidden="true" tabindex="-1"></a>intercept_only <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-80"><a href="#cb97-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-81"><a href="#cb97-81" aria-hidden="true" tabindex="-1"></a><span class="fu">step</span>(intercept_only, <span class="at">direction =</span> <span class="st">"forward"</span>, <span class="at">scope=</span><span class="sc">~</span> S <span class="sc">+</span> Be <span class="sc">+</span> Ba <span class="sc">+</span> New)</span>
+<span id="cb97-82"><a href="#cb97-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-83"><a href="#cb97-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-84"><a href="#cb97-84" aria-hidden="true" tabindex="-1"></a>As pointed out, <span class="in">`Be`</span> does have a substantial correlation with <span class="in">`P`</span> at .59. However, the large P-values in multiple regression indicate that while holding other variables fixed, it does not 'explain' the response variable of <span class="in">`P`</span>, price.</span>
+<span id="cb97-84"><a href="#cb97-84" aria-hidden="true" tabindex="-1"></a>*Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?*</span>
 <span id="cb97-85"><a href="#cb97-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-86"><a href="#cb97-86" aria-hidden="true" tabindex="-1"></a>*Using software with these four predictors, find the model that would be selected using each criterion:*</span>
+<span id="cb97-86"><a href="#cb97-86" aria-hidden="true" tabindex="-1"></a>As pointed out, <span class="in">`Be`</span> does have a substantial correlation with <span class="in">`P`</span> at .59. However, the large P-values in multiple regression indicate that while holding other variables fixed, it does not 'explain' the response variable of <span class="in">`P`</span>, price.</span>
 <span id="cb97-87"><a href="#cb97-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-88"><a href="#cb97-88" aria-hidden="true" tabindex="-1"></a>I'm not sure if I exactly get the question, but I will arbitrarily compare some models that I have made from combinations of the predictors.</span>
+<span id="cb97-88"><a href="#cb97-88" aria-hidden="true" tabindex="-1"></a>*Using software with these four predictors, find the model that would be selected using each criterion:*</span>
 <span id="cb97-89"><a href="#cb97-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-92"><a href="#cb97-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-93"><a href="#cb97-93" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-94"><a href="#cb97-94" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-95"><a href="#cb97-95" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> Ba, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-96"><a href="#cb97-96" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> .,<span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-97"><a href="#cb97-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-98"><a href="#cb97-98" aria-hidden="true" tabindex="-1"></a><span class="co">#A few with interaction variables</span></span>
+<span id="cb97-90"><a href="#cb97-90" aria-hidden="true" tabindex="-1"></a>I'm not sure if I exactly get the question, but I will arbitrarily compare some models that I have made from combinations of the predictors.</span>
+<span id="cb97-91"><a href="#cb97-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-94"><a href="#cb97-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-95"><a href="#cb97-95" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-96"><a href="#cb97-96" aria-hidden="true" tabindex="-1"></a>mod2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-97"><a href="#cb97-97" aria-hidden="true" tabindex="-1"></a>mod3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> Ba, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-98"><a href="#cb97-98" aria-hidden="true" tabindex="-1"></a>mod4 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> .,<span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
 <span id="cb97-99"><a href="#cb97-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-100"><a href="#cb97-100" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> S<span class="sc">*</span>New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-101"><a href="#cb97-101" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> Ba <span class="sc">+</span> S<span class="sc">*</span>New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-102"><a href="#cb97-102" aria-hidden="true" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> . <span class="sc">+</span> S <span class="sc">*</span> New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
-<span id="cb97-103"><a href="#cb97-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-104"><a href="#cb97-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-105"><a href="#cb97-105" aria-hidden="true" tabindex="-1"></a>###R2</span>
+<span id="cb97-100"><a href="#cb97-100" aria-hidden="true" tabindex="-1"></a><span class="co">#A few with interaction variables</span></span>
+<span id="cb97-101"><a href="#cb97-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-102"><a href="#cb97-102" aria-hidden="true" tabindex="-1"></a>mod5 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> S<span class="sc">*</span>New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-103"><a href="#cb97-103" aria-hidden="true" tabindex="-1"></a>mod6 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> S <span class="sc">+</span> New <span class="sc">+</span> Ba <span class="sc">+</span> S<span class="sc">*</span>New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-104"><a href="#cb97-104" aria-hidden="true" tabindex="-1"></a>mod7 <span class="ot">&lt;-</span> <span class="fu">lm</span>(P <span class="sc">~</span> . <span class="sc">+</span> S <span class="sc">*</span> New, <span class="at">data=</span>house.selling.price<span class="fl">.2</span>)</span>
+<span id="cb97-105"><a href="#cb97-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-106"><a href="#cb97-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-109"><a href="#cb97-109" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-110"><a href="#cb97-110" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span>
-<span id="cb97-111"><a href="#cb97-111" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)<span class="sc">$</span>r.squared</span>
-<span id="cb97-112"><a href="#cb97-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>r.squared</span>
-<span id="cb97-113"><a href="#cb97-113" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)<span class="sc">$</span>r.squared</span>
-<span id="cb97-114"><a href="#cb97-114" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5)<span class="sc">$</span>r.squared</span>
-<span id="cb97-115"><a href="#cb97-115" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod6)<span class="sc">$</span>r.squared</span>
-<span id="cb97-116"><a href="#cb97-116" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod7)<span class="sc">$</span>r.squared</span>
-<span id="cb97-117"><a href="#cb97-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-118"><a href="#cb97-118" aria-hidden="true" tabindex="-1"></a>Using 'highest R-squared' as our criteria, <span class="in">`P ~ . + S * New`</span> is the winner. That one includes all the predictor variables in the equation, with size and newness as interaction variables.</span>
-<span id="cb97-119"><a href="#cb97-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-120"><a href="#cb97-120" aria-hidden="true" tabindex="-1"></a>###Adjusted R2</span>
+<span id="cb97-107"><a href="#cb97-107" aria-hidden="true" tabindex="-1"></a>###R2</span>
+<span id="cb97-108"><a href="#cb97-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-111"><a href="#cb97-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-112"><a href="#cb97-112" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>r.squared</span>
+<span id="cb97-113"><a href="#cb97-113" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)<span class="sc">$</span>r.squared</span>
+<span id="cb97-114"><a href="#cb97-114" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>r.squared</span>
+<span id="cb97-115"><a href="#cb97-115" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)<span class="sc">$</span>r.squared</span>
+<span id="cb97-116"><a href="#cb97-116" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5)<span class="sc">$</span>r.squared</span>
+<span id="cb97-117"><a href="#cb97-117" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod6)<span class="sc">$</span>r.squared</span>
+<span id="cb97-118"><a href="#cb97-118" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod7)<span class="sc">$</span>r.squared</span>
+<span id="cb97-119"><a href="#cb97-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-120"><a href="#cb97-120" aria-hidden="true" tabindex="-1"></a>Using 'highest R-squared' as our criteria, <span class="in">`P ~ . + S * New`</span> is the winner. That one includes all the predictor variables in the equation, with size and newness as interaction variables.</span>
 <span id="cb97-121"><a href="#cb97-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-124"><a href="#cb97-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-125"><a href="#cb97-125" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-126"><a href="#cb97-126" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-127"><a href="#cb97-127" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-128"><a href="#cb97-128" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-129"><a href="#cb97-129" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-130"><a href="#cb97-130" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod6)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-131"><a href="#cb97-131" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod7)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb97-132"><a href="#cb97-132" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-133"><a href="#cb97-133" aria-hidden="true" tabindex="-1"></a>Adjusted R-squared penalizes for adding more explanatory variables to the regression. However, it is still a virtual tie between <span class="in">`P ~ S + New + Ba + S*New`</span> and <span class="in">`P ~ . + S * New`</span>. Still, the latter wins. </span>
-<span id="cb97-134"><a href="#cb97-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-135"><a href="#cb97-135" aria-hidden="true" tabindex="-1"></a>###PRESS</span>
+<span id="cb97-122"><a href="#cb97-122" aria-hidden="true" tabindex="-1"></a>###Adjusted R2</span>
+<span id="cb97-123"><a href="#cb97-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-126"><a href="#cb97-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-127"><a href="#cb97-127" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod1)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-128"><a href="#cb97-128" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod2)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-129"><a href="#cb97-129" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod3)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-130"><a href="#cb97-130" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod4)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-131"><a href="#cb97-131" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod5)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-132"><a href="#cb97-132" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod6)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-133"><a href="#cb97-133" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod7)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb97-134"><a href="#cb97-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-135"><a href="#cb97-135" aria-hidden="true" tabindex="-1"></a>Adjusted R-squared penalizes for adding more explanatory variables to the regression. However, it is still a virtual tie between <span class="in">`P ~ S + New + Ba + S*New`</span> and <span class="in">`P ~ . + S * New`</span>. Still, the latter wins. </span>
 <span id="cb97-136"><a href="#cb97-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-137"><a href="#cb97-137" aria-hidden="true" tabindex="-1"></a>This elegant function is found on <span class="co">[</span><span class="ot">Github</span><span class="co">](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0)</span> and requires no additional libraries.</span>
+<span id="cb97-137"><a href="#cb97-137" aria-hidden="true" tabindex="-1"></a>###PRESS</span>
 <span id="cb97-138"><a href="#cb97-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-141"><a href="#cb97-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-142"><a href="#cb97-142" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
-<span id="cb97-143"><a href="#cb97-143" aria-hidden="true" tabindex="-1"></a>  <span class="co">#' calculate the predictive residuals</span></span>
-<span id="cb97-144"><a href="#cb97-144" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(linear.model)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">lm.influence</span>(linear.model)<span class="sc">$</span>hat)</span>
-<span id="cb97-145"><a href="#cb97-145" aria-hidden="true" tabindex="-1"></a>  <span class="co">#' calculate the PRESS</span></span>
-<span id="cb97-146"><a href="#cb97-146" aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(pr<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb97-147"><a href="#cb97-147" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb97-148"><a href="#cb97-148" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(PRESS)</span>
-<span id="cb97-149"><a href="#cb97-149" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb97-150"><a href="#cb97-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-151"><a href="#cb97-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-152"><a href="#cb97-152" aria-hidden="true" tabindex="-1"></a>According to a comparison of the PRESS statistics, the best model is <span class="in">`P ~ S + New + Ba + S*New`</span> with a PRESS of 27501.78</span>
-<span id="cb97-155"><a href="#cb97-155" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-156"><a href="#cb97-156" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod1)</span>
-<span id="cb97-157"><a href="#cb97-157" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod2)</span>
-<span id="cb97-158"><a href="#cb97-158" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod3)</span>
-<span id="cb97-159"><a href="#cb97-159" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod4)</span>
-<span id="cb97-160"><a href="#cb97-160" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod5)</span>
-<span id="cb97-161"><a href="#cb97-161" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod6)</span>
-<span id="cb97-162"><a href="#cb97-162" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod7)</span>
-<span id="cb97-163"><a href="#cb97-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-164"><a href="#cb97-164" aria-hidden="true" tabindex="-1"></a>###AIC</span>
-<span id="cb97-165"><a href="#cb97-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-166"><a href="#cb97-166" aria-hidden="true" tabindex="-1"></a>According to AIC, the best (lowest) score is 774.9558, associated with the model <span class="in">`P ~ S + New + Ba + S*New`</span></span>
-<span id="cb97-169"><a href="#cb97-169" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-170"><a href="#cb97-170" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1)</span>
-<span id="cb97-171"><a href="#cb97-171" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod2)</span>
-<span id="cb97-172"><a href="#cb97-172" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod3)</span>
-<span id="cb97-173"><a href="#cb97-173" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod4)</span>
-<span id="cb97-174"><a href="#cb97-174" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod5)</span>
-<span id="cb97-175"><a href="#cb97-175" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod6)</span>
-<span id="cb97-176"><a href="#cb97-176" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod7)</span>
-<span id="cb97-177"><a href="#cb97-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-178"><a href="#cb97-178" aria-hidden="true" tabindex="-1"></a>###BIC</span>
-<span id="cb97-179"><a href="#cb97-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-180"><a href="#cb97-180" aria-hidden="true" tabindex="-1"></a>According to BIC, the best model is the same - <span class="in">`P ~ S + New + Ba + S*New`</span>, with a statistic of 790.1514.</span>
+<span id="cb97-139"><a href="#cb97-139" aria-hidden="true" tabindex="-1"></a>This elegant function is found on <span class="co">[</span><span class="ot">Github</span><span class="co">](https://gist.github.com/tomhopper/8c204d978c4a0cbcb8c0)</span> and requires no additional libraries.</span>
+<span id="cb97-140"><a href="#cb97-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-143"><a href="#cb97-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-144"><a href="#cb97-144" aria-hidden="true" tabindex="-1"></a>PRESS <span class="ot">&lt;-</span> <span class="cf">function</span>(linear.model) {</span>
+<span id="cb97-145"><a href="#cb97-145" aria-hidden="true" tabindex="-1"></a>  <span class="co">#' calculate the predictive residuals</span></span>
+<span id="cb97-146"><a href="#cb97-146" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">residuals</span>(linear.model)<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span><span class="fu">lm.influence</span>(linear.model)<span class="sc">$</span>hat)</span>
+<span id="cb97-147"><a href="#cb97-147" aria-hidden="true" tabindex="-1"></a>  <span class="co">#' calculate the PRESS</span></span>
+<span id="cb97-148"><a href="#cb97-148" aria-hidden="true" tabindex="-1"></a>  PRESS <span class="ot">&lt;-</span> <span class="fu">sum</span>(pr<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb97-149"><a href="#cb97-149" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb97-150"><a href="#cb97-150" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(PRESS)</span>
+<span id="cb97-151"><a href="#cb97-151" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb97-152"><a href="#cb97-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-153"><a href="#cb97-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-154"><a href="#cb97-154" aria-hidden="true" tabindex="-1"></a>According to a comparison of the PRESS statistics, the best model is <span class="in">`P ~ S + New + Ba + S*New`</span> with a PRESS of 27501.78</span>
+<span id="cb97-157"><a href="#cb97-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-158"><a href="#cb97-158" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod1)</span>
+<span id="cb97-159"><a href="#cb97-159" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod2)</span>
+<span id="cb97-160"><a href="#cb97-160" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod3)</span>
+<span id="cb97-161"><a href="#cb97-161" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod4)</span>
+<span id="cb97-162"><a href="#cb97-162" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod5)</span>
+<span id="cb97-163"><a href="#cb97-163" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod6)</span>
+<span id="cb97-164"><a href="#cb97-164" aria-hidden="true" tabindex="-1"></a><span class="fu">PRESS</span>(mod7)</span>
+<span id="cb97-165"><a href="#cb97-165" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-166"><a href="#cb97-166" aria-hidden="true" tabindex="-1"></a>###AIC</span>
+<span id="cb97-167"><a href="#cb97-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-168"><a href="#cb97-168" aria-hidden="true" tabindex="-1"></a>According to AIC, the best (lowest) score is 774.9558, associated with the model <span class="in">`P ~ S + New + Ba + S*New`</span></span>
+<span id="cb97-171"><a href="#cb97-171" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-172"><a href="#cb97-172" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod1)</span>
+<span id="cb97-173"><a href="#cb97-173" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod2)</span>
+<span id="cb97-174"><a href="#cb97-174" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod3)</span>
+<span id="cb97-175"><a href="#cb97-175" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod4)</span>
+<span id="cb97-176"><a href="#cb97-176" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod5)</span>
+<span id="cb97-177"><a href="#cb97-177" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod6)</span>
+<span id="cb97-178"><a href="#cb97-178" aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(mod7)</span>
+<span id="cb97-179"><a href="#cb97-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-180"><a href="#cb97-180" aria-hidden="true" tabindex="-1"></a>###BIC</span>
 <span id="cb97-181"><a href="#cb97-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-184"><a href="#cb97-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-185"><a href="#cb97-185" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod1)</span>
-<span id="cb97-186"><a href="#cb97-186" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod2)</span>
-<span id="cb97-187"><a href="#cb97-187" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod3)</span>
-<span id="cb97-188"><a href="#cb97-188" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod4)</span>
-<span id="cb97-189"><a href="#cb97-189" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod5)</span>
-<span id="cb97-190"><a href="#cb97-190" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod6)</span>
-<span id="cb97-191"><a href="#cb97-191" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod7)</span>
-<span id="cb97-192"><a href="#cb97-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-193"><a href="#cb97-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-194"><a href="#cb97-194" aria-hidden="true" tabindex="-1"></a>*Explain which model you prefer and why.*</span>
+<span id="cb97-182"><a href="#cb97-182" aria-hidden="true" tabindex="-1"></a>According to BIC, the best model is the same - <span class="in">`P ~ S + New + Ba + S*New`</span>, with a statistic of 790.1514.</span>
+<span id="cb97-183"><a href="#cb97-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-186"><a href="#cb97-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-187"><a href="#cb97-187" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod1)</span>
+<span id="cb97-188"><a href="#cb97-188" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod2)</span>
+<span id="cb97-189"><a href="#cb97-189" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod3)</span>
+<span id="cb97-190"><a href="#cb97-190" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod4)</span>
+<span id="cb97-191"><a href="#cb97-191" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod5)</span>
+<span id="cb97-192"><a href="#cb97-192" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod6)</span>
+<span id="cb97-193"><a href="#cb97-193" aria-hidden="true" tabindex="-1"></a><span class="fu">BIC</span>(mod7)</span>
+<span id="cb97-194"><a href="#cb97-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-195"><a href="#cb97-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-196"><a href="#cb97-196" aria-hidden="true" tabindex="-1"></a>I prefer the model favored by AIC and BIC, <span class="in">`P ~ S + New + Ba + S*New`</span>. Intuitively, it makes sense that bedrooms are not a significant driver of a house's price, although bathrooms are. And the size of a house is more consequential on the outcome of price when the building is newer.</span>
+<span id="cb97-196"><a href="#cb97-196" aria-hidden="true" tabindex="-1"></a>*Explain which model you prefer and why.*</span>
 <span id="cb97-197"><a href="#cb97-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-198"><a href="#cb97-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-201"><a href="#cb97-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-202"><a href="#cb97-202" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod2, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb97-203"><a href="#cb97-203" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod5, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb97-204"><a href="#cb97-204" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod6, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb97-205"><a href="#cb97-205" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod7, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb97-206"><a href="#cb97-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-207"><a href="#cb97-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-208"><a href="#cb97-208" aria-hidden="true" tabindex="-1"></a><span class="fu"># Question 2</span></span>
+<span id="cb97-198"><a href="#cb97-198" aria-hidden="true" tabindex="-1"></a>I prefer the model favored by AIC and BIC, <span class="in">`P ~ S + New + Ba + S*New`</span>. Intuitively, it makes sense that bedrooms are not a significant driver of a house's price, although bathrooms are. And the size of a house is more consequential on the outcome of price when the building is newer.</span>
+<span id="cb97-199"><a href="#cb97-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-200"><a href="#cb97-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-203"><a href="#cb97-203" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-204"><a href="#cb97-204" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod2, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-205"><a href="#cb97-205" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod5, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-206"><a href="#cb97-206" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod6, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-207"><a href="#cb97-207" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod7, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-208"><a href="#cb97-208" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-209"><a href="#cb97-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-212"><a href="#cb97-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-213"><a href="#cb97-213" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
-<span id="cb97-214"><a href="#cb97-214" aria-hidden="true" tabindex="-1"></a>trees</span>
-<span id="cb97-215"><a href="#cb97-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-216"><a href="#cb97-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-217"><a href="#cb97-217" aria-hidden="true" tabindex="-1"></a>*From the documentation: "This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labeled Girth in the data. It is measured at 4 ft 6 in above the ground."*</span>
+<span id="cb97-210"><a href="#cb97-210" aria-hidden="true" tabindex="-1"></a><span class="fu"># Question 2</span></span>
+<span id="cb97-211"><a href="#cb97-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-214"><a href="#cb97-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-215"><a href="#cb97-215" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(trees)</span>
+<span id="cb97-216"><a href="#cb97-216" aria-hidden="true" tabindex="-1"></a>trees</span>
+<span id="cb97-217"><a href="#cb97-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-218"><a href="#cb97-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-219"><a href="#cb97-219" aria-hidden="true" tabindex="-1"></a>*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular, *</span>
+<span id="cb97-219"><a href="#cb97-219" aria-hidden="true" tabindex="-1"></a>*From the documentation: "This data set provides measurements of the diameter, height and volume of timber in 31 felled black cherry trees. Note that the diameter (in inches) is erroneously labeled Girth in the data. It is measured at 4 ft 6 in above the ground."*</span>
 <span id="cb97-220"><a href="#cb97-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-221"><a href="#cb97-221" aria-hidden="true" tabindex="-1"></a>*fit a multiple regression model with  the Volume as the outcome and Girth and Height as the explanatory variables*</span>
+<span id="cb97-221"><a href="#cb97-221" aria-hidden="true" tabindex="-1"></a>*Tree volume estimation is a big deal, especially in the lumber industry. Use the trees data to build a basic model of tree volume prediction. In particular, *</span>
 <span id="cb97-222"><a href="#cb97-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-225"><a href="#cb97-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-226"><a href="#cb97-226" aria-hidden="true" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Girth <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
-<span id="cb97-227"><a href="#cb97-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb97-228"><a href="#cb97-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-229"><a href="#cb97-229" aria-hidden="true" tabindex="-1"></a>*Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?*</span>
+<span id="cb97-223"><a href="#cb97-223" aria-hidden="true" tabindex="-1"></a>*fit a multiple regression model with  the Volume as the outcome and Girth and Height as the explanatory variables*</span>
+<span id="cb97-224"><a href="#cb97-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-227"><a href="#cb97-227" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-228"><a href="#cb97-228" aria-hidden="true" tabindex="-1"></a>mod8 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Volume <span class="sc">~</span> Girth <span class="sc">+</span> Height, <span class="at">data =</span> trees)</span>
+<span id="cb97-229"><a href="#cb97-229" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb97-230"><a href="#cb97-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-231"><a href="#cb97-231" aria-hidden="true" tabindex="-1"></a>These plots show some significant issues with the regression <span class="in">`Volume ~ Girth + Height`</span>. </span>
+<span id="cb97-231"><a href="#cb97-231" aria-hidden="true" tabindex="-1"></a>*Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?*</span>
 <span id="cb97-232"><a href="#cb97-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-233"><a href="#cb97-233" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The 'Residuals vs Fitted' graph is U-shaped, indicating an issue with linearity. </span>
+<span id="cb97-233"><a href="#cb97-233" aria-hidden="true" tabindex="-1"></a>These plots show some significant issues with the regression <span class="in">`Volume ~ Girth + Height`</span>. </span>
 <span id="cb97-234"><a href="#cb97-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-235"><a href="#cb97-235" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The Normal Q-Q graph actually looks pretty good except for a wild outlier - this shows an issue with normality.</span>
+<span id="cb97-235"><a href="#cb97-235" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>The 'Residuals vs Fitted' graph is U-shaped, indicating an issue with linearity. </span>
 <span id="cb97-236"><a href="#cb97-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-237"><a href="#cb97-237" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The Scale-Location graph should also be flat, but isn't. This indicates an issue with homoscedasticity.</span>
+<span id="cb97-237"><a href="#cb97-237" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>The Normal Q-Q graph actually looks pretty good except for a wild outlier - this shows an issue with normality.</span>
 <span id="cb97-238"><a href="#cb97-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-239"><a href="#cb97-239" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The Cook's distance graph shows a clear outlier in one of the observations. A 'high leverage' observation (above the benchmark of 1 or n/4) may effect the regression if it were taken out.</span>
+<span id="cb97-239"><a href="#cb97-239" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>The Scale-Location graph should also be flat, but isn't. This indicates an issue with homoscedasticity.</span>
 <span id="cb97-240"><a href="#cb97-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-241"><a href="#cb97-241" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The Residuals vs Leverage plot and Cook's dist vs Leverage plot also show the influence of this outlier.</span>
+<span id="cb97-241"><a href="#cb97-241" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>The Cook's distance graph shows a clear outlier in one of the observations. A 'high leverage' observation (above the benchmark of 1 or n/4) may effect the regression if it were taken out.</span>
 <span id="cb97-242"><a href="#cb97-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb97-245"><a href="#cb97-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb97-246"><a href="#cb97-246" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod8, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
-<span id="cb97-247"><a href="#cb97-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-243"><a href="#cb97-243" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>The Residuals vs Leverage plot and Cook's dist vs Leverage plot also show the influence of this outlier.</span>
+<span id="cb97-244"><a href="#cb97-244" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-247"><a href="#cb97-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-248"><a href="#cb97-248" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod8, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-249"><a href="#cb97-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-250"><a href="#cb97-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-251"><a href="#cb97-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-252"><a href="#cb97-252" aria-hidden="true" tabindex="-1"></a><span class="fu"># Question 3</span></span>
+<span id="cb97-253"><a href="#cb97-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-254"><a href="#cb97-254" aria-hidden="true" tabindex="-1"></a>*In the 2000 election for U.S. president, the counting of votes in Florida was controversial. In Palm Beach County in south Florida, for example, voters used a so-called butterfly ballot. Some believe that the layout of the ballot caused some voters to cast votes for Buchanan when their intended choice was Gore.*</span>
+<span id="cb97-255"><a href="#cb97-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-258"><a href="#cb97-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-259"><a href="#cb97-259" aria-hidden="true" tabindex="-1"></a>florida</span>
+<span id="cb97-260"><a href="#cb97-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-261"><a href="#cb97-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-262"><a href="#cb97-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-265"><a href="#cb97-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-266"><a href="#cb97-266" aria-hidden="true" tabindex="-1"></a>mod9 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Buchanan <span class="sc">~</span> Bush, <span class="at">data =</span> florida)</span>
+<span id="cb97-267"><a href="#cb97-267" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod9)</span>
+<span id="cb97-268"><a href="#cb97-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-269"><a href="#cb97-269" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(mod9, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
+<span id="cb97-270"><a href="#cb97-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-271"><a href="#cb97-271" aria-hidden="true" tabindex="-1"></a>The normal Q-Q shows a strong outlier: Palm Beach county. It is very high in the Cook's distance plot (over 1) and outside of the second dotted gray line in the Residuals vs Leverage plot. </span>
+<span id="cb97-272"><a href="#cb97-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-275"><a href="#cb97-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb97-276"><a href="#cb97-276" aria-hidden="true" tabindex="-1"></a>mod10 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(Buchanan) <span class="sc">~</span> <span class="fu">log</span>(Bush), <span class="at">data =</span> florida)</span>
+<span id="cb97-277"><a href="#cb97-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod10)</span>
+<span id="cb97-278"><a href="#cb97-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb97-279"><a href="#cb97-279" aria-hidden="true" tabindex="-1"></a>Logging both variables increased the coefficient, lowered the p-value of log(Bush), and increased the multiple R-squared by almost half. The findings of the first model are better-supported.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
