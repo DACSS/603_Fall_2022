@@ -18,6 +18,8 @@ categories:
 library(smss)
 library(tidyverse)
 data(house.selling.price.2)
+library(alr4)
+data("florida")
 ```
 
 *For the house.selling.price.2 data the tables below show a correlation matrix and a model fit using four predictors of selling price.*
@@ -213,3 +215,28 @@ These plots show some significant issues with the regression `Volume ~ Girth + H
 ```{r}
 par(mfrow = c(2,3)); plot(mod8, which = 1:6)
 ```
+
+
+# Question 3
+
+*In the 2000 election for U.S. president, the counting of votes in Florida was controversial. In Palm Beach County in south Florida, for example, voters used a so-called butterfly ballot. Some believe that the layout of the ballot caused some voters to cast votes for Buchanan when their intended choice was Gore.*
+
+```{r}
+florida
+```
+
+
+```{r}
+mod9 <- lm(Buchanan ~ Bush, data = florida)
+summary(mod9)
+
+par(mfrow = c(2,3)); plot(mod9, which = 1:6)
+```
+The normal Q-Q shows a strong outlier: Palm Beach county. It is very high in the Cook's distance plot (over 1) and outside of the second dotted gray line in the Residuals vs Leverage plot. 
+
+```{r}
+mod10 <- lm(log(Buchanan) ~ log(Bush), data = florida)
+summary(mod10)
+```
+Logging both variables increased the coefficient, lowered the p-value of log(Bush), and increased the multiple R-squared by almost half. The findings of the first model are better-supported.
+
