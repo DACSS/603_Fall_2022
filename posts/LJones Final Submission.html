@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Lindsay Jones - Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="Lindsay Jones - Final Project">
+<meta name="twitter:description" content="We can see that university ownership status is a statistically significant predictor of the value of a PhD stipend, and that graduate workers at private universities earn more than those at public…">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1" id="toc-part-1" class="nav-link active" data-scroll-target="#part-1">Part 1</a>
+  <ul class="collapse">
+  <li><a href="#research-question" id="toc-research-question" class="nav-link" data-scroll-target="#research-question">Research Question</a></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a></li>
+  </ul></li>
+  <li><a href="#part-2" id="toc-part-2" class="nav-link" data-scroll-target="#part-2">Part 2</a>
+  <ul class="collapse">
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Lindsay Jones - Final Project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+✔ readr   2.1.2      ✔ forcats 0.5.2 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.2.2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(stargazer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Please cite as: 
+
+ Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+ R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
+</div>
+</div>
+<section id="part-1" class="level2">
+<h2 class="anchored" data-anchor-id="part-1">Part 1</h2>
+<section id="research-question" class="level3">
+<h3 class="anchored" data-anchor-id="research-question">Research Question</h3>
+<p>In the United States, wage stagnation has become a hot-button issue for many people in various fields of employment. Graduate students have been at the center of this issue in recent years- strikes for wage increases and cost-of-living adjustments have taken place at multiple universities throughout the country. Because PhD students often do not have the time to earn extra income (and their contracts often prohibit them from pursuing work elsewhere), how much they will earn from their stipend is a huge factor in considering where to pursue their research (Powell, 2004; Soar et al., 2022). My research question is: <strong>Is university ownership status (public vs.&nbsp;private) a predictor of the value of a PhD stipend?</strong></p>
+</section>
+<section id="hypothesis" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis">Hypothesis</h3>
+<p><strong>H₀:University ownership status is not a predictor of the value of a PhD stipend.</strong></p>
+<p><strong>H₁: University ownership status is a predictor of the value of a PhD stipend.</strong></p>
+</section>
+<section id="dataset" class="level3">
+<h3 class="anchored" data-anchor-id="dataset">Dataset</h3>
+<p>This dataset is comprised of self-reported survey data collected by PhDStipends.com. Respondents are asked their university, department, academic year, and year in the program. They are also asked whether they receive a 12-month or 9-month salary, gross pay, and required fees. PhDStipends automatically calculates the LW Ratio (living wage ratio), which is the stipend divided by the living wage of the county the university is located in.</p>
+<p>In addition to this information, I also manually categorized universities by their ownership status as public or private, and assigned each program to 1 of five broader academic disciplines: Business/Policy, Social Science, Natural Science, Formal Science, and Humanities. Due to a computer issue much of my work was lost, so the dataset is currently incomplete. The analysis that follows is based on the information I was able to recover or reenter within a reasonable period of time.</p>
+<p>The variables of interest for me are the ownership status, gross pay, program year, and academic discipline.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb7-2"><a href="#cb7-2"></a>csv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"~/School/UMASS/DACSS 603/Final Project/csv.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 11394 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (7): University, State, Status, Department, Category, Academic Year, Pro...
+dbl (6): Pay, LW Ratio, 12 M Gross Pay, 9 M Gross Pay, 3 M Gross Pay, Fees
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">summary</span>(csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  University           State              Status           Department       
+ Length:11394       Length:11394       Length:11394       Length:11394      
+ Class :character   Class :character   Class :character   Class :character  
+ Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+                                                                            
+                                                                            
+                                                                            
+                                                                            
+   Category              Pay           LW Ratio     Academic Year     
+ Length:11394       Min.   :    1   Min.   :0.000   Length:11394      
+ Class :character   1st Qu.:20000   1st Qu.:0.880   Class :character  
+ Mode  :character   Median :26000   Median :1.130   Mode  :character  
+                    Mean   :25741   Mean   :1.094                     
+                    3rd Qu.:31500   3rd Qu.:1.325                     
+                    Max.   :95000   Max.   :4.500                     
+                    NA's   :46      NA's   :423                       
+   ProgYear         12 M Gross Pay   9 M Gross Pay   3 M Gross Pay  
+ Length:11394       Min.   :     1   Min.   :   15   Min.   :    4  
+ Class :character   1st Qu.: 24000   1st Qu.:16500   1st Qu.: 3000  
+ Mode  :character   Median : 29000   Median :20000   Median : 5000  
+                    Mean   : 28473   Mean   :20121   Mean   : 5185  
+                    3rd Qu.: 33000   3rd Qu.:23850   3rd Qu.: 6128  
+                    Max.   :140000   Max.   :90000   Max.   :55816  
+                    NA's   :3478     NA's   :7940    NA's   :10228  
+      Fees      
+ Min.   :    1  
+ 1st Qu.:  500  
+ Median : 1000  
+ Mean   : 1967  
+ 3rd Qu.: 2000  
+ Max.   :93725  
+ NA's   :6906   </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">head</span>(csv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 13
+  University  State Status Depar…¹ Categ…²   Pay LW Ra…³ Acade…⁴ ProgY…⁵ 12 M …⁶
+  &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;
+1 Florida In… FL    Public Busine… Busine…     1       0 2016-2… 1st           1
+2 Duke Unive… NC    Priva… Art,  … Humani…     4       0 2013-2… 6th an…      NA
+3 University… KY    Public Sociol… Social…    15       0 2016-2… &lt;NA&gt;         NA
+4 West Virgi… VA    Public Econom… Social…    16       0 2022-2… 1st          23
+5 Texas A&amp;am… TX    Public Counse… Social…    20      NA 2017-2… 1st          20
+6 Stevens In… NJ    Priva… Comput… Formal…    23       0 2020-2… 1st          NA
+# … with 3 more variables: `9 M Gross Pay` &lt;dbl&gt;, `3 M Gross Pay` &lt;dbl&gt;,
+#   Fees &lt;dbl&gt;, and abbreviated variable names ¹​Department, ²​Category,
+#   ³​`LW Ratio`, ⁴​`Academic Year`, ⁵​ProgYear, ⁶​`12 M Gross Pay`</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="part-2" class="level2">
+<h2 class="anchored" data-anchor-id="part-2">Part 2</h2>
+<section id="visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="visualizations">Visualizations</h3>
+<p>I’ll start with a histogram of all stipends, regardless of university ownership status.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>viz <span class="ot">&lt;-</span> csv <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Status <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Public"</span>, <span class="st">"Private"</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Pay<span class="sc">&lt;</span><span class="dv">65000</span>)</span>
+<span id="cb13-2"><a href="#cb13-2"></a></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">ggplot</span>(viz, <span class="fu">aes</span>(<span class="at">x=</span>Pay)) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">"#15391c"</span>, <span class="at">color=</span><span class="st">"#FFFFFF"</span>)<span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Count"</span>, </span>
+<span id="cb13-6"><a href="#cb13-6"></a>       <span class="at">x =</span> <span class="st">"Annual Gross Pay"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7"></a>       <span class="at">title =</span> <span class="st">"Stipend Distribution"</span>)<span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">theme</span>(<span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The distribution appears somewhat normal, with annual pay most frequently in the range of $20,000 to $30,000 annually.</p>
+<p>Next I will generate 2 boxplots: one for public universities, and one for private.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>viz <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">ggplot</span>(</span>
+<span id="cb15-3"><a href="#cb15-3"></a>    <span class="fu">aes</span>(<span class="at">x=</span>Status, <span class="at">y=</span>Pay, <span class="at">fill=</span>Status)) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="fu">geom_boxplot</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a>   <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Annual Gross Pay (USD)"</span>, </span>
+<span id="cb15-6"><a href="#cb15-6"></a>       <span class="at">x =</span> <span class="st">"Ownership Status"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7"></a>       <span class="at">title =</span> <span class="st">"Graduate Workers' Annual Pay"</span>)<span class="sc">+</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>   <span class="fu">theme_minimal</span>()<span class="sc">+</span></span>
+<span id="cb15-9"><a href="#cb15-9"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>),</span>
+<span id="cb15-10"><a href="#cb15-10"></a>          <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),</span>
+<span id="cb15-11"><a href="#cb15-11"></a>          <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">11</span>),</span>
+<span id="cb15-12"><a href="#cb15-12"></a>          <span class="at">plot.caption =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>),</span>
+<span id="cb15-13"><a href="#cb15-13"></a>          <span class="at">plot.title=</span><span class="fu">element_text</span>(<span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">20</span>),</span>
+<span id="cb15-14"><a href="#cb15-14"></a>          <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFFFFF"</span>, <span class="at">colour =</span> <span class="st">"#FFFFFF"</span>),</span>
+<span id="cb15-15"><a href="#cb15-15"></a>          <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"#FFFFFF"</span>))<span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#1482a5"</span>, <span class="st">"#c8e1c8"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>There are quite a few outliers for both categories, but we can see that median pay is higher in private universities than in public universities. There are also significantly more outliers below the 1st quartile in private universities than in public.</p>
+</section>
+<section id="hypothesis-testing" class="level3">
+<h3 class="anchored" data-anchor-id="hypothesis-testing">Hypothesis Testing</h3>
+<section id="creating-models" class="level4">
+<h4 class="anchored" data-anchor-id="creating-models">Creating Models</h4>
+<ul>
+<li><p>Explanatory Variable: Ownership Status (Status)</p></li>
+<li><p>Response Variable: Gross Pay (Pay)</p></li>
+<li><p>Control Variable: Academic Discipline (Category), Program Year (ProgYear)</p></li>
+</ul>
+<p>First I will run a model for gross pay, using as.factor() to convert ownership status into dummy variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>fit1<span class="ot">=</span><span class="fu">lm</span>(Pay <span class="sc">~</span> <span class="fu">as.factor</span>(Status), <span class="at">data =</span> csv)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">summary</span>(fit1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Pay ~ as.factor(Status), data = csv)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-30255  -4738    678   4825  66678 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              30259.1      134.1  225.68   &lt;2e-16 ***
+as.factor(Status)Public  -6936.8      166.1  -41.76   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8433 on 11346 degrees of freedom
+  (46 observations deleted due to missingness)
+Multiple R-squared:  0.1332,    Adjusted R-squared:  0.1331 
+F-statistic:  1744 on 1 and 11346 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Based on the p-values, it does seem that ownership status is statistically significant with regards to pay. Now I will plot this model.</p>
+<p>Next I will create a model adding the control variable “Category” (academic discipline).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>fit2<span class="ot">=</span><span class="fu">lm</span>(Pay <span class="sc">~</span> <span class="fu">as.factor</span>(Status) <span class="sc">+</span> Category, <span class="at">data =</span> csv)</span>
+<span id="cb18-2"><a href="#cb18-2"></a><span class="fu">summary</span>(fit2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Pay ~ as.factor(Status) + Category, data = csv)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-32298  -4114    131   4697  69120 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              31844.4      393.0  81.020  &lt; 2e-16 ***
+as.factor(Status)Public  -7084.4      161.1 -43.968  &lt; 2e-16 ***
+CategoryFormal Science   -1483.1      419.0  -3.540 0.000402 ***
+CategoryHumanities       -5071.0      437.9 -11.581  &lt; 2e-16 ***
+CategoryNatural Science    543.4      396.1   1.372 0.170125    
+CategorySocial Science   -3879.8      413.1  -9.391  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8151 on 11342 degrees of freedom
+  (46 observations deleted due to missingness)
+Multiple R-squared:  0.1904,    Adjusted R-squared:  0.1901 
+F-statistic: 533.6 on 5 and 11342 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>All academic disciplines appear to be statistically significant. The R-squared value here is higher than the previous model.</p>
+<p>Next I will create a model adding the control variable “ProgYear” (program year).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>fit3<span class="ot">=</span><span class="fu">lm</span>(Pay <span class="sc">~</span> <span class="fu">as.factor</span>(Status) <span class="sc">+</span> ProgYear, <span class="at">data =</span> csv)</span>
+<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">summary</span>(fit3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Pay ~ as.factor(Status) + ProgYear, data = csv)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-30705  -4704    428   4855  66262 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              30728.4      155.9 197.106  &lt; 2e-16 ***
+as.factor(Status)Public  -6990.4      172.5 -40.514  &lt; 2e-16 ***
+ProgYear2nd              -1366.1      245.8  -5.558 2.79e-08 ***
+ProgYear3rd               -583.8      272.6  -2.142   0.0323 *  
+ProgYear4th               -545.0      301.4  -1.809   0.0706 .  
+ProgYear5th               -321.1      335.6  -0.957   0.3386    
+ProgYear6th and up        -933.7      467.4  -1.998   0.0458 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8349 on 10266 degrees of freedom
+  (1121 observations deleted due to missingness)
+Multiple R-squared:  0.1412,    Adjusted R-squared:  0.1407 
+F-statistic: 281.4 on 6 and 10266 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Program year does appear to be statistically significant. R-squared is comparable to the original model.</p>
+<p>Finally, I will create a model using both control variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>fit4<span class="ot">=</span><span class="fu">lm</span>(Pay <span class="sc">~</span> <span class="fu">as.factor</span>(Status) <span class="sc">+</span> Category <span class="sc">+</span> ProgYear, <span class="at">data =</span> csv)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">summary</span>(fit4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = Pay ~ as.factor(Status) + Category + ProgYear, data = csv)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-32083  -4059    200   4627  68628 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              32433.0      413.6  78.411  &lt; 2e-16 ***
+as.factor(Status)Public  -7138.9      167.0 -42.758  &lt; 2e-16 ***
+CategoryFormal Science   -1529.7      437.2  -3.499 0.000469 ***
+CategoryHumanities       -5096.5      458.4 -11.118  &lt; 2e-16 ***
+CategoryNatural Science    652.1      415.0   1.571 0.116122    
+CategorySocial Science   -3921.7      432.0  -9.078  &lt; 2e-16 ***
+ProgYear2nd              -1638.3      237.4  -6.902 5.43e-12 ***
+ProgYear3rd              -1051.2      263.8  -3.984 6.82e-05 ***
+ProgYear4th               -854.3      291.2  -2.934 0.003354 ** 
+ProgYear5th               -746.8      324.4  -2.302 0.021351 *  
+ProgYear6th and up       -1372.0      451.6  -3.038 0.002390 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8052 on 10262 degrees of freedom
+  (1121 observations deleted due to missingness)
+Multiple R-squared:  0.2015,    Adjusted R-squared:  0.2007 
+F-statistic:   259 on 10 and 10262 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>In this model, the disciplines of Business/Policy and Formal Science are the only ones which are not statistically significant. Multiple and Adjusted R-squared values are the highest of all the models, so it has the lowest variance. Therefore I believe this model is the best fit. A comparison table:</p>
+<p><img src="../images/models.png" class="img-fluid"></p>
+</section>
+<section id="diagnostic-plots" class="level4">
+<h4 class="anchored" data-anchor-id="diagnostic-plots">Diagnostic Plots</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(fit1, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(fit2, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(fit3, <span class="at">which=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>)); <span class="fu">plot</span>(fit4, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="LJones-Final-Submission_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The large number of categorical variables in my data makes plotting any model challenging, but the fit is not great for any model. The normal Q-Q plots consistently violate assumptions of normality. This is likely due to several outliers, especially on the higher end of the pay scale. Similarly, the Residuals vs.&nbsp;Fitted plots are largely homoskedastic but show many outliers.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<p>We can see that university ownership status is a statistically significant predictor of the value of a PhD stipend, and that graduate workers at private universities earn more than those at public universities. This may indicate a public-private pay gap in American universities. However, I believe under- and over-reporting stipend values created a lot of variability. Further research should consider pulling from official databases such as university payrolls.</p>
+<p>It is ultimately unsurprising to see that graduate workers at private universities are paid more, given the nature of funding differences between private and public universities. It is also unsurprising that the median wage for either type of university is very low. I hope more research can be done with the hope of improving living and working conditions for graduate student workers.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<p>Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables. R package version 5.2.3. https://CRAN.R-project.org/package=stargazer</p>
+<p><em>Living Wage Calculator</em>. (n.d.). Retrieved October 10, 2022, from <a href="https://livingwage.mit.edu/" class="uri">https://livingwage.mit.edu/</a></p>
+<p>Powell, K. Stipend survival. Nature 428, 102–103 (2004). <a href="https://doi.org/10.1038/nj6978-102a" class="uri">https://doi.org/10.1038/nj6978-102a</a></p>
+<p>Emily Roberts &amp; Kyle Roberts. (2022, October 10). PhD stipends <a href="#dataset">Dataset</a>. <a href="http://www.phdstipends.com/csv" class="uri">http://www.phdstipends.com/csv</a></p>
+<p>Soar, M., Stewart, L., Nissen, S. et al.&nbsp;Sweat Equity: Student Scholarships in Aotearoa New Zealand’s Universities. NZ J Educ Stud (2022). <a href="https://doi.org/10.1007/s40841-022-00244-5" class="uri">https://doi.org/10.1007/s40841-022-00244-5</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
