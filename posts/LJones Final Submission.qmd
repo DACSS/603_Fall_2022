@@ -1,0 +1,170 @@
+---
+title: "Lindsay Jones - Final Project"
+format: html
+editor: visual
+code-line-numbers: true
+---
+
+```{r}
+library(tidyverse)
+library(stargazer)
+```
+
+## Part 1
+
+### Research Question
+
+In the United States, wage stagnation has become a hot-button issue for many people in various fields of employment. Graduate students have been at the center of this issue in recent years- strikes for wage increases and cost-of-living adjustments have taken place at multiple universities throughout the country. Because PhD students often do not have the time to earn extra income (and their contracts often prohibit them from pursuing work elsewhere), how much they will earn from their stipend is a huge factor in considering where to pursue their research (Powell, 2004; Soar et al., 2022). My research question is: **Is university ownership status (public vs. private) a predictor of the value of a PhD stipend?**
+
+### Hypothesis
+
+**H₀:University ownership status is not a predictor of the value of a PhD stipend.**
+
+**H₁: University ownership status is a predictor of the value of a PhD stipend.**
+
+### Dataset
+
+This dataset is comprised of self-reported survey data collected by PhDStipends.com. Respondents are asked their university, department, academic year, and year in the program. They are also asked whether they receive a 12-month or 9-month salary, gross pay, and required fees. PhDStipends automatically calculates the LW Ratio (living wage ratio), which is the stipend divided by the living wage of the county the university is located in.
+
+In addition to this information, I also manually categorized universities by their ownership status as public or private, and assigned each program to 1 of five broader academic disciplines: Business/Policy, Social Science, Natural Science, Formal Science, and Humanities. Due to a computer issue much of my work was lost, so the dataset is currently incomplete. The analysis that follows is based on the information I was able to recover or reenter within a reasonable period of time.
+
+The variables of interest for me are the ownership status, gross pay, program year, and academic discipline.
+
+```{r}
+library(readr)
+csv <- read_csv("~/School/UMASS/DACSS 603/Final Project/csv.csv")
+summary(csv)
+```
+
+```{r}
+head(csv)
+```
+
+## Part 2
+
+### Visualizations
+
+I'll start with a histogram of all stipends, regardless of university ownership status.
+
+```{r}
+viz <- csv %>% filter(Status %in% c("Public", "Private")) %>% filter(Pay<65000)
+
+ggplot(viz, aes(x=Pay)) + 
+  geom_histogram(fill="#15391c", color="#FFFFFF")+
+  labs(y = "Count", 
+       x = "Annual Gross Pay",
+       title = "Stipend Distribution")+
+  theme_light()+
+  theme(plot.title=element_text(hjust=0.5, size = 20))
+```
+
+The distribution appears somewhat normal, with annual pay most frequently in the range of \$20,000 to \$30,000 annually.
+
+Next I will generate 2 boxplots: one for public universities, and one for private.
+
+```{r}
+viz %>%
+  ggplot(
+    aes(x=Status, y=Pay, fill=Status)) +
+    geom_boxplot(show.legend = FALSE)+
+   labs(y = "Annual Gross Pay (USD)", 
+       x = "Ownership Status",
+       title = "Graduate Workers' Annual Pay")+
+   theme_minimal()+
+  theme(axis.text.x = element_text(size = 9),
+          axis.text.y = element_text(size = 10),
+          text = element_text(size = 11),
+          plot.caption = element_text(hjust = 0),
+          plot.title=element_text(hjust=0.5, size = 20),
+          plot.background = element_rect(fill = "#FFFFFF", colour = "#FFFFFF"),
+          panel.background = element_rect(fill = "#FFFFFF"))+
+  scale_fill_manual(values = c("#1482a5", "#c8e1c8"))
+```
+
+There are quite a few outliers for both categories, but we can see that median pay is higher in private universities than in public universities. There are also significantly more outliers below the 1st quartile in private universities than in public.
+
+### Hypothesis Testing
+
+#### Creating Models
+
+-   Explanatory Variable: Ownership Status (Status)
+
+-   Response Variable: Gross Pay (Pay)
+
+-   Control Variable: Academic Discipline (Category), Program Year (ProgYear)
+
+First I will run a model for gross pay, using as.factor() to convert ownership status into dummy variables.
+
+```{r}
+fit1=lm(Pay ~ as.factor(Status), data = csv)
+summary(fit1)
+```
+
+Based on the p-values, it does seem that ownership status is statistically significant with regards to pay. Now I will plot this model.
+
+Next I will create a model adding the control variable "Category" (academic discipline).
+
+```{r}
+fit2=lm(Pay ~ as.factor(Status) + Category, data = csv)
+summary(fit2)
+```
+
+All academic disciplines appear to be statistically significant. The R-squared value here is higher than the previous model.
+
+Next I will create a model adding the control variable "ProgYear" (program year).
+
+```{r}
+fit3=lm(Pay ~ as.factor(Status) + ProgYear, data = csv)
+summary(fit3)
+```
+
+Program year does appear to be statistically significant. R-squared is comparable to the original model.
+
+Finally, I will create a model using both control variables.
+
+```{r}
+fit4=lm(Pay ~ as.factor(Status) + Category + ProgYear, data = csv)
+summary(fit4)
+```
+
+In this model, the disciplines of Business/Policy and Formal Science are the only ones which are not statistically significant. Multiple and Adjusted R-squared values are the highest of all the models, so it has the lowest variance. Therefore I believe this model is the best fit. A comparison table:
+
+![](/images/models.png)
+
+#### Diagnostic Plots
+
+```{r}
+par(mfrow= c(2,3)); plot(fit1, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit2, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit3, which=1:6)
+```
+
+```{r}
+par(mfrow= c(2,3)); plot(fit4, which = 1:6)
+```
+
+The large number of categorical variables in my data makes plotting any model challenging, but the fit is not great for any model. The normal Q-Q plots consistently violate assumptions of normality. This is likely due to several outliers, especially on the higher end of the pay scale. Similarly, the Residuals vs. Fitted plots are largely homoskedastic but show many outliers.
+
+## Summary
+
+We can see that university ownership status is a statistically significant predictor of the value of a PhD stipend, and that graduate workers at private universities earn more than those at public universities. This may indicate a public-private pay gap in American universities. However, I believe under- and over-reporting stipend values created a lot of variability. Further research should consider pulling from official databases such as university payrolls.
+
+It is ultimately unsurprising to see that graduate workers at private universities are paid more, given the nature of funding differences between private and public universities. It is also unsurprising that the median wage for either type of university is very low. I hope more research can be done with the hope of improving living and working conditions for graduate student workers.
+
+## References
+
+Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables. R package version 5.2.3. https://CRAN.R-project.org/package=stargazer
+
+*Living Wage Calculator*. (n.d.). Retrieved October 10, 2022, from <https://livingwage.mit.edu/>
+
+Powell, K. Stipend survival. Nature 428, 102--103 (2004). <https://doi.org/10.1038/nj6978-102a>
+
+Emily Roberts & Kyle Roberts. (2022, October 10). PhD stipends [Dataset]. <http://www.phdstipends.com/csv>
+
+Soar, M., Stewart, L., Nissen, S. et al. Sweat Equity: Student Scholarships in Aotearoa New Zealand's Universities. NZ J Educ Stud (2022). <https://doi.org/10.1007/s40841-022-00244-5>
