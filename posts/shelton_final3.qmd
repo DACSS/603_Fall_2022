@@ -1,9 +1,9 @@
 ---
-title: "Final Project: Part 3 (Update)"
+title: "DACSS 603: Final Project"
 subtitle: "Florida Homelessness by County 2018-2020"
 author: "Dane Shelton"
-desription: "Updating Part 2, Visualizations, Narrative Summary"
-date: "11/12/2022"
+desription: "Data Exploration, Visualizations, Analysis"
+date: "12/15/2022"
 format:
   html:
     callout-appearance: "simple"
@@ -25,6 +25,7 @@ categories:
 #| warning: false
 
 library(tidyverse)
+library(stargazer)
 library(ggrepel)
 library(plotly)
 library(ggplot2)
@@ -140,7 +141,6 @@ florida_county %>%
 
 Expanding **Intro to Data** exposes summary statistics including mean, range, quantiles, and standard deviation for all 15 variables. The table below the summaries provides arranged figures for basic parameters of interest grouped by county.
 
-Pattern of Missingness?? Unreasonable Data?? What is it saying
 
 
 ## Visualizations
@@ -614,17 +614,18 @@ diag2
 
 #tranform to panel data
 florida_panel <-  pdata.frame(florida_og_rates, index=c('County','Year'))
-                   
-fit3 <- plm(formula = Homeless..Rate. ~ Unemployment.Rate + 
-              Incarceration..Rateper1000. +
-              Relocated..Rate.+
-              Poverty..Rate. + 
-              Drug.Arrests..Rate. + 
-              Sub.Abuse.Enrollment..Rate. +
-              Adult.Psych.Beds..Rate. +
-              Forcible.Sex..Rate. +
-              Foster.Care..Rate.,   
-            data = florida_panel,
+
+fit3 <- florida_panel %>%
+          plm(formula = Homeless..Rate. ~ 
+         Unemployment.Rate +             
+         Incarceration..Rateper1000. +
+         Relocated..Rate. +           
+         Poverty..Rate. +        
+         Drug.Arrests..Rate. +          
+         Sub.Abuse.Enrollment..Rate. +  
+         Adult.Psych.Beds..Rate. +      
+         Forcible.Sex..Rate. +           
+         Foster.Care..Rate., 
             model= 'random')
                    
 summary(fit3)
@@ -694,6 +695,23 @@ print(c('RSS Fit 4', rss4))
 
 ### Model Selection
 
+:::{.callout-note collapse="true"}
+
+## Stargazer Plot
+```{r}
+#| label: stargazer plot
+#| collapse: true
+#| output: true
+#| echo: false
+
+models<- list(fit1, fit2, fit3, fit4)
+
+stargazer(models,type="text", title = "Homelessness in Florida", dep.var.labels = "Homeless Rate")
+
+
+```
+:::
+
 - Comparing Residuals Sum Squared and R^2^ `Fit 2`, `Fit 3`, and `Fit 4` I would select **Fit 3** for inference. Although `Fit 4` (with lag) had a lower Residual Sum Squared value, I appreciate the completeness of `Fit 3` and believe the extra variables provide a better picture of how stressors impact the homeless population in Florida.
 
 Transforming the data into panel data produces more accurate coefficients, as rather than 201 individual observations, the model considers 3 years of 67 individual observations. This results in smaller standard error. The R^2 is only considered in passing, as the goal of the study is inference not prediction.
@@ -753,6 +771,8 @@ While the data is quick illustration of homelessness in Florida by county, there
 
 -   Specifically hone in on certain stressors and their accompanying varibales to view their impact on a population instead of a broad range of stressors
 
+- Included life stressors not associated with homelessness for comparison
+
 -   Extend the question to the entire country, providing a breakdown by state
 
 -   Compare to foreign countries to contrast governments' approaches to homelessness and leading causes of homelessness around the world.
@@ -796,10 +816,8 @@ While the data is quick illustration of homelessness in Florida by county, there
 
 ## References
 
-Carol Zugazaga
-R4DS
-LSR
-R packages?
+Zugazaga, Carole, "Pathways to homelessness and social support among homeless single men, single women, and women with children" (2002). Retrospective Theses and Dissertations. 1744. 
+
 
 ::: 
 
