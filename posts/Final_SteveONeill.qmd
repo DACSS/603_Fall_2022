@@ -1,8 +1,8 @@
 ---
-title: "Final Part 1"
+title: "PPP Loans: Party Affiliation and Loan Amount"
 author: "Steve O'Neill"
-description: "Final Project - Check-in"
-date: "10/1/2022"
+description: "Final Project"
+date: "11/1/2022"
 format:
   html:
     toc: true
@@ -11,50 +11,56 @@ format:
     code-tools: true
     df-print: paged
 categories:
-  - finalpart1
+  - Final
 ---
 
 ```{r echo=FALSE}
 #| label: setup
 #| output: false
+#| warning: false
+#| message: false
 library(readxl)
 library(tidyverse)
 library(summarytools)
+library(GGally)
+library(stargazer)
 ```
 
-# PPP Loans: Party Affiliation and Loan Forgiveness
+# PPP Loans: Party Affiliation and Loan Amount
 
 ## Introduction
 
-By analyzing public Paycheck Protection Program data, I have the ability to examine correlations between PPP loan size, forgiveness status, business status, geographical location, and - most optimistically - political affiliation. In the United States, the PPP was introduced as an emergency economic measure in 2020 during the Covid-19 pandemic. As a massive direct-loan program, some have criticized it for lax oversight.
+In the United States, the Paycheck Protection Program (PPP) was introduced as an emergency economic measure to prevent job loss during the 2020 Covid-19 pandemic. As a massive loan program with guaranteed forgiveness, some have criticized it for lax oversight. There have been many studies about the PPP focusing on its overall economic impact and the emergence of non-traditional, non-bank lenders. Less studied are political elements of the program.
 
-PPP fraud is an important issue, but finding lawbreakers is probably better left to the Feds. Instead, I think there is room in the academic body of work to study political affiliation for loan recipients.
+My project leverages public-access data to compare federal PPP loan forgiveness amounts with political affiliation. Rather than using aggregate-level data like studies before, my analysis aimed to compare PPP recipients' individual voter affiliation (e.g., who's the owner of this business? Are they registered to vote in Florida? And to which party?) with their PPP loan outcome.
+
+Targeting Florida, a state with liberal amounts of access to public voter registration and a closed primary (where a voter's registration is better correlated with a person's partisan identity), the individual-level version of this project was ultimately inconclusive due to data missing-not-at-random from Florida's corporation/LLC database.
+
+Following the discovery of the missing data, I approached the research question with county-level data from the 2020 presidential election, controlling for GDP and type of business.
 
 ### Existing Work
 
-There have already been many studies about the PPP focusing on overall economic impact and the emergence of non-traditional, non-bank lenders.
+Two interesting studies have been done about racial disparities re: access to PPP loans, with one [finding that Black-owned businesses in Florida were 25% less likely to receive PPP funds](https://www.nber.org/system/files/working_papers/w29748/w29748.pdf) (Chernenko & Scharfstein, 2022), and another measuring an even higher of a disparity (50%) among races but taking note of mitigating factors (e.g. access to "fintech" lending instead of traditional banks) [(Atkins, Cook & Seamans)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3774992).
 
-Separately, two interesting studies have been done about racial disparities re: access to PPP loans, with one [finding that Black-owned businesses in Florida were 25% less likely to receive PPP funds](https://www.nber.org/system/files/working_papers/w29748/w29748.pdf) (Chernenko & Scharfstein, 2022), and another finding even higher of a disparity (50%) but taking note of mitigating factors (e.g. access to "fintech" lending instead of traditional banks) [(Atkins, Cook & Seamans)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3774992)
+I am not so much interested in the efficacy of the PPP or the racial make-up of PPP borrowers. But I am interested in their political affiliation, i.e. if they registered as Democratic or Republican. So, similarly to Chernenko & Scharfstein, I have used public-access data to cross-reference federal PPP data with state-level voter registration and corporation search data.
 
-I am not so much interested in the efficacy of the PPP or the racial make-up of PPP borrowers. But I am interested in their political affiliation, i.e. if they registered are Democrat or Republican. So, similarly to Chernenko & Scharfstein, I intend to use public-access data to cross-reference federal PPP data with state-level voter registration and corporation search data.
+A relevant paper I found after I started looking at this data - [*"Buying the Vote? The Economics of Electoral Politics and Small-Business Loans"*](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3) - does look at data from SBA and PPP loans and pit them against the hypothesis that "electoral considerations may have tilted the allocation of PPP funds toward firms in areas or industries that could have a significant impact on the results of the 2020 election" (Duchin & Hackney, 2021).
 
-A relevant paper I found after I started looking at this data - [*"Buying the Vote? The Economics of Electoral Politics and Small-Business Loans"*](https://www.cambridge.org/core/journals/journal-of-financial-and-quantitative-analysis/article/abs/buying-the-vote-the-economics-of-electoral-politics-and-smallbusiness-loans/A57A977A59DB24A010DD1D33DFDE7BE3) - does look at data from SBA and PPP loans and pit them against the hypothesis ====that "electoral considerations may have tilted the allocation of PPP funds toward firms in areas or industries that could have a significant impact on the results of the 2020 election".(Duchin & Hackney, 2021)
+That particular study measured political ad spending and FEC filings as indicators of electoral considerations and used the Partisan Voting Index (PVI) from the Cook Political National Report to find which states were "battleground" or solid-R states. PPP lending outcomes were compared with electoral considerations to find if the SBA (under the Trump administration) preferred to give PPP loans to swing voters or members of the party "base" in anticipation of an upcoming general election.
 
-That particular study measured political ad spending and FEC filings as indicators of electoral considerations and used the Partisan Voting Index (PVI) from the Cook Political National Report to find which states were "battleground" or solid-R states. PPP lending outcomes were compared with electoral considerations to find if the SBA (under Trump) preferred to give PPP loans to swing voters or members of the party "base" in anticipation of an upcoming general election.
+Rather than aggregate-level state data, my original analysis attempted to compare individuals' *personal* voter affiliation - if they are registered, and to which party - with their loan amount. Once I found that I could no longer proceed with the individual-level analysis due to missingness, I focused on using aggregate-level data to answer the research question.
 
-Rather than aggregate-level state data, my analysis will compare individuals' *personal* voter affiliation - if they are registered, and to which party - with their loan amount, forgiveness status, and other metrics.
+### Research Question
 
-## Research Question
-
-I am still developing my research question, but a simple one could be:
+My research question is:
 
 **How does political affiliation affect PPP loan forgiveness status?**
 
 The data for PPP loans is current available on [ProPublica](https://projects.propublica.org/coronavirus/bailouts/), but not in a queryable way.
 
-Fortunately, the underlying data has been made public at https://data.sba.gov/dataset/ppp-foia.
+Fortunately, the underlying data has been made public by the [SBA](https://data.sba.gov/dataset/ppp-foia).
 
-My hypotheses could be that:
+My hypotheses is:
 
 ***Hypothesis 1 (H1): PPP loan forgiveness was given to registered Republicans more often than registered Democrats***
 
@@ -62,58 +68,578 @@ My hypotheses could be that:
 
 In some ways this is similar to Duchin & Hackney, but this benefits from a narrower look at who actually received PPP stimulus rather than eventual outcomes on the state level.
 
-Clearly a few effects that would need to be controlled for. For example, Republicans could be more likely to be *in* any kind of business in the first place, confounding my results.
+Clearly a few effects that would need to be controlled for. Loan forgiveness is likely affected by GDP per county and the industry of the loan recipient (e.g. aerospace, arts & crafts, etc...)
 
-Ideally, I would have focused on my home state of Massachusetts. However, although voter registration data is personally available in MA, you can't download it all in one .csv, and scraping the Commonwealth's website is not allowed. The National Conference of State Legislatures [keeps track of which states have full voter registration data for download](https://www.ncsl.org/research/elections-and-campaigns/access-to-and-use-of-voter-registration-lists.aspx). For now, I will use [Ohio](https://www6.ohiosos.gov/ords/f?p=VOTERFTP:STWD:::#stwdVtrFiles) as an example (although later on I will explain why I could have chosen better):
+Ideally, I would have focused on my home state of Massachusetts. Although voter registration data is available for personal use in MA, you can't download it all in one .csv, and scraping the Commonwealth's website is not allowed.
+
+Seeking an alternative, I noticed that the National Conference of State Legislatures [keeps track of which states have full voter registration data for download](https://www.ncsl.org/research/elections-and-campaigns/access-to-and-use-of-voter-registration-lists.aspx). I selected Florida because:
+
+-   PPP data is available for the state,
+
+-   Florida's corporation search database is downloadable (with some limitations),
+
+-   Florida's voter registration information is available to the public (which is surprisingly rare).
+
+-   Florida is considered a 'swing state' or 'battleground state' - at least, it was in 2020.
+
+-   Florida has a closed primary, which means that voter registration will be more indicative of true political affiliation.
+
+::: callout-important
+#### Important
+
+This single document contains *both* individual-level and aggregate-level analysis, with all the data import, tidying, and analysis that comes with each.
+
+For that reason, it's a long document. I suggest skipping directly to the section titled "Another way: Aggregate-level data" to get to the most meaningful part of the project.
+:::
+
+# Reading, joining, and tidying individual-level data
+
+## PPP Data
+
+Importing the data of the actual PPP loans is straightforward. `ppp_1` and `ppp_2` contain only the PPP loans below \$150k - higher amounts are contained in `ppp_3`, a smaller spreadsheet that covers all 50 states.
+
+``` {{r}}
+ppp_1 <- read_csv("_data/public_up_to_150k_3_220930.csv")
+ppp_2 <- read_csv("_data/public_up_to_150k_4_220930.csv")
+ppp_3 <- read_csv("_data/public_150k_plus_220930.csv")
+```
+
+Helpfully, all files have the same columns.
 
 ### PPP Data Dictionary
 
-To help understand which fields mean what, the PPP data comes with a "Data Dictionary" with an explanation of columns \[scroll right to see explanation\]:
+::: callout-important
+### Before we begin
+
+**I have "double bracketed" many code chunks because the original data is too large to store in GitHub or on Google Drive.** The output is read-in from .csvs instead.
+
+This is a simple way to avoid loading massive, \>1gb files.
+
+The original source data is available at links in the Sources section. The full folder of dependencies is available upon request and can be easily reproduced by running the code contained.
+:::
+
+To help understand which fields mean what, the SBA provides a PPP "Data Dictionary" with an explanation of columns \[scroll right to see explanation\]:
 
 ```{r}
 ppp_data_dictionary <- read_excel("_data/ppp-data-dictionary.xlsx")
 ppp_data_dictionary
 ```
 
-### PPP Data (Ohio)
-
-Importing the data of the actual PPP loans is pretty easy. This .csv contains just the PPP loans below \$150k - others are contained in a smaller spreadsheet that covers all 50 states, and will be part of my final project.
+Here, I filtered out other states and sampled down PPP data to just 10k rows for analysis:
 
 ```{r}
-#ppp_all <- read_csv("_data/public_up_to_150k_9_220930.csv")
-#ppp_all
+#ppp_all <- rbind(ppp_1, ppp_2, ppp_3)
+#ppp_florida <- ppp_all %>% filter(BorrowerState == "FL")
+
+#ppp_florida_sampled_10k <- ppp_florida %>% sample_n(10000)
+#write_csv(ppp_florida_sampled_10k, "_data/ppp_florida_sampled_10k.csv")
+
+#For the purposes of Github, I only read in the resultant CSV:
+ppp_florida <- read_csv("_data/ppp_florida_sampled_10k.csv", show_col_types = FALSE)
+ppp_florida
 ```
 
-It still seems to capture all of Ohio, because Ohio doesn't come last alphabetically. But to manage it better I need to sample it to 200k rows. The code below is commented out because this is a one-time process. Henceforth, I will be working with the .csv I generated in this step.
-
-```{r}
-#ppp_ohio <- ppp_all %>% filter(BorrowerState == "OH")
-#ppp_ohio_sampled_10k <- ppp_ohio %>% sample_n(10000)
-#write_csv(ppp_ohio_sampled_10k, "_data/ppp_ohio_sampled_10k.csv")
-
-ppp_ohio <- read_csv("_data/ppp_ohio_sampled_10k.csv")
-
-```
 ### LLCs, Corporations
 
-Visually, you may notice that businesses and LLCs make up a majority of the loan recipients.
+Visually, you may notice that businesses and LLCs make up many of the loan recipients.
 
-When I was preparing to do this project for Massachusetts - before I knew about the limitation of voter registration data in that state - I contacted the Secretary of the Commonwealth and they sent me a document with the entire "Corporation Search" data in tabular format, with the name of the founder, every board member, business type, year established, etc. I anticipated I would be able to match those individuals with the voter registration data, but that data was unfortunately available.
+To create a "crosswalk" between PPP data and voter registration data, it is necessary to look up corporation filing data on Florida's FTP portal. Unfortunately, that data comes in thousands of separate files and is very messy. There aren't even delimiters - this was "fixed-width" ASCII data.
 
-The Corporation Search data would be essential to the successful completion of the project.
+### Parsing Florida's business data
 
-I have not inquired yet, but assume Ohio will provide the same Corporation Search data. And if they do not, I will just pick another state that 1.) has public voter registration information, and 2.) can supply the Corporation Search data in .csv or .xlsx (as Massachusetts did).
+The data comes thousands of individual files and surpasses 20GB. It is available [here](https://dos.myflorida.com/sunbiz/other-services/data-downloads/corporate-data-file/file-structure/).
 
-### Deeper Looks
+#### Corporations: pre-2010
 
-```{r}
-glimpse(ppp_ohio)
+Data from before 2010 is downloadable in a .dat extension.
+
+``` {{r}}
+#| warning: false
+
+setwd("_data\\florida_corps_all\\2010_prior")
+
+#Get all .dat files and add to vector
+fileNames <- Sys.glob("*.dat")
+
+#Using a 'known-good' file as a position key:
+fixed_positions <- fwf_empty(file = "081508c.dat")
+
+#Custom insertion for corporation name
+fixed_positions$begin <- append(fixed_positions$begin, 12, after = 1)
+fixed_positions$end <- append(fixed_positions$end, 11, after = 0)
+
+#Custom insertion for removing first character from registered agent address
+fixed_positions$begin <- append(fixed_positions$begin, 317, after = 10)
+fixed_positions$end <- append(fixed_positions$end, 316, after = 9)
+
+interest_columns <- c('X2', 'X3', 'X4', 'X6', 'X9', 'X11', 'X12')
+output_file <- "florida_corps_pre2010.csv"
+
+for (fileName in fileNames) {
+
+  df <- read_fwf(file = fileName,
+                      col_positions = fixed_positions,
+                      locale = readr::locale(encoding = "latin1"), 
+                      show_col_types = FALSE)
+  
+  #Remove completely empty rows
+  df <- filter(df, rowSums(is.na(df)) != ncol(df))
+  
+  df <- df %>% select(interest_columns)
+  
+  #Append to .csv in working directory
+  write.table(df, 
+  output_file,
+  append = TRUE,
+  sep = ",",
+  row.names = FALSE,
+  col.names = FALSE)
+  
+}
 ```
 
-`ForgivenessAmount`, `ForgivenessDate`, and `BorrowerName` promise to be the most useful variables.
+``` {{r}}
+#| warning: false
+
+florida_corps_pre_2010 <- read_csv("_data/florida_corps_pre2010.csv", col_names = FALSE, show_col_types = FALSE)
+
+#Completeness:
+nrow(problems(florida_corps_pre_2010))
+nrow(florida_corps_pre_2010)/ (nrow(florida_corps_pre_2010) + nrow(problems(florida_corps_pre_2010)))
+
+#Result:
+#[1] 0.9996532
+```
+
+``` {{r}}
+colnames(florida_corps_pre_2010) <- c("corp_name","corp_type","corp_address","corp_city","corp_reg_agent","corp_reg_agent_address","corp_reg_agent_city")
+
+florida_corps_pre_2010
+```
+
+#### Corporations: post-2010
+
+Post-2011 data has similar fixed-width properties and can be interpreted with different `interest_columns` and custom insertions. The method below gives a 92% savings in disk usage (6.28gb -\> \~600mb) and brings everything into a tidy .csv with 4.6 million rows.
+
+``` {{r}}
+#| warning: false
+
+setwd("_data\\florida_corps_all\\20110103c")
+
+#Get all .dat files and add to vector
+fileNames <- Sys.glob("*.txt")
+
+#Using a 'known-good' file as a position key:
+fixed_positions <- fwf_empty(file = "20220103c.txt")
+
+#Custom insertion for corporation name
+fixed_positions$begin <- append(fixed_positions$begin, 12, after = 1)
+fixed_positions$end <- append(fixed_positions$end, 11, after = 0)
+
+#Custom insertion for removing first character from registered agent address
+fixed_positions$begin <- append(fixed_positions$begin, 587, after = 25)
+fixed_positions$end <- append(fixed_positions$end, 586, after = 24)
+
+interest_columns <- c('X2', 'X4', 'X5', 'X11', 'X23', 'X26', 'X27')
+output_file <- "florida_corps_post2010.csv"
+
+for (fileName in fileNames) {
+
+  df <- read_fwf(file = fileName,
+                      col_positions = fixed_positions,
+                      locale = readr::locale(encoding = "latin1"), 
+                      show_col_types = FALSE)
+  
+  #Remove completely empty rows
+  df <- filter(df, rowSums(is.na(df)) != ncol(df))
+  
+  df <- df %>% select(interest_columns)
+  
+  #Append to .csv in working directory
+  write.table(df, 
+  output_file,
+  append = TRUE,
+  sep = ",",
+  row.names = FALSE,
+  col.names = FALSE)
+  
+}
+```
+
+``` {{r}}
+#| warning: false
+florida_corps_post_2010 <- read_csv("_data/florida_corps_post2010.csv", col_names = FALSE, show_col_types = FALSE)
+
+#Completeness:
+nrow(problems(florida_corps_post_2010))
+nrow(florida_corps_post_2010)/ (nrow(florida_corps_post_2010) + nrow(problems(florida_corps_post_2010)))
+
+#Result:
+#[1] 0.9997638
+```
+
+``` {{r}}
+colnames(florida_corps_post_2010) <- c("corp_name","corp_type","corp_address","corp_city","corp_reg_agent","corp_reg_agent_address","corp_reg_agent_city")
+
+florida_corps_post_2010
+```
+
+#### 'Aggregate' corporation data
+
+Finally, there is "aggregate" corporation data, which contains agent names but only references the corporation's unique ID number. I do not find it very useful for our analysis, but I will include it in this file in case it is helpful later. There are 10 files in total; this is just one for representation:
+
+``` {{r}}
+setwd("_data\\florida_corps_all\\corprindata")
+
+#Using a 'known-good' file as a position key:
+corps_fixed_positions <- fwf_empty(file = "corprindata0.txt")
+
+corps_agg <- read_fwf(file = "corprindata0.txt",
+                      #col_positions = corps_fixed_positions,
+                      #locale = readr::locale(encoding = "latin1"))
+
+#Remove trailing digits on zip code
+corps_agg$X2 <- substr(corps_agg$X2,2,200L)
+
+corps_agg
+```
+
+#### Fictitious names
+
+"Fictitious names" are records of people with 'Doing Business As' (DBA) businesses and trademarks. The data would not be complete without it.
+
+#### Fictitious names pre-2011
+
+``` {{r}}
+#| warning: false
+
+setwd("_data\\florida_fic_name_db\\2011_prior")
+
+#Get all .dat files and add to vector
+fileNames <- Sys.glob("*.dat")
+
+#Using a 'known-good' file as a position key:
+fixed_positions <- fwf_empty(file = "010109f.dat")
+  
+#Custom insertion for corporation name
+fixed_positions$begin <- append(fixed_positions$begin, 12, after = 1)
+fixed_positions$end <- append(fixed_positions$end, 11, after = 0)
+  
+#Custom insertion for county
+fixed_positions$begin <- append(fixed_positions$begin, 213, after = 3)
+fixed_positions$end <- append(fixed_positions$end, 212, after = 2)
+  
+#Custom insertion for registered agent name
+fixed_positions$begin <- append(fixed_positions$begin, 400, after = 12)
+fixed_positions$end <- append(fixed_positions$end, 420, after = 11)
+
+#Custom insertion for registered agent address
+fixed_positions$begin <- append(fixed_positions$begin, 456, after = 15)
+fixed_positions$end <- append(fixed_positions$end, 455, after = 14)
+
+interest_columns <- c("X2", "X3", "X4", "X8", "X9", "X13", "X16", "X17")
+output_file <- "florida_ficnames_pre2011.csv"
+
+for (fileName in fileNames) {
+
+  df <- read_fwf(file = fileName,
+                        col_positions = fixed_positions,
+                        locale = readr::locale(encoding = "latin1"),
+                        show_col_types = FALSE)
+    
+  #Remove rows that are all NAs
+  df <- filter(df, rowSums(is.na(df)) != ncol(df))
+    
+  #Select certain columns for disk space reasons
+  df <- df %>% select(interest_columns)
+
+  #Append to .csv in working directory
+  write.table(df, 
+  output_file,
+  append = TRUE,
+  sep = ",",
+  row.names = FALSE,
+  col.names = FALSE)
+}
+```
+
+``` {{r}}
+#| warning: false
+florida_ficnames_pre_2011 <- read_csv("_data/florida_ficnames_pre2011.csv", col_names = FALSE, show_col_types = FALSE)
+
+#Completeness:
+nrow(problems(florida_ficnames_pre_2011))
+nrow(florida_ficnames_pre_2011)/ (nrow(florida_ficnames_pre_2011) + nrow(problems(florida_ficnames_pre_2011)))
+
+#Result:
+#[1] 0.999592
+```
+
+``` {{r}}
+colnames(florida_ficnames_pre_2011) <- c("ficname_companyname","ficname_county","ficname_address","ficname_city","ficname_zip","ficname_reg_agent","ficname_reg_agent_address","ficname_reg_agent_city","ficname_reg_agent_zip")
+```
+
+#### Fictitious names post-2011
+
+``` {{r}}
+#| warning: false
+setwd("_data\\florida_fic_name_db")
+
+#Get all .dat files and add to vector
+fileNames <- Sys.glob("*.txt")
+
+#Using a 'known-good' file as a position key:
+#.dat and .txt are interchangeable as 'key' files in this instance
+fixed_positions <- fwf_empty(file = "010109f.dat")
+  
+#Custom insertion for corporation name
+fixed_positions$begin <- append(fixed_positions$begin, 12, after = 1)
+fixed_positions$end <- append(fixed_positions$end, 11, after = 0)
+  
+#Custom insertion for county
+fixed_positions$begin <- append(fixed_positions$begin, 213, after = 3)
+fixed_positions$end <- append(fixed_positions$end, 212, after = 2)
+  
+#Custom insertion for registered agent name
+fixed_positions$begin <- append(fixed_positions$begin, 400, after = 12)
+fixed_positions$end <- append(fixed_positions$end, 420, after = 11)
+
+#Custom insertion for registered agent address
+fixed_positions$begin <- append(fixed_positions$begin, 456, after = 15)
+fixed_positions$end <- append(fixed_positions$end, 455, after = 14)
+
+interest_columns <- c("X2", "X3", "X4", "X8", "X9", "X13", "X16", "X17")
+output_file <- "florida_ficnames_post2011.csv"
+
+for (fileName in fileNames) {
+
+  df <- read_fwf(file = fileName,
+                        col_positions = fixed_positions,
+                        locale = readr::locale(encoding = "latin1"),
+                        show_col_types = FALSE)
+    
+  #Remove rows that are all NAs
+  df <- filter(df, rowSums(is.na(df)) != ncol(df))
+    
+  #Select certain columns for disk space reasons
+  df <- df %>% select(interest_columns)
+
+  #Append to .csv in working directory
+  write.table(df, 
+  output_file,
+  append = TRUE,
+  sep = ",",
+  row.names = FALSE,
+  col.names = FALSE)
+}
+```
+
+``` {{r}}
+#| warning: false
+florida_ficnames_post_2011 <- read_csv("_data/florida_ficnames_post2011.csv", col_names = FALSE, show_col_types = FALSE)
+
+#Completeness:
+nrow(problems(florida_ficnames_post_2011))
+nrow(florida_ficnames_post_2011)/ (nrow(florida_ficnames_post_2011) + nrow(problems(florida_ficnames_post_2011)))
+
+#Result
+#[1] 0.9996022
+```
+
+``` {{r}}
+colnames(florida_ficnames_post_2011) <- c("ficname_companyname","ficname_county","ficname_address","ficname_city","ficname_zip","ficname_reg_agent","ficname_reg_agent_address","ficname_reg_agent_city","ficname_reg_agent_zip")
+
+florida_ficnames_post_2011
+```
+
+#### Binding corporations and "fictitious names"
+
+Here, the many dataframes were brought down to one: `florida_businesses`.
+
+``` {{r}}
+#| output: false
+#| warning: false
+
+#Bind dataframes
+florida_corps_all <- rbind(florida_corps_pre_2010, florida_corps_post_2010)
+
+florida_ficnames_all <- rbind(florida_ficnames_pre_2011, florida_ficnames_post_2011)
+
+#Select columns of interest
+florida_corps_selection <- florida_corps_all %>% select(corp_name, corp_reg_agent, corp_reg_agent_address, corp_reg_agent_city)
+florida_ficnames_selection <- florida_ficnames_all %>% select(ficname_companyname, ficname_reg_agent, ficname_reg_agent_address, ficname_reg_agent_city)
+
+colnames(florida_corps_selection) <- c("business_name", "business_agent", "business_agent_address", "business_agent_city")
+colnames(florida_ficnames_selection) <- c("business_name", "business_agent", "business_agent_address", "business_agent_city")
+
+#Create one dataframe with all business entities.
+
+florida_businesses <- rbind(florida_corps_selection, florida_ficnames_selection)
+```
+
+#### Another (necessary) check for completeness.
+
+It's prudent to check that we are not leaving out any data. Remember that we 1.) looped through .dat and .txt files to transform and write to several .csv files, then 2.) read those .csv files back into R memory. The code chunks above checked to see if anything was missed after the `read_csv()` operations - mostly, we saw 99.9% accuracy.
+
+However, we still need compare the number of rows of the original source `.dat` and `.txt` files with our dataframe output (using `nrow()`). The results will be inclusive of the errors found in the chunks above.
+
+We expect the number of rows in the original native format to be the same as the number of rows in the dataframes they eventually were went into.
+
+``` {{r}}
+#| warning: false
+
+# Pre-2011 fictional names
+setwd("C:\\Users\\stevenoneill\\Downloads\\florida_fic_name_db\\2011_prior")
+filenames <- dir(pattern = "[.]dat$")
+df <- sapply(filenames, function(x) length(count.fields(x, sep = "\1")))
+names(df) <- NULL
+print(sum(df))
+nrow(florida_ficnames_pre_2011)
+nrow(florida_ficnames_pre_2011) / sum(df)
+
+# Post-2011 fictional names
+setwd("C:\\Users\\stevenoneill\\Downloads\\florida_fic_name_db")
+filenames <- dir(pattern = "[.]txt$")
+df2 <- sapply(filenames, function(x) length(count.fields(x, sep = "\1")))
+names(df2) <- NULL
+print(sum(df2))
+nrow(florida_ficnames_post_2011)
+nrow(florida_ficnames_post_2011) / (sum(df2))
+
+# Pre-2011 corporations
+setwd("C:\\Users\\stevenoneill\\Downloads\\florida_corps_all\\2010_prior")
+filenames <- dir(pattern = "[.]dat$")
+df3 <- sapply(filenames, function(x) length(count.fields(x, sep = "\1")))
+names(df3) <- NULL
+print(sum(df3))
+nrow(florida_corps_pre_2010)
+nrow(florida_corps_pre_2010) / (sum(df3))
+
+# Post-2011 corporations
+setwd("C:\\Users\\stevenoneill\\Downloads\\florida_corps_all\\20110103c")
+filenames <- dir(pattern = "[.]txt$")
+df4 <- sapply(filenames, function(x) length(count.fields(x, sep = "\1")))
+names(df4) <- NULL
+print(sum(df4))
+nrow(florida_corps_post_2010)
+nrow(florida_corps_post_2010) / sum(df4)
+```
+
+Strangely, the dataframe `florida_corps_post_2010` actually has a few more rows than the original source data. This could be due to the company names containing the character sequence "\\1", which is meant to represent a new line in the syntax of R's `sep`.
+
+Either way, this is not too much of a concern. The final product, `florida_businesses`, simply has to serve as a look-up table. We will not be doing any regressions or analysis of the dataframe `florida_businesses` itself.
+
+#### Duplicates
+
+Are there any duplicates in here? It would be hard to tell by scrolling the 6.8 million rows (if my computer even let me do that.)
+
+Instead, this code lets me see the percentage of rows that are totally unique - 99.7%. This is a sign that the data is accurate (although it may not be complete).
+
+``` {{r}}
+unique_businesses <- florida_businesses %>% unique()
+# 6,825,879 rows
+
+nrow(unique_businesses) / nrow(florida_businesses)
+
+#Result:
+#[1] 0.9974421
+```
+
+#### Simplifying business names for joining
+
+I found that removing periods, commas, and apostrophes could make our next steps more accurate. I do want to keep ampersands and other characters, though.
+
+``` {{r}}
+#Separated for the sake of not having a single complicated regex expression:
+florida_businesses <- florida_businesses %>% mutate(business_name = str_remove_all(business_name, ","))
+florida_businesses <- florida_businesses %>% mutate(business_name = str_remove_all(business_name, "\\."))
+florida_businesses <- florida_businesses %>% mutate(business_name = str_remove_all(business_name, "\\'"))
+```
+
+Obviously the same treatment should be given to the PPP data for which it will be joined to:
+
+``` {{r}}
+ppp_florida <- ppp_florida %>% mutate(BorrowerName = str_remove_all(BorrowerName, ","))
+ppp_florida <- ppp_florida %>% mutate(BorrowerName = str_remove_all(BorrowerName, "\\."))
+ppp_florida <- ppp_florida %>% mutate(BorrowerName = str_remove_all(BorrowerName, "\\'"))
+```
+
+#### Pre-formatting registered agent names for comparison
+
+The "registered agents" found in `florida_businesses`, - usually, the owners of the companies - are characteristically formatted as an individual's last name followed by a first name, separated by at least two (but sometimes 10 or more) whitespace characters, like this:
+
+```{example}
+GOODWIN        DAVID   S
+```
+
+Not parsing these during the initial data read-in was an intentional choice to maintain the integrity of the data.
+
+Now is the time to give these registered agent names the appropriate attention, resulting in new columns called `business_agent_firstname`, `business_agent_lastname`, and `business_agent_initial.`
+
+``` {{r}}
+florida_businesses <- florida_businesses %>% 
+  mutate(business_agent_firstname = str_trim(str_extract(business_agent, '[[:space:]]{2}(.*)'))) %>%
+  mutate(business_agent_lastname = str_trim(str_extract(business_agent, '(.*?)[[:space:]]{2}'))) %>% 
+  mutate(business_agent_initial = str_trim(str_extract(business_agent_firstname, '[[:space:]]{2}(.*)'))) %>% 
+  mutate(business_agent_firstname = str_remove(business_agent_firstname, '[[:space:]]{2}(.*)'))
+```
+
+#### A word on registered agent services
+
+At least 1.4 million out of 5.4 million corporations (25%) in our data use a [registered agent service](https://howtostartanllc.com/registered-agent/should-I-use-a-registered-agent-service) to protect their privacy and keep the company on track with filings. A registered agent service allows any LLC from out-of-state be incorporated in the state, since a registered agent must have legal residence in the state where the business is formed. Because registered agent services are basically required for any business that is headquartered in another state, we need to keep in mind that as long as we are using individual-level data, our final analysis *will exclude companies which are founded in other states, or use registered agent services for any other reason.*
+
+There is no specific way to diagnose how this will affect our outcomes. "\[A\] lawyer, spouse or other relative, friend, or trusted person can serve as registered agent", according to [Nolo.com](https://www.nolo.com/legal-encyclopedia/what-registered-agent.html). Considering this, the assumption that the registered agent of a business is always the owner has perhaps been naive. A large company may designate its head accountant, for example, as the registered agent to manage the everyday business of taxes and filings. We also see the suffix "Esq." appended to many of the registered agents' names, meaning lawyers are probably standing in as registered agents using their own likenesses.
+
+Businesses which use registered agent services will be excluded from the voter registration 'join' - there is unfortunately no way around it. Therefore, we should acknowledge that overall, businesses with a certain degree of sophistication will probably be missing from our analysis.
+
+#### Joining PPP Data and Business Data
+
+With all data currently available, here a the fairly simple join operation that merges Florida business records and our sample of 10k Floridian PPP loans. I am joining on the full company name, which is typically respected in the business world due to trademark norms (I didn't see duplicates during exploratory data analysis).
+
+``` {{r}}
+ppp_businesses_joined <- ppp_florida %>% drop_na(BorrowerName) %>% inner_join(florida_businesses, by = c("BorrowerName" = "business_name"), keep=TRUE, na_matches = c("na", "never")) %>% select("BorrowerName","business_name","business_agent","business_agent_firstname","business_agent_initial","business_agent_lastname","business_agent_address","BusinessType","JobsReported","NAICSCode","ProjectCountyName","BorrowerCity","Gender","Veteran","ForgivenessAmount", "Term") %>% distinct(BorrowerName, .keep_all = TRUE)
+```
+
+Here is the file after it has been joined. I am reading it in from a CSV for the purposes of publishing to GitHub.
 
 ```{r}
-print(summarytools::dfSummary(ppp_ohio,
+ppp_businesses_joined <- read_csv( "_data/ppp_businesses_joined.csv", show_col_types = FALSE)
+ppp_businesses_joined
+```
+
+2,389 rows out of 10,000 were returned - that's only 24% of what should be expected. Remember that we are matching our sample of Florida PPP recipients with our 'edition' of the Florida corporation database (which is not necessarily complete). In the join above, we would expect closer to 10k, which would be full coverage.
+
+Let's examine what was included in our `inner_join` and see if it skews a certain way:
+
+```{r}
+#| warning: false
+#| output: false
+#| message: false
+print(summarytools::dfSummary(ppp_businesses_joined$BusinessType,
+                        varnumbers = FALSE,
+                        plain.ascii  = FALSE, 
+                        style        = "grid", 
+                        graph.magnif = 0.70, 
+                        valid.col    = FALSE),
+      method = 'render',
+      table.classes = 'table-condensed')
+
+```
+
+Yes, as seen here, it is very skewed - this matched data favors LLCs (44.4% in sample vs population percentage of 18.10%) and corporations (33.7% in sample vs 21.5% out of the population). It also tends to exclude sole proprietors (5.1% in sample vs population of 24.5%).
+
+I also used an `anti_join` to see what's left out:
+
+```{r}
+#| warning: false
+#| output: false
+#| message: false
+#ppp_businesses_anti_joined <- ppp_florida %>% drop_na(BorrowerName) %>% anti_join(florida_businesses, by = c("BorrowerName" = "business_name"), keep=TRUE, na_matches = c("na", "never")) %>% distinct(BorrowerName, .keep_all = TRUE)
+
+
+ppp_businesses_anti_joined <- read_csv("_data/ppp_businesses_anti_joined.csv", show_col_types = FALSE)
+
+print(summarytools::dfSummary(ppp_businesses_anti_joined$BusinessType,
                         varnumbers = FALSE,
                         plain.ascii  = FALSE, 
                         style        = "grid", 
@@ -123,39 +649,581 @@ print(summarytools::dfSummary(ppp_ohio,
       table.classes = 'table-condensed')
 ```
 
-(Data below from unsampled, larger dataset)
+In the anti-joined results, many of the unmatched values are sole proprietorships (31.1%), corporations (18.7% - these can represent single individuals), and independent contractors (17.1%)
 
-From a first look, most applicants reported only one employee needing coverage under the PPP. In fact, "Sole Proprietorship" was the highest category of `BusinessType`, above even LLCs, with 33.3%.
+Part of the story appears to be the exclusion or inclusion of "LLC" or "INC" in one data source vs the other. Some company names are completely different, but probably representative of the same business, like these examples I gathered:
 
-19% of applicants were white, leading the race category, and 68% were unreported.
+**MTM GLASS** LLC vs **MTM GLASS CONCEPTS INC**
 
-Median `ForgivenessAmount` was \$20,438.7, and most loans were forgiven in 2021.
+**DISCOVERY PARKING** vs **DISCOVERY PARKING PLUS LLC**
 
-## Voter Registration
+**NEIGHBORHOOD LLC** vs **THE NEIGHBORHOOD LLC**
 
-The Ohio voter registration data is easily read-in:
+**TREEHOUSE ACADEMY OF FERNANDINA BEACH LLC** vs **TREE HOUSE ACADEMY OF FERNANDINA BEACH LLC**
+
+And as noted, the rest missing are largely individuals - sole proprietors and independent contractors.
+
+## Understanding the missing data
+
+This table shows percentages of the Florida PPP loan recipients that were *not* matched up with our corporate database:
 
 ```{r}
-#ohio_voters <- read_csv("_data/SWVF_1_22.txt")
-#ohio_voters_sampled <- ohio_voters %>% sample_n(10000)
-#write_csv(ohio_voters_sampled, "_data/ohio_voters_sampled.csv")
-
-ohio_voters <- read_csv("_data/ohio_voters_sampled.csv")
-
+ppp_businesses_anti_joined %>% count(BusinessType) %>% arrange(desc(n)) %>% mutate(pct = 100*(n/sum(n)))
 ```
 
-This is a 1gb+ file, which needs to be fully complete in order for the join of sampled PPP data. For the actual project, I will do that in a one-time process on my local computer. 
-
-Zip codes will let us know with high confidence that we are dealing with the same business owner even if names are duplicated.
-
-The historical information tells us if they have changed their party affiliation from year-to-year, which can be useful in determining if political rent-seeking was successful - we can even see 'D' or 'R' going back 22 years:
+Versus those that *were* matched up:
 
 ```{r}
-glimpse(ohio_voters)
+ppp_businesses_anti_joined %>% count(BusinessType) %>% arrange(desc(n)) %>% mutate(pct = 100*(n/sum(n)))
+```
+
+As I highlighted, clearly the crosswalk is missing some data about individuals, and, to a smaller extent, corporations.
+
+### Another method
+
+As a last ditch, I tried something unconventional and removed all spaces, instances of "LLC", and instances of "INC" before the join.
+
+``` {{r}}
+#Columns: "business_name", "business_agent", "business_agent_address", "business_agent_city"
+
+#For the sake of not having a single complicated regex expression:
+florida_businesses_pruned <- florida_businesses %>% mutate(business_name = str_remove_all(business_name, "LLC"))
+florida_businesses_pruned <- florida_businesses_pruned %>% mutate(business_name = str_remove_all(business_name, "INC"))
+florida_businesses_pruned <- florida_businesses_pruned %>% mutate(business_name = str_remove_all(business_name, "[[:space:]]"))
+
+ppp_florida_pruned <- ppp_florida %>% mutate(BorrowerName = str_remove_all(BorrowerName, "LLC"))
+ppp_florida_pruned <- ppp_florida_pruned %>% mutate(BorrowerName = str_remove_all(BorrowerName, "INC"))
+ppp_florida_pruned <- ppp_florida_pruned %>% mutate(BorrowerName = str_remove_all(BorrowerName, "[[:space:]]"))
+```
+
+``` {{r}}
+ppp_pruned_joined <- ppp_florida_pruned %>% drop_na(BorrowerName) %>% inner_join(florida_businesses_pruned, by = c("BorrowerName" = "business_name"), keep=TRUE, na_matches = c("na", "never")) %>% select("BorrowerName","business_name","business_agent","business_agent_address","BorrowerAddress","business_agent_city","BorrowerCity", "BusinessType","Gender","Veteran","ForgivenessAmount")
+```
+
+Although it had interesting results, this method was unreliable and only resulted in 3,195 unique rows out of 10,000. That's not an improvement worth the significant errors it comes with.
+
+### Giving up on individual-level analysis
+
+If I wanted to continue in this direction, I would keep the `ppp_businesses_anti_joined` data, which represents data not included in the `ppp_businesses_joined` dataframe, and try to match it *directly* to voter registration data to claw back some of the missing sample. After all, the idea of the corporation data 'crosswalk' originally was that it would let us glean the identity of the person behind the LLC or corporation when that information would otherwise be inaccessible.
+
+However, at this point I lost faith in using individual level data. Instead, I completed this project using aggregate data - read below.
+
+::: callout-note
+#### Further reading
+
+I just don't see the individual-level data we have being appropriate for statistical analysis. Consider that the data we are working with at this stage is already 77% missing, with some groups more missing than others (so-called 'MNAR'). Once we get to the voter registration join stage we lose even more data, resulting in a very lean dataframe closer to 600 (out of an originally sample of 10,000).
+
+I have included the voter registration join process in the "Appendix" portion of this report.
+:::
+
+# Another way: Aggregate-level data
+
+This class is about quantitative methods rather than data cleaning. So far I have spilled a lot of ink on dealing with Florida's janky corporate database. Now it's time for exciting statistical analysis, directly targeted at my research question!
+
+To test the hypothesis, ***PPP loan forgiveness was given to registered Republicans more often than registered Democrats,***, I will still use the 10,000 PPP loan applications in `ppp_florida`. But instead of joining them with voter registration data, I will just add aggregate information to new columns, and use those as control variables.
+
+So, to add useful control variables, I have:
+
+-   Added a column for "percent Republican" using [precinct level data](https://dataverse.harvard.edu/file.xhtml?fileId=6100417&version=2.1) from Harvard's Dataverse on the results of the 2020 election. A value of .85 would mean the county voted 85% Republican in the 2020 election. This is called `county_percent_republican`.
+-   Added a column for GDP per county with data from the [Bureau of Economic Analysis](https://www.bea.gov/data/gdp/gdp-county-metro-and-other-areasS). This is called `county_gdp`.
+-   Added a column for "average revenue by business type" using [data from the US Census](https://www.census.gov/data/developers/data-sets/economic-census.html). This is `NAICSAvgRevenue`.
+
+Below, I describe how they were calculated.
+
+### County-level political leaning
+
+This tells me what the baseline for every county is in terms of partisanship.
+
+``` {{r}}
+precincts <- read_csv("_data/2020-fl-precinct-general.csv", show_col_types = FALSE)
+```
+
+Here is how I calculate the 'redness' of each county based on 2020 election results:
+
+``` {{r}}
+dem_votes <- precincts %>% filter(office == "US PRESIDENT") %>% group_by(precinct) %>% filter(party_simplified == "DEMOCRAT") %>% select(c("precinct", "votes", "county_name"))
+colnames(dem_votes) <- (c("precinct", "democatic_pres_votes", "county"))
+
+repub_votes <- precincts %>% filter(office == "US PRESIDENT") %>% group_by(precinct) %>% filter(party_simplified == "REPUBLICAN") %>% select(c("precinct", "votes"))
+colnames(repub_votes) <- (c("precinct", "repub_pres_votes"))
+
+precincts_joined <- full_join(dem_votes, repub_votes, by = "precinct") %>% mutate(precinct_percent_republican = 100*(repub_pres_votes/sum(democatic_pres_votes, repub_pres_votes)))
+
+precincts_total_dem <- precincts_joined %>% group_by(county) %>% summarise(sum(democatic_pres_votes))
+colnames(precincts_total_dem) <- (c("COUNTYNAME", "dem_county_votes"))
+precincts_total_repub <- precincts_joined %>% group_by(county) %>% summarise(sum(repub_pres_votes))
+colnames(precincts_total_repub) <- (c("COUNTYNAME", "repub_county_votes"))
+
+counties_joined <- full_join(precincts_total_dem, precincts_total_repub, by = "COUNTYNAME") %>% rowwise() %>% mutate(county_percent_republican = 100*(repub_county_votes/sum(dem_county_votes, repub_county_votes)))
+
+counties_joined
+```
+
+And here, I associate the counties with zip codes (which are in the rest of our data):
+
+``` {{r}}
+zip_crosswalk <- read_csv("_data/ZIP-COUNTY-FIPS_2017-06.csv", show_col_types = FALSE)
+
+#Remove periods for St. Lucie & St. Johns counties, make uppercase for matching with Zip data
+zip_crosswalk <- zip_crosswalk %>% filter(STATE == "FL") %>% mutate(COUNTYNAME = toupper(str_remove(COUNTYNAME, " County"))) %>% mutate(COUNTYNAME = str_remove_all(COUNTYNAME, "\\.")) %>% select(c(ZIP, COUNTYNAME))
+
+counties_zips <- zip_crosswalk %>% left_join(counties_joined, by = "COUNTYNAME")
+counties_agg <- counties_zips %>% select(COUNTYNAME, dem_county_votes, repub_county_votes, county_percent_republican) %>% distinct()
+```
+
+### GDP by County
+
+Say we eventually find that more loans got doled out to Republican counties. What if that's because those Republican counties tend to have higher GDP? We should add GDP as a control variable.
+
+This BEA data shows the result in "thousands of chained (2012) dollars", meaning these are inflation-adjusted dollar 'equivalents\` rather than today's dollar amounts. The 2020 data has been selected.
+
+``` {{r}}
+#| label: setup
+#| output: false
+#| warning: false
+#| message: false
+
+
+counties_gdp <- read_csv("_data/BEA_Florida_GDP_County.csv", show_col_types = FALSE, skip = 2)
+
+counties_gdp <- counties_gdp[,c(1,4)]
+colnames(counties_gdp) <- c('COUNTYNAME', 'county_gdp')
+
+counties_gdp <- counties_gdp %>% mutate(COUNTYNAME = toupper(COUNTYNAME))
+
+#Join with previous results
+
+counties_agg <- counties_agg %>% left_join(counties_gdp, by = "COUNTYNAME")
+```
+
+Here I tack that onto the data we are working with:
+
+```{r}
+#ppp_sample_joined <- ppp_florida %>% left_join(counties_agg, by = c("ProjectCountyName" = "COUNTYNAME"), match = "first")
+#write_csv(ppp_sample_joined, "_data/ppp_sample_joined.csv")
+
+#Below is for individual-level data:
+
+#ppp_businesses_joined <- ppp_businesses_joined %>% left_join(counties_agg, by = c("ProjectCountyName" = "COUNTYNAME"), match = "first")
+
+#ppp_businesses_anti_joined <- ppp_businesses_anti_joined %>% left_join(counties_agg, by = c("ProjectCountyName" = "COUNTYNAME"), match = "first")
+```
+
+Here are the results of the operations above:
+
+```{r}
+ppp_sample_joined <- read_csv("_data/ppp_sample_joined.csv", show_col_types = FALSE)
+ppp_sample_joined
+```
+
+As an aside, it's clear that there is a correlation between GDP and county Republican percentage. This may be due to the fact that Republican counties are less urban. So much for the idea that Republican counties have higher GDP! Either way, both are contained in the regression models to come.
+
+```{r}
+#| message: false
+#| warning: false
+ggplot(ppp_sample_joined, aes(x = county_percent_republican, y = county_gdp)) + 
+  geom_point() +
+ # scale_x_continuous(trans = 'log10') + 
+  scale_y_continuous(trans = 'log10')+
+  #annotation_logticks(sides="lb") +
+  geom_smooth(method = "lm", se = FALSE) +
+  xlab("Log of County Pct. Republican") + ylab("County GDP")
+```
+
+### NAICS Codes
+
+The North American Industry Classification System (NAICS) is a federal standard for evaluating which sector of the economy a business is in. For example, UMass Amherst has an NAICS code of 611310: "Colleges, Universities, and Professional Schools".
+
+Consider that a \$300k loan would be extremely large for a picture-framing business but comparatively small for an aerospace or drilling company.
+
+In our analysis, we expect the loan amount to vary by industry. Because of that, it's important that the PPP data includes the NAICS code of every business that applied for PPP funds.
+
+Upon read-in, the NAICS data is incorrectly interpreted as continuous data:
+
+```{r}
+is.factor(ppp_sample_joined$NAICSCode)
+```
+
+This is corrected by using `factor`:
+
+```{r}
+ppp_sample_joined$NAICSCode <- factor(ppp_sample_joined$NAICSCode)
+is.factor(ppp_sample_joined$NAICSCode)
+```
+
+Implicitly, we should acknowledge that `JobsReported` - the number of jobs the PPP loan was taken out to cover in the first place - is going to be the most meaningful predictor of loan size. Following basic common sense, it goes below in our first linear regression model. The second model here adds `NAICSCode` - now correctly interpreted as a categorical variable - as an additional predictor.
+
+```{r}
+#Drop 77 rows which have no NAICS code (out of ~10k) so we may compare using ANOVA later
+
+#ppp_sample_joined <- ppp_sample_joined %>% drop_na(NAICSCode)
+
+mod1 <- lm(ForgivenessAmount ~ JobsReported, data = ppp_sample_joined)
+mod2 <- lm(ForgivenessAmount ~ JobsReported + NAICSCode, data = ppp_sample_joined)
+
+summary(mod1)
+#summary(mod2)
+```
+
+An ANOVA shows that adding `NAICSCode` as a nominal variable with many levels is statistically worthwhile. Still, the many categorical values of `NAICSCode` are difficult to interpret and crowd the summary output. Pulling out the variables of interest and only focusing on them using R code would not be a statistical best practice. Optionally, I could target-encode these 'nominal' values, which is done by calculating the mean among the each category (using data drawn from this sample of 10k) and adding the results as numeric variables in my regression.
+
+In my opinion, a better way is available: The U.S. Census' latest "Economic Census" (2017) has already collected summary statistics of revenue according to NAICS type across different parts of the country, including Florida.
+
+This additional data allows one to find the average revenue for a given kind of business in a given location in America. As one might assume, a surf shop in Miami is probably going to be more revenue-generating than a surf shop in Ohio.
+
+So, for example, bringing this additional data in can tell us that the annual revenue for NAICS code "2508190" (child day care services) is \$2,508,190, industry-wide, inside Florida. That will let us use NAICS information as numeric data rather than categorical data in our regression.
+
+Here is the [NAICS codebook](https://api.census.gov/data/2017/ecnbasic/variables.html) for reference.
+
+#### Adding NAICS average revenue
+
+The sizeeable NAICS data must be pared down to only include Florida and only include six-digit NAICS codes like those found in our PPP data.
+
+In the Census data, Florida is associated with many GEO_IDs, but there is always one commonality: the state code for Florida is `12`, always preceded by `US`, (meaning United States). During EDA, I found that `04000US12` is the "parent" GEO_ID, inclusive of all other GEO_IDs (which represent subsets within Florida):
+
+```{r}
+naics_geo_index <- read_excel("_data/fl.xls")
+head(naics_geo_index)
+```
+
+In the next step, the entire 2017 Economic Census is read in. The file is pipe-delimited and contains 4.9m rows, with each row representing a summary statistic (part or whole, according to region):
+
+``` {{r}}
+naics_census_all <- read_delim("_data/EC1700BASIC.dat", delim = "|")
+```
+
+Next we strip this file down to the `GEO_ID` of `0400000US12`, representing Florida summary statistics only. It is also necessary to filter out subset NAICS codes and other secondary information as noted below in code comments:
+
+``` {{r}}
+#Filter out Florida NAICS codes and convert to dbl for joining:
+naics_census_florida <- naics_census_all %>% filter(GEO_ID == "0400000US12")
+naics_census_florida$NAICS2017 <- as.double(naics_census_florida$NAICS2017)
+
+#Confirm that all NAICS codes in our PPP data are 6 digits for accuracy in joining:
+#summary(ppp_sample_joined$NAICSCode)
+
+#All NAICS codes are 6-digits in the PPP data, so we must filter out parent- and child- level NAICS codes:
+naics_census_florida <- naics_census_florida %>% filter(nchar(NAICS2017) == 6)
+
+#Choose the parent-level (most inclusive) "type of operation" (TYPOP). Here, 00 means 'all types' and other values are subsets.
+naics_census_florida <- naics_census_florida %>% filter(TYPOP == "00")
+
+#Select 'All establishments' rather than just 'Establishments subject to federal income tax'
+naics_census_florida <- naics_census_florida %>% filter(TAXSTAT == "00")
+
+#Get back to the original ppp_sample_joined, before we made NAICS code factor-type:
+ppp_sample_joined <- ppp_florida %>% left_join(counties_agg, by = c("ProjectCountyName" = "COUNTYNAME"), match = "first")
+ppp_sample_joined <- ppp_sample_joined %>% drop_na(NAICSCode)
+
+#9923 rows before join:
+nrow(ppp_sample_joined)
+
+#9586 rows after join (3% non-match from NAICS lookup)
+ppp_sample_joined <- ppp_sample_joined %>% inner_join(naics_census_florida, by = c("NAICSCode" = "NAICS2017"), na_matches = c("na", "never"), keep = TRUE) 
+
+ppp_sample_joined <- ppp_sample_joined %>% select("BorrowerName","BorrowerAddress","BorrowerCity","BusinessType","Gender","Veteran","JobsReported","NAICSCode","NAICS2017_TTL","county_percent_republican","county_gdp","RCPTOT","LoanStatus","ProjectCountyName","ForgivenessDate","InitialApprovalAmount","CurrentApprovalAmount","ForgivenessAmount")
+
+#Zeroes should be replaced with NA:
+ppp_sample_joined[, 12][ppp_sample_joined[, 12] == 0] <- NA
+
+ppp_sample_joined <- ppp_sample_joined %>% rename(
+    NAICSAvgRevenue = RCPTOT,
+    NAICSDescription = NAICS2017_TTL)
+
+#Return NAICSCode to categorical type since join is complete:
+ppp_sample_joined$NAICSCode <- factor(ppp_sample_joined$NAICSCode)
+
+ppp_sample_joined
+#write_csv(ppp_sample_joined, "_data/ppp_sample_joined_naics.csv")
+```
+
+Since the NAICS data was very large, here is the resulting data already joined:
+
+```{r}
+ppp_sample_joined <- read_csv("_data/ppp_sample_joined_naics.csv", show_col_types = FALSE)
+ppp_sample_joined
+```
+
+We did not end up pursuing individual-level data fully, but this is the code I also needed to run in order to prepare it, so I am including it for completeness:
+
+``` {{r}}
+ppp_businesses_joined <- ppp_businesses_joined %>% inner_join(naics_census_florida, by = c("NAICSCode" = "NAICS2017"), na_matches = c("na", "never"), keep = TRUE) 
+
+ppp_businesses_joined <- ppp_businesses_joined %>% select("BorrowerName","BorrowerCity","BusinessType","business_agent_firstname"
+,"business_agent_lastname","business_agent_address","Gender","Veteran","ForgivenessAmount","JobsReported","NAICSCode","NAICS2017_TTL","county_percent_republican","county_gdp","RCPTOT")
+
+#Zeroes in the 15th column (RCPTOT) should be replaced with NA:
+ppp_businesses_joined[, 15][ppp_businesses_joined[, 15] == 0] <- NA
+
+ppp_businesses_joined <- ppp_businesses_joined %>% rename(
+    NAICSAvgRevenue = RCPTOT,
+    NAICSDescription = NAICS2017_TTL)
+```
+
+``` {{r}}
+ppp_businesses_anti_joined <- ppp_businesses_anti_joined %>% inner_join(naics_census_florida, by = c("NAICSCode" = "NAICS2017"), na_matches = c("na", "never"), keep = TRUE) 
+
+ppp_businesses_anti_joined <- ppp_businesses_anti_joined %>% select("BorrowerName","BorrowerCity","BusinessType","Gender","Veteran","ForgivenessAmount","JobsReported","NAICSCode","NAICS2017_TTL","county_percent_republican","county_gdp","RCPTOT")
+
+#Zeroes in the 15th column (RCPTOT) should be replaced with NA:
+ppp_businesses_anti_joined[, 12][ppp_businesses_anti_joined[, 12] == 0] <- NA
+
+ppp_businesses_anti_joined <- ppp_businesses_anti_joined %>% rename(
+    NAICSAvgRevenue = RCPTOT,
+    NAICSDescription = NAICS2017_TTL)
+```
+
+# Models: aggregate-level data
+
+My hypothesis, suited to aggregate-level data, is that the loan amount varies by the political affiliation of the borrower.
+
+Just to re-cap, these are the variables you will see below:
+
+`ForgivenessAmount` - amount of loan forgiveness in dollars. In nearly all cases, this is the same as the original amount of the loan.
+
+`JobsReported` - The number of jobs reported in the loan application
+
+`NAICSCode` - Business type/sector
+
+`NAICSAvgRevenue` - Average revenue (in dollars) of business type/sector
+
+`county_percent_republican` - Percent of county that voted for Donald Trump in 2020 (example: .86 indicates very Republican county)
+
+`county_gdp` - Gross Domestic Product of county, 2021
+
+And here are some quick descriptive statistics about the variables we have included:
+
+```{r}
+ppp_sample_joined %>% select(JobsReported, county_gdp, county_percent_republican, NAICSAvgRevenue) %>% summary()
+```
+
+Following the theory, here are some models to start out with:
+
+```{r}
+mod1 <- lm(ForgivenessAmount ~ JobsReported, data = ppp_sample_joined)
+mod2 <- lm(ForgivenessAmount ~ JobsReported + NAICSCode, data = ppp_sample_joined)
+mod3 <- lm(ForgivenessAmount ~ JobsReported + NAICSAvgRevenue, data = ppp_sample_joined)
+mod4 <- lm(ForgivenessAmount ~ JobsReported + NAICSAvgRevenue + county_percent_republican + county_gdp, data = ppp_sample_joined)
 ```
 
 ```{r}
-print(summarytools::dfSummary(ohio_voters,
+#| warning: false
+stargazer(mod1, mod2, mod3, mod4, type = "text")
+```
+
+At this point, it may appear that mod3 is a good model with reasonable R-squared and justifiable independent variables. But the diagnostic plot tells another story:
+
+```{r}
+par(mfrow = c(2,3)); plot(mod3, which = 1:6)
+```
+
+In these diagnostic plots,
+
+-The Residuals vs Fitted graph shows a funnel shape, indicating heteroskedasticity (non-constant variance) in the residuals.
+
+-The Scale-Location also indicates heteroskedasticity.
+
+-The Normal Q-Q's "S"-looking curve indicates non-normality in the error terms. The distribution of residuals is either skewed or peaked in the middle (high kurtosis).
+
+-The Cook's distance and leverage-related plots show dramatic outliers.
+
+### Transformations
+
+A justification for 'logging' variables is obtained by looking at GGPairs(). Notice the sloped relationship between most independent variables and ForgivenessAmount.
+
+```{r}
+#| warning: false
+#| message: false
+#|
+ppp_sample_joined %>% select(ForgivenessAmount, JobsReported, county_percent_republican, NAICSAvgRevenue, county_gdp) %>% ggpairs(progress = FALSE)
+```
+
+Logging both the predictor and response variables (except for `NAICSAvgRevenue`) returns our diagnostic plots to normal. The improved "log-log" model also lets us introduce `county_gdp` and see that it is a significant variable.
+
+```{r}
+mod3a <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue + county_gdp, data = ppp_sample_joined)
+summary(mod3a)
+```
+
+```{r}
+par(mfrow = c(2,3)); plot(mod3a, which = 1:6)
+```
+
+The Q-Q plot still show that there is a slight issue with normality (left skew in the distribution), and outliers are still shown in the Cook's distance and Leverage-related plots. Still, there are not as many massive violations of assumptions of regression anymore.
+
+Now we can bring in the `county_percent_republican` variable and finally start to answer our research question of "Is PPP loan forgiveness tied to political affiliation?"
+
+The resulting model has a lower AIC, BIC, and higher R-squared than the previous model:
+
+```{r}
+mod3b <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue + log(county_gdp) + log(county_percent_republican), data = ppp_sample_joined)
+par(mfrow = c(2,3)); plot(mod3b, which = 1:6)
+summary(mod3b)
+```
+
+This ANOVA finds it to be statistically significant compared to the previous model:
+
+```{r}
+anova(mod3a, mod3b)
+```
+
+Adding another version of the model with an interaction term between `county_percent_republican` and `county_gdp` is not much better, and I'd rather leave it out for a more 'parsimonious' model:
+
+```{r}
+mod3c <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue + log(county_gdp) + log(county_percent_republican) + log(county_percent_republican)*log(county_gdp), data = ppp_sample_joined)
+par(mfrow = c(2,3)); plot(mod3c, which = 1:6)
+summary(mod3c)
+```
+
+Here is the ANOVA test that does not find it to be significantly better:
+
+```{r}
+anova(mod3b, mod3c)
+```
+
+And, overall, here is a summary of these log-log models, which are the most sound so far:
+
+```{r}
+#| warning: false
+stargazer(mod3a, mod3b, mod3c, type = "text")
+```
+
+Model 3B (the middle one in the table above) looks to be the best model, and it actually finds a *negative* and *significant* relationship between Republican counties and forgiveness amount. This is not what I was expecting! My original (alternate) hypothesis was that Republicans received *more* loans than Democrats.
+
+## Interpretation
+
+Since this is a log-log model, the way to interpret Model 3b would be: "holding county GDP, business type, and the number of jobs reported fixed, for every increase of one percent in Republican voting, we would expect to see a 0.28% decrease in the size of a PPP loan."
+
+In retrospect, it may have been better to re-frame the hypothesis as simply "political affiliation *has an effect* on PPP loan size". If that was the case, I would say I have found support for the alternate hypothesis, and that the null hypothesis was rejected.
+
+Although I have found evidence against the null hypothesis, I am not sure about the conclusiveness of this study. We are measuring political affiliation at the county level only. Business owners are probably more Republican than the county at-large.
+
+Additionally, I should re-iterate that loan size (and its proxy, `ForgivenessAmount`) is in most cases simply a number picked by the loan applicant. We did not measure whether or not forgiveness was given - that would be a job for logistic regression. Instead, our sample was 100% comprised of businesses that got loan forgiveness. Indeed, loan forgiveness was guaranteed at the outset of the program. At the time of this writing, not all loans have been forgiven. Forgiveness status probably has more to do with the [competence of the loan originator](https://www.classaction.org/news/kabbage-failed-to-process-ppp-loan-forgiveness-applications-in-a-timely-manner-class-action-claims). 
+
+### Using counties as predictors
+
+During the poster session, one piece of feedback I received was that I could use the counties themselves as categorical independent variables.
+
+Here, the counties are listed under the column `ProjectCountyName`. None of them appear to be significant, meaning no county is more predictive of loan outcome than another county.
+
+```{r}
+mod3d <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue + log(county_gdp) + log(county_percent_republican) + ProjectCountyName, data = ppp_sample_joined)
+
+summary(mod3d)
+```
+
+Here is the diagnostic plot. Some counties which only were associated with one loan application are left out:
+
+```{r}
+par(mfrow = c(2,3)); plot(mod3d, which = 1:6)
+```
+
+The diagnostic plots look OK, but the model is telling us that nothing is significant about which counties the loans originated in.
+
+# Appendix
+
+Back to the original research design! Feel free to stop reading here - the information below continues to use the individual-level data that we have 'given up on' earlier.
+
+I feel it is important to include because these methods could be used in a state that has better-quality data.
+
+## Voter registration data
+
+Voter registration data was mailed to me on DVD-ROM by Florida's state government. Unfortunately, data from 2020 was not available - just data from 2022. This means that politically significant events like the Jan 6th 2021 Capitol insurrection have already had an effect on these voters - we may not be measuring the same voters as before.
+
+With that said, I suspect that voter registration is a durable barometer of lifelong political affiliation, especially in a state like Florida, which has seen a shift rightward since 2020.
+
+This loop reads the fixed-width files (which have a different composition than the corporation/fictitious name files) and writes them to a CSV:
+
+``` {{r}}
+setwd("_data\\florida_voter_data\\20221102_VoterDetail")
+
+fileNames <- Sys.glob("*.txt")
+
+for (fileName in fileNames) {
+  voters <- read.table(
+    fileName,
+    sep="\t", header=FALSE, fill = TRUE, quote = "")
+  
+    write.table(voters, 
+   "florida_voters.csv",
+   append = TRUE,
+   sep = ",",
+   row.names = FALSE,
+   col.names = FALSE)
+}
+```
+
+And we can read it in:
+
+``` {{r}}
+florida_voters_all <- read_csv("_data\\florida_voter_data\\20221102_VoterDetail\\florida_voters.csv", col_names = FALSE)
+```
+
+This function checks to make sure all lines were read into the dataframe `florida_voters_all`.
+
+``` {{r}}
+setwd("_data\\florida_voter_data\\20221102_VoterDetail")
+filenames <- dir(pattern = "[.]txt$")
+df <- sapply(filenames, function(x) length(count.fields(x, sep = "\1")))
+```
+
+### Using Postgres SQL
+
+The 15+ million rows were too much to join using Rstudio on my computer. Due to size and memory constraints, I needed to use Postgres SQL. This required a database connection in RStudio.
+
+``` {{r}}
+library(RPostgres)
+con <- dbConnect(RPostgres::Postgres(), user = 'postgres', password = '####')
+```
+
+Tables were written to Postgres from R:
+
+``` {{r}}
+dbWriteTable(
+  con,
+  name = "florida_voters_all",
+  value = florida_voters_all,
+  row.names = TRUE,
+  overwrite = FALSE,
+  append = FALSE,
+  field.types = NULL,
+  temporary = FALSE,
+  copy = NULL
+)
+```
+
+``` {{r}}
+dbWriteTable(
+  con,
+  name = "ppp_businesses_joined",
+  value = ppp_businesses_joined,
+  row.names = TRUE,
+  overwrite = FALSE,
+  append = FALSE,
+  field.types = NULL,
+  temporary = FALSE,
+  copy = NULL
+```
+
+#### Joining in Postgres SQL
+
+This SQL join matched voters to the PPP businesses on the registered agent's first name, last name, and first 3 characters of their address.
+
+``` {{sql}}
+select firstname, lastname, "business_name", "ForgivenessAmount", "business_agent_address", address, registration, email into ppp_voters from florida_voters_all fva
+inner join ppp_businesses_joined pbj 
+on UPPER(pbj.business_agent_firstname) = UPPER(fva.firstname) and UPPER(pbj.business_agent_lastname) = UPPER(fva.lastname) and UPPER(LEFT(pbj.business_agent_address, 3)) = UPPER(LEFT(fva.address, 3))
+```
+
+The resulting table, `ppp_voters`, came back with 616 rows. It's interesting, if impractical due to its small size. We see that there are more Republicans in this dataset than Democrats, with 41.9% vs 28.6% respectively.
+
+```{r}
+#| message: false
+#| warning: false
+#ppp_voters <- dbReadTable(con, "ppp_voters")
+ppp_voters <- read_csv("_data/ppp_voters.csv", show_col_types = FALSE)
+
+print(summarytools::dfSummary(ppp_voters$registration,
                         varnumbers = FALSE,
                         plain.ascii  = FALSE, 
                         style        = "grid", 
@@ -165,13 +1233,56 @@ print(summarytools::dfSummary(ohio_voters,
       table.classes = 'table-condensed')
 ```
 
-This sample of 10k is	46.3%	and 53.7% Republican.
+### Models
 
-Ohio actually has open primaries which is a good reason to consider another state for this dataset. I'll be looking for others.
+Here are models which test the original alternate hypothesis, H1.
 
-## Next Steps
+This one is `log(ForgivenessAmount) ~ log(JobsReported)`:
 
-Next, I will find the most advantageous state with a closed primary. Ideally, it will be a battleground or solid-Republican state with freely available voter registration data and a downloadable Corporation Search database (or available upon request).
+```{r}
+mod4 <- lm(ForgivenessAmount ~ JobsReported, data = ppp_voters)
+mod5 <- lm(log(ForgivenessAmount) ~ log(JobsReported), data = ppp_voters)
+par(mfrow = c(2,3)); plot(mod5, which = 1:6)
+summary(mod5)
+```
 
-I look forward to any feedback or refinements to the hypotheses above.
+And `log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue`
 
+```{r}
+mod5a <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue, data = ppp_voters)
+summary(mod5a)
+par(mfrow = c(2,3)); plot(mod5a, which = 1:6)
+```
+
+It was necessary to `relevel` the `registration` information in order to get output for Democrats and Republicans. I used "NPA" - no party affiliation.
+
+```{r}
+ppp_voters$registration <- factor(ppp_voters$registration, ordered = FALSE )
+
+ppp_voters$registration <- relevel(ppp_voters$registration, ref = 'NPA')
+
+mod5b <- lm(log(ForgivenessAmount) ~ log(JobsReported) + NAICSAvgRevenue + registration, data = ppp_voters)
+summary(mod5b)
+par(mfrow = c(2,3)); plot(mod5b, which = 1:6)
+```
+
+And here is the output of those models, with Model 5B showing that there is no statistically significant link between voter registration and loan forgiveness amount.
+
+```{r}
+#| warning: false
+stargazer(mod5, mod5a, mod5b, type = "text")
+```
+
+In this version of the data, we do not find any support for an alternate hypothesis and fail to reject the null hypothesis.
+
+# Sources
+
+1.  Duchin, R., & Hackney, J. (2021). Buying the Vote? The Economics of Electoral Politics and Small-Business Loans. Journal of Financial and Quantitative Analysis, 56(7), 2439-2473. doi:10.1017/S002210902100048X
+
+2.  Chernenko, S., & Scharfstein, D. (2022, February). National Bureau of Economic Research \| NBER. RACIAL DISPARITIES IN THE PAYCHECK PROTECTION PROGRAM. Retrieved October 10, 2022, from https://www.nber.org/system/files/working_papers/w29748/w29748.pdf
+
+3.  MIT Election Data and Science Lab, 2022, "Precinct-Level Returns 2020 by Individual State", https://doi.org/10.7910/DVN/NT66Z3, Harvard Dataverse, V2, UNF:6:DZkrbNb8jFLYglz5rTqxWA== \[fileUNF\]
+
+4.  U.S. Bureau of Economic Analysis (BEA), "GDP by County, Metro, and Other Areas." 2020, https://www.bea.gov/data/gdp/gdp-county-metro-and-other-areas.
+
+5.  U.S. Census Bureau. "Economic Census (2017, 2012, 2007, 2002)." Census.gov, 28 Oct. 2021,https://www.census.gov/data/developers/data-sets/economic-census.html.
