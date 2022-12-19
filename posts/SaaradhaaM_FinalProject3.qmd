@@ -1,0 +1,496 @@
+---
+title: "Final Project: Does Latitude Affect Attitude?"
+author: "Saaradhaa M"
+description: "Predicting Well-Being in the Global South & North"
+date: "12/17/2022"
+format: 
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - final
+  - saaradhaa
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+library(tidyverse)
+library(ggplot2)
+library(summarytools)
+library(interactions)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+library(gridExtra)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Background
+
+Prior research literature in the social sciences has continually stressed the need for more research on the Global South. However, few papers actually focus on it. Hence, I am interested to learn more about this region.
+
+I am specifically interested in understanding what drives perceived well-being. It is interpreted via happiness and life satisfaction, measured separately (Addai et al., 2013).
+
+::: callout-tip
+## Part 1: Research Questions
+
+A. What predicts perceived well-being in the Global South?
+
+B. Do predictors of perceived well-being differ between the Global North and South?
+:::
+
+This project will be useful to better understand motivations and desires in the Global South, reduce inter-cultural tensions and enhance cross-cultural cohesion. Governments can also benefit from this research in terms of policy prioritization to maximize citizens' well-being.
+
+## Hypotheses
+
+Past researchers have studied perceived well-being in the Global South via the World Values Survey (Addai et al., 2013; Ngamaba, 2016). The studies focused on Ghana and Rwanda respectively. The common predictors across both countries were **satisfaction with health and income**.
+
+Alba (2019) found that happiness was generally greater in the Global North than the Global South, and indicated that future research should attempt to cover the factors behind this, which gave me the impetus for this project.
+
+I refer to Maslow's theory, where physical and safety needs come first (Maslow, 1943). My thinking is that happiness and well-being in the Global North may depend on more subjective measures, given that health and income-related problems should be relatively more accounted for.
+
+Given the above, we can frame our hypotheses as follows:
+
+::: callout-tip
+## H~0A~
+
+Perceived health and financial satisfaction [will not]{.underline} positively predict perceived well-being in the Global South.
+:::
+
+::: callout-tip
+## H~1A~
+
+Perceived health and financial satisfaction [will]{.underline} positively predict perceived well-being in the Global South.
+:::
+
+::: callout-tip
+## H~0B~
+
+Perceived health and financial satisfaction [will not]{.underline} have a greater impact on perceived well-being in the Global South than the Global North.
+:::
+
+::: callout-tip
+## H~1B~
+
+Perceived health and financial satisfaction [will]{.underline} have a greater impact on perceived well-being in the Global South than the Global North.
+:::
+
+## Read In Data
+
+I will be working with the most recent wave of the World Values Survey, Wave 7, which was conducted from 2017 to 2022. The data is freely available for non-profit purposes. It must be cited properly and not re-distributed (Haerpfer et al., 2022).
+
+Representative samples of the population aged 18 and above were collected from 59 countries. Data was mostly collected by interviewing respondents at their homes ("WVS Database", 2022).
+
+I am using the version of Wave 7 released in May 2022.
+
+I will indicate my comments in each code chunk to keep track of my progress.
+
+```{r}
+#| label: read in
+
+# read in dataset.
+wvs <- read_csv("~/Desktop/2022_Fall/DACSS 603/General/Final Project/WVS/4. Data/WVS_Cross-National_Wave_7_csv_v4_0.csv", show_col_types = FALSE) %>% select("B_COUNTRY_ALPHA", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "O1_LONGITUDE", "O2_LATITUDE", "Q1", "Q2", "Q3", "Q6", "Q46", "Q47", "Q48", "Q49", "Q50", "Q57", "Q171", "Q260", "Q262", "Q263", "Q269", "Q270", "Q271", "Q273", "Q274", "Q275", "Q279", "Q287", "Q288R", "Q289", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "Q182", "Q184")
+```
+
+The data set originally had 552 columns. I have selected a subset of columns based on variables used in past papers, as well as some variables I am interested to examine. These include place/area of residence, demographics, importance of various social aspects, happiness and well-being indicators, trust, religiosity, equality of gender/sexual orientation and abortion attitudes.
+
+I will first create a dummy variable for Global North/South. The Global South comprises low- and lower-middle income countries, as defined by the [World Bank](https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups) (Clarke, 2018; "World Bank Country and Lending Groups", 2022). Global South countries surveyed include Ethiopia, Philippines, Indonesia, Bangladesh, Iran, Kenya, Bolivia, Kyrgyzstan, Lebanon, Tajikistan, Tunisia, Ukraine, Mongolia, Morocco, Egypt, Myanmar, Vietnam, Nicaragua, Zimbabwe, Nigeria and Pakistan.
+
+```{r}
+#| label: create dummy
+
+# create dummy.
+wvs <- mutate(wvs, NS = case_when(B_COUNTRY_ALPHA == "ETH" | B_COUNTRY_ALPHA == "PHL" | B_COUNTRY_ALPHA == "IDN" | B_COUNTRY_ALPHA == "BGD" | B_COUNTRY_ALPHA == "IRN" | B_COUNTRY_ALPHA == "KEN" | B_COUNTRY_ALPHA == "BOL" | B_COUNTRY_ALPHA == "KGZ" | B_COUNTRY_ALPHA == "LBN" | B_COUNTRY_ALPHA == "TJK" | B_COUNTRY_ALPHA == "TUN" | B_COUNTRY_ALPHA == "MOR" | B_COUNTRY_ALPHA == "UKR" | B_COUNTRY_ALPHA == "MNG" | B_COUNTRY_ALPHA == "EGY" | B_COUNTRY_ALPHA == "MMR" | B_COUNTRY_ALPHA == "VNM" | B_COUNTRY_ALPHA == "NIC" | B_COUNTRY_ALPHA == "ZWE" | B_COUNTRY_ALPHA == "NGA" | B_COUNTRY_ALPHA == "PAK" ~ "1"))
+
+# replace "NA" with "O" (for Global North).
+wvs$NS <- replace_na(wvs$NS, "0")
+
+# change to factor.
+wvs$NS <- as.factor(wvs$NS)
+
+# check counts of levels.
+wvs %>% select(NS) %>% summary()
+
+# sanity check.
+wvs %>% filter(B_COUNTRY_ALPHA == "ETH" | B_COUNTRY_ALPHA == "PHL" | B_COUNTRY_ALPHA == "IDN" | B_COUNTRY_ALPHA == "BGD" | B_COUNTRY_ALPHA == "IRN" | B_COUNTRY_ALPHA == "KEN" | B_COUNTRY_ALPHA == "BOL" | B_COUNTRY_ALPHA == "KGZ" | B_COUNTRY_ALPHA == "LBN" | B_COUNTRY_ALPHA == "TJK" | B_COUNTRY_ALPHA == "TUN" | B_COUNTRY_ALPHA == "MOR" | B_COUNTRY_ALPHA == "UKR" | B_COUNTRY_ALPHA == "MNG" | B_COUNTRY_ALPHA == "EGY" | B_COUNTRY_ALPHA == "MMR" | B_COUNTRY_ALPHA == "VNM" | B_COUNTRY_ALPHA == "NIC" | B_COUNTRY_ALPHA == "ZWE" | B_COUNTRY_ALPHA == "NGA" | B_COUNTRY_ALPHA == "PAK") %>% nrow()
+
+# rename columns.
+names(wvs) <- c("B_COUNTRY_ALPHA", "G_TOWNSIZE", "H_SETTLEMENT", "H_URBRURAL", "Long", "Lat", "FamImpt", "FriendsImpt", "LeisureImpt", "ReligionImpt", "Happiness", "PerceivedHealth", "FOC", "LS", "FS", "Trust", "AttendReligious", "Sex", "Age", "Immigrant", "Citizen", "HHSize", "Parents", "Married", "Kids", "Edu", "Job", "SocialClass", "Income", "Religion", "I_WOMJOB", "I_WOMPOL", "I_WOMEDU", "homolib", "abortlib", "NS")
+```
+
+The sanity check shows that the creation of the dummy was successful, with 28,644 data points from the Global South.
+
+## Exploratory Analysis
+
+```{r}
+#| label: exploratory analysis
+#| message: false
+
+print(dfSummary(wvs, varnumbers = FALSE, plain.ascii = FALSE, graph.magnif = 0.30, style = "grid", valid.col = FALSE), method = 'render', table.classes = 'table-condensed')
+```
+
+The dataset has 87,822 rows, each representing one participant, and 36 columns.
+
+The summary statistics for the predictors and outcomes of interest are as follows:
+
+-   66.2% perceived their health to be good (option 1 'Very Good' and option 2 'Good' for `PerceivedHealth`).
+
+-   61.6% were satisfied with their household's finances (option 6 to 10 for `FS`, where 10 is 'satisfied').
+
+-   85.5% were happy (option 1 'Very Happy' and option 2 'Quite Happy' for `Happiness`).
+
+-   75.5% were satisfied with their lives (options 6 to 10 for `LS`, where 10 is 'satisfied').
+
+-   67.4% of respondents were from the Global North (`NS`).
+
+Other noteworthy descriptives:
+
+-   Respondents tended to come from more urban settings (`H_URBRURAL`).
+
+-   On average, family was more likely to be perceived as important than friends, leisure time and religion (`FamImpt`, `FriendsImpt`, `LeisureImpt`, `ReligionImpt`).
+
+-   People tended to err on the side of caution when it came to trusting others (`Trust`).
+
+-   Households had 4 people on average, with maximum household size being 63 (`HHSize`)!
+
+-   For the survey variables (`FamImpt` to `abortlib`), missing data ranged from 0.1% to 6.5%, which is acceptable.
+
+Let's check if life satisfaction and happiness differ between the Global North and South.
+
+```{r}
+#| label: t-test
+
+t.test(Happiness ~ NS, wvs)
+t.test(LS ~ NS, wvs)
+```
+
+The Welch's two-sample t-tests show that there is a significant difference in happiness and life satisfaction between the Global North and South, where the former has higher mean values for both, *p* \< .001. This echoes Alba (2019)'s finding on happiness, and adds new knowledge to the literature regarding life satisfaction.
+
+We can also create a graph to visualize the latitude and longitude of countries in the Global North and Global South.
+
+```{r}
+#| label: geographic plot
+#| warning: false
+
+ggplot(wvs) + geom_bin2d(mapping = aes(x = Long, y = Lat)) + facet_wrap(vars(NS))
+```
+
+The graph above shows that the Global North ("0") and South ("1") are not neatly divided by physical location, due to the existence of higher-income countries physically located in the South (e.g., South Korea) and lower-income countries physically located in the North (e.g., Ukraine).
+
+## Notes Before Commencing Analysis
+
+-   `NS` cannot be transformed, since it is categorical. If required, log/quadratic transformations can be done for `PerceivedHealth` or `FS`.
+
+-   Since each row represents 1 participant, the unit of analysis is at the participant level. The `NS` dummy refers to where the participant comes from, either the Global North or the Global South.
+
+-   I will be treating `FamImpt`, `FriendsImpt`, `LeisureImpt`, `ReligionImpt` and `Happiness` as continuous. I will check that this is appropriate by running two regression models with `FamImpt` as categorical vs. continuous (see sections on RQ B).
+
+-   I will complete cleaning the data set (changing some variables to factors and reverse coding others) below, before commencing analysis.
+
+```{r}
+#| label: further cleaning
+
+# change the following variables to factor type.
+wvs <- wvs %>% mutate(across(c(B_COUNTRY_ALPHA,H_SETTLEMENT,H_URBRURAL,Trust,Sex,Immigrant,Citizen,Parents,Married,Job,Religion), as.factor))
+
+# reverse code the following variables, such that the largest number reflects agreement.
+wvs$FamImpt <- 5-wvs$FamImpt
+wvs$FriendsImpt <- 5-wvs$FriendsImpt
+wvs$LeisureImpt <- 5-wvs$LeisureImpt
+wvs$ReligionImpt <- 5-wvs$ReligionImpt
+wvs$Happiness <- 5-wvs$Happiness
+wvs$PerceivedHealth <- 6-wvs$PerceivedHealth
+wvs$AttendReligious <-8-wvs$AttendReligious
+wvs$SocialClass <- 6-wvs$SocialClass
+```
+
+## RQ A: Regression Models
+
+::: callout-tip
+## Recap: H~1A~
+
+Perceived health and financial satisfaction [will]{.underline} positively predict perceived well-being in the Global South.
+:::
+
+To test this hypothesis, I will:
+
+-   Filter the dataset to only include observations from the Global South.
+
+-   Create plots of perceived health and financial satisfaction against happiness and life satisfaction.
+
+-   Run a regression model with these variables. Previous papers did not test an interaction between the variables, so I will not do so. There also does not seem to be a meaningful theoretical reason to do so.
+
+```{r}
+#| label: RQ A subset and plots
+#| warning: false
+
+# create subset of dataset.
+subset <- wvs %>% filter(NS == "1")
+
+# generate boxplots.
+b1 <- subset %>% filter(!is.na(PerceivedHealth)) %>% 
+  ggplot(aes(x=as.factor(PerceivedHealth), y=LS)) +
+  geom_boxplot(varwidth=TRUE,color="chocolate2", fill="bisque",alpha=0.5) +
+  theme_minimal() +
+  xlab("PH (Global South)") +
+  ylab("Life Satisfaction (Global South)") +
+  theme(text=element_text(family="serif", size=12))
+
+b2 <- subset %>% filter(!is.na(FS)) %>% 
+  ggplot(aes(x=as.factor(FS), y=LS)) +
+  geom_boxplot(varwidth=TRUE,color="chocolate2", fill="bisque",alpha=0.5) +
+  theme_minimal() +
+  xlab("FS (Global South)") +
+  ylab("Life Satisfaction (Global South)") +
+  theme(text=element_text(family="serif", size=12))
+
+b3 <- subset %>% filter(!is.na(PerceivedHealth)) %>% 
+  ggplot(aes(x=as.factor(PerceivedHealth), y=Happiness)) +
+  geom_boxplot(varwidth=TRUE,color="chocolate2", fill="bisque",alpha=0.5) +
+  theme_minimal() +
+  xlab("PH (Global South)") +
+  ylab("Happiness (Global South)") +
+  theme(text=element_text(family="serif", size=12))
+
+b4 <- subset %>% filter(!is.na(FS)) %>% 
+  ggplot(aes(x=as.factor(FS), y=Happiness)) +
+  geom_boxplot(varwidth=TRUE,color="chocolate2", fill="bisque",alpha=0.5) +
+  theme_minimal() +
+  xlab("FS (Global South)") +
+  ylab("Happiness (Global South)") +
+  theme(text=element_text(family="serif", size=12))
+
+grid.arrange(b1, b2, b3, b4, nrow = 2, ncol = 2)
+```
+
+Looking at the boxplots, there seems to be a roughly linear positive relationship between all 4 variables. No transformations should be required to run the regression models.
+
+```{r}
+#| label: RQ A regression models
+#| warning: false
+
+# run regression model for Happiness.
+ModelA_H <- lm(Happiness ~ PerceivedHealth + FS, subset)
+
+# run regression model for Happiness with demographic controls.
+ModelA_H_controls <- lm(Happiness ~ PerceivedHealth + FS + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion, subset)
+
+# run regression model for LS. for whatever reason, logging PerceivedHealth produced a slightly higher adjusted R^2, but i did not include that because (1) it did not improve the diagnostic plots and (2) PerceivedHealth is not count data (e.g., population/income) that traditionally improves with logging.
+ModelA_LS <- lm(LS ~ PerceivedHealth + FS, subset)
+
+# run regression model for LS with demographic controls.
+ModelA_LS_controls <- lm(LS ~ PerceivedHealth + FS + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion, subset)
+
+# create comparison table.
+stargazer(ModelA_H, ModelA_H_controls, type = "text")
+stargazer(ModelA_LS, ModelA_LS_controls, type = "text")
+```
+
+To summarize, I ran 4 regression models above. For `Happiness`, I ran 1 model with just the main predictors (`FS` and `PerceivedHealth`), and 1 with demographic controls as well. I then repeated this process for `LS`. In all 4 models, even with the addition of demographic control variables, `PerceivedHealth` and `FS` positively predict `Happiness` and `LS` in the Global South, *p* \< .01. The addition of demographic controls also did not improve adjusted R^2^ by much, just \~0.01. For RQ A, we can reject the null hypothesis.
+
+```{r}
+#| label: RQ A diagnostic plots
+
+# diagnostic plots for the models above.
+par(mfrow = c(2,3)); plot(ModelA_H_controls, which = 1:6)
+bptest(ModelA_H_controls)
+
+par(mfrow = c(2,3)); plot(ModelA_LS_controls, which = 1:6)
+bptest(ModelA_LS_controls)
+```
+
+The diagnostic plots generally seem fine except the scale-location plot, which indicates heteroskedasticity. The Breusch-Pagan test helps to confirm this. One way to correct this would be to use robust standard errors.
+
+```{r}
+#| label: RQ A robust standard errors
+#| warning: false
+
+# generate model with robust standard errors, and put it side by side with the original model.
+covah <- vcovHC(ModelA_H_controls, type = "HC1")
+robustah <- sqrt(diag(covah))
+stargazer(ModelA_H_controls, ModelA_H_controls, type = "text", se = list(NULL, robustah))
+
+# do the same for the model with life satisfaction as the dv.
+covals <- vcovHC(ModelA_LS_controls, type = "HC1")
+robustals <- sqrt(diag(covals))
+stargazer(ModelA_LS_controls, ModelA_LS_controls, type = "text", se = list(NULL, robustals))
+
+# create PRESS function.
+PRESS <- function(linear.model) {
+  pr <- residuals(linear.model)/(1-lm.influence(linear.model)$hat)
+  PRESS <- sum(pr^2)
+  return(PRESS)
+}
+
+# calculate PRESS.
+PRESS(ModelA_H)
+PRESS(ModelA_H_controls)
+PRESS(ModelA_LS)
+PRESS(ModelA_LS_controls)
+```
+
+I generated robust standard errors for the models above, where both predictors are still positive and significant, *p* \< .01. Hence, we can still reject the null hypothesis.
+
+I also generated the PRESS statistic to demonstrate that if we had to choose, the models with controls would be better, due to the lower PRESS statistic.
+
+## RQ B: Regression Models
+
+::: callout-tip
+## Recap: H~1B~
+
+Perceived health and financial satisfaction [will]{.underline} have a greater impact on perceived well-being in the Global South than the Global North.
+:::
+
+I will first run a correlation matrix with all potential numeric variables that might be relevant.
+
+```{r}
+#| label: RQ B correlations
+
+# run correlations for numeric variables (except DVs, which are Happiness and LS).
+matrix <- wvs %>% select(PerceivedHealth, FS, G_TOWNSIZE, FamImpt, FriendsImpt, LeisureImpt, ReligionImpt, FOC, AttendReligious, Age, HHSize, Kids, Edu, SocialClass, Income, I_WOMJOB, I_WOMPOL, I_WOMEDU, homolib, abortlib)
+corr <- cor(matrix, use="complete.obs")
+```
+
+In the correlation matrix, I am concerned about correlations where *r* ≥ 0.5 (more conservative than a cut-off of *r* ≥ 0.7). This is observed between `AttendReligious` and `ReligionImpt`; and `homolib` and `abortlib`. I will try a few different models to figure out which combination of variables might work best.
+
+I will also be testing two interactions - `PerceivedHealth` \* `NS` and `FS` \* `NS`. I am not testing a three-way interaction, as there is no meaningful reason why `PerceivedHealth` and `FS` would interact (as discussed for RQ A).
+
+```{r}
+#| label: RQ B happiness regression models
+#| warning: false
+
+# try model with "AttendReligious" and "abortlib".
+testb1 <- lm(Happiness ~ PerceivedHealth*NS + FS*NS + G_TOWNSIZE + H_URBRURAL + FamImpt + FriendsImpt + LeisureImpt + AttendReligious + FOC + Trust + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion + I_WOMJOB + I_WOMPOL + I_WOMEDU + abortlib, wvs)
+
+# try model with "ReligionImpt" and "abortlib".
+ModelB_H <- lm(Happiness ~ PerceivedHealth*NS + FS*NS + G_TOWNSIZE + H_URBRURAL + FamImpt + FriendsImpt + LeisureImpt + ReligionImpt + FOC + Trust + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion + I_WOMJOB + I_WOMPOL + I_WOMEDU + abortlib, wvs)
+
+# run model with "FamImpt" as categorical.
+testb2 <- lm(Happiness ~ PerceivedHealth*NS + FS*NS + G_TOWNSIZE + H_URBRURAL + as.factor(FamImpt) + FriendsImpt + LeisureImpt + ReligionImpt + FOC + Trust + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion + I_WOMJOB + I_WOMPOL + I_WOMEDU + abortlib, wvs)
+
+# try model with "ReligionImpt" and "homolib": adjusted R^2 was lower, so i'm sticking to ModelB_H. significance of main predictors doesn't change either.
+testb3 <- lm(Happiness ~ PerceivedHealth*NS + FS*NS + G_TOWNSIZE + H_URBRURAL + FamImpt + FriendsImpt + LeisureImpt + ReligionImpt + FOC + Trust + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion + I_WOMJOB + I_WOMPOL + I_WOMEDU + homolib, wvs)
+
+# put in table.
+stargazer(testb1, ModelB_H, testb2, testb3, type = "text")
+```
+
+Looking at adjusted R^2^ and the F-statistic, `ReligionImpt` is preferable to `AttendReligious`, and `abortlib` is preferable to `homolib`.
+
+I also ran another model to see how things change when `FamImpt` is treated as categorical: adjusted R^2^ remained the same, but the standard errors for that variable rose. Hence, I will treat it as continuous (as well as the other ordered variables with 4 levels).
+
+Additionally, in past papers, adjusted R^2^ ranged between 0.15 to 0.3 for happiness. Ours is in the higher part of that range (adjusted R^2^ = 0.23).
+
+For the final model I settled on (labelled `ModelB_H` above), both two-way interactions were significant, *p* \< .01. I will plot this graphically.
+
+```{r}
+#| label: RQ B happiness interactions
+
+h1 <- interact_plot(ModelB_H, pred = PerceivedHealth, modx = NS, colors=c("darkorange1","darkorange4"), x.label = "PH", modx.labels=c("North", "South")) 
+h2 <- interact_plot(ModelB_H, pred = FS, modx = NS, colors=c("darkorange1","darkorange4"), x.label = "FS", modx.labels=c("North","South"))
+grid.arrange(h1, h2)
+```
+
+The interaction plots show that `PerceivedHealth` and `FS` have a greater impact on happiness in the Global South (`NS` = 1) than in the Global North.
+
+To fully answer the RQ, I now need to re-run the same model with `LS` as the DV.
+
+```{r}
+#| label: RQ B LS regression model
+#| warning: false
+
+ModelB_LS <- lm(LS ~ PerceivedHealth*NS + FS*NS + G_TOWNSIZE + H_URBRURAL + FamImpt + FriendsImpt + LeisureImpt + ReligionImpt + FOC + Trust + Sex + Age + Immigrant + Citizen + HHSize + Parents + Married + Kids + Edu + Job + SocialClass + Income + Religion + I_WOMJOB + I_WOMPOL + I_WOMEDU + abortlib, wvs)
+stargazer(ModelB_LS, type = "text")
+```
+
+For the model with `LS` as the DV, the adjusted R^2^ of 0.41 is in line with past papers (range: 0.16 - 0.5). Both two-way interactions are also significant, *p* \< .01.
+
+```{r}
+#| label: RQ B LS interaction plots
+
+ls1 <- interact_plot(ModelB_LS, pred = PerceivedHealth, modx = NS, colors = c("darkorange1", "darkorange4"), x.label = "PH", modx.labels=c("North","South"))
+ls2 <- interact_plot(ModelB_LS, pred = FS, modx = NS, colors = c("darkorange1","darkorange4"), x.label= "FS", modx.labels=c("North","South"))
+grid.arrange(ls1, ls2)
+```
+
+-   `PerceivedHealth`\*`NS`: `PerceivedHealth` has a stronger effect on `LS` in the **Global North** than the Global South, demonstrated by the steeper curve for the former (as well as the **negative coefficient for the interaction** in the model summary) - we cannot reject the null for RQ B.
+
+-   `FS`\*`NS`: There is a stronger effect of `FS` on `LS` for the Global South than the Global North.
+
+I will now generate the diagnostic plots for `ModelB_H` and `ModelB_LS`.
+
+```{r}
+#| label: RQ B diagnostic plots
+#| message: false
+
+par(mfrow = c(2,3)); plot(ModelB_H, which = 1:6)
+bptest(ModelB_H)
+
+par(mfrow = c(2,3)); plot(ModelB_LS, which = 1:6)
+bptest(ModelB_LS)
+```
+
+Similar to what was observed for RQ A, the scale-location plot indicates heteroskedasticity (confirmed by the Breusch-Pagan test). I will generate robust standard errors for both models.
+
+The diagnostic plots also indicate some outliers, but this is likely a minor issue given the large size of the sample. They need not be removed.
+
+```{r}
+#| label: RQ B robust standard errors
+#| warning: false
+
+# generate model with robust standard errors, and put it side by side with the original model.
+covbh <- vcovHC(ModelB_H, type = "HC1")
+robustbh <- sqrt(diag(covbh))
+stargazer(ModelB_H, ModelB_H, type = "text", se = list(NULL, robustbh))
+
+# do the same for the model with life satisfaction as the dv.
+covbls <- vcovHC(ModelB_LS, type = "HC1")
+robustbls <- sqrt(diag(covbls))
+stargazer(ModelB_LS, ModelB_LS, type = "text", se = list(NULL, robustbls))
+```
+
+For `ModelB_H`, both interactions remain significant, *p* \< .01.
+
+For `ModelB_LS`, both interactions remain significant, *p* \< .05 for `PerceivedHealth`\*`NS` and *p* \< .01 for `FS`\*`NS`.
+
+## Conclusion
+
+In RQ A, when we only examined the Global South, perceived health and financial satisfaction positively predicted perceived well-being. We rejected the null.
+
+RQ B further showed that financial satisfaction had a greater impact on perceived well-being (recall: both [happiness]{.underline} and [life satisfaction]{.underline}) in the Global South than in the Global North.
+
+However, perceived health had a greater impact on **life satisfaction** in the **Global North**. Even though perceived health had a greater impact on [happiness]{.underline} in the [Global South]{.underline}, this makes us unable to reject the null for RQ B.
+
+These findings could signal to governments in the Global North to prioritize health-related welfare, while those in the Global South may first want to focus on monetary policies.
+
+## Limitations
+
+Financial satisfaction and perceived health are subjective self-assessments that reflect individual satisfaction with health/wealth, and not actual health/wealth.
+
+## Moving Forward
+
+Future research should definitely continue studying desires, motives and needs in the Global South. Practical ways to improve perceived well-being would be especially useful. Another interesting aspect to explore would be qualitative research with citizens on the ground. This has the ability to elicit rich insights that can boost quantitative studies.
+
+## Bibliography
+
+1.  Addai, I., Opoku-Agyeman, C., & Amanfu, S. (2013). Exploring Predictors of Subjective Well-Being in Ghana: A Micro-Level Study. *Journal Of Happiness Studies*, *15*(4), 869-890.
+
+2.  Alba, C. (2019). A Data Analysis of the World Happiness Index and its Relation to the North-South Divide. *Undergraduate Economic Review*, *16*(1).
+
+3.  Clarke, M. (2018). *Global South: what does it mean and why use the term?* Global South Political Commentaries. Retrieved from https://onlineacademiccommunity.uvic.ca/globalsouthpolitics/2018/08/08/global-south-what-does-it-mean-and-why-use-the-term/
+
+4.  Haerpfer, C., Inglehart, R., Moreno, A., Welzel, C., Kizilova, K., Diez-Medrano J., M. Lagos, P. Norris, E. Ponarin & B. Puranen (eds.). 2022. World Values Survey: Round Seven - Country-Pooled Datafile Version 4.0. Madrid, Spain & Vienna, Austria: JD Systems Institute & WVSA Secretariat.
+
+5.  Maslow, A. H. (1943). A theory of human motivation. *Psychological Review*, *50*(4), 370--396.
+
+6.  Ngamaba, K. (2016). Happiness and life satisfaction in Rwanda. *Journal Of Psychology In Africa*, *26*(5), 407-414.
+
+7.  *World Bank Country and Lending Groups*. World Bank Data Help Desk. (2022). Retrieved from https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups.
+
+8.  *WVS Database*. World Values Survey. (2022). Retrieved from https://www.worldvaluessurvey.org/WVSDocumentationWV7.jsp.
