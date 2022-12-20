@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Katie Popiela">
+
+<title>DACSS-603 Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<meta name="twitter:title" content="DACSS-603 Final Project">
+<meta name="twitter:description" content="The internet has become incredibly divisive in almost every way and unprecedented issues have arisen as a result.">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-and-background-info-on-data" id="toc-introduction-and-background-info-on-data" class="nav-link active" data-scroll-target="#introduction-and-background-info-on-data">Introduction and Background Info on Data</a></li>
+  <li><a href="#research-question-and-hypothesis" id="toc-research-question-and-hypothesis" class="nav-link" data-scroll-target="#research-question-and-hypothesis">Research Question and Hypothesis</a></li>
+  <li><a href="#descriptive-statistics-and-hypothesis-testing" id="toc-descriptive-statistics-and-hypothesis-testing" class="nav-link" data-scroll-target="#descriptive-statistics-and-hypothesis-testing">Descriptive Statistics and Hypothesis Testing</a></li>
+  <li><a href="#model-comparison-and-diagnostics" id="toc-model-comparison-and-diagnostics" class="nav-link" data-scroll-target="#model-comparison-and-diagnostics">Model Comparison and Diagnostics</a></li>
+  <li><a href="#bibliography" id="toc-bibliography" class="nav-link" data-scroll-target="#bibliography">Bibliography</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">DACSS-603 Final Project</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Katie Popiela </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poliscidata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in library(poliscidata): there is no package called 'poliscidata'</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+✔ purrr   1.0.0      
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stats)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyselect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="introduction-and-background-info-on-data" class="level2">
+<h2 class="anchored" data-anchor-id="introduction-and-background-info-on-data">Introduction and Background Info on Data</h2>
+<p>The internet has become incredibly divisive in almost every way and unprecedented issues have arisen as a result. For instance, how much access should be granted to your personal files/information via websites and apps? Or, what is acceptable content for the internet, can it be appropriately regulated, and how? My focus, however, is on the impacts of internet usage on politics - specifically on how internet usage affects people’s confidence in their political system. This is a global phenomenon, especially with the rise of alt-right social media and the (continued) devolution of websites like 4chan. But how exactly does a person’s internet usage affect their perception of politics? Is there a relationship between where people get their political news and how they then feel about it? Additionally, is there a relationship between how the news is presented (with volatility or neutrality, for example) and how people react to subsequent political decisions and/or political issues?</p>
+<p>In this project I will be using two datasets; the first is ‘internet_political_trust.’ I found this data through the Harvard Dataverse and it’s replication data for a project entitled “The Internet, Political Trust, and Regime Types: A Cross-National and Multilevel Analysis.” The authors, Yu You and Zhengxu Wang, focused on the power of the internet in the political sphere - namely, how civilians can use the internet to incite regime change (either improving the current regime or toppling it and installing a new one). And part of that is tracking how internet use affects people’s trust in governmental bodies.</p>
+<p>NOTE: I have chosen to present summary statistics as they more concisely convey general information about the data than a tibble or table would.</p>
+<p>Since this project will only focus on how internet use impacts political trust (and not the civil/political unrest that can stem from it), I will only be looking at a few specific variables: 1) ‘TrustGovernment’ - measures people’s trust in their government on a scale of 1 to 4 with one being no trust and 4 being full trust. 2) ‘InternetUse-freq’ - rates how often people use the internet on a scale of 1 to 5: 1 = Never, 2 = Less than Monthly, 3 = Monthly, 4 = Weekly, 5 = Daily 3) ‘TraditionalMedia’ - measures how often respondents consume traditional media (radio, newspapers, TV, etc.) on a scale of 1 to 5: 1 = Never, 2 = Less than Monthly, 3 = Monthly, 4 = Weekly, 5 = Daily 4) ‘PoliticalTrust’ - measures respondents’ sense of trust in their political system on a scale of 1 to 5 (with decimals), with one being no trust and 5 being full trust.</p>
+<p>Most of my attention will be on variables 1, 2, and 4, but I’m including variable 3 to see if there’s a similar or opposing relationship between ‘TraditionalMedia’ and ‘PoliticalTrust.’</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>internet_political_trust <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"C:/Users/katpo/Desktop/603 FALL 2022/DACSS-603 F22/posts/KPopiela Final p1 data files/InternetUes&amp;PoliticalTrust-final.dta"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error: 'C:/Users/katpo/Desktop/603 FALL 2022/DACSS-603 F22/posts/KPopiela Final p1 data files/InternetUes&amp;PoliticalTrust-final.dta' does not exist.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>internet_political_trust <span class="ot">&lt;-</span> internet_political_trust <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(TrustGovernment,q223_InternetUse,q02_traditional_media,q01_politicalTrust_7) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"InternetUse_freq"</span> <span class="ot">=</span> <span class="st">"q223_InternetUse"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"TraditionalMedia"</span> <span class="ot">=</span> <span class="st">"q02_traditional_media"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"PoliticalTrust"</span> <span class="ot">=</span> <span class="st">"q01_politicalTrust_7"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in select(., TrustGovernment, q223_InternetUse, q02_traditional_media, : object 'internet_political_trust' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_political_trust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(internet_political_trust): object 'internet_political_trust' not found</code></pre>
+</div>
+</div>
+<p>The second dataset I will be using is the ‘world’ dataset from R-package ‘poliscidata.’ This dataset is massive, with 103 variables and 167 rows and it includes data from multiple other sources, such as the UN, World Values Survey, and the CIA. Although it is not as specific as the previous dataset, it does still provide necessary - and general - data for comparison as it’s essentially a compilation of global political and economic data. And similar to the first dataset, I will be using a select few variables here as well: 1) ‘InternetUse’ - measures the number of internet users per 100 people 2) ‘Confidence_inGovt’ - measures citizens’ confidence in their country’s political institutions; 0-100 scale with decimals 3) ‘Govt_Effectiveness’ - measures citizens’ perception of how effective their government is; scaled 0-100 with decimals</p>
+<p>Once again I will be giving certain variables more time and weight than others. In this case I will be focusing more heavily on ‘InternetUse’ and ‘Confidence_inGovt’ than ‘Govt_Effectiveness’. I will be using the final variable more as a means of confirming or denying political trust since government effectiveness/legitimacy is dependent on its subjects’ confidence in it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>world_InternetUse <span class="ot">&lt;-</span> world <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(unnetuse, confidence, effectiveness) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"InternetUse"</span> <span class="ot">=</span> <span class="st">"unnetuse"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Confidence_inGovt"</span> <span class="ot">=</span> <span class="st">"confidence"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>         <span class="st">"Govt_Effectiveness"</span> <span class="ot">=</span> <span class="st">"effectiveness"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in select(., unnetuse, confidence, effectiveness): object 'world' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="research-question-and-hypothesis" class="level2">
+<h2 class="anchored" data-anchor-id="research-question-and-hypothesis">Research Question and Hypothesis</h2>
+<p>My focus in this project is the impact(s) of internet usage on political trust. I don’t have a geographic limitation or filter on the data since the phenomenon of cyber-politics is not specific to one country or region. Whether it be through neutral journalism, activism, whistle-blowing, or misinformation, the internet has a substantial hold on the political sphere. In fact, Stanford professor Evgeny Morozov writes, the internet’s impact on politics “will depend on individual conditions” such as a given country’s political atmosphere (peaceful, volatile, conservative, liberal, etc.), ease of access to the internet, and how united a population is either in favor or against their current government (“The Internet, Politics and the Politics of Internet Debate”). So what <em>is</em> the relationship between online media exposure (news, podcasts, social media, etc) and how individuals perceive their politicians/political institutions?</p>
+<p>Given what has happened in the United States alone since the 2016 election, there obviously is some kind of connection between what is circulated online and the public’s perception of politics. And given the very fact that the January 6th insurrection occurred shows that there are serious consequences not only to what is posted on the internet, but also what people <em>believe</em> from the media they are exposed to. Sheera Frenkel, a cybersecurity reporter for The New York Times , wrote an article about this exact topic in the immediate aftermath of the insurrection. Frenkel interviewed Stanford Internet Observatory researcher, Renee DiResta, who stated that the violence on January 6, 2021 was the “result of online movements operating in closed social media networks where people believed the claims of voter fraud and of the election being stolen from Mr.&nbsp;Trump” (“The storming of Capitol Hill was organized on social media”, 2021). While many of the social media interactions involved in this scenario did not take place on mainstream social media - far-right social media platorms, Gab and Parler, as well as QAnon were used by participants - the premise is just the same: large-scale event planning on the internet. Furthermore, the separation of these far-right social media platforms from mainstream ones such as Twitter and Facebook has a major impact on which versions of neutral news and information that people are exposed to. Gab and Parler in particular were founded by and for people whose opinions were not accepted on mainstream platforms; why would they allow contradictory/liberal viewpoints when that’s the reason the platform exists in the first place? With this in mind, let’s get to my hypothesis.</p>
+<p>I do not think that the relationship itself between internet usage and political trust is in question; there are numerous examples of social media being used to plan everything from small-scale protests to country-wide instances of civil unrest. Therefore, I hypothesize that when internet use rates are high enough (weekly, daily), then political trust declines, but with the caveat that not every person who uses the internet is involved or interested in politics. I do not foresee this being an issue given that the data I will be using specifically asked about internet usage and political trust/confidence.</p>
+</section>
+<section id="descriptive-statistics-and-hypothesis-testing" class="level2">
+<h2 class="anchored" data-anchor-id="descriptive-statistics-and-hypothesis-testing">Descriptive Statistics and Hypothesis Testing</h2>
+<p>I’m going to start this section with a presentation of some descriptive statistics.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_political_trust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(internet_political_trust): object 'internet_political_trust' not found</code></pre>
+</div>
+</div>
+<p>In the first dataset, ‘internet_political_trust’, all variables are scaled out of either 4 or 5. While each variable has a substantial amount of NA responses (the lowest amount is 2456 for ‘TrustGovernment’), there are no serious outliers within any variable. Regardless of scale (4 or 5) the biggest gap between the 3rd quantile and maximum values is 1.153 (3rd quantile = 2.857 in ‘PoliticalTrust’) and that’s not horribly far off from the max value of 4.000. All minimum values are 1.000, the 1st quantile values range from 1.000 to 2.750; mean and median values have the biggest range. The variable with the biggest range in these values is ‘InternetUse_freq’ with a median value of 2.000 and a mean value of 2.682. The smallest range is either ‘TraditionalMedia’ or ‘PoliticalTrust’ at -0.143 and 0.08 respectively. Additionally, with a relatively general glance, you can see that the mean and median values are, for the most part, at the mid-point in between the minimum and maximum values.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(world_InternetUse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(world_InternetUse): object 'world_InternetUse' not found</code></pre>
+</div>
+</div>
+<p>While the max values in ‘world_InternetUse’ don’t completely reflect this, the above variables are on a 1-100 scale. There are far fewer NA responses (the highest number of A’s is 99 in this dataset compared to 8892 in the previous). Since the scale is much larger, the descriptive values have a wider range. Unlike the previous dataset, the mean and median values here are not solidly at the mid-point between the minimum and maximum values. For instance, the variable ‘InternetUse’ has a minimum value of 0.00, and a maximum value of 87.70, but mean and median values of 18.65 and 26.78 respectively.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>internet_political_trust, <span class="fu">aes</span>(<span class="at">x=</span>InternetUse_freq,<span class="at">y=</span>PoliticalTrust)) <span class="sc">+</span> <span class="fu">geom_jitter</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = internet_political_trust, aes(x = InternetUse_freq, : object 'internet_political_trust' not found</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data=</span>world_InternetUse, <span class="fu">aes</span>(<span class="at">x=</span>Confidence_inGovt,<span class="at">y=</span>InternetUse)) <span class="sc">+</span> <span class="fu">geom_point</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(data = world_InternetUse, aes(x = Confidence_inGovt, y = InternetUse)): object 'world_InternetUse' not found</code></pre>
+</div>
+</div>
+<p>The former graph visualizes that ‘internet_political_trust’ dataset and the latter represents ‘world’ dataset from the poliscidata package in R. Unlike my hypothesis, which predicted that an increase in internet use results in a decrease in political trust, these visualizations show almost no positive or negative relationship between the two variables Furthermore, the ‘internet_political_trust’ graph indicates that most respondents either rarely use the internet or consistently use it, but again, with no linear relationship as the points are relatively concentrated in the middle horizontally (average amount of political trust). The ‘world_InternetUse’ graph, by comparison, is much less densely populated, but does not show any relation between internet use and confidence in government.</p>
+<p>These middle-of-the-road plot points, while contrary to my hypothesis, do make sense. Political extremism (far-right and far-left political beliefs) is very prevalent in the media. It’s shocking, it’s jarring, and it brings on feelings of fear and uncertainty. I do also want to make clear that I am not minimizing political extremism; it’s extremely dangerous. Look at the 2017 ‘Unite the Right’ rally that occurred in Charlottesville, Virginia. Hundreds of people showed up in support of white-supremacy, organizers used far-right media platforms to garner a noticeable public presence, and they engaged in acts of violence against counter-protesters. That being said, however, only a few dozen participants have faced consequences. In a civil lawsuit filed by some of those injured in the rally’s violence, lawyers presented “chatroom exchanges and social media postings of the rally’s main planners, including some peppered with racial epithets and talk of ‘cracking skulls’ of anti-far-right counter-protesters” (“Charlottesville trail: white nationalists ‘celebrated’ violence, lawyers say,” The Guardian). But actions such as these are not representative of the majority of Americans. Most people, conservative or liberal, do not want to harm their fellow humans. Most people, inherently, view life and inter-personal respect as something important. So then, how does this relate to internet use and political trust? The data I am using in this project speak more toward the general status quo, not instances of civil and political instability. Most of the time people are not using the internet and social media to plan massive protests or incite instability to weaken their government; they are just using the internet, engaging in activities such as posting pictures of their families, looking up recipes or memes, and looking at the news. I unfortunately was not able to find any datasets that include both internet use and civil/political unrest as variables, so I cannot present that data here. However, I did find articles which used datasets of a similar caliber. One such article is “Broadband internet and protests: Evidence from the Occupy movement” by Guilherme Amorim, Rafael Costa Lima, and Breno Sampaio, which focuses on how frequently the internet was used in (and since) the Occupy Wall Street protests in 2011. The 2022 article states that during the US’s Occupy Movement “each new Internet Service Provider…accounts for an increase between 1 and 3 p.p.in the probability of observing protests in a given location” (Amorim, et al.&nbsp;2022). The researchers involved also state that social and political interactions have changed drastically in the past decade or so as a “result of the communication revolution” (i.e.&nbsp;the introduction and rapid development of the internet and social media). They state that internet usage has increased globally at a rate between “2.78% and 7.40% per year”, and with that has come a rapid dissemination of social and political information worldwide (Amorim, et al.&nbsp;2022). Amorim, et. al.&nbsp;do concede, however, that “there is still insufficient evidence on the relation between access to the internet and the emergence of protests.”</p>
+<p>With all of this in mind, let’s see if the graphs change at all during model comparison and diagnostic testing.</p>
+</section>
+<section id="model-comparison-and-diagnostics" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison-and-diagnostics">Model Comparison and Diagnostics</h2>
+<p>First I am going to present a linear regression model of each dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(internet_political_trust, <span class="fu">aes</span>(<span class="at">x=</span>InternetUse_freq,<span class="at">y=</span>PoliticalTrust)) <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>,<span class="at">col=</span><span class="st">"blue"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(internet_political_trust, aes(x = InternetUse_freq, y = PoliticalTrust)): object 'internet_political_trust' not found</code></pre>
+</div>
+</div>
+<p>Visualized as a linear regression model, the data now supports my initial hypothesis! It shows that as internet use increases, political trust decreases. The linearity assumption is met</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_political_trust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(internet_political_trust): object 'internet_political_trust' not found</code></pre>
+</div>
+</div>
+<p>I do not find this plot particularly useful, I am just including it because I found it useful for the other dataset.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>internet_PT_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(InternetUse_freq)<span class="sc">~</span><span class="fu">log</span>(PoliticalTrust), <span class="at">data=</span>internet_political_trust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'internet_political_trust' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(internet_PT_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(internet_PT_log): object 'internet_PT_log' not found</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>internet_PT_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(PoliticalTrust<span class="sc">~</span>InternetUse_freq<span class="sc">+</span>TrustGovernment, <span class="at">data=</span>internet_political_trust)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'internet_political_trust' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(internet_PT_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(internet_PT_lm): object 'internet_PT_lm' not found</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(world_InternetUse, <span class="fu">aes</span>(<span class="at">x=</span>InternetUse,<span class="at">y=</span>Confidence_inGovt)) <span class="sc">+</span> <span class="fu">geom_smooth</span>() <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">"lm"</span>,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in ggplot(world_InternetUse, aes(x = InternetUse, y = Confidence_inGovt)): object 'world_InternetUse' not found</code></pre>
+</div>
+</div>
+<p>This regression model, however, is quite interesting. The blue line shows that people’s confidence in government decreases as they reach average/mean internet use, but that it increases again as internet use approaches its maximum value. This indicates that people who use the internet an average amount have the least confidence in government. This means that the blue line violates the linearity assumption since it is u-shaped rather than straight. The linear regression line (red), however, indicates that confidence in government slightly decreases as internet use increases and does not violate the linearity assumption.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(world_InternetUse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(world_InternetUse): object 'world_InternetUse' not found</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>worldInternet_log <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(InternetUse)<span class="sc">~</span><span class="fu">log</span>(Confidence_inGovt)<span class="sc">+</span><span class="fu">log</span>(Govt_Effectiveness), <span class="at">data=</span>world_InternetUse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'world_InternetUse' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(worldInternet_log)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in plot(worldInternet_log): object 'worldInternet_log' not found</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>confidence_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Confidence_inGovt<span class="sc">~</span>InternetUse<span class="sc">+</span>Govt_Effectiveness, <span class="at">data=</span>world_InternetUse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in is.data.frame(data): object 'world_InternetUse' not found</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(confidence_lm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in summary(confidence_lm): object 'confidence_lm' not found</code></pre>
+</div>
+</div>
+</section>
+<section id="bibliography" class="level2">
+<h2 class="anchored" data-anchor-id="bibliography">Bibliography</h2>
+<ol type="1">
+<li><p>Frenkel, Sheera. “The Storming of Capitol Hill Was Organized on Social Media.” The New York Times, The New York Times, 6 Jan.&nbsp;2021, https://www.nytimes.com/2021/01/06/us/politics/protesters-storm-capitol-hill-building.html?smid=url-share.</p></li>
+<li><p>You, Yu; Zhengxu Wang, 2019, “Replication Data for: The Internet, Political Trust, and Regime Types: A Cross-National and Multilevel Analysis”, https://doi.org/10.7910/DVN/OMQMHS, Harvard Dataverse, V1, UNF:6:CqAdSTwR4V2IYKxs8L/Bog== [fileUNF]</p></li>
+<li><p>Morozov, Evgeny. “The Internet, Politics, and the Politics of Internet Debate.” MIT Technology Review, MIT Technology Review, 2 Apr.&nbsp;2020, https://www.technologyreview.com/2014/12/03/170219/the-internet-politics-and-the-politics-of-internet-debate/.</p></li>
+<li><p>Andrea Ceron, Internet, News, and Political Trust: The Difference between Social Media and Online Media Outlets, Journal of Computer-Mediated Communication, Volume 20, Issue 5, 1 September 2015, Pages 487–503, https://doi.org/10.1111/jcc4.12129</p></li>
+<li><p>“Charlottesville Trial: White Nationalists ‘Celebrated’ Violence, Lawyers Say.” The Guardian, Guardian News and Media, 19 Nov.&nbsp;2021, https://www.theguardian.com/us-news/2021/nov/19/charlottesville-trial-white-nationalists-celebrated-violence-lawyers-say.</p></li>
+<li><p>Guilherme Amorim, Rafael Costa Lima, Breno Sampaio, “Broadband internet and protests: Evidence from the Occupy movement,” Information Economics and Policy, Volume 60, 2022, 100982, ISSN 0167-6245, https://doi.org/10.1016/j.infoecopol.2022.100982</p></li>
+<li><p>“The Rise of Political Violence in the United States.” Journal of Democracy, https://www.journalofdemocracy.org/articles/the-rise-of-political-violence-in-the-united-states/.</p></li>
+<li><p>Costa Lima, Rafael, et al.&nbsp;“Broadband Internet and Protests: Evidence from the Occupy Movement.” Information Economics and Policy, North-Holland, 23 June 2022, https://www.sciencedirect.com/science/article/abs/pii/S016762452200021X#preview-section-snippets.</p></li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

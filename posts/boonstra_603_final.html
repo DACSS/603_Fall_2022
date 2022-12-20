@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Nicholas Boonstra">
+<meta name="dcterms.date" content="2022-12-20">
+
+<title>Assessing the effects of turnout and cost of voting on partisan outcomes in American Presidential elections</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Assessing the effects of turnout and cost of voting on partisan outcomes in American Presidential elections">
+<meta name="twitter:description" content="It is no secret that American elections are currently facing high levels of skepticism, scrutiny, and distrust.">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul class="collapse">
+  <li><a href="#visualizations" id="toc-visualizations" class="nav-link" data-scroll-target="#visualizations">Visualizations</a></li>
+  <li><a href="#pooled-linear-model" id="toc-pooled-linear-model" class="nav-link" data-scroll-target="#pooled-linear-model">Pooled Linear Model</a></li>
+  <li><a href="#fixed-effects-models" id="toc-fixed-effects-models" class="nav-link" data-scroll-target="#fixed-effects-models">Fixed-Effects Models</a>
+  <ul class="collapse">
+  <li><a href="#linear-model-democratic-vote-share" id="toc-linear-model-democratic-vote-share" class="nav-link" data-scroll-target="#linear-model-democratic-vote-share">Linear Model – Democratic Vote Share</a></li>
+  <li><a href="#logit-model-democratic-victory" id="toc-logit-model-democratic-victory" class="nav-link" data-scroll-target="#logit-model-democratic-victory">Logit Model – Democratic Victory</a></li>
+  <li><a href="#a-note-on-turnout-and-cost-of-voting" id="toc-a-note-on-turnout-and-cost-of-voting" class="nav-link" data-scroll-target="#a-note-on-turnout-and-cost-of-voting">A Note on Turnout and Cost of Voting</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
+  <li><a href="#works-cited" id="toc-works-cited" class="nav-link" data-scroll-target="#works-cited">Works Cited</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Assessing the effects of turnout and cost of voting on partisan outcomes in American Presidential elections</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Nicholas Boonstra </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 20, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   1.0.0 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.5.0 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+
+Attaching package: 'plm'
+
+
+The following objects are masked from 'package:dplyr':
+
+    between, lag, lead
+
+
+Loading required package: zoo
+
+
+Attaching package: 'zoo'
+
+
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+
+
+Please cite as: 
+
+
+ Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+
+ R package version 5.2.3. https://CRAN.R-project.org/package=stargazer </code></pre>
+</div>
+</div>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>It is no secret that American elections are currently facing high levels of skepticism, scrutiny, and distrust. Claims of fraud have worked their way through the body politic and convinced a number of individuals that the results of the 2020 election were illegitimate. Conservative political elites, most prominently in the case of Georgia, have seized on this moment to win passage of restrictive bills in the name of electoral security, touching many aspects of voting access including voter ID laws, early voting, and registration.</p>
+<p>It should, perhaps, come as no surprise that this wave of electoral skepticism coincides with record-breaking levels of electoral turnout. As more people show up to vote, it makes some sense that individuals may be concerned as to how well the electoral system is scaling up. It may also be the case that certain individuals or groups may not welcome increased turnout from certain other individuals or groups. This is especially important in the context of partisan turnout bias, the purported phenomenon of Democrats benefitting from increases in voter turnout. Whether or not this phenomenon truly does occur has been argued for decades in the political science literature (e.g.&nbsp;DeNardo 1980, Tucker Vedlitz and Denardo 1986, Shaw and Petrocik 2020), but belief in its existence has become more popular in the public mind since the Obama era (e.g.&nbsp;Epstein 2021). Among academics, however, a consensus has hardly been reached as to whether or not turnout truly does benefit Democrats. Shaw and Petrocik (2020), a recent and substantial contribution to the literature, argues strongly against the phenomenon. One of the central theoretical components to their argument is the proposition that, contrary to much of the literature, there is no reason to believe that an individual’s decision to turn out to vote and their vote choice are endogenous. This removes any potential causal mechanism that would link turnout to a partisan advantage. To their credit, they do bring large swathes of empirical data to bear on their argument as well.</p>
+<p>However, this study takes issues with Shaw and Petrocik’s argument that turnout and vote choice are not endogenous. This study, rather, takes the perspective that the cost of voting that an individual or group faces is a key component to whether or not they vote, and also provides a mechanism by which this turnout factor and vote choice can be endogenous. If we suppose for the sake of argument that certain individuals do face higher costs to voting than others, it would make sense from a rational-actor perspective for these individuals, all other things being equal, to support a political party that would seek to lower these costs and open up voting opportunities to such disenfranchised individuals. It is not controversial to say that, between the two major parties, the Democrats have been the ones to posture themselves as the party in favor of reducing the cost of voting, particularly for those who face more restrictions to the franchise; in the last century, the most significant shakeup to the party system came as a result of the Democrats’ support of the Civil Rights Movement, with the Voting Rights Act of 1965 being one of the single most significant legislative aspects of this support. It also should not be controversial to argue that certain individuals and indeed groups seem to face higher costs to voting than others in the United States, largely along the lines of class/socioeconomic status and race/ethnicity. Thus, it can be argued:</p>
+<ul>
+<li><p>that individuals who face higher barriers to voting than others could be motivated to support the Democratic Party by virtue of those very restrictions that they face;</p></li>
+<li><p>that, by virtue of these restrictions, these individuals would make up a peripherial group of voters, needing to overcome not only personal decision-making but also external obstacles in order to vote;</p></li>
+<li><p>that, assuming core voters are already likely to vote in most elections, an increase in turnout in a given election would be likely to draw from peripheral voters; and,</p></li>
+<li><p>thus, an increase in turnout in a given election would draw in part from a group of peripheral voters inclined to vote Democrat and would thus benefit Democrats.</p></li>
+</ul>
+<p>The hypothesis tested by this study, then, is as follows:</p>
+<p><span class="math inline">\(H_1\)</span>: Higher turnout will benefit Democrats in state-level Presidential elections.</p>
+</section>
+<section id="design" class="level1">
+<h1>Design</h1>
+<p>This study utilizes data on United States Presidential elections obtained from the MIT Elections Lab; raw data includes vote totals for candidates in each of the 50 states and the District of Columbia from 1976 to 2020, while the final cleaned dataset counted votes by party rather than by candidate. Turnout data was obtained from the United States Elections Project for electons from 1980 to 2020. Additionally, because the underlying theory behind this study relies heavily on the concept of the cost of voting, data from the Cost of Voting Index (COVI) project was also utilized in this study; COVID-adjusted values were used for 2020 elections, and raw values were used for all other elections. COVI data was only available from 1996 to 2020, and unfortunately hasnot yet been made available for the District of Columbia. All data was obtained in October 2022.</p>
+<p>The primary mechanism used for testing the hypothesis was a two-way fixed effects linear regression model testing Democratic vote share against turnout rate. The two-way nature of the model specifies that the model controls for both state-level and time fixed effects. Controls were added for COVI values, other cost-of-voting-related metrics (namely: the rate of the state’s population ineligible due to felony conviction, and the rate of the state’s population that are not citizens), and logged state population size. For comparison, a pooled linear model will also be shown for comparison, as a demonstration of why the fixed-effects model is used. Additionally, a logistic regression model controlling for state-level fixed effects is included testing a binary variable for Democratic victory against turnout rate, with the same controls. Lastly, a two-way fixed effects model is included that tests turnout rate itself against the controls added for cost of voting and population size.</p>
+<p>It should be said that these models fall short of perfection in a number of ways. For one, a case could be made for using a random-effects as opposed to a fixed-effects model, as the latter assumes a uniform effect across states and only allows for a change in intercept. While I believe a random-effects model could be useful in future study, fixed-effects models have been employed in the study of this question in the past - in Shaw and Petrocik (2020), to name one - and are a useful tool in assessing the impact of the specific phenomenon of voter turnout on partisan outcomes. Separately, and perhaps more seriously, a number of traditional controls are missing from the analysis, such as those for incumbency and economic factors leading up to the election. These were excluded primarily as a matter of time and access to data, but would also make useful contributions to future study. Lastly, COVI data, while valuable, was limiting, preventing any data from DC or from elections prior to 1996 from being included in the models that control for cost of voting. The values themselves could also be potentially endogenous with a state’s partisan lean (i.e.&nbsp;a “red” state might be more likely to pass voter ID laws in the first place, rather than voter ID laws causing a decrease in votes for Democrats), and, while a fixed-effects model should help to control for state-level partisan effects, future research may benefit from analyzing <em>election-over-election changes in</em> COVI values in addition to the values themselves.</p>
+</section>
+<section id="results" class="level1">
+<h1>Results</h1>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 4287 Columns: 15
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr (6): state, state_po, office, candidate, party_detailed, party_simplified
+dbl (7): year, state_fips, state_cen, state_ic, candidatevotes, totalvotes, ...
+lgl (2): writein, notes
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+`summarise()` has grouped output by 'party_simplified', 'state'. You can override using the `.groups` argument.
+New names:
+New names:
+Joining, by = "state"
+New names:
+Joining, by = c("state", "year")
+Joining, by = c("abbrev", "year")</code></pre>
+</div>
+</div>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">Visualizations</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 51 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="boonstra_603_final_files/figure-html/visualizations-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 250 rows containing non-finite values (`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 250 rows containing missing values (`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="boonstra_603_final_files/figure-html/visualizations-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p><img src="images/boonstra_state_plots.png" class="img-fluid" alt="State-by-state plots of Democratic vote share against %VAP Turnout"> <img src="images/boonstra_covi_plots.png" class="img-fluid" alt="State-by-state plots of Democratic vote share against Cost of Voting Index values"></p>
+<p>(Duplicate PNG images are included for higher resolution visibility.)</p>
+<p>The above plots provide a state-by-state breakdown of the relationships between turnout rate or Cost of Voting Index (COVI) values, and Democratic vote share. While there is hardly any uniform effect, a number of states exhibit a positive relationship between turnout rate and Democratic vote share, supporting <span class="math inline">\(H_1\)</span>. Additionally, a number of states exhibit a negative relationship between COVI values and Democratic vote share, lending initial support to the idea that cost of voting and voting access may be the underlying mechanisms behind why a relationship between turnout rate and Democratic vote share might exist.</p>
+</section>
+<section id="pooled-linear-model" class="level2">
+<h2 class="anchored" data-anchor-id="pooled-linear-model">Pooled Linear Model</h2>
+<p>We will begin by briefly assessing a pooled linear model and identifying the reasons why a fixed-effects model is more appropriate for the panel data at hand.</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Pooled (Basic OLS) Models of Democratic Vote Share Against Turnout
+========================================================================================================================
+                                                                  Dependent variable:                                   
+                               -----------------------------------------------------------------------------------------
+                                                                 Democratic Vote Share                                  
+                                       (1)                  (2)                    (3)                     (4)          
+------------------------------------------------------------------------------------------------------------------------
+Turnout Rate (%VAP)                  -0.047                                     0.272***                                
+                                     (0.059)                                     (0.063)                                
+                                                                                                                        
+Turnout Rate (%VEP)                                       0.131**                                       0.257***        
+                                                          (0.059)                                        (0.059)        
+                                                                                                                        
+Cost of Voting Index                                                             -0.311                  -0.298         
+                                                                                 (0.629)                 (0.629)        
+                                                                                                                        
+Ineligible Felon Rate (%VAP)                                                    -2.919***               -3.072***       
+                                                                                 (0.562)                 (0.559)        
+                                                                                                                        
+Noncitizen Rate (%VAP)                                                          1.184***                1.029***        
+                                                                                 (0.143)                 (0.134)        
+                                                                                                                        
+Voting-Age Population (logged)                                                   1.120**                 1.095**        
+                                                                                 (0.497)                 (0.497)        
+                                                                                                                        
+Constant                            48.058***            37.743***               12.009                  13.233*        
+                                     (3.347)              (3.519)                (7.706)                 (7.579)        
+                                                                                                                        
+------------------------------------------------------------------------------------------------------------------------
+Observations                           561                  561                    350                     350          
+R2                                    0.001                0.009                  0.326                   0.327         
+Adjusted R2                          -0.001                0.007                  0.317                   0.317         
+Residual Std. Error             10.643 (df = 559)    10.603 (df = 559)      7.713 (df = 344)        7.710 (df = 344)    
+F Statistic                    0.613 (df = 1; 559) 4.888** (df = 1; 559) 33.352*** (df = 5; 344) 33.437*** (df = 5; 344)
+========================================================================================================================
+Note:                                                                                        *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="boonstra_603_final_files/figure-html/pooled-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The models shown are simple and robust OLS regression models analyzing Democratic vote share (the ratio of votes cast for Democrats to votes cast in total, expressed as a percent) against turnout rate (number of votes cast as a percent of either voting-age population [%VAP] or voting-eligible population [%VEP], a more selective but generally regarded as a more reliable measure). It should be stated that, in all models, a single “case” or observation is an election-year – that is, Presidential election results from Alabama in 2004, or Missouri in 1980, for instance. It should also be restated that COVI values were not available for DC or for elections prior to 1996, and that models controlling for COVI will therefore have fewer observations. The diagnostic plots above correspond to the robust pooled model with %VAP turnout rate as the primary explanatory variable (model 3 in the above table).</p>
+<p>At first glance, these models appear to be promising, particularly the robust models (3 &amp; 4) – the effect of turnout is significant, and the R-squared and adjusted R-squared values are healthy. This certainly helps to lend preliminary credence to the notion that this study’s hypothesis is supported, but the due diligence must go further.</p>
+<p>Reviewing the diagnostic plots does not immediately highlight any issues either, which is positive. It appears by the Cook’s Distance plot that there are a few outliers, which is likely to be expected. Some slight irregularities in the Scale-Location plot could probably be explained away. However, knowing that this dataset is ultimately a panel dataset should make us more suspicious and lead us to test for heteroskedasticity more rigorously – and indeed, the minuscule p-value obtained from running a Breusch-Pagan test makes abundantly clear that these data are heteroskedastic:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  pooled_vap
+BP = 77.343, df = 5, p-value = 3.015e-15</code></pre>
+</div>
+</div>
+<p>Overall, the fact that this data set consists of panel data means that a fixed-effects model will be more appropriate in interpreting and analyzing the data than a simple OLS/pooled model, which is not able to control for specific state-level or time effects the way the fixed-effects model can. What is more, the finding of heteroskedasticity suggests that a fixed-effects model on its own might not even be a fully appropriate modelling tool; for the sake of robustness, then, fixed-effects models will be re-run with clustered standard errors, and the results of both models reported below.</p>
+</section>
+<section id="fixed-effects-models" class="level2">
+<h2 class="anchored" data-anchor-id="fixed-effects-models">Fixed-Effects Models</h2>
+<section id="linear-model-democratic-vote-share" class="level3">
+<h3 class="anchored" data-anchor-id="linear-model-democratic-vote-share">Linear Model – Democratic Vote Share</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models
+==============================================================================================================================
+                                                                     Dependent variable:                                      
+                               -----------------------------------------------------------------------------------------------
+                                                                    Democratic Vote Share                                     
+                                         (1)                     (2)                     (3)                     (4)          
+------------------------------------------------------------------------------------------------------------------------------
+Turnout Rate (%VAP)                   0.256***                                         0.176**                                
+                                       (0.067)                                         (0.074)                                
+                                                                                                                              
+Turnout Rate (%VEP)                                           0.272***                                         0.167**        
+                                                               (0.063)                                         (0.069)        
+                                                                                                                              
+Cost of Voting Index                                                                  -1.120***               -1.114***       
+                                                                                       (0.336)                 (0.336)        
+                                                                                                                              
+Ineligible Felon Rate (%VAP)                                                          -2.709***               -2.781***       
+                                                                                       (0.581)                 (0.577)        
+                                                                                                                              
+Noncitizen Rate (%VAP)                                                                -0.727**                -0.833***       
+                                                                                       (0.314)                 (0.316)        
+                                                                                                                              
+Voting-Age Population (logged)                                                        18.011***               17.727***       
+                                                                                       (3.615)                 (3.638)        
+                                                                                                                              
+------------------------------------------------------------------------------------------------------------------------------
+Observations                             561                     561                     350                     350          
+R2                                      0.028                   0.036                   0.261                   0.261         
+Adjusted R2                            -0.090                  -0.081                   0.107                   0.108         
+F Statistic                    14.619*** (df = 1; 499) 18.863*** (df = 1; 499) 20.382*** (df = 5; 289) 20.422*** (df = 5; 289)
+==============================================================================================================================
+Note:                                                                                              *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>The simplest versions of the model (1 &amp; 2 above, using turnout as a percentage o Voting-Age Population and Voting-Eligible Population, respectively) find a significant (at the 5% significance level) positive correlation between turnout and Democratic vote share. However, the R-squared and adjusted R-squared values are very small (and even, in the case of adjusted R-squared, negative), suggesting that, if there is any effect of turnout on Democratic vote share, it may not be substantively very large. Versions 3 &amp; 4 of the model, which factor in variables controlling for voting cost and accessibility as well as population size, start to paint a more complete picture. (In these models, population size is logged, a transformation done to help make the relationship between population size and other variables linear.) Importantly, both measures of turnout rate still have significant positive coefficients, continuing to support <span class="math inline">\(H_1\)</span>.</p>
+<section id="clustered-standard-errors" class="level4">
+<h4 class="anchored" data-anchor-id="clustered-standard-errors">Clustered Standard Errors</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs
+==================================================================
+                                       Dependent variable:        
+                               -----------------------------------
+                                      Democratic Vote Share       
+                                 (1)     (2)      (3)       (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.256**           0.176            
+                               (0.116)          (0.114)           
+                                                                  
+Turnout Rate(%VEP)                     0.272**             0.167  
+                                       (0.115)            (0.108) 
+                                                                  
+Cost of Voting Index                           -1.120**  -1.114** 
+                                                (0.452)   (0.454) 
+                                                                  
+Ineligible Felon Rate (%VAP)                   -2.709*** -2.781***
+                                                (0.881)   (0.885) 
+                                                                  
+Noncitizen Rate (%VAP)                          -0.727*  -0.833** 
+                                                (0.388)   (0.386) 
+                                                                  
+Voting-Age Population (logged)                 18.011*** 17.727***
+                                                (6.093)   (6.144) 
+                                                                  
+==================================================================
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>The above table repeats the four models found in the previous table, but calculated with clustered standard errors, to account for heteroskedasticity. It should be noted that these clustered SE models are not “right” and that the other fixed-effects models are not “wrong,” but rather that each of these sets of models helps to contribute to a more complete picture of the phenomenon. With that being said, perhaps the most important finding from these clustered SE models is that the effect of turnout on Democratic vote share is no longer significant in the models with controls. However, these controls themselves do remain significant, suggesting that there may be some credence to the original theoretical argument that cost of voting and access opportunities are the underlying mechanism behind any sort of pro-Democratic turnout bias.</p>
+</section>
+</section>
+<section id="logit-model-democratic-victory" class="level3">
+<h3 class="anchored" data-anchor-id="logit-model-democratic-victory">Logit Model – Democratic Victory</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Democratic State Win, State-Level Fixed Effects Logit Models
+==================================================================
+                                       Dependent variable:        
+                               -----------------------------------
+                                    Democratic State Victory      
+                                 (1)      (2)      (3)      (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.120***           0.151*          
+                               (0.029)           (0.081)          
+                                                                  
+Turnout Rate (%VEP)                     0.134***          0.159** 
+                                        (0.026)           (0.079) 
+                                                                  
+Cost of Voting Index                             -0.951*  -0.958* 
+                                                 (0.577)  (0.577) 
+                                                                  
+Ineligible Felon Rate (%VAP)                     -2.316** -2.386**
+                                                 (1.112)  (1.118) 
+                                                                  
+Noncitizen Rate (%VAP)                           -1.037** -1.169**
+                                                 (0.486)  (0.513) 
+                                                                  
+Voting-Age Population (logged)                    1.351    0.678  
+                                                 (3.825)  (3.923) 
+                                                                  
+------------------------------------------------------------------
+Observations                     561      561      350      350   
+Log Likelihood                 -200.557 -194.623 -61.789  -61.441 
+Akaike Inf. Crit.              505.114  493.246  233.578  232.883 
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs
+==================================================================
+                                       Dependent variable:        
+                               -----------------------------------
+                                    Democratic State Victory      
+                                 (1)      (2)      (3)      (4)   
+------------------------------------------------------------------
+Turnout Rate (%VAP)            0.120***           0.151*          
+                               (0.028)           (0.086)          
+                                                                  
+Turnout Rate (%VEP)                     0.134***           0.159* 
+                                        (0.027)           (0.085) 
+                                                                  
+Cost of Voting Index                             -0.951*  -0.958* 
+                                                 (0.557)  (0.561) 
+                                                                  
+Ineligible Felon Rate (%VAP)                     -2.316*  -2.386* 
+                                                 (1.368)  (1.358) 
+                                                                  
+Noncitizen Rate (%VAP)                           -1.037** -1.169**
+                                                 (0.527)  (0.561) 
+                                                                  
+Voting-Age Population (logged)                    1.351    0.678  
+                                                 (4.463)  (4.540) 
+                                                                  
+==================================================================
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>Logit models were included that tested a binary variable for whether or not a Democratic candidate won a given election against turnout rate and the same controls as above. Once again, turnout rate has a significant effect (in both the basic and clustered SE models) on Democratic victory, but this effect starts to come into question in the multivariate models. Interestingly, noncitizen rate (percent of the Voting-Age Population that is ineligible to vote due to noncitizenship, which alongside Ineligible Felon Rate modifies the VAP figure into the VAP figure) is the only explanatory variable that maintains significance across all models, both basic and clustered SE. All other explanatory variables aside from logged VAP are significant at a 10% level or lower across all models. Once again, the overall takeaway of these models is that it is hard to draw any firm conclusions from the information at hand, but that there is a case to made that turnout rate and cost of voting at least partially affect partisan election outcomes.</p>
+</section>
+<section id="a-note-on-turnout-and-cost-of-voting" class="level3">
+<h3 class="anchored" data-anchor-id="a-note-on-turnout-and-cost-of-voting">A Note on Turnout and Cost of Voting</h3>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models
+==================================================================
+                                       Dependent variable:        
+                               -----------------------------------
+                               %VAP Turnout Rate %VEP Turnout Rate
+                                      (1)               (2)       
+------------------------------------------------------------------
+Cost of Voting Index                -0.375            -0.429      
+                                    (0.266)           (0.284)     
+                                                                  
+Inelgibile Felon Rate (%VAP)       -1.348***         -0.993**     
+                                    (0.455)           (0.486)     
+                                                                  
+Noncitizen Rate (%VAP)              -0.161            0.466*      
+                                    (0.249)           (0.266)     
+                                                                  
+Voting-Age Population (logged)     10.363***         12.633***    
+                                    (2.804)           (2.996)     
+                                                                  
+------------------------------------------------------------------
+Observations                          350               350       
+R2                                   0.095             0.105      
+Adjusted R2                         -0.089            -0.077      
+F Statistic (df = 4; 290)          7.617***          8.533***     
+==================================================================
+Note:                                  *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs
+===========================================================
+                                   Dependent variable:     
+                               ----------------------------
+                                Turnout Rate (%VAP, %VEP)  
+                                    (1)            (2)     
+-----------------------------------------------------------
+Cost of Voting Index               -0.375        -0.429    
+                                  (0.314)        (0.333)   
+                                                           
+Inelgibile Felon Rate (%VAP)      -1.348*        -0.993    
+                                  (0.701)        (0.732)   
+                                                           
+Noncitizen Rate (%VAP)             -0.161         0.466    
+                                  (0.329)        (0.351)   
+                                                           
+Voting-Age Population (logged)    10.363**      12.633***  
+                                  (4.297)        (4.685)   
+                                                           
+===========================================================
+===========================================================
+Note:                           *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01</code></pre>
+</div>
+</div>
+<p>It felt prudent to check whether the controls being used were themselves correlated with turnout rate in any way. Adjusted R-squared is very low for both the %VAP and %VEP models. Interestingly, the only variable to maintain significance at the 5% level is logged VAP size, suggesting that turnout rate increases as population size increases. It is not clear what sort of conclusion can be drawn from this finding. Overall, it does not appear that there is any reason to worry about multicollinearity between these variables.</p>
+</section>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>Overall, the results of the above models and analysis suggest that evidence in favor of <span class="math inline">\(H_1\)</span> and the notion of pro-Democratic turnout bias in American presidential elections is inconclusive. However, the significance of COVI values and other voting access-related variables suggests that there may be credence behind the underlying theoretical argument of cost of voting acting as a mechanism for turnout bias. This is an important finding, and should open a door for further research on this subject. For instance, it is of vital importance to understand the causal direction between cost of voting and partisan bias, assuming a substantial effect can be found; if higher costs of voting consistently disadvantage Democratic candidates, then the legitimacy of a number of regulatory laws passed in the name of electoral fairness/security/etc. is immediately called into question. Ultimately, this study does not put to bed arguments over the veracity of the pro-Democratic turnout bias phenomenon. However, it does open an important door around the direction in which this field of study ought to proceed. Hopefully this further research will be able to find significant, conclusive results one way or the other.</p>
+</section>
+<section id="works-cited" class="level1">
+<h1>Works Cited</h1>
+<p>DeNardo, James. 1980. “Turnout and the Vote: The Joke’s on the Democrats.” The American Political Science Review 74 (2): 406–20. https://doi.org/10.2307/1960636.</p>
+<p>Epstein, Reid J. 2021. “The Democratic Turnout Myth Unravels.” The New York Times, November 4, 2021, sec.&nbsp;U.S. https://www.nytimes.com/2021/11/04/us/politics/democrats-turnout-virginia.html.</p>
+<p>Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables. R package version 5.2.3. https://CRAN.R-project.org/package=stargazer</p>
+<p>Shaw, Daron R., and John R. Petrocik. 2020. The Turnout Myth: Voting Rates and Partisan Outcomes in American National Elections. New York, NY: Oxford University Press.</p>
+<p>Tucker, Harvey J., Arnold Vedlitz, and James DeNardo. 1986. “Does Heavy Turnout Help Democrats in Presidential Elections?” The American Political Science Review 80 (4): 1291–1304. https://doi.org/10.2307/1960868.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

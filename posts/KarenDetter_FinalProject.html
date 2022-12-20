@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.280">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Karen Detter">
+<meta name="dcterms.date" content="2022-12-20">
+
+<title>Final Project</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/DACSS_Round_Network.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<link href="../site_libs/tabwid-1.1.2/tabwid.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta name="twitter:title" content="Final Project">
+<meta name="twitter:description" content="Although few studies have directly examined the mechanisms behind public support for regulation of passive data collection, a good amount of research has been done on factors influencing individual…">
+<meta name="twitter:creator" content="@UMassDACSS">
+<meta name="twitter:site" content="@UMassDACSS">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../images/UMass White Wordmark Horiz.png" alt="" class="navbar-logo">
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="https://dacss.github.io/603_Fall_2022/">
+ <span class="menu-text">Fall 2022 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">Contributors</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://umass.edu/sbs/dacss">
+ <span class="menu-text">DACSS</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/DACSS/603_Fall_2022"><i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background-research-question" id="toc-background-research-question" class="nav-link active" data-scroll-target="#background-research-question">Background / Research Question</a>
+  <ul class="collapse">
+  <li><a href="#what-predicts-support-for-government-regulation-of-big-tech" id="toc-what-predicts-support-for-government-regulation-of-big-tech" class="nav-link" data-scroll-target="#what-predicts-support-for-government-regulation-of-big-tech">What Predicts Support For Government Regulation Of ‘Big Tech’?</a></li>
+  </ul></li>
+  <li><a href="#hypothesis" id="toc-hypothesis" class="nav-link" data-scroll-target="#hypothesis">Hypothesis</a></li>
+  <li><a href="#data-descriptive-statistics" id="toc-data-descriptive-statistics" class="nav-link" data-scroll-target="#data-descriptive-statistics">Data / Descriptive Statistics</a></li>
+  <li><a href="#hypothesis-testing" id="toc-hypothesis-testing" class="nav-link" data-scroll-target="#hypothesis-testing">Hypothesis Testing</a></li>
+  <li><a href="#model-comparisons" id="toc-model-comparisons" class="nav-link" data-scroll-target="#model-comparisons">Model Comparisons</a></li>
+  <li><a href="#diagnostics" id="toc-diagnostics" class="nav-link" data-scroll-target="#diagnostics">Diagnostics</a></li>
+  <li><a href="#logistic-regression-model-fitting" id="toc-logistic-regression-model-fitting" class="nav-link" data-scroll-target="#logistic-regression-model-fitting">Logistic Regression Model Fitting</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Final Project</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+  <div class="quarto-categories">
+    <div class="quarto-category">final project</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Karen Detter </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 20, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="background-research-question" class="level1">
+<h1>Background / Research Question</h1>
+<section id="what-predicts-support-for-government-regulation-of-big-tech" class="level2">
+<h2 class="anchored" data-anchor-id="what-predicts-support-for-government-regulation-of-big-tech">What Predicts Support For Government Regulation Of ‘Big Tech’?</h2>
+<p>In 2001, Google piloted a program to boost profits, which were sinking as the “dot-com bubble” burst, by collecting data generated from users’ search queries and using it to sell precisely targeted advertising. The company’s ad revenues grew so quickly that they expanded their data collection tools with tracking “cookies” and predictive algorithms. Other technology firms took notice of Google’s soaring profits, and the sale of passively-collected data from people’s online activities soon became the predominant business model of the internet economy (Zuboff, 2015).</p>
+<p>As the data-collection practices of “Big Tech” firms, including Google, Amazon, Facebook (Meta), Apple, and Microsoft, have gradually been exposed, the public is now aware that the “free” platforms that have become essential to daily life are actually harvesting personal information as payment. Despite consumers being essentially extorted into accepting this arrangement, regulatory intervention into “surveillance capitalism” has remained limited.</p>
+<p>Over the two decades since passive data collection began commercializing the internet, survey research has shown the American public’s increasing concern over the dominance Big Tech has been allowed to exert. A 2019 study conducted by Pew Research Center found that 81% of Democrats and 70% of Republicans think there should be more government regulation of corporate data-use practices (Pew Research Center, 2019). It is very unusual to find majorities of both Republicans and Democrats agreeing on any policy position, since party affiliation is known to be a main predictor of any political stance, especially in the current polarized climate. The natural question that arises, then, is what other factors might predict support for increased regulation of data-collection practices?</p>
+</section>
+</section>
+<section id="hypothesis" class="level1">
+<h1>Hypothesis</h1>
+<p>Although few studies have directly examined the mechanisms behind public support for regulation of passive data collection, a good amount of research has been done on factors influencing individual adoption of privacy protection measures (Barth et al., 2019; Boerman et al., 2021; Turow et al., 2015). It seems a reasonable extrapolation that these factors would similarly influence support for additional data privacy regulation, leading to these hypotheses:</p>
+<ol type="1">
+<li><p>A higher level of awareness of data collection issues predicts support for increased Big Tech regulation.</p></li>
+<li><p>Greater understanding of how companies use passively collected data predicts support for increased regulation.</p></li>
+<li><p>The feeling of having no personal control over online tracking predicts support for increased regulation.</p></li>
+<li><p>Feeling that it is impossible to protect oneself from online tracking, referred to as “digital resignation”, likely does not predict support for increased regulation, due to lack of faith in government’s ability to regulate Big Tech.</p></li>
+<li><p>Certain demographic traits (age group, education level, and political ideology) have some relationship with attitudes toward Big Tech regulation.</p></li>
+</ol>
+<p>Since there are currently dozens of data privacy bills pending in Congress, pinpointing the forces driving support for this type of legislation can help with both shaping the regulatory framework needed and appealing for broader support from voters.</p>
+</section>
+<section id="data-descriptive-statistics" class="level1">
+<h1>Data / Descriptive Statistics</h1>
+<p>Pew Research Center’s American Trends Panel (Wave 49) data set can provide insight into which of these factors are predictive of support for greater regulation of technology company data practices. In June 2019, an online survey covering a wide variety of topics was conducted and 4,272 separate observations for 144 variables were collected from adults age 18 and over. The margin of error (at the 95% confidence level) is given as +/- 1.87 percentage points.</p>
+<p>The data set was compiled in SPSS and all pertinent variables are categorical.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data from SPSS file</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>wav49 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"_data/ATPW49.sav"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Since the data set covers a wide variety of topics, selecting the variables of interest into a subset data frame makes it easier to manage.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sel_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'PRIVACYNEWS1_W49'</span>, <span class="st">'CONTROLCO_W49'</span>, <span class="st">'UNDERSTANDCO_W49'</span>, <span class="st">'ANONYMOUS1CO_W49'</span>, <span class="st">'GOVREGV1_W49'</span>, <span class="st">'F_AGECAT'</span>, <span class="st">'F_EDUCCAT'</span>, <span class="st">'F_PARTYSUM_FINAL'</span>, <span class="st">'F_IDEO'</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>wav49_selected <span class="ot">&lt;-</span> wav49[sel_vars]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Subset variables are renamed for clarity and to align with the operationalized concepts.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>wav49_sel_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(wav49_selected, <span class="at">AWARENESS =</span> PRIVACYNEWS1_W49, <span class="at">CONTROL =</span> CONTROLCO_W49, <span class="at">UNDERSTANDING =</span> UNDERSTANDCO_W49, <span class="at">RESIGNATION =</span> ANONYMOUS1CO_W49, <span class="at">GovtReg =</span> GOVREGV1_W49, <span class="at">Age =</span> F_AGECAT, <span class="at">Education =</span> F_EDUCCAT, <span class="at">Party =</span> F_PARTYSUM_FINAL, <span class="at">Ideology =</span> F_IDEO)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Following is a list of all the variables included in this analysis (variable names are designated by <em>$</em>).</p>
+<p>Also shown are variable labels, which contain the full text of the survey question asked:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#summary of $variable names and their [labels]</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(wav49_sel_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$AWARENESS
+[1] "PRIVACYNEWS1. How closely, if at all, do you follow news about privacy issues?"
+
+$CONTROL
+[1] "CONTROLCO. How much control do you think you have over the data that companies collect about you?"
+
+$UNDERSTANDING
+[1] "UNDERSTANDCO. How much do you feel you understand what companies are doing with the data they collect about you?"
+
+$RESIGNATION
+[1] "ANONYMOUS1CO. Do you think it is possible to go about daily life today without having companies collect data about you?"
+
+$GovtReg
+[1] "GOVREGV1. How much government regulation of what companies can do with their customers’ personal information do you think there should be?"
+
+$Age
+[1] "Age category"
+
+$Education
+[1] "Education level category"
+
+$Party
+[1] "Party summary"
+
+$Ideology
+[1] "Ideology"</code></pre>
+</div>
+</div>
+<p>Because the data set is made up of categorical variables, some transformation and cleaning is required before computing any statistics, including conversion to factor variables and removal of user-defined missing values.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert all variables to factors</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> wav49_sel_clean <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(as_factor)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#set 'Refused' and 'Don't Know" values to NA</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>AWARENESS)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>AWARENESS)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>CONTROL)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>CONTROL)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>UNDERSTANDING)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>UNDERSTANDING)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>RESIGNATION)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>RESIGNATION)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>GovtReg)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>GovtReg)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Age)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Age)<span class="sc">==</span><span class="st">"DK/REF"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Education)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Education)<span class="sc">==</span><span class="st">"Don't know/Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Party)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Party)<span class="sc">==</span><span class="st">"DK/Refused/No lean"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Ideology)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Ideology)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#remove NA values</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(wav49_factored)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Finally, since the trait of interest is support for government regulation of online data collection, collapsing the factor levels of the outcome variable <em>GovtReg</em> to two values - “More regulation” and “Not More regulation” - helps clarify the construct of “support”.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> wav49_factored <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GovtReg =</span> <span class="fu">fct_collapse</span>(GovtReg, <span class="st">"Not More regulation"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Less regulation"</span>, <span class="st">"About the same amount"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The data set is now primed for analysis.</p>
+<p>As an initial assessment, a summary of response frequencies gives a good overview of trends surrounding the issues represented by the variables.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wav49_factored)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>              AWARENESS                      CONTROL          UNDERSTANDING
+ Very closely      :228   A great deal of control:  60   A great deal:122  
+ Somewhat closely  :996   Some control           : 277   Some        :676  
+ Not too closely   :635   Very little control    :1075   Very little :972  
+ Not at all closely:134   No control             : 581   Nothing     :223  
+                                                                           
+                 RESIGNATION                  GovtReg        Age     
+ Yes, it is possible   : 717   More regulation    :1558   18-29:317  
+ No, it is not possible:1276   Not More regulation: 435   30-49:613  
+                                                          50-64:607  
+                                                          65+  :456  
+                                                                     
+                 Education            Party                   Ideology  
+ College graduate+    :777   Rep/Lean Rep: 877   Very conservative:175  
+ Some College         :552   Dem/Lean Dem:1116   Conservative     :470  
+ H.S. graduate or less:664                       Moderate         :757  
+                                                 Liberal          :403  
+                                                 Very liberal     :188  </code></pre>
+</div>
+</div>
+<p>Cross tabulation of the variables can also help identify possible predictors.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">crosstable</span>(wav49_factored, <span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">by =</span> <span class="st">"GovtReg"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_flextable</span>(table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="tabwid"><style>.cl-23873c84{}.cl-237f517c{font-family:'Arial';font-size:11pt;font-weight:bold;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-237f5190{font-family:'Arial';font-size:11pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-23824526{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-23824530{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-23825a20{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a21{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a2a{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a2b{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a34{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a35{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a36{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a3e{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(255, 255, 255, 0.00);border-right: 0 solid rgba(255, 255, 255, 0.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a3f{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a40{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a41{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a42{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a48{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a49{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a52{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a53{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a54{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a5c{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a5d{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a5e{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a66{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a67{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a68{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a69{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a70{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a7a{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a7b{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a84{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a85{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 1pt solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a86{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a87{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a8e{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a8f{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 1pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a90{width:8.641in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a98{width:1.78in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a99{width:1.431in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-23825a9a{width:1.728in;background-color:transparent;vertical-align: middle;border-bottom: 2pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table class="cl-23873c84"><thead><tr style="overflow-wrap:break-word;"><th rowspan="2" class="cl-23825a20"><p class="cl-23824526"><span class="cl-237f517c">label</span></p></th><th rowspan="2" class="cl-23825a21"><p class="cl-23824526"><span class="cl-237f517c">variable</span></p></th><th colspan="2" class="cl-23825a2a"><p class="cl-23824526"><span class="cl-237f517c">GOVREGV1. How much government regulation of what companies can do with their customers’ personal information do you think there should be?</span></p></th></tr><tr style="overflow-wrap:break-word;"><th class="cl-23825a36"><p class="cl-23824526"><span class="cl-237f517c">More regulation</span></p></th><th class="cl-23825a3e"><p class="cl-23824526"><span class="cl-237f517c">Not More regulation</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td rowspan="4" class="cl-23825a3f"><p class="cl-23824530"><span class="cl-237f5190">PRIVACYNEWS1. How closely, if at all, do you follow news about privacy issues?</span></p></td><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Very closely</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">189 (82.89%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">39 (17.11%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Somewhat closely</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">814 (81.73%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">182 (18.27%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Not too closely</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">473 (74.49%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">162 (25.51%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a49"><p class="cl-23824530"><span class="cl-237f5190">Not at all closely</span></p></td><td class="cl-23825a52"><p class="cl-23824530"><span class="cl-237f5190">82 (61.19%)</span></p></td><td class="cl-23825a53"><p class="cl-23824530"><span class="cl-237f5190">52 (38.81%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="4" class="cl-23825a54"><p class="cl-23824530"><span class="cl-237f5190">CONTROLCO. How much control do you think you have over the data that companies collect about you?</span></p></td><td class="cl-23825a5c"><p class="cl-23824530"><span class="cl-237f5190">A great deal of control</span></p></td><td class="cl-23825a5d"><p class="cl-23824530"><span class="cl-237f5190">45 (75.00%)</span></p></td><td class="cl-23825a5e"><p class="cl-23824530"><span class="cl-237f5190">15 (25.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a67"><p class="cl-23824530"><span class="cl-237f5190">Some control</span></p></td><td class="cl-23825a68"><p class="cl-23824530"><span class="cl-237f5190">186 (67.15%)</span></p></td><td class="cl-23825a69"><p class="cl-23824530"><span class="cl-237f5190">91 (32.85%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a67"><p class="cl-23824530"><span class="cl-237f5190">Very little control</span></p></td><td class="cl-23825a68"><p class="cl-23824530"><span class="cl-237f5190">868 (80.74%)</span></p></td><td class="cl-23825a69"><p class="cl-23824530"><span class="cl-237f5190">207 (19.26%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a7a"><p class="cl-23824530"><span class="cl-237f5190">No control</span></p></td><td class="cl-23825a7b"><p class="cl-23824530"><span class="cl-237f5190">459 (79.00%)</span></p></td><td class="cl-23825a84"><p class="cl-23824530"><span class="cl-237f5190">122 (21.00%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="4" class="cl-23825a54"><p class="cl-23824530"><span class="cl-237f5190">UNDERSTANDCO. How much do you feel you understand what companies are doing with the data they collect about you?</span></p></td><td class="cl-23825a5c"><p class="cl-23824530"><span class="cl-237f5190">A great deal</span></p></td><td class="cl-23825a5d"><p class="cl-23824530"><span class="cl-237f5190">97 (79.51%)</span></p></td><td class="cl-23825a5e"><p class="cl-23824530"><span class="cl-237f5190">25 (20.49%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a67"><p class="cl-23824530"><span class="cl-237f5190">Some</span></p></td><td class="cl-23825a68"><p class="cl-23824530"><span class="cl-237f5190">516 (76.33%)</span></p></td><td class="cl-23825a69"><p class="cl-23824530"><span class="cl-237f5190">160 (23.67%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a67"><p class="cl-23824530"><span class="cl-237f5190">Very little</span></p></td><td class="cl-23825a68"><p class="cl-23824530"><span class="cl-237f5190">789 (81.17%)</span></p></td><td class="cl-23825a69"><p class="cl-23824530"><span class="cl-237f5190">183 (18.83%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a7a"><p class="cl-23824530"><span class="cl-237f5190">Nothing</span></p></td><td class="cl-23825a7b"><p class="cl-23824530"><span class="cl-237f5190">156 (69.96%)</span></p></td><td class="cl-23825a84"><p class="cl-23824530"><span class="cl-237f5190">67 (30.04%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-23825a54"><p class="cl-23824530"><span class="cl-237f5190">ANONYMOUS1CO. Do you think it is possible to go about daily life today without having companies collect data about you?</span></p></td><td class="cl-23825a5c"><p class="cl-23824530"><span class="cl-237f5190">Yes, it is possible</span></p></td><td class="cl-23825a5d"><p class="cl-23824530"><span class="cl-237f5190">520 (72.52%)</span></p></td><td class="cl-23825a5e"><p class="cl-23824530"><span class="cl-237f5190">197 (27.48%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a7a"><p class="cl-23824530"><span class="cl-237f5190">No, it is not possible</span></p></td><td class="cl-23825a7b"><p class="cl-23824530"><span class="cl-237f5190">1038 (81.35%)</span></p></td><td class="cl-23825a84"><p class="cl-23824530"><span class="cl-237f5190">238 (18.65%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="4" class="cl-23825a85"><p class="cl-23824530"><span class="cl-237f5190">Age category</span></p></td><td class="cl-23825a86"><p class="cl-23824530"><span class="cl-237f5190">18-29</span></p></td><td class="cl-23825a87"><p class="cl-23824530"><span class="cl-237f5190">232 (73.19%)</span></p></td><td class="cl-23825a8e"><p class="cl-23824530"><span class="cl-237f5190">85 (26.81%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">30-49</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">463 (75.53%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">150 (24.47%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">50-64</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">489 (80.56%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">118 (19.44%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a49"><p class="cl-23824530"><span class="cl-237f5190">65+</span></p></td><td class="cl-23825a52"><p class="cl-23824530"><span class="cl-237f5190">374 (82.02%)</span></p></td><td class="cl-23825a53"><p class="cl-23824530"><span class="cl-237f5190">82 (17.98%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="3" class="cl-23825a85"><p class="cl-23824530"><span class="cl-237f5190">Education level category</span></p></td><td class="cl-23825a86"><p class="cl-23824530"><span class="cl-237f5190">College graduate+</span></p></td><td class="cl-23825a87"><p class="cl-23824530"><span class="cl-237f5190">633 (81.47%)</span></p></td><td class="cl-23825a8e"><p class="cl-23824530"><span class="cl-237f5190">144 (18.53%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Some College</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">432 (78.26%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">120 (21.74%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a49"><p class="cl-23824530"><span class="cl-237f5190">H.S. graduate or less</span></p></td><td class="cl-23825a52"><p class="cl-23824530"><span class="cl-237f5190">493 (74.25%)</span></p></td><td class="cl-23825a53"><p class="cl-23824530"><span class="cl-237f5190">171 (25.75%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="2" class="cl-23825a85"><p class="cl-23824530"><span class="cl-237f5190">Party summary</span></p></td><td class="cl-23825a86"><p class="cl-23824530"><span class="cl-237f5190">Rep/Lean Rep</span></p></td><td class="cl-23825a87"><p class="cl-23824530"><span class="cl-237f5190">628 (71.61%)</span></p></td><td class="cl-23825a8e"><p class="cl-23824530"><span class="cl-237f5190">249 (28.39%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a49"><p class="cl-23824530"><span class="cl-237f5190">Dem/Lean Dem</span></p></td><td class="cl-23825a52"><p class="cl-23824530"><span class="cl-237f5190">930 (83.33%)</span></p></td><td class="cl-23825a53"><p class="cl-23824530"><span class="cl-237f5190">186 (16.67%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td rowspan="5" class="cl-23825a8f"><p class="cl-23824530"><span class="cl-237f5190">Ideology</span></p></td><td class="cl-23825a86"><p class="cl-23824530"><span class="cl-237f5190">Very conservative</span></p></td><td class="cl-23825a87"><p class="cl-23824530"><span class="cl-237f5190">106 (60.57%)</span></p></td><td class="cl-23825a8e"><p class="cl-23824530"><span class="cl-237f5190">69 (39.43%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Conservative</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">352 (74.89%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">118 (25.11%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Moderate</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">590 (77.94%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">167 (22.06%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a40"><p class="cl-23824530"><span class="cl-237f5190">Liberal</span></p></td><td class="cl-23825a41"><p class="cl-23824530"><span class="cl-237f5190">344 (85.36%)</span></p></td><td class="cl-23825a42"><p class="cl-23824530"><span class="cl-237f5190">59 (14.64%)</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-23825a98"><p class="cl-23824530"><span class="cl-237f5190">Very liberal</span></p></td><td class="cl-23825a99"><p class="cl-23824530"><span class="cl-237f5190">166 (88.30%)</span></p></td><td class="cl-23825a9a"><p class="cl-23824530"><span class="cl-237f5190">22 (11.70%)</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>The contingency table of this data, however, reveals no clear relationship between any of these subgroups and opinion on regulation of Big Tech.</p>
+<p>The next step, then, is visualization - bar charts can make basic patterns in categorical data easier to spot.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#base support for government regulation</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by party affiliation</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by ideology</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Ideology)) <span class="sc">+</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by education</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Education)) <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by age</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Age)) <span class="sc">+</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by resignation</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> RESIGNATION)) <span class="sc">+</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by understanding</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> UNDERSTANDING)) <span class="sc">+</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by control</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> CONTROL)) <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by awareness</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> AWARENESS)) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="KarenDetter_FinalProject_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The visualizations suggest that having little understanding of the mechanisms of data monetization, feeling resigned to the inevitability of personal data collection, and being middle-aged may each predict support for government regulation of Big Tech to some degree.</p>
+</section>
+<section id="hypothesis-testing" class="level1">
+<h1>Hypothesis Testing</h1>
+<p>Because all of the variables of interest in the data set are categorical, the chi-squared test of independence is used to determine if there is indeed a statistically significant association between the selected explanatory variables and the outcome variable of opinion on government regulation.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create separate contingency tables for each explanatory variable</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#tblawareness = table(wav49_factored$awareness, wav49_factored$govtreg)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#tblcontrol = table(wav49_factored$control, wav49_factored$govtreg)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#tblunderstanding = table(wav49_factored$understanding, wav49_factored$govtreg)</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#tblresignation = table(wav49_factored$resignation, wav49_factored$govtreg)</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#tblage = table(wav49_factored$age, wav49_factored$govtreg)</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#tbleducation = table(wav49_factored$education, wav49_factored$govtreg)</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#tblparty = table(wav49_factored$party, wav49_factored$govtreg)</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#tblideology = table(wav49_factored$ideology, wav49_factored$govtreg)</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#run chi-squared tests on each table</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblawareness)</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblcontrol)</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblunderstanding)</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblresignation)</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblage)</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tbleducation)</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblparty)</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblideology)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The test results show that all of the selected variables are significantly correlated with <em>GovtReg</em>, with p-values well below the .05 threshhold. The null hypothesis can be rejected, as there is evidence supporting the alternative - that these variables have an effect on support for government regulation of Big Tech’s use of passively-collected personal data.</p>
+</section>
+<section id="model-comparisons" class="level1">
+<h1>Model Comparisons</h1>
+<p>The first step of model fitting with this data set is to create a data frame of the variables with numeric values.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert variables to numeric and remove user-defined missing values</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_sel_clean[wav49_sel_clean == 99] &lt;- NA</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_sel_clean &lt;- zap_missing(wav49_sel_clean)</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_numeric &lt;- wav49_sel_clean %&gt;% </span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate_at(c(1:9), as.numeric)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co">#head(wav49_numeric)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The first model contains all of the selected variables as explanatory variables for the outcome variable <em>GovtReg</em>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_full &lt;- lm(GovtReg ~ ., data = wav49_numeric)</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_full)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The full model shows that <em>AWARENESS</em>, <em>RESIGNATION</em>, <em>Age</em>, and <em>Ideology</em> all have significant effects on <em>GovtReg</em>, with <em>AWARENESS</em> and <em>Ideology</em> having very small p-values. The residuals are also quite small, indicating that the model is appropriate. The Adjusted <span class="math inline">\(R^{2}\)</span>, however, shows that even the full model explains less than 1% of the variance in <em>GovtReg</em>.</p>
+<p>Building another model with only the variables shown to be significant could improve the fit.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_alt &lt;- lm(GovtReg ~ AWARENESS + RESIGNATION + Age + Ideology, data = #wav49_numeric)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_alt)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The alternative model improves the Adjusted <span class="math inline">\(R^{2}\)</span> very slightly, and lowers the p-values of all the explanatory variables.</p>
+<p>It is feasible that changes in the level of issue awareness cause changes in whether or not one feels “digital resignation”. Therefore, it could be worthwhile to build a model that accounts for this potential interaction.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#model_int &lt;- lm(GovtReg ~ AWARENESS*RESIGNATION + Age + Ideology, data = #wav49_numeric)</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_int)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>This model does not seem to be an improvement on the others, as the interaction variable is not statistically significant, and the Adjusted <span class="math inline">\(R^{2}\)</span> is not improved.</p>
+<p>Of these, the best model is likely the second one tested - the alternative model.</p>
+</section>
+<section id="diagnostics" class="level1">
+<h1>Diagnostics</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co">#generate diagnostic plots for the alternative model</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(model_alt)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The Residuals vs.&nbsp;Fitted Values plot indicates possible violations, as the residuals are not randomly distributed around the 0 line, although they do seem to form a somewhat horizontal pattern, and there appear to be no outliers.</p>
+<p>The QQ-Plot shows definite violation of the assumption of normality, as the points are far off the line.</p>
+<p>The Scale-Location plot shows violation of the constant variance assumption, as there are clear increasing and decreasing trends.</p>
+<p>Finally, the Residuals vs.&nbsp;Leverage plot also seems to indicate violation, as there are many points outside of the lines.</p>
+<p>The fact that so many assumptions are violated by the regression model indicates that logistic regression would be more appropriate for this data set of categorical variables, and likely yield better results.</p>
+</section>
+<section id="logistic-regression-model-fitting" class="level1">
+<h1>Logistic Regression Model Fitting</h1>
+<p>Because the dependent variable of interest, <em>GovtReg</em>, is binary, and the explanatory variables are categorical, it is most appropriate to fit a binary logistic regression model.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#binary logistic regression model</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(GovtReg <span class="sc">~</span> ., <span class="at">data =</span> wav49_factored, <span class="at">family =</span> binomial)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = GovtReg ~ ., family = binomial, data = wav49_factored)
+
+Deviance Residuals: 
+    Min       1Q   Median       3Q      Max  
+-1.4938  -0.7160  -0.5554  -0.3805   2.3144  
+
+Coefficients:
+                                   Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)                       -0.205172   0.443932  -0.462 0.643960    
+AWARENESSSomewhat closely          0.061310   0.202003   0.304 0.761501    
+AWARENESSNot too closely           0.442466   0.208913   2.118 0.034180 *  
+AWARENESSNot at all closely        0.884973   0.263338   3.361 0.000778 ***
+CONTROLSome control                0.486782   0.343348   1.418 0.156264    
+CONTROLVery little control        -0.103716   0.329329  -0.315 0.752814    
+CONTROLNo control                 -0.179759   0.339988  -0.529 0.596999    
+UNDERSTANDINGSome                  0.173156   0.256164   0.676 0.499069    
+UNDERSTANDINGVery little          -0.071266   0.255856  -0.279 0.780598    
+UNDERSTANDINGNothing               0.436160   0.291258   1.498 0.134263    
+RESIGNATIONNo, it is not possible -0.353115   0.117886  -2.995 0.002741 ** 
+Age30-49                          -0.178430   0.166871  -1.069 0.284948    
+Age50-64                          -0.485602   0.175617  -2.765 0.005690 ** 
+Age65+                            -0.509737   0.190230  -2.680 0.007371 ** 
+EducationSome College             -0.003026   0.145763  -0.021 0.983435    
+EducationH.S. graduate or less     0.178005   0.137290   1.297 0.194783    
+PartyDem/Lean Dem                 -0.406697   0.143123  -2.842 0.004489 ** 
+IdeologyConservative              -0.648848   0.194398  -3.338 0.000845 ***
+IdeologyModerate                  -0.684972   0.197165  -3.474 0.000513 ***
+IdeologyLiberal                   -1.042692   0.249333  -4.182 2.89e-05 ***
+IdeologyVery liberal              -1.266658   0.309318  -4.095 4.22e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2091.5  on 1992  degrees of freedom
+Residual deviance: 1937.5  on 1972  degrees of freedom
+AIC: 1979.5
+
+Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+</div>
+<p>The logistic regression model output shows that <em>AWARENESS</em>, <em>RESIGNATION</em>, <em>Age</em>, political <em>Party</em>, and political <em>Ideology</em> have statistically significant effects on support for government regulation of Big Tech’s use of personal data.</p>
+<p>Surprisingly, only issue <em>AWARENESS</em> has a <strong>positive</strong> effect on <em>GovtReg</em>.</p>
+<p>Digital <em>RESIGNATION</em>, <em>Age</em>, political <em>Party</em>, and politcal <em>Ideology</em> all have <strong>negative</strong> effects on <em>GovtReg</em>.</p>
+<p>The fact that the Residual Deviance is less than the Null Deviance indicates that the model explains more of the variation in support for government regulation than a model with only the intercept.</p>
+<p><strong>These results suggest that support for increased government regulation of Big Tech’s data collection policies is likely spread across more subgroups and in less predictable ways than is ordinarily expected for policy issues.</strong></p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<p>Barth, S., de Jong, M. D. T., Junger, M., Hartel, P. H. &amp; Roppelt, J. C. (2019). Putting the privacy paradox to the test: Online privacy and security behaviors among users with technical knowledge, privacy awareness, and financial resources. Telematics and Informatics, 41, 55–69. doi:10.1016/j.tele.2019.03.003</p>
+<p>Boerman, S. C., Kruikemeier, S., &amp; Zuiderveen Borgesius, F. J. (2021). Exploring Motivations for Online Privacy Protection Behavior: Insights From Panel Data. Communication Research, 48(7), 953–977. https://doi.org/10.1177/0093650218800915</p>
+<p>Pew Research Center. (2019). Americans and privacy: Concerned, confused and feeling lack of control over their personal information. https://www.pewresearch.org/internet/2019/11/15/americans-and-privacy-concerned-confused-and- feeling-lack-of-control-over-their-personal-information/</p>
+<p>Pew Research Center. (2020). Wave 49 American trends panel [Data set]. https://www.pewresearch.org/internet/dataset/american-trends-panel-wave-49/</p>
+<p>Turow, J., Hennessy, M. &amp; Draper, N. (2015). The tradeoff fallacy – How marketers are misrepresenting American consumers and opening them up to exploitation. Annenberg School for Communication.</p>
+<p>Zuboff, S. (2015). Big other: Surveillance capitalism and the prospects of an information civilization. Journal of Information Technology, 30(1), 75–89. doi:10.1057/jit.2015.5</p>
+
+
+<!-- -->
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="DACSS/603_Fall_2022" data-repo-id="R_kgDOH568kA" data-category="Announcements" data-category-id="" data-mapping="title" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" async="">
+</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb29" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Final Project"</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Karen Detter"</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="an">desription:</span><span class="co"> "What predicts support for government regulation of 'Big Tech'?"</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "12/20/2022"</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-copy: true</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">  - final project</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setup</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)</span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(labelled)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(crosstable)</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Background / Research Question</span></span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## What Predicts Support For Government Regulation Of 'Big Tech'?</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>In 2001, Google piloted a program to boost profits, which were sinking as the "dot-com bubble" burst, by collecting data generated from users' search queries and using it to sell precisely targeted advertising. The company's ad revenues grew so quickly that they expanded their data collection tools with tracking "cookies" and predictive algorithms. Other technology firms took notice of Google's soaring profits, and the sale of passively-collected data from people's online activities soon became the predominant business model of the internet economy (Zuboff, 2015).</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a>As the data-collection practices of "Big Tech" firms, including Google, Amazon, Facebook (Meta), Apple, and Microsoft, have gradually been exposed, the public is now aware that the "free" platforms that have become essential to daily life are actually harvesting personal information as payment. Despite consumers being essentially extorted into accepting this arrangement, regulatory intervention into "surveillance capitalism" has remained limited.</span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>Over the two decades since passive data collection began commercializing the internet, survey research has shown the American public's increasing concern over the dominance Big Tech has been allowed to exert. A 2019 study conducted by Pew Research Center found that 81% of Democrats and 70% of Republicans think there should be more government regulation of corporate data-use practices (Pew Research Center, 2019). It is very unusual to find majorities of both Republicans and Democrats agreeing on any policy position, since party affiliation is known to be a main predictor of any political stance, especially in the current polarized climate. The natural question that arises, then, is what other factors might predict support for increased regulation of data-collection practices?    </span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis</span></span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>Although few studies have directly examined the mechanisms behind public support for regulation of passive data collection, a good amount of research has been done on factors influencing individual adoption of privacy protection measures (Barth et al., 2019; Boerman et al., 2021; Turow et al., 2015). It seems a reasonable extrapolation that these factors would similarly influence support for additional data privacy regulation, leading to these hypotheses:</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>1) A higher level of awareness of data collection issues predicts support for increased Big Tech regulation.</span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>2) Greater understanding of how companies use passively collected data predicts support for increased regulation.</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>3) The feeling of having no personal control over online tracking predicts support for increased regulation.</span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>4) Feeling that it is impossible to protect oneself from online tracking, referred to as "digital resignation", likely does not predict support for increased regulation, due to lack of faith in government's ability to regulate Big Tech. </span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>5) Certain demographic traits (age group, education level, and political ideology) have some relationship with attitudes toward Big Tech regulation.</span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>Since there are currently dozens of data privacy bills pending in Congress, pinpointing the forces driving support for this type of legislation can help with both shaping the regulatory framework needed and appealing for broader support from voters. </span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data / Descriptive Statistics</span></span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>Pew Research Center's American Trends Panel (Wave 49) data set can provide insight into which of these factors are predictive of support for greater regulation of technology company data practices. In June 2019, an online survey covering a wide variety of topics was conducted and 4,272 separate observations for 144 variables were collected from adults age 18 and over. The margin of error (at the 95% confidence level) is given as +/- 1.87 percentage points.</span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>The data set was compiled in SPSS and all pertinent variables are categorical.</span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a><span class="co">#read in data from SPSS file</span></span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>wav49 <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="st">"_data/ATPW49.sav"</span>)</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>Since the data set covers a wide variety of topics, selecting the variables of interest into a subset data frame makes it easier to manage.</span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-74"><a href="#cb29-74" aria-hidden="true" tabindex="-1"></a>sel_vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'PRIVACYNEWS1_W49'</span>, <span class="st">'CONTROLCO_W49'</span>, <span class="st">'UNDERSTANDCO_W49'</span>, <span class="st">'ANONYMOUS1CO_W49'</span>, <span class="st">'GOVREGV1_W49'</span>, <span class="st">'F_AGECAT'</span>, <span class="st">'F_EDUCCAT'</span>, <span class="st">'F_PARTYSUM_FINAL'</span>, <span class="st">'F_IDEO'</span>)</span>
+<span id="cb29-75"><a href="#cb29-75" aria-hidden="true" tabindex="-1"></a>wav49_selected <span class="ot">&lt;-</span> wav49[sel_vars]</span>
+<span id="cb29-76"><a href="#cb29-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-77"><a href="#cb29-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-78"><a href="#cb29-78" aria-hidden="true" tabindex="-1"></a>Subset variables are renamed for clarity and to align with the operationalized concepts.</span>
+<span id="cb29-79"><a href="#cb29-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-82"><a href="#cb29-82" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-83"><a href="#cb29-83" aria-hidden="true" tabindex="-1"></a>wav49_sel_clean <span class="ot">&lt;-</span> <span class="fu">rename</span>(wav49_selected, <span class="at">AWARENESS =</span> PRIVACYNEWS1_W49, <span class="at">CONTROL =</span> CONTROLCO_W49, <span class="at">UNDERSTANDING =</span> UNDERSTANDCO_W49, <span class="at">RESIGNATION =</span> ANONYMOUS1CO_W49, <span class="at">GovtReg =</span> GOVREGV1_W49, <span class="at">Age =</span> F_AGECAT, <span class="at">Education =</span> F_EDUCCAT, <span class="at">Party =</span> F_PARTYSUM_FINAL, <span class="at">Ideology =</span> F_IDEO)</span>
+<span id="cb29-84"><a href="#cb29-84" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-85"><a href="#cb29-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-86"><a href="#cb29-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-87"><a href="#cb29-87" aria-hidden="true" tabindex="-1"></a>Following is a list of all the variables included in this analysis (variable names are designated by *$*). </span>
+<span id="cb29-88"><a href="#cb29-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-89"><a href="#cb29-89" aria-hidden="true" tabindex="-1"></a>Also shown are variable labels, which contain the full text of the survey question asked:</span>
+<span id="cb29-90"><a href="#cb29-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-91"><a href="#cb29-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-94"><a href="#cb29-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-95"><a href="#cb29-95" aria-hidden="true" tabindex="-1"></a><span class="co">#summary of $variable names and their [labels]</span></span>
+<span id="cb29-96"><a href="#cb29-96" aria-hidden="true" tabindex="-1"></a><span class="fu">var_label</span>(wav49_sel_clean)</span>
+<span id="cb29-97"><a href="#cb29-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-98"><a href="#cb29-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-99"><a href="#cb29-99" aria-hidden="true" tabindex="-1"></a>Because the data set is made up of categorical variables, some transformation and cleaning is required before computing any statistics, including conversion to factor variables and removal of user-defined missing values.</span>
+<span id="cb29-100"><a href="#cb29-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-103"><a href="#cb29-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-104"><a href="#cb29-104" aria-hidden="true" tabindex="-1"></a><span class="co">#convert all variables to factors</span></span>
+<span id="cb29-105"><a href="#cb29-105" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> wav49_sel_clean <span class="sc">%&gt;%</span></span>
+<span id="cb29-106"><a href="#cb29-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_all</span>(as_factor)</span>
+<span id="cb29-107"><a href="#cb29-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-108"><a href="#cb29-108" aria-hidden="true" tabindex="-1"></a><span class="co">#set 'Refused' and 'Don't Know" values to NA</span></span>
+<span id="cb29-109"><a href="#cb29-109" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>AWARENESS)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>AWARENESS)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-110"><a href="#cb29-110" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>CONTROL)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>CONTROL)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-111"><a href="#cb29-111" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>UNDERSTANDING)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>UNDERSTANDING)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-112"><a href="#cb29-112" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>RESIGNATION)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>RESIGNATION)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-113"><a href="#cb29-113" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>GovtReg)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>GovtReg)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-114"><a href="#cb29-114" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Age)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Age)<span class="sc">==</span><span class="st">"DK/REF"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-115"><a href="#cb29-115" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Education)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Education)<span class="sc">==</span><span class="st">"Don't know/Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-116"><a href="#cb29-116" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Party)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Party)<span class="sc">==</span><span class="st">"DK/Refused/No lean"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-117"><a href="#cb29-117" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Ideology)[<span class="fu">levels</span>(wav49_factored<span class="sc">$</span>Ideology)<span class="sc">==</span><span class="st">"Refused"</span>]<span class="ot">&lt;-</span><span class="cn">NA</span></span>
+<span id="cb29-118"><a href="#cb29-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-119"><a href="#cb29-119" aria-hidden="true" tabindex="-1"></a><span class="co">#remove NA values</span></span>
+<span id="cb29-120"><a href="#cb29-120" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(wav49_factored)</span>
+<span id="cb29-121"><a href="#cb29-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-122"><a href="#cb29-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-123"><a href="#cb29-123" aria-hidden="true" tabindex="-1"></a>Finally, since the trait of interest is support for government regulation of online data collection, collapsing the factor levels of the outcome variable *GovtReg* to two values - "More regulation" and "Not More regulation" - helps clarify the construct of "support".</span>
+<span id="cb29-124"><a href="#cb29-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-127"><a href="#cb29-127" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-128"><a href="#cb29-128" aria-hidden="true" tabindex="-1"></a>wav49_factored <span class="ot">&lt;-</span> wav49_factored <span class="sc">%&gt;%</span></span>
+<span id="cb29-129"><a href="#cb29-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">GovtReg =</span> <span class="fu">fct_collapse</span>(GovtReg, <span class="st">"Not More regulation"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"Less regulation"</span>, <span class="st">"About the same amount"</span>)))</span>
+<span id="cb29-130"><a href="#cb29-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-131"><a href="#cb29-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-132"><a href="#cb29-132" aria-hidden="true" tabindex="-1"></a>The data set is now primed for analysis.</span>
+<span id="cb29-133"><a href="#cb29-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-134"><a href="#cb29-134" aria-hidden="true" tabindex="-1"></a>As an initial assessment, a summary of response frequencies gives a good overview of trends surrounding the issues represented by the variables.</span>
+<span id="cb29-135"><a href="#cb29-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-138"><a href="#cb29-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-139"><a href="#cb29-139" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(wav49_factored)</span>
+<span id="cb29-140"><a href="#cb29-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-141"><a href="#cb29-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-142"><a href="#cb29-142" aria-hidden="true" tabindex="-1"></a>Cross tabulation of the variables can also help identify possible predictors.</span>
+<span id="cb29-143"><a href="#cb29-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-146"><a href="#cb29-146" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-147"><a href="#cb29-147" aria-hidden="true" tabindex="-1"></a>table <span class="ot">&lt;-</span> <span class="fu">crosstable</span>(wav49_factored, <span class="at">cols =</span> <span class="fu">everything</span>(), <span class="at">by =</span> <span class="st">"GovtReg"</span>)</span>
+<span id="cb29-148"><a href="#cb29-148" aria-hidden="true" tabindex="-1"></a><span class="fu">as_flextable</span>(table)</span>
+<span id="cb29-149"><a href="#cb29-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-150"><a href="#cb29-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-151"><a href="#cb29-151" aria-hidden="true" tabindex="-1"></a>The contingency table of this data, however, reveals no clear relationship between any of these subgroups and opinion on regulation of Big Tech.</span>
+<span id="cb29-152"><a href="#cb29-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-153"><a href="#cb29-153" aria-hidden="true" tabindex="-1"></a>The next step, then, is visualization - bar charts can make basic patterns in categorical data easier to spot.</span>
+<span id="cb29-154"><a href="#cb29-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-157"><a href="#cb29-157" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-158"><a href="#cb29-158" aria-hidden="true" tabindex="-1"></a><span class="co">#base support for government regulation</span></span>
+<span id="cb29-159"><a href="#cb29-159" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg)) <span class="sc">+</span></span>
+<span id="cb29-160"><a href="#cb29-160" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>() </span>
+<span id="cb29-161"><a href="#cb29-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-162"><a href="#cb29-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-165"><a href="#cb29-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-166"><a href="#cb29-166" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by party affiliation</span></span>
+<span id="cb29-167"><a href="#cb29-167" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Party)) <span class="sc">+</span></span>
+<span id="cb29-168"><a href="#cb29-168" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-169"><a href="#cb29-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span>
+<span id="cb29-170"><a href="#cb29-170" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-171"><a href="#cb29-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-174"><a href="#cb29-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-175"><a href="#cb29-175" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by ideology</span></span>
+<span id="cb29-176"><a href="#cb29-176" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Ideology)) <span class="sc">+</span></span>
+<span id="cb29-177"><a href="#cb29-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-178"><a href="#cb29-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>)</span>
+<span id="cb29-179"><a href="#cb29-179" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-180"><a href="#cb29-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-183"><a href="#cb29-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-184"><a href="#cb29-184" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by education</span></span>
+<span id="cb29-185"><a href="#cb29-185" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Education)) <span class="sc">+</span></span>
+<span id="cb29-186"><a href="#cb29-186" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-187"><a href="#cb29-187" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-188"><a href="#cb29-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-189"><a href="#cb29-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-192"><a href="#cb29-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-193"><a href="#cb29-193" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by age</span></span>
+<span id="cb29-194"><a href="#cb29-194" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> Age)) <span class="sc">+</span></span>
+<span id="cb29-195"><a href="#cb29-195" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-196"><a href="#cb29-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-197"><a href="#cb29-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-198"><a href="#cb29-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-201"><a href="#cb29-201" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-202"><a href="#cb29-202" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by resignation</span></span>
+<span id="cb29-203"><a href="#cb29-203" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> RESIGNATION)) <span class="sc">+</span></span>
+<span id="cb29-204"><a href="#cb29-204" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-205"><a href="#cb29-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-206"><a href="#cb29-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-207"><a href="#cb29-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-210"><a href="#cb29-210" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-211"><a href="#cb29-211" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by understanding</span></span>
+<span id="cb29-212"><a href="#cb29-212" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> UNDERSTANDING)) <span class="sc">+</span></span>
+<span id="cb29-213"><a href="#cb29-213" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-214"><a href="#cb29-214" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-215"><a href="#cb29-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-216"><a href="#cb29-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-219"><a href="#cb29-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-220"><a href="#cb29-220" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by control</span></span>
+<span id="cb29-221"><a href="#cb29-221" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> CONTROL)) <span class="sc">+</span></span>
+<span id="cb29-222"><a href="#cb29-222" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-223"><a href="#cb29-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-224"><a href="#cb29-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-225"><a href="#cb29-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-228"><a href="#cb29-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-229"><a href="#cb29-229" aria-hidden="true" tabindex="-1"></a><span class="co">#govtreg grouped by awareness</span></span>
+<span id="cb29-230"><a href="#cb29-230" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> wav49_factored, <span class="fu">aes</span>(<span class="at">x =</span> GovtReg, <span class="at">fill =</span> AWARENESS)) <span class="sc">+</span></span>
+<span id="cb29-231"><a href="#cb29-231" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span></span>
+<span id="cb29-232"><a href="#cb29-232" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Set1"</span>, <span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb29-233"><a href="#cb29-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-234"><a href="#cb29-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-235"><a href="#cb29-235" aria-hidden="true" tabindex="-1"></a>The visualizations suggest that having little understanding of the mechanisms of data monetization, feeling resigned to the inevitability of personal data collection, and being middle-aged may each predict support for government regulation of Big Tech to some degree.</span>
+<span id="cb29-236"><a href="#cb29-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-237"><a href="#cb29-237" aria-hidden="true" tabindex="-1"></a><span class="fu"># Hypothesis Testing</span></span>
+<span id="cb29-238"><a href="#cb29-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-239"><a href="#cb29-239" aria-hidden="true" tabindex="-1"></a>Because all of the variables of interest in the data set are categorical, the chi-squared test of independence is used to determine if there is indeed a statistically significant association between the selected explanatory variables and the outcome variable of opinion on government regulation.</span>
+<span id="cb29-240"><a href="#cb29-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-243"><a href="#cb29-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-244"><a href="#cb29-244" aria-hidden="true" tabindex="-1"></a><span class="co">#create separate contingency tables for each explanatory variable</span></span>
+<span id="cb29-245"><a href="#cb29-245" aria-hidden="true" tabindex="-1"></a><span class="co">#tblawareness = table(wav49_factored$awareness, wav49_factored$govtreg)</span></span>
+<span id="cb29-246"><a href="#cb29-246" aria-hidden="true" tabindex="-1"></a><span class="co">#tblcontrol = table(wav49_factored$control, wav49_factored$govtreg)</span></span>
+<span id="cb29-247"><a href="#cb29-247" aria-hidden="true" tabindex="-1"></a><span class="co">#tblunderstanding = table(wav49_factored$understanding, wav49_factored$govtreg)</span></span>
+<span id="cb29-248"><a href="#cb29-248" aria-hidden="true" tabindex="-1"></a><span class="co">#tblresignation = table(wav49_factored$resignation, wav49_factored$govtreg)</span></span>
+<span id="cb29-249"><a href="#cb29-249" aria-hidden="true" tabindex="-1"></a><span class="co">#tblage = table(wav49_factored$age, wav49_factored$govtreg)</span></span>
+<span id="cb29-250"><a href="#cb29-250" aria-hidden="true" tabindex="-1"></a><span class="co">#tbleducation = table(wav49_factored$education, wav49_factored$govtreg)</span></span>
+<span id="cb29-251"><a href="#cb29-251" aria-hidden="true" tabindex="-1"></a><span class="co">#tblparty = table(wav49_factored$party, wav49_factored$govtreg)</span></span>
+<span id="cb29-252"><a href="#cb29-252" aria-hidden="true" tabindex="-1"></a><span class="co">#tblideology = table(wav49_factored$ideology, wav49_factored$govtreg)</span></span>
+<span id="cb29-253"><a href="#cb29-253" aria-hidden="true" tabindex="-1"></a><span class="co">#run chi-squared tests on each table</span></span>
+<span id="cb29-254"><a href="#cb29-254" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblawareness)</span></span>
+<span id="cb29-255"><a href="#cb29-255" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblcontrol)</span></span>
+<span id="cb29-256"><a href="#cb29-256" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblunderstanding)</span></span>
+<span id="cb29-257"><a href="#cb29-257" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblresignation)</span></span>
+<span id="cb29-258"><a href="#cb29-258" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblage)</span></span>
+<span id="cb29-259"><a href="#cb29-259" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tbleducation)</span></span>
+<span id="cb29-260"><a href="#cb29-260" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblparty)</span></span>
+<span id="cb29-261"><a href="#cb29-261" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(tblideology)</span></span>
+<span id="cb29-262"><a href="#cb29-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-263"><a href="#cb29-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-264"><a href="#cb29-264" aria-hidden="true" tabindex="-1"></a>The test results show that all of the selected variables are significantly correlated with *GovtReg*, with p-values well below the .05 threshhold. The null hypothesis can be rejected, as there is evidence supporting the alternative - that these variables have an effect on support for government regulation of Big Tech's use of passively-collected personal data.</span>
+<span id="cb29-265"><a href="#cb29-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-266"><a href="#cb29-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-267"><a href="#cb29-267" aria-hidden="true" tabindex="-1"></a><span class="fu"># Model Comparisons</span></span>
+<span id="cb29-268"><a href="#cb29-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-269"><a href="#cb29-269" aria-hidden="true" tabindex="-1"></a>The first step of model fitting with this data set is to create a data frame of the variables with numeric values.</span>
+<span id="cb29-270"><a href="#cb29-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-273"><a href="#cb29-273" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-274"><a href="#cb29-274" aria-hidden="true" tabindex="-1"></a><span class="co">#convert variables to numeric and remove user-defined missing values</span></span>
+<span id="cb29-275"><a href="#cb29-275" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_sel_clean[wav49_sel_clean == 99] &lt;- NA</span></span>
+<span id="cb29-276"><a href="#cb29-276" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_sel_clean &lt;- zap_missing(wav49_sel_clean)</span></span>
+<span id="cb29-277"><a href="#cb29-277" aria-hidden="true" tabindex="-1"></a><span class="co">#wav49_numeric &lt;- wav49_sel_clean %&gt;% </span></span>
+<span id="cb29-278"><a href="#cb29-278" aria-hidden="true" tabindex="-1"></a><span class="co">#  mutate_at(c(1:9), as.numeric)</span></span>
+<span id="cb29-279"><a href="#cb29-279" aria-hidden="true" tabindex="-1"></a><span class="co">#head(wav49_numeric)</span></span>
+<span id="cb29-280"><a href="#cb29-280" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-281"><a href="#cb29-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-282"><a href="#cb29-282" aria-hidden="true" tabindex="-1"></a>The first model contains all of the selected variables as explanatory variables for the outcome variable *GovtReg*.</span>
+<span id="cb29-283"><a href="#cb29-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-286"><a href="#cb29-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-287"><a href="#cb29-287" aria-hidden="true" tabindex="-1"></a><span class="co">#model_full &lt;- lm(GovtReg ~ ., data = wav49_numeric)</span></span>
+<span id="cb29-288"><a href="#cb29-288" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_full)</span></span>
+<span id="cb29-289"><a href="#cb29-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-290"><a href="#cb29-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-291"><a href="#cb29-291" aria-hidden="true" tabindex="-1"></a>The full model shows that *AWARENESS*, *RESIGNATION*, *Age*, and *Ideology* all have significant effects on *GovtReg*, with *AWARENESS* and *Ideology* having very small p-values. The residuals are also quite small, indicating that the model is appropriate. The Adjusted $R^{2}$, however, shows that even the full model explains less than 1% of the variance in *GovtReg*.</span>
+<span id="cb29-292"><a href="#cb29-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-293"><a href="#cb29-293" aria-hidden="true" tabindex="-1"></a>Building another model with only the variables shown to be significant could improve the fit.</span>
+<span id="cb29-294"><a href="#cb29-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-297"><a href="#cb29-297" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-298"><a href="#cb29-298" aria-hidden="true" tabindex="-1"></a><span class="co">#model_alt &lt;- lm(GovtReg ~ AWARENESS + RESIGNATION + Age + Ideology, data = #wav49_numeric)</span></span>
+<span id="cb29-299"><a href="#cb29-299" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_alt)</span></span>
+<span id="cb29-300"><a href="#cb29-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-301"><a href="#cb29-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-302"><a href="#cb29-302" aria-hidden="true" tabindex="-1"></a>The alternative model improves the Adjusted $R^{2}$ very slightly, and lowers the p-values of all the explanatory variables.</span>
+<span id="cb29-303"><a href="#cb29-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-304"><a href="#cb29-304" aria-hidden="true" tabindex="-1"></a>It is feasible that changes in the level of issue awareness cause changes in whether or not one feels "digital resignation". Therefore, it could be worthwhile to build a model that accounts for this potential interaction.</span>
+<span id="cb29-305"><a href="#cb29-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-308"><a href="#cb29-308" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-309"><a href="#cb29-309" aria-hidden="true" tabindex="-1"></a><span class="co">#model_int &lt;- lm(GovtReg ~ AWARENESS*RESIGNATION + Age + Ideology, data = #wav49_numeric)</span></span>
+<span id="cb29-310"><a href="#cb29-310" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(model_int)</span></span>
+<span id="cb29-311"><a href="#cb29-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-312"><a href="#cb29-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-313"><a href="#cb29-313" aria-hidden="true" tabindex="-1"></a>This model does not seem to be an improvement on the others, as the interaction variable is not statistically significant, and the Adjusted $R^{2}$ is not improved.</span>
+<span id="cb29-314"><a href="#cb29-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-315"><a href="#cb29-315" aria-hidden="true" tabindex="-1"></a>Of these, the best model is likely the second one tested - the alternative model. </span>
+<span id="cb29-316"><a href="#cb29-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-317"><a href="#cb29-317" aria-hidden="true" tabindex="-1"></a><span class="fu"># Diagnostics</span></span>
+<span id="cb29-318"><a href="#cb29-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-321"><a href="#cb29-321" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-322"><a href="#cb29-322" aria-hidden="true" tabindex="-1"></a><span class="co">#generate diagnostic plots for the alternative model</span></span>
+<span id="cb29-323"><a href="#cb29-323" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(model_alt)</span></span>
+<span id="cb29-324"><a href="#cb29-324" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-325"><a href="#cb29-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-326"><a href="#cb29-326" aria-hidden="true" tabindex="-1"></a>The Residuals vs. Fitted Values plot indicates possible violations, as the residuals are not randomly distributed around the 0 line, although they do seem to form a somewhat horizontal pattern, and there appear to be no outliers.</span>
+<span id="cb29-327"><a href="#cb29-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-328"><a href="#cb29-328" aria-hidden="true" tabindex="-1"></a>The QQ-Plot shows definite violation of the assumption of normality, as the points are far off the line.</span>
+<span id="cb29-329"><a href="#cb29-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-330"><a href="#cb29-330" aria-hidden="true" tabindex="-1"></a>The Scale-Location plot shows violation of the constant variance assumption, as there are clear increasing and decreasing trends.</span>
+<span id="cb29-331"><a href="#cb29-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-332"><a href="#cb29-332" aria-hidden="true" tabindex="-1"></a>Finally, the Residuals vs. Leverage plot also seems to indicate violation, as there are many points outside of the lines.</span>
+<span id="cb29-333"><a href="#cb29-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-334"><a href="#cb29-334" aria-hidden="true" tabindex="-1"></a>The fact that so many assumptions are violated by the regression model indicates that logistic regression would be more appropriate for this data set of categorical variables, and likely yield better results.</span>
+<span id="cb29-335"><a href="#cb29-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-336"><a href="#cb29-336" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-337"><a href="#cb29-337" aria-hidden="true" tabindex="-1"></a><span class="fu"># Logistic Regression Model Fitting</span></span>
+<span id="cb29-338"><a href="#cb29-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-339"><a href="#cb29-339" aria-hidden="true" tabindex="-1"></a>Because the dependent variable of interest, *GovtReg*, is binary, and the explanatory variables are categorical, it is most appropriate to fit a binary logistic regression model.</span>
+<span id="cb29-340"><a href="#cb29-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-343"><a href="#cb29-343" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb29-344"><a href="#cb29-344" aria-hidden="true" tabindex="-1"></a><span class="co">#binary logistic regression model</span></span>
+<span id="cb29-345"><a href="#cb29-345" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(GovtReg <span class="sc">~</span> ., <span class="at">data =</span> wav49_factored, <span class="at">family =</span> binomial)</span>
+<span id="cb29-346"><a href="#cb29-346" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span>
+<span id="cb29-347"><a href="#cb29-347" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb29-348"><a href="#cb29-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-349"><a href="#cb29-349" aria-hidden="true" tabindex="-1"></a>The logistic regression model output shows that *AWARENESS*, *RESIGNATION*, *Age*, political *Party*, and political *Ideology* have statistically significant effects on support for government regulation of Big Tech's use of personal data.</span>
+<span id="cb29-350"><a href="#cb29-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-351"><a href="#cb29-351" aria-hidden="true" tabindex="-1"></a>Surprisingly, only issue *AWARENESS* has a **positive** effect on *GovtReg*.  </span>
+<span id="cb29-352"><a href="#cb29-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-353"><a href="#cb29-353" aria-hidden="true" tabindex="-1"></a>Digital *RESIGNATION*, *Age*, political *Party*, and politcal *Ideology* all have **negative** effects on *GovtReg*.</span>
+<span id="cb29-354"><a href="#cb29-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-355"><a href="#cb29-355" aria-hidden="true" tabindex="-1"></a>The fact that the Residual Deviance is less than the Null Deviance indicates that the model explains more of the variation in support for government regulation than a model with only the intercept.</span>
+<span id="cb29-356"><a href="#cb29-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-357"><a href="#cb29-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-358"><a href="#cb29-358" aria-hidden="true" tabindex="-1"></a>**These results suggest that support for increased government regulation of Big Tech's data collection policies is likely spread across more subgroups and in less predictable ways than is ordinarily expected for policy issues.** </span>
+<span id="cb29-359"><a href="#cb29-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-360"><a href="#cb29-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-361"><a href="#cb29-361" aria-hidden="true" tabindex="-1"></a><span class="fu"># References</span></span>
+<span id="cb29-362"><a href="#cb29-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-363"><a href="#cb29-363" aria-hidden="true" tabindex="-1"></a>Barth, S., de Jong, M. D. T., Junger, M., Hartel, P. H. &amp; Roppelt, J. C. (2019). Putting the privacy paradox to the test: Online privacy and security behaviors among users with technical knowledge, privacy awareness, and financial resources. Telematics and Informatics, 41, 55–69. doi:10.1016/j.tele.2019.03.003</span>
+<span id="cb29-364"><a href="#cb29-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-365"><a href="#cb29-365" aria-hidden="true" tabindex="-1"></a>Boerman, S. C., Kruikemeier, S., &amp; Zuiderveen Borgesius, F. J. (2021). Exploring Motivations for Online Privacy Protection Behavior: Insights From Panel Data. Communication Research, 48(7), 953–977. https://doi.org/10.1177/0093650218800915</span>
+<span id="cb29-366"><a href="#cb29-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-367"><a href="#cb29-367" aria-hidden="true" tabindex="-1"></a>Pew Research Center. (2019). Americans and privacy: Concerned, confused and feeling lack of control     over their personal information.        https://www.pewresearch.org/internet/2019/11/15/americans-and-privacy-concerned-confused-and-   feeling-lack-of-control-over-their-personal-information/</span>
+<span id="cb29-368"><a href="#cb29-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-369"><a href="#cb29-369" aria-hidden="true" tabindex="-1"></a>Pew Research Center. (2020). Wave 49 American trends panel <span class="co">[</span><span class="ot">Data set</span><span class="co">]</span>.  https://www.pewresearch.org/internet/dataset/american-trends-panel-wave-49/</span>
+<span id="cb29-370"><a href="#cb29-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-371"><a href="#cb29-371" aria-hidden="true" tabindex="-1"></a>Turow, J., Hennessy, M. &amp; Draper, N. (2015). The tradeoff fallacy – How marketers are               misrepresenting American consumers and opening them up to exploitation. Annenberg School for    Communication.</span>
+<span id="cb29-372"><a href="#cb29-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-373"><a href="#cb29-373" aria-hidden="true" tabindex="-1"></a>Zuboff, S. (2015). Big other: Surveillance capitalism and the prospects of an information civilization. Journal of Information Technology, 30(1), 75–89. doi:10.1057/jit.2015.5</span>
+<span id="cb29-374"><a href="#cb29-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-375"><a href="#cb29-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-376"><a href="#cb29-376" aria-hidden="true" tabindex="-1"></a></span>
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+</body></html>
