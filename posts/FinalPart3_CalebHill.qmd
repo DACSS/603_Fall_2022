@@ -1,0 +1,507 @@
+---
+title: "Final Part 3"
+author: "Caleb Hill"
+desription: "Part 3 of the Final Project"
+date: "12/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - finalpart3
+  - caleb.hill
+---
+
+## Introduction
+
+With climate change upsetting normal weather patterns, there has been exciting research into how precipitation shocks (flooding and drought events) impact health outcomes, (Rizmie, d., Preuz, L, Miraldo, M. & Atun, R. (2022); Tapak, L., Maryanaji, Z., Hamidi, O., Abbasi, H. & Najafi-Vosough, R. (2018); Trinh, T., Feeny, S. & Posso, A. (2018)). Alongside this train of thought, multiple research reports state that there is a relationship between re-hospitalization rates and social characteristics, such as demographic and economic identifiers, (Barnett, Hsu & McWilliams, 2015; Murray, Allen, Clark, Daly & Jacobs, 2021). Specifically, racial characteristics play a large role in predicting re-hospitalization in a population (Li, Cai & Glance, 2015). While some articles examine economic and health factors contributing to these disparities, very few dig deep into environmental factors that influence this phenomenon, (Spatz, Bernheim, Horwitz & Herrin, 2020). With your zipcode affecting up to 60% of your health outcomes, this research is relevant to better improving one of our most costly health expenditures: hospitalization. Therefore, this research report aims to integrate these two concepts, testing if precipitation shocks have a positive relationship on not just hospital admissions but also re-admissions.
+
+Re-hospitalization is a substantially costlier expenditure, as readmitting a patient further increases costs -- especially if the diagnosis was untreated, poorly treated, or incorrectly treated. Most inpatient episodes characterized as a re-hospitalization when the patient is readmitted to the hospital 60 days after discharge. If the cause is different, sometimes that is counted as a re-hospitalization; other times, not so much, (Bhosale, K., Nath, R., Pandit, N., Agarwal, P., Khairnar, S., Yadav, B. & Chandrakar, S., 2020).
+
+### Research Question
+
+This paper aims to explore how precipitation shocks impact re-hospitalization rates on a county-by-county level. We will control for socio-demographic and economic variables. We will also stratify by rural/urban classification, to determine if counties above or below 250,000 population experience differences in re-hospitalization rates, dependent upon these explanatory variables. This is purely because literature shows that rural communities face more acute and poorer health outcomes.
+
+The data-set chosen for this analysis is taken from the Agency for Healthcare Research and Quality, Social Determinants of Health (SDOH) Database. This data-set has over 1,400 variables to explore each SDOH domain: social context, economic context, education, healthcare, and the environment. We shall pull data from three of these five domains: social, economic, and environmental.
+
+How re-hospitalization is measured is not clarified per this data-set's codebook. However, the Center for Medicare and Medicaid (CMS) 30-day Risk-Standardized Readmission Rate (RSRR) measures re-hospitalization as an unplanned readmission to inpatient services. It does stratify and specify based upon diagnosis. As the AHRQ is a federal agency alongside CMS, it is likely that they are pulling from CMS for this measure and aggregating various diagnoses into one county rate.
+
+### Hypothesis
+
+The hypothesis for this research report is:
+
+-   Precipitation has a positive impact on re-hospitalization rates within rural counties.
+
+Therefore, the null hypothesis is:
+
+-   Precipitation does not have a positive impact on re-hospitalization rates within rural counties.
+
+Various regression models shall be employed to determine the relationship -- or lack thereof -- between these variables.
+
+First I'll import the relevant librarie and set up a UMass color scheme for crimson and black.
+
+```{r, include = FALSE}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(readxl)
+library(psych)
+library(knitr)
+library(corrplot)
+library(stargazer)
+theme_bw()
+
+umass_colors <- c("#881c1c", "#212721")
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Then I'll import the dataset and view the first six rows.
+
+```{r}
+df <- SDOH_2020_COUNTY_1_0 <- read_excel("_data/SDOH_2020_COUNTY_1_0.xlsx", 
+                                         sheet = "Data")
+head(df)
+```
+
+Next I want to verify the class is a dataframe. Otherwise, I'll need to transform the data to make it easier to work with.
+
+```{r}
+class(df)
+```
+
+All good here.
+
+Now on to data transformation. We will need to select only the relevant columns for this analysis.
+
+```{r}
+df_new <- df %>%
+  select(COUNTYFIPS,
+         STATE,
+         COUNTY,
+         AHRF_USDA_RUCC_2013,
+         NOAAC_PRECIPITATION_AVG_YEARLY,
+         ACS_PCT_MALE,
+         ACS_PCT_FEMALE,
+         ACS_PCT_AIAN,
+         ACS_PCT_ASIAN,
+         ACS_PCT_BLACK,
+         ACS_PCT_HISPANIC,
+         ACS_PCT_MULT_RACE,
+         ACS_PCT_NHPI,
+         ACS_PCT_OTHER_RACE,
+         ACS_PCT_WHITE,
+         SAIPE_MEDIAN_HH_INCOME,
+         SAIPE_PCT_POV,
+         ACS_PCT_COMMT_60MINUP,
+         ACS_PCT_RENTER_HU_COST_50PCT,
+         LTC_AVG_OBS_REHOSP_RATE) 
+nrow(df_new)
+head(df_new)
+```
+
+Out of 1400+ variables, we've whittled them down to 20. Of those 20, we have four (4) that are unique identifiers (FIPS, State, County, and Rural-Urban Continuation Code), ten (10) socio-demographic, four (4) economic, one (1) for precipitation, and one (1) for re-hospitalization.
+
+Before we launch into exploring these variables via descriptive statistics, first we need to determine where the NAs are and see if any of the variables will have a substantial amount of missing data.
+
+```{r}
+kable(colSums(is.na(df_new)))
+```
+
+Plenty of variables with missing data. The most concerning is -- of course -- our outcome variable, Re-Hospitalization Rates. This is not ideal. However, 410 / 3229 (12.6%) is not bad. That still leaves us with plenty of counties to review.
+
+```{r}
+df_new <- df_new %>%
+  drop_na() %>%
+  print(nrow(df_new))
+```
+
+2,814 x 20 is a good place to start.
+
+This next step will conver the Rural-Urban Continuum Code to a binary Rural/Urban. If the county is coded as a four (4) or higher, then they are classified as rural, non-metro, having a population of less than 250,000 as defined by USDA as "Rural."
+
+```{r}
+df_new <- df_new %>%
+  mutate(Rurality = if_else(
+    AHRF_USDA_RUCC_2013 >= 4, "Rural", "Urban")
+    )
+head(df_new)
+```
+
+## Descriptive Statistics
+
+For our preliminary analysis, we're going to provide summary statistics analyzing the variables relevant to our research question, excluding the socio-demographic control variables, and a visualization for each.
+
+```{r}
+kable(describe(df_new))
+```
+
+Following this, we're going to stratify each variable by rurality and determine either the difference in distribution (histogram) and/or central tendency (boxplot).
+
+### Average Yearly Precipitation
+
+```{r}
+ggplot(df_new, aes(x = NOAAC_PRECIPITATION_AVG_YEARLY,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_histogram() +
+  xlab("Average Annual Precipitation") +
+  ylab("Count") +
+  theme_bw()
+
+ggplot(df_new, aes(x = NOAAC_PRECIPITATION_AVG_YEARLY,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Average Annual Precipitation") +
+  ylab("Count") +
+  theme_bw()
+```
+
+Average precipitation each month is fairly uniform, with the mean at 3.49 inches of rain, on average, each month. The mean does differ from Urban to Rural, with Rural counties being drier than their Urban counterparts, but not by much. This variable will most likely provide less variation in the analysis compared to others. 
+
+### Median Household Income
+
+```{r}
+ggplot(df_new, aes(x = SAIPE_MEDIAN_HH_INCOME,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_histogram() +
+  xlab("Median Household Income") +
+  ylab("Count") +
+  theme_bw()
+
+ggplot(df_new, aes(x = SAIPE_MEDIAN_HH_INCOME,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Median Household Income") +
+  ylab("Count") +
+  theme_bw()
+```
+
+Very close to a normal distribution, if barely left-skewed. A couple of high out-liers, hovering around \$90,000+ in median household income, but the mean holds at \$57,465.
+
+Rural Counties have substantially lower median household income, by roughly \$10,ooo to \$20,000. Urban counties also make up the bulk of out-liers.
+
+### Percent in Poverty
+
+```{r}
+ggplot(df_new, aes(x = SAIPE_PCT_POV,
+                     fill = Rurality)) +
+  geom_histogram() +
+  xlab("Percent Poverty") +
+  ylab("Count") +
+  scale_fill_manual(values = umass_colors) +
+  theme_bw()
+
+ggplot(df_new, aes(x = SAIPE_PCT_POV,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Percent Poverty") +
+  ylab("Count") +
+  theme_bw()
+```
+
+Another close to normal distribution. Most counties have poverty rates ranging from 10% to 20%. There are of course out-liers, especially a good number below 10%, but those are rare.
+
+Urbanized counties have substantially less percentage poverty compared to their rural counterparts, and rural counties make up the bulk of outliers post-30%. Only one Urban county has a poverty rate higher than 30%.
+
+### Percent Commuting Alone, Over 60 Minutes
+
+```{r}
+ggplot(df_new, aes(x = ACS_PCT_COMMT_60MINUP,
+                     fill = Rurality)) +
+  geom_histogram() +
+  xlab("Percent Commuting Alone, Over 60 Minutes") +
+  ylab("Count") +
+  scale_fill_manual(values = umass_colors) +
+  theme_bw()
+
+ggplot(df_new, aes(x = ACS_PCT_COMMT_60MINUP,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Percent Commuting Alone, Over 60 Minutes") +
+  ylab("Count") +
+  theme_bw()
+```
+
+The majority of counties fall below 10% of their population commuting up to and more than 60 minutes for work. Very little variation between urban and rural counties here, which is surprising considering population density would lead one to believe rural counties travel longer on average. Perhaps the inverse is correct, in that highly remote communities means commutes are more local.
+
+### Percent Renter Housing Costs Over 50 Percent of Income
+
+```{r}
+ggplot(df_new, aes(x = ACS_PCT_RENTER_HU_COST_50PCT,
+                     fill = Rurality)) +
+  geom_histogram() +
+  xlab("Percent Renter Housing Costs Over 50 Percent of Income") +
+  ylab("Count") +
+  scale_fill_manual(values = umass_colors) +
+  theme_bw()
+
+ggplot(df_new, aes(x = ACS_PCT_RENTER_HU_COST_50PCT,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Percent Renter Housing Costs Over 50 Percent of Income") +
+  ylab("Count") +
+  theme_bw()
+```
+
+This is a startling figure. On average, 20% of counties have renters where 50% or more of their income goes toward housing costs. These leaves little to no room for other expenses and drives economic instability. The data is normally distributed and barely left-skewed -- but still an item to consider with further analysis. 
+
+Urban counties also have a higher renter housing burden on average, with rural counties having more out-liers.
+
+### Re-hospitalization Rate
+
+```{r}
+ggplot(df_new, aes(x = LTC_AVG_OBS_REHOSP_RATE,
+                   fill = Rurality)) +
+  geom_histogram() +
+  xlab("Re-Hospitalization Rate") +
+  ylab("Count") +
+  scale_fill_manual(values = umass_colors) +
+  theme_bw()
+
+ggplot(df_new, aes(x = LTC_AVG_OBS_REHOSP_RATE,
+                   fill = Rurality)) +
+  scale_fill_manual(values = umass_colors) +
+  geom_boxplot() +
+  xlab("Re-Hospitalization Rate") +
+  ylab("Count") +
+  theme_bw()
+```
+
+Another right skewed variable. Lots of counties with 0.00 rates of re-hospitalization, and few, if any, above 0.50 per 100,000 people. The same can be said when comparing urban vs. rural, as there seems to be little variation. Rural counties do have more out-liers, as to be expected with low access to healthcare and quality healthcare services.From a health perspective, this is good news! From a research perspective, that's going to make analysis a little trickier. However, the somewhat normal and/or bimodal distribution should be fairly easy to work with. While needing some transformation for a linear regression, we can test multiple models per each variable to determine which amendment provides the most robust inference.
+
+## Analysis
+
+### Hypothesis Testing
+
+Remember that the hypothesis for this research report is:
+
+-   Precipitation has a positive impact on re-hospitalization rates within rural counties.
+
+We have fifteen (15) explanatory variables to work with, so we can run different regressions to determine what variables influence re-hospitalization rates the most -- if at all -- and how they interact with other variables.
+
+Reminder that the fifteen (15) explanatory and control variables are broken down into three domains: the primary independent and dependent variables, socio-demographic variables, and economic variables.
+
+Independent and Dependent variables:
+
+-   Average Annual Precipitation
+
+-   Re-Hospitalization Rates
+
+Socio-demographic variables:
+
+-   Percent Male
+
+-   Percent Female
+
+-   Percent American Indian
+
+-   Percent Asian
+
+-   Percent Black
+
+-   Percent Hispanic
+
+-   Percent Multiple Races
+
+-   Percent Other Race
+
+-   Percent White
+
+Economic variables:
+
+-   Median Household Income
+
+-   Percent Poverty
+
+-   Percent Rental Housing Cost, over 50%
+
+-   Percent Commuting Alone, over 60 minutes
+
+We will run four models to test the hypothesis. They shall examine each environmental variable's impact on the dependent variable, re-hospitalization rates. The control variables will be the socio-demographic and economic variables, thirteen (13) in total.
+
+Model 1 will take just the independent and dependent variables by themselves.
+
+Model 2 will add socio-demographic variables as control.
+
+Model 3 will add economic variables as control.
+
+Model 4 will add both socio-demographic and economic variables as control.
+
+```{r}
+df_new <- df_new %>%
+  filter(Rurality == "Rural") 
+
+model1 <- lm(LTC_AVG_OBS_REHOSP_RATE ~ 
+               NOAAC_PRECIPITATION_AVG_YEARLY,
+             df_new)
+
+model2 <- lm(LTC_AVG_OBS_REHOSP_RATE ~ 
+               NOAAC_PRECIPITATION_AVG_YEARLY +
+               ACS_PCT_MALE +
+               ACS_PCT_FEMALE +
+               ACS_PCT_AIAN +
+               ACS_PCT_ASIAN +
+               ACS_PCT_BLACK +
+               ACS_PCT_HISPANIC +
+               ACS_PCT_MULT_RACE +
+               ACS_PCT_NHPI +
+               ACS_PCT_OTHER_RACE +
+               ACS_PCT_WHITE,
+             df_new)
+  
+model3 <- lm(LTC_AVG_OBS_REHOSP_RATE ~ 
+               NOAAC_PRECIPITATION_AVG_YEARLY +
+               SAIPE_MEDIAN_HH_INCOME +
+               SAIPE_PCT_POV +
+               ACS_PCT_COMMT_60MINUP +
+               ACS_PCT_RENTER_HU_COST_50PCT,
+             df_new)
+  
+model4 <- lm(LTC_AVG_OBS_REHOSP_RATE ~ 
+               NOAAC_PRECIPITATION_AVG_YEARLY +
+               ACS_PCT_MALE +
+               ACS_PCT_FEMALE +
+               ACS_PCT_AIAN +
+               ACS_PCT_ASIAN +
+               ACS_PCT_BLACK +
+               ACS_PCT_HISPANIC +
+               ACS_PCT_MULT_RACE +
+               ACS_PCT_NHPI +
+               ACS_PCT_OTHER_RACE +
+               ACS_PCT_WHITE + 
+               SAIPE_MEDIAN_HH_INCOME +
+               SAIPE_PCT_POV +
+               ACS_PCT_COMMT_60MINUP +
+               ACS_PCT_RENTER_HU_COST_50PCT,
+             df_new)
+```
+
+Let's plot this regression. We will employ log transformations for re-hospitalization rates, as it is skewed. 
+
+```{r}
+ggplot(df_new, aes(NOAAC_PRECIPITATION_AVG_YEARLY,
+                   log(LTC_AVG_OBS_REHOSP_RATE))) +
+  geom_point(color = "#881c1c",
+             alpha = 0.3) +
+  geom_smooth(method = lm,
+              se = FALSE,
+              fullrange = TRUE,
+              color= "#212721") +
+  labs(title = "Simple Linear Regression Model, Precipitation Against Re-Hospitalization",
+       x = "Average Annual Precipitation",
+       y = "Re-Hospitalization Rates") +
+  theme_bw()
+```
+
+We will reject the null hypothesis. While it looks like, at first glance, that there is little positive relationship, we can at least note that there is *some* positive relationship. In the next two sections, we will dig deeper into each model, examining the p-value, R-Squared value, and PRESS statistic to see what level of relationship is present.
+
+### Model Comparisons
+
+Now we will compare the four (4) models in more depth.
+
+```{r}
+stargazer(model1,
+          model2,
+          model3,
+          model4,
+          type = "pdf",
+          title = "Regression Results, Models 1 - 4",
+          out = "models.pdf")
+summary(model1)
+summary(model2)
+summary(model3)
+summary(model4)
+```
+
+We want to look for two items in particular: 1) P-values that reach significant code of *** and 2) The highest Adjusted R-squared value.
+
+Model 1's `Precipitation` variable has the highest P-value compared to the other models, and the lowest Adjusted R-squared value.
+
+Model 2's significant variables are `Precipitation` and `Hispanic Rate.` However, the `Hispanic Rate` does not meet the significant code of ***. The Adjusted R-squared value is only slightly higher than Model 1.
+
+Model 3's significant variables are `Precipitation,` `Percent Poverty,` and `Commuting.` However, neither `Percent Poverty` nor `Commuting` meet ***. The Adjusted R-squared value is close to Model 4, so it appears that the economic variables have a higher impact over socio-demographic measures.
+
+Model 4's significant variables are `Precipitation,` `Percent Poverty,` and `Commuting.` `Precipitation` has the lowest P-value of the four models here, and `Percent Poverty` meets the significance threshold of ***. The Adjusted R-squared value is the highest here, though only at 0.076.
+
+Finally, we're going to calculate the PRESS statistic (Predicted Residual Sum of Squares) to best determine which model can predict the response variable based upon the explanatory variables.
+
+```{r}
+PRESS <- function(model) {
+  i <- residuals(model)/(1 - lm.influence(model)$hat)
+  sum(i^2)
+}
+
+PRESS(model1)
+PRESS(model2)
+PRESS(model3)
+PRESS(model4)
+```
+
+Model 3 has the lowest PRESS score, though Model 4 is not being calculated for some reason. This is probably due to an error with a socio-demographic variable.
+
+Due to a strong p-value, Adjusted R-squared value, and model fit compared to the other three models, Model 4 will be chosen as the final model for the diagnostic exploration. 
+
+### Diagnostics
+
+Finally, we'll plot the diagnostics to best understand the model.
+
+```{r}
+par(mfrow = c(2,3));
+plot(model4, 
+     which = 1:6) +
+  theme_bw()
+ggsave("diagnostics.pdf",
+       device = "pdf")
+```
+
+Of the six plots, Cook's distance is the most striking and relevant, as there are three out-liers: 683, 1345, and 1508.
+
+```{r}
+df_new %>%
+  filter(COUNTYFIPS == "26097" | COUNTYFIPS == "46079" | COUNTYFIPS == "48385") %>%
+  head()
+```
+
+683 is Mackinac County, Michigan, one of the most remote areas in the Great Lakes, with a population of 10,906.
+
+1345 is Mellette County, South Dakota, with a population of 1,908.
+
+1508 is Real County, Texas, a county with only one incorporated area and a population of 2,826.
+
+Otherwise, the plot looks good.
+
+Normal Q-Q violates this test, as the points at the right tail of the plot do not generally fall along the line. This is very apparent for our three out-liers. Cook's Distance vs. Leverage violates this test as well. The remaining plots do not violate their tested assumptions and further cement the model's reliability.
+
+## Conclusion
+
+This paper explored the relationship between re-hospitalization rates and precipitation, when controlling for common variables that regularly influence the dependent variable.
+
+Four models were selected, one for each variable, to best determine which measure best impacted re-hospitalization rates. In all of the models, precipitation was statistically significant. While the adjusted R-squared value is negligible (0.076), there is a positive relationship that is statistically significant. Therein we see some form of an influence large amounts of annual precipitation has on re-hospitalization rates.
+
+## References
+
+Barnett, M., Hsu, J. & McWilliams, M. (2015). "Patient Characteristics and Differences in Hospital Readmission Rates." JAMA Intern Med., 175(11): 1803-1812.
+
+Bhosale KH, Nath RK, Pandit N, Agarwal P, Khairnar S, Yadav B, & Chandrakar S. (2020). "Rate of Rehospitalization in 60 Days of Discharge and It's Determinants in Patients with Heart Failure with Reduced Ejection Fraction in a Tertiary Care Centre in India." Int J Heart Fail. 21;2(2):131-144.
+
+Li, Y., Cai, X. & Glance, L. (2015). "Disparities in 30-day rehospitalization rates among Medicare skilled nursing facility residents by race and site of care." Med Care, 53(12): 1058-1065.
+
+Murray, F., Allen, M., Clark, C., Daly, C. & Jacobs, D. (2021). "Socio-demographic and -economic factors associated with 30-day readmission for conditions targeted by the hospital readmissions reduction program: a population-based study." BMC Public Health, 21.
+
+Rizmie, D., Preuz, L., Miraldo, M. & Atun, R. (2022). "Impact of extreme temperatures on emergency hospital admissions by age and socio-economic deprivation in England." Social Science & Medicine, 308.
+
+Tapak, L., Maryanaji, Z., Hamidi, O., Abbasi, H. & Najafi-Vosough, R. (2018). "Investigating the effect of climatic parameters on mental disorder admissions." International Journal of Biometerology, 62, 2109-2118.
+
+Trinh, T., Feeny, S. & Posso, A. (2018). "Rainfall shocks and child health: the role of parental mental health." Climate and Development, 13(1), 34-48.
+
+Spatz, E., Bernheim, S., Horwitz, L. & Herrin, J. (2020). Community factors and hospital wide readmission rates: Does context matter? PLoS One, 15(10).
