@@ -1,0 +1,165 @@
+---
+title: "DACSS-603 Final Project"
+author: Katie Popiela
+editor: visual
+---
+
+```{r,echo=TRUE}
+library(poliscidata)
+library(ggplot2)
+library(tidyverse)
+library(stats)
+library(haven)
+library(dplyr)
+library(tidyselect)
+```
+
+## Introduction and Background Info on Data
+
+The internet has become incredibly divisive in almost every way and unprecedented issues have arisen as a result. For instance, how much access should be granted to your personal files/information via websites and apps? Or, what is acceptable content for the internet, can it be appropriately regulated, and how?  My focus, however, is on the impacts of internet usage on politics - specifically on how internet usage affects people's confidence in their political system. This is a global phenomenon, especially with the rise of alt-right social media and the (continued) devolution of websites like 4chan. But how exactly does a person's internet usage affect their perception of politics? Is there a relationship between where people get their political news and how they then feel about it? Additionally, is there a relationship between how the news is presented (with volatility or neutrality, for example) and how people react to subsequent political decisions and/or political issues?
+
+In this project I will be using two datasets; the first is 'internet_political_trust.' I found this data through the Harvard Dataverse and it's replication data for a project entitled "The Internet, Political Trust, and Regime Types: A Cross-National and Multilevel Analysis." The authors, Yu You and Zhengxu Wang, focused on the power of the internet in the political sphere - namely, how civilians can use the internet to incite regime change (either improving the current regime or toppling it and installing a new one). And part of that is tracking how internet use affects people's trust in governmental bodies. 
+
+NOTE: I have chosen to present summary statistics as they more concisely convey general information about the data than a tibble or table would.
+
+Since this project will only focus on how internet use impacts political trust (and not the civil/political unrest that can stem from it), I will only be looking at a few specific variables:
+      1) 'TrustGovernment' - measures people's trust in their government on a scale of 1 to 4 with one being no trust and 4 being full trust.
+      2) 'InternetUse-freq' - rates how often people use the internet on a scale of 1 to 5: 1 = Never, 2 = Less than Monthly,  3 = Monthly, 4 = Weekly, 5 = Daily
+      3) 'TraditionalMedia' - measures how often respondents consume traditional media (radio, newspapers, TV, etc.) on a scale of 1 to 5: 1 = Never, 2 = Less than Monthly,  3 = Monthly, 4 = Weekly, 5 = Daily
+      4) 'PoliticalTrust' - measures respondents' sense of trust in their political system on a scale of 1 to 5 (with decimals), with one being no trust and 5 being full trust.
+
+Most of my attention will be on variables 1, 2, and 4, but I'm including variable 3 to see if there's a similar or opposing relationship between 'TraditionalMedia' and 'PoliticalTrust.'
+
+```{r,echo=TRUE}
+internet_political_trust <- read_dta("C:/Users/katpo/Desktop/603 FALL 2022/DACSS-603 F22/posts/KPopiela Final p1 data files/InternetUes&PoliticalTrust-final.dta")
+internet_political_trust <- internet_political_trust %>%
+  select(TrustGovernment,q223_InternetUse,q02_traditional_media,q01_politicalTrust_7) %>%
+  rename("InternetUse_freq" = "q223_InternetUse",
+         "TraditionalMedia" = "q02_traditional_media",
+         "PoliticalTrust" = "q01_politicalTrust_7")
+summary(internet_political_trust)
+```
+
+The second dataset I will be using is the 'world' dataset from R-package 'poliscidata.' This dataset is massive, with 103 variables and 167 rows and it includes data from multiple other sources, such as the UN, World Values Survey, and the CIA. Although it is not as specific as the previous dataset, it does still provide necessary - and general - data for comparison as it's essentially a compilation of global political and economic data. And similar to the first dataset, I will be using a select few variables here as well: 
+    1) 'InternetUse' - measures the number of internet users per 100 people
+    2) 'Confidence_inGovt' - measures citizens' confidence in their country's political institutions; 0-100 scale with decimals
+    3) 'Govt_Effectiveness' - measures citizens' perception of how effective their government is; scaled 0-100 with decimals
+    
+Once again I will be giving certain variables more time and weight than others. In this case I will be focusing more heavily on 'InternetUse' and 'Confidence_inGovt' than 'Govt_Effectiveness'. I will be using the final variable more as a means of confirming or denying political trust since government effectiveness/legitimacy is dependent on its subjects' confidence in it.
+
+```{r,echo=TRUE}
+world_InternetUse <- world %>%
+  select(unnetuse, confidence, effectiveness) %>%
+  rename("InternetUse" = "unnetuse",
+         "Confidence_inGovt" = "confidence",
+         "Govt_Effectiveness" = "effectiveness")
+```
+
+## Research Question and Hypothesis
+
+My focus in this project is the impact(s) of internet usage on political trust. I don't have a geographic limitation or filter on the data since the phenomenon of cyber-politics is not specific to one country or region.  Whether it be through neutral journalism, activism, whistle-blowing, or misinformation, the internet has a substantial hold on the political sphere. In fact, Stanford professor Evgeny Morozov writes, the internet's impact on politics "will depend on individual conditions" such as a given country's political atmosphere (peaceful, volatile, conservative, liberal, etc.), ease of access to the internet, and how united a population is either in favor or against their current government ("The Internet, Politics and the Politics of Internet Debate"). So what *is* the relationship between online media exposure (news, podcasts, social media, etc) and how individuals perceive their politicians/political institutions? 
+
+Given what has happened in the United States alone since the 2016 election, there obviously is some kind of connection between what is circulated online and the public's perception of politics. And given the very fact that the January 6th insurrection occurred shows that there are serious consequences not only to what is posted on the internet, but also what people *believe* from the media they are exposed to. Sheera Frenkel, a cybersecurity reporter for The New York Times , wrote an article about this exact topic in the immediate aftermath of the insurrection. Frenkel interviewed Stanford Internet Observatory researcher, Renee DiResta, who stated that the violence on January 6, 2021 was the "result of online movements operating in closed social media networks where people believed the claims of voter fraud and of the election being stolen from Mr. Trump" ("The storming of Capitol Hill was organized on social media", 2021). While many of the social media interactions involved in this scenario did not take place on mainstream social media - far-right social media platorms, Gab and Parler, as well as QAnon were used by participants - the premise is just the same: large-scale event planning on the internet. Furthermore, the separation of these far-right social media platforms from mainstream ones such as Twitter and Facebook has a major impact on which versions of neutral news and information that people are exposed to. Gab and Parler in particular were founded by and for people whose opinions were not accepted on mainstream platforms; why would they allow contradictory/liberal viewpoints when that's the reason the platform exists in the first place? With this in mind, let's get to my hypothesis.
+
+I do not think that the relationship itself between internet usage and political trust is in question; there are numerous examples of social media being used to plan everything from small-scale protests to country-wide instances of civil unrest. Therefore, I hypothesize that when internet use rates are high enough (weekly, daily), then political trust declines, but with the caveat that not every person who uses the internet is involved or interested in politics. I do not foresee this being an issue given that the data I will be using specifically asked about internet usage and political trust/confidence.
+
+## Descriptive Statistics and Hypothesis Testing
+
+I'm going to start this section with a presentation of some descriptive statistics.
+
+```{r,echo=TRUE}
+summary(internet_political_trust)
+```
+
+In the first dataset, 'internet_political_trust', all variables are scaled out of either 4 or 5. While each variable has a substantial amount of NA responses (the lowest amount is 2456 for 'TrustGovernment'), there are no serious outliers within any variable. Regardless of scale (4 or 5) the biggest gap between the 3rd quantile and maximum values is 1.153 (3rd quantile = 2.857 in 'PoliticalTrust') and that's not horribly far off from the max value of 4.000. All minimum values are 1.000, the 1st quantile values range from 1.000 to 2.750; mean and median values have the biggest range. The variable with the biggest range in these values is 'InternetUse_freq' with a median value of 2.000 and a mean value of 2.682. The smallest range is either 'TraditionalMedia' or 'PoliticalTrust' at -0.143 and 0.08 respectively. Additionally, with a relatively general glance, you can see that the mean and median values are, for the most part, at the mid-point in between the minimum and maximum values.
+
+```{r,echo=TRUE}
+summary(world_InternetUse)
+```
+
+While the max values in 'world_InternetUse' don't completely reflect this, the above variables are on a 1-100 scale. There are far fewer NA responses (the highest number of A's is 99 in this dataset compared to 8892 in the previous). Since the scale is much larger, the descriptive values have a wider range. Unlike the previous dataset, the mean and median values here are not solidly at the mid-point between the minimum and maximum values. For instance, the variable 'InternetUse' has a minimum value of 0.00, and a maximum value of 87.70, but mean and median values of 18.65 and 26.78 respectively. 
+
+```{r,echo=TRUE}
+ggplot(data=internet_political_trust, aes(x=InternetUse_freq,y=PoliticalTrust)) + geom_jitter()
+```
+
+```{r,echo=TRUE}
+ggplot(data=world_InternetUse, aes(x=Confidence_inGovt,y=InternetUse)) + geom_point() 
+```
+
+The former graph visualizes that 'internet_political_trust' dataset and the latter represents 'world' dataset from the poliscidata package in R. Unlike my hypothesis, which predicted that an increase in internet use results in a decrease in political trust, these visualizations show almost no positive or negative relationship between the two variables Furthermore, the 'internet_political_trust' graph indicates that most respondents either rarely use the internet or consistently use it, but again, with no linear relationship as the points are relatively concentrated in the middle horizontally (average amount of political trust). The 'world_InternetUse' graph, by comparison, is much less densely populated, but does not show any relation between internet use and confidence in government.
+
+These middle-of-the-road plot points, while contrary to my hypothesis, do make sense. Political extremism (far-right and far-left political beliefs) is very prevalent in the media. It's shocking, it's jarring, and it brings on feelings of fear and uncertainty. I do also want to make clear that I am not minimizing political extremism; it's extremely dangerous. Look at the 2017 'Unite the Right' rally that occurred in Charlottesville, Virginia. Hundreds of people showed up in support of white-supremacy, organizers used far-right media platforms to garner a noticeable public presence, and they engaged in acts of violence against counter-protesters. That being said, however, only a few dozen participants have faced consequences. In a civil lawsuit filed by some of those injured in the rally's violence, lawyers presented "chatroom exchanges and social media postings of the rally's main planners, including some peppered with racial epithets and talk of 'cracking skulls' of anti-far-right counter-protesters" ("Charlottesville trail: white nationalists 'celebrated' violence, lawyers say," The Guardian). But actions such as these are not representative of the majority of Americans. Most people, conservative or liberal, do not want to harm their fellow humans. Most people, inherently, view life and inter-personal respect as something important. So then, how does this relate to internet use and political trust? The data I am using in this project speak more toward the general status quo, not instances of civil and political instability. Most of the time people are not using the internet and social media to plan massive protests or incite instability to weaken their government; they are just using the internet, engaging in activities such as posting pictures of their families, looking up recipes or memes, and looking at the news. I unfortunately was not able to find any datasets that include both internet use and civil/political unrest as variables, so I cannot present that data here. However, I did find articles which used datasets of a similar caliber. One such article is "Broadband internet and protests: Evidence from the Occupy movement" by Guilherme Amorim, Rafael Costa Lima, and Breno Sampaio, which focuses on how frequently the internet was used in (and since) the Occupy Wall Street protests in 2011. The 2022 article states that during the US's Occupy Movement "each new Internet Service Provider...accounts for an increase between 1 and 3 p.p.in the probability of observing protests in a given location" (Amorim, et al. 2022). The researchers involved also state that social and political interactions have changed drastically in the past decade or so as a "result of the communication revolution" (i.e. the introduction and rapid development of the internet and social media). They state that internet usage has increased globally at a rate between "2.78% and 7.40% per year", and with that has come a rapid dissemination of social and political information worldwide (Amorim, et al. 2022). Amorim, et. al. do concede, however, that "there is still insufficient evidence on the relation between access to the internet and the emergence of protests."
+
+With all of this in mind, let's see if the graphs change at all during model comparison and diagnostic testing. 
+
+## Model Comparison and Diagnostics 
+
+First I am going to present a linear regression model of each dataset.
+
+```{r,echo=TRUE}
+ggplot(internet_political_trust, aes(x=InternetUse_freq,y=PoliticalTrust)) + geom_smooth() + stat_smooth(method="lm",col="blue")
+```
+
+Visualized as a linear regression model, the data now supports my initial hypothesis! It shows that as internet use increases, political trust decreases. The linearity assumption is met
+
+```{r,echo=TRUE}
+par(mfrow=c(2,3))
+plot(internet_political_trust)
+```
+
+I do not find this plot particularly useful, I am just including it because I found it useful for the other dataset.
+
+```{r,echo=TRUE}
+internet_PT_log <- lm(log(InternetUse_freq)~log(PoliticalTrust), data=internet_political_trust)
+par(mfrow=c(2,3))
+plot(internet_PT_log)
+```
+
+
+```{r,echo=TRUE}
+internet_PT_lm <- lm(PoliticalTrust~InternetUse_freq+TrustGovernment, data=internet_political_trust)
+summary(internet_PT_lm)
+```
+
+```{r,echo=TRUE}
+ggplot(world_InternetUse, aes(x=InternetUse,y=Confidence_inGovt)) + geom_smooth() + stat_smooth(method="lm",col="red")
+```
+
+This regression model, however, is quite interesting. The blue line shows that people's confidence in government decreases as they reach average/mean internet use, but that it increases again as internet use approaches its maximum value. This indicates that people who use the internet an average amount have the least confidence in government. This means that the blue line violates the linearity assumption since it is u-shaped rather than straight. The linear regression line (red), however, indicates that confidence in government slightly decreases as internet use increases and does not violate the linearity assumption.
+
+```{r,echo=TRUE}
+par(mfrow=c(2,3))
+plot(world_InternetUse)
+```
+
+```{r,echo=TRUE}
+worldInternet_log <- lm(log(InternetUse)~log(Confidence_inGovt)+log(Govt_Effectiveness), data=world_InternetUse)
+par(mfrow=c(2,3))
+plot(worldInternet_log)
+```
+
+```{r,echo=TRUE}
+confidence_lm <- lm(Confidence_inGovt~InternetUse+Govt_Effectiveness, data=world_InternetUse)
+summary(confidence_lm)
+```
+
+
+## Bibliography
+
+1) Frenkel, Sheera. “The Storming of Capitol Hill Was Organized on Social Media.” The New York Times, The New York Times, 6 Jan. 2021, https://www.nytimes.com/2021/01/06/us/politics/protesters-storm-capitol-hill-building.html?smid=url-share. 
+
+2) You, Yu; Zhengxu Wang, 2019, "Replication Data for: The Internet, Political Trust, and Regime Types: A Cross-National and Multilevel Analysis", https://doi.org/10.7910/DVN/OMQMHS, Harvard Dataverse, V1, UNF:6:CqAdSTwR4V2IYKxs8L/Bog== [fileUNF]
+
+3) Morozov, Evgeny. “The Internet, Politics, and the Politics of Internet Debate.” MIT Technology Review, MIT Technology Review, 2 Apr. 2020, https://www.technologyreview.com/2014/12/03/170219/the-internet-politics-and-the-politics-of-internet-debate/. 
+
+4) Andrea Ceron, Internet, News, and Political Trust: The Difference between Social Media and Online Media Outlets, Journal of Computer-Mediated Communication, Volume 20, Issue 5, 1 September 2015, Pages 487–503, https://doi.org/10.1111/jcc4.12129
+
+5) “Charlottesville Trial: White Nationalists 'Celebrated' Violence, Lawyers Say.” The Guardian, Guardian News and Media, 19 Nov. 2021, https://www.theguardian.com/us-news/2021/nov/19/charlottesville-trial-white-nationalists-celebrated-violence-lawyers-say. 
+
+6) Guilherme Amorim, Rafael Costa Lima, Breno Sampaio, “Broadband internet and protests: Evidence from the Occupy movement,” Information Economics and Policy, Volume 60, 2022, 100982, ISSN 0167-6245, https://doi.org/10.1016/j.infoecopol.2022.100982
+
+7) “The Rise of Political Violence in the United States.” Journal of Democracy, https://www.journalofdemocracy.org/articles/the-rise-of-political-violence-in-the-united-states/. 
+
+8) Costa Lima, Rafael, et al. “Broadband Internet and Protests: Evidence from the Occupy Movement.” Information Economics and Policy, North-Holland, 23 June 2022, https://www.sciencedirect.com/science/article/abs/pii/S016762452200021X#preview-section-snippets. 
+
