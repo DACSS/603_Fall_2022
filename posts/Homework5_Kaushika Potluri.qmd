@@ -1,0 +1,140 @@
+---
+title: "Homework5_Kaushika Potluri"
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(MPV)
+library(alr4)
+library(smss)
+```
+
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+data(house.selling.price.2)
+house.selling.price.2
+```
+
+# A 
+For backward elimination, you fit a model using all possible explanatory values to predict the output. Then one by one, you delete the least significant explanatory variable in the model, which would have the largest p-value. In this example, we would delete Beds first, which has a p-value of 0.487.
+
+# B
+With forward selection, you begin with no explanatory variables, then add one variable at a time to the model. The variable you add should be the most significant one, based on it having the lowest P-value of the group of possible explanatory variables. In this example, the first variable to add to the model is Size, given its extremely small p-value < 2e-16.
+
+# C
+While the variable Beds does have a strong correlation with price, when adding additional variables using a regression model, the relationship significantly diminishes, thus the other variables may act as a control on the bed variable.
+
+# D
+```{r}
+summary(lm(P ~ S, data = house.selling.price.2))
+```
+
+```{r}
+summary(lm(P ~ S+New, data = house.selling.price.2))
+```
+
+```{r}
+summary(lm(P ~ ., data = house.selling.price.2))
+```
+
+```{r}
+summary(lm(P ~ . -Be, data = house.selling.price.2))
+```
+
+```{r}
+summary(lm(P ~ . -Be -Ba, data = house.selling.price.2))
+```
+
+# a. R^2
+As expected, the model with the most explanatory variables has the highest R-squared value at 0.8689. Therefore, if you were to select a model solely based on maximizing the R-squared value, it would be: ŷ = -41.79 + 64.76(Size) - 2.77(Beds) + 19.2(Baths) + 18.98(New).
+
+
+# b. Adjusted R^2
+However, if you were to select a model based on adjusted R-squared, the best model for predicting selling price would exclude Beds and use Size, Baths, and New as explanatory variables. The adjusted R-squared value see a slight increase when Beds is removed (from 0.8629 to 0.8637). The model would be: ŷ = -47.99 + 62.26(Size) + 20.07(Baths) + 18.37(New).
+
+# c PRESS
+```{r}
+PRESS(lm(P ~ ., data = house.selling.price.2))
+
+```
+
+```{r}
+PRESS(lm(P ~ . -Be, data = house.selling.price.2))
+```
+When considering PRESS, a smaller PRESS value indicates a better predictive model. Comparing the PRESS value of the model with all variables and the model excluding Bed, the PRESS values would lead us to select the model with Size, Baths, and New as variables for predicting selling price.
+
+d. AIC
+```{r}
+AIC(lm(P ~ ., data = house.selling.price.2))
+```
+
+```{r}
+AIC(lm(P ~ . -Be, data = house.selling.price.2))
+```
+
+When considering the AIC for both models, the value is slightly lower for the model that excludes Bed as a variable. Therefore, the AIC would lead us to use the model with Size, Baths, and New as explanatory variables to predicting selling price.
+
+e. BIC
+
+```{r}
+BIC(lm(P ~ ., data = house.selling.price.2))
+```
+
+```{r}
+BIC(lm(P ~ . -Be, data = house.selling.price.2))
+```
+
+Lastly, like AIC, the BIC value is lower for the model that excludes Bed as a variable. Once again, we’d select the model that uses Size, Baths, and New as explanatory variables to predict selling price.
+
+# E
+Given the results from the various criteria above, the model I would prefer to use to predict selling price is that which excludes Bed and includes Size, Bath, and New as variables: ŷ = -41.79 + 64.76(Size) - 2.77(Beds) + 19.2(Baths) + 18.98(New). This is because each of the criterion indicate this model as slightly stronger in its predictive power than the model that includes all variables except R-squared, which cannot be used alone to determine model strength.
+
+#Question 2
+```{r}
+data("trees")
+trees
+```
+
+## A
+```{r}
+model <- lm(Volume ~ Girth + Height, data = trees)
+summary(model)
+```
+## B
+```{r}
+par(mfrow = c(2, 3)); plot(model, which = 1:6)
+
+```
+Based on the residuals vs. fitted values plot, the central points appear to roughly bounce randomly above and below 0, but the lowest and highest point appear to be very influential residuals. The red line should be flat along 0 horizontally, but it is U-shaped. This curvature may suggest a violation in the linearity assumption. With the normal Q-Q plot, it’s difficult to confidently say that the assumption of normality appears to be violated. The points generally run along the trend-line, but they do deviate above the line for the higher points. It’s a noteworthy deviation, but it’s difficult to make a certain decision based on the plot. In the scale-location plot, the line is not horizontal, thus suggesting a violation in the assumption of constant variance. Cook’s distance suggests that the 31st observation is above the threshold, meaning it is too influential as one observation.
+
+# Question 3
+```{r}
+data("florida")
+florida
+```
+## A
+```{r}
+model <- lm(formula = Buchanan ~ Bush, data = florida)
+summary(model)
+```
+```{r}
+par(mfrow = c(2, 3)); plot(model, which = 1:6)
+```
+Based on the diagnostic plots, Palm Beach County is an outlier. First, when looking at the residuals vs fitted plot, the Palm Beach County residual is very large. When referring to the summary of the simple regression model, the third quartile for residuals is 12.26, yet the max is 2610.19. This is a significant jump and indicative of the value being an outlier. The normal Q-Q plot also indicates that the residuals for the model are generally normal except for the Palm Beach County residual, as it greatly deviates from the line in the plot. The Cook’s distance plot shows two points that may be of concern as outliers if you follow the metric of observations scoring over 1, which are DADE and Palm Beach at about 2. The residuals and leverages plot shows the Palm Beach County standardized residual value beyond the dashed line indicating Cook’s distance. This also suggests that the observation is an outlier and the observation has the potential to influence the regression model.
+
+## B
+```{r}
+model <- lm(formula = log(Buchanan) ~ log(Bush), data = florida)
+summary(model)
+```
+
+```{r}
+par(mfrow = c(2, 3)); plot(model, which = 1:6)
+```
+Based on the diagnostic plots, Palm Beach County is still an outlier. First, when looking at the residuals vs fitted plot, the Palm Beach County residual is still very large. The normal Q-Q plot also indicates that the residuals for the model are generally normal except for the Palm Beach County residual, as it greatly deviates from the line in the plot. The Cook’s distance plot shows that may be of concern as outlier if you follow the metric of observations scoring over 0.2, which is Palm Beach at about 0.3. The residuals and leverages plot shows the Palm Beach County standardized residual value beyond the dashed line indicating Cook’s distance. This also suggests that the observation is an outlier and the observation has the potential to influence the regression model.
+
+
