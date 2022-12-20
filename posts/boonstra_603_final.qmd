@@ -1,0 +1,562 @@
+---
+title: "Assessing the effects of turnout and cost of voting on partisan outcomes in American Presidential elections"
+author: "Nicholas Boonstra"
+date: "December 20, 2022"
+format: html
+---
+
+```{r}
+#| label: setup
+#| echo: false
+
+library(tidyverse)
+library(readxl)
+library(plm)
+library(lmtest)
+library(sandwich)
+library(stargazer)
+
+knitr::opts_chunk$set(echo = F)
+```
+
+# Introduction
+
+It is no secret that American elections are currently facing high levels of skepticism, scrutiny, and distrust. Claims of fraud have worked their way through the body politic and convinced a number of individuals that the results of the 2020 election were illegitimate. Conservative political elites, most prominently in the case of Georgia, have seized on this moment to win passage of restrictive bills in the name of electoral security, touching many aspects of voting access including voter ID laws, early voting, and registration.
+
+It should, perhaps, come as no surprise that this wave of electoral skepticism coincides with record-breaking levels of electoral turnout. As more people show up to vote, it makes some sense that individuals may be concerned as to how well the electoral system is scaling up. It may also be the case that certain individuals or groups may not welcome increased turnout from certain other individuals or groups. This is especially important in the context of partisan turnout bias, the purported phenomenon of Democrats benefitting from increases in voter turnout. Whether or not this phenomenon truly does occur has been argued for decades in the political science literature (e.g. DeNardo 1980, Tucker Vedlitz and Denardo 1986, Shaw and Petrocik 2020), but belief in its existence has become more popular in the public mind since the Obama era (e.g. Epstein 2021). Among academics, however, a consensus has hardly been reached as to whether or not turnout truly does benefit Democrats. Shaw and Petrocik (2020), a recent and substantial contribution to the literature, argues strongly against the phenomenon. One of the central theoretical components to their argument is the proposition that, contrary to much of the literature, there is no reason to believe that an individual's decision to turn out to vote and their vote choice are endogenous. This removes any potential causal mechanism that would link turnout to a partisan advantage. To their credit, they do bring large swathes of empirical data to bear on their argument as well.
+
+However, this study takes issues with Shaw and Petrocik's argument that turnout and vote choice are not endogenous. This study, rather, takes the perspective that the cost of voting that an individual or group faces is a key component to whether or not they vote, and also provides a mechanism by which this turnout factor and vote choice can be endogenous. If we suppose for the sake of argument that certain individuals do face higher costs to voting than others, it would make sense from a rational-actor perspective for these individuals, all other things being equal, to support a political party that would seek to lower these costs and open up voting opportunities to such disenfranchised individuals. It is not controversial to say that, between the two major parties, the Democrats have been the ones to posture themselves as the party in favor of reducing the cost of voting, particularly for those who face more restrictions to the franchise; in the last century, the most significant shakeup to the party system came as a result of the Democrats' support of the Civil Rights Movement, with the Voting Rights Act of 1965 being one of the single most significant legislative aspects of this support. It also should not be controversial to argue that certain individuals and indeed groups seem to face higher costs to voting than others in the United States, largely along the lines of class/socioeconomic status and race/ethnicity. Thus, it can be argued:
+
+-   that individuals who face higher barriers to voting than others could be motivated to support the Democratic Party by virtue of those very restrictions that they face;
+
+-   that, by virtue of these restrictions, these individuals would make up a peripherial group of voters, needing to overcome not only personal decision-making but also external obstacles in order to vote;
+
+-   that, assuming core voters are already likely to vote in most elections, an increase in turnout in a given election would be likely to draw from peripheral voters; and,
+
+-   thus, an increase in turnout in a given election would draw in part from a group of peripheral voters inclined to vote Democrat and would thus benefit Democrats.
+
+The hypothesis tested by this study, then, is as follows:
+
+$H_1$: Higher turnout will benefit Democrats in state-level Presidential elections.
+
+# Design
+
+This study utilizes data on United States Presidential elections obtained from the MIT Elections Lab; raw data includes vote totals for candidates in each of the 50 states and the District of Columbia from 1976 to 2020, while the final cleaned dataset counted votes by party rather than by candidate. Turnout data was obtained from the United States Elections Project for electons from 1980 to 2020. Additionally, because the underlying theory behind this study relies heavily on the concept of the cost of voting, data from the Cost of Voting Index (COVI) project was also utilized in this study; COVID-adjusted values were used for 2020 elections, and raw values were used for all other elections. COVI data was only available from 1996 to 2020, and unfortunately hasnot yet been made available for the District of Columbia. All data was obtained in October 2022.
+
+The primary mechanism used for testing the hypothesis was a two-way fixed effects linear regression model testing Democratic vote share against turnout rate. The two-way nature of the model specifies that the model controls for both state-level and time fixed effects. Controls were added for COVI values, other cost-of-voting-related metrics (namely: the rate of the state's population ineligible due to felony conviction, and the rate of the state's population that are not citizens), and logged state population size. For comparison, a pooled linear model will also be shown for comparison, as a demonstration of why the fixed-effects model is used. Additionally, a logistic regression model controlling for state-level fixed effects is included testing a binary variable for Democratic victory against turnout rate, with the same controls. Lastly, a two-way fixed effects model is included that tests turnout rate itself against the controls added for cost of voting and population size.
+
+It should be said that these models fall short of perfection in a number of ways. For one, a case could be made for using a random-effects as opposed to a fixed-effects model, as the latter assumes a uniform effect across states and only allows for a change in intercept. While I believe a random-effects model could be useful in future study, fixed-effects models have been employed in the study of this question in the past - in Shaw and Petrocik (2020), to name one - and are a useful tool in assessing the impact of the specific phenomenon of voter turnout on partisan outcomes. Separately, and perhaps more seriously, a number of traditional controls are missing from the analysis, such as those for incumbency and economic factors leading up to the election. These were excluded primarily as a matter of time and access to data, but would also make useful contributions to future study. Lastly, COVI data, while valuable, was limiting, preventing any data from DC or from elections prior to 1996 from being included in the models that control for cost of voting. The values themselves could also be potentially endogenous with a state's partisan lean (i.e. a "red" state might be more likely to pass voter ID laws in the first place, rather than voter ID laws causing a decrease in votes for Democrats), and, while a fixed-effects model should help to control for state-level partisan effects, future research may benefit from analyzing *election-over-election changes in* COVI values in addition to the values themselves.
+
+# Results
+
+```{r}
+#| label: read in
+
+# elections read in
+elections_read <- read_csv("_data/mit_election_1976_2020.csv")
+
+elections_read <- elections_read %>% 
+  mutate(party_simplified=str_to_lower(party_simplified)) %>% 
+  mutate(state=str_to_title(state)) %>% 
+  group_by(party_simplified,state,year) %>% 
+  summarise(votes=sum(candidatevotes)) %>% 
+  ungroup() %>% 
+  pivot_wider(
+    names_from = party_simplified,
+    values_from = votes,
+    values_fill = 0
+  ) %>% 
+  mutate(third = libertarian + other) %>% 
+  select(!c(libertarian,other)) %>% 
+  mutate(totvotes = democrat + republican + third) %>% 
+  mutate(dem_rate = democrat/totvotes) %>% 
+  mutate(rep_rate = republican/totvotes) %>% 
+  mutate(third_rate = third/totvotes)
+
+# turnout
+
+# 1980 to 2012
+turnout <- read_excel("_data/1980-2014 November General Election.xlsx",skip=1)
+
+turnout <- turnout %>% 
+  rename("year" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("state" = 4) %>% 
+  rename("totballots_vep_rate" = 5) %>% 
+  rename("highestoff_vep_rate" = 6) %>% 
+  rename("highestoff_vap_rate" = 7) %>% 
+  rename("totballots_count" = 8) %>% 
+  rename("highestoff_count" = 9) %>% 
+  rename("vep_count" = 10) %>% 
+  rename("vap_count" = 11) %>% 
+  rename("noncitizen_vap_rate" = 12) %>% 
+  rename("prison_count" = 13) %>% 
+  rename("probation_count" = 14) %>% 
+  rename("parole_count" = 15) %>% 
+  rename("totfelon_count" = 16) %>% 
+  rename("skip17" = 17) %>% 
+  select(!contains("skip")) %>% 
+  mutate("totfelon_vap_rate" = (totfelon_count/vap_count)*100)
+
+
+# 2016
+turnout_2016 <- read_excel("_data/2016 November General Election.xlsx",skip=1)
+
+turnout_2016 <- turnout_2016 %>% 
+  mutate(year=2016) %>% 
+  rename("state" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("totballots_vep_rate" = 4) %>% 
+  rename("highestoff_vep_rate" = 5) %>% 
+  rename("highestoff_vap_rate" = 6) %>% 
+  rename("totballots_count" = 7) %>% 
+  rename("highestoff_count" = 8) %>% 
+  rename("vep_count" = 9) %>% 
+  mutate(vep_count=floor(vep_count)) %>% 
+  rename("vap_count" = 10) %>% 
+  rename("noncitizen_vap_rate" = 11) %>% 
+  rename("prison_count" = 12) %>% 
+  rename("probation_count" = 13) %>% 
+  rename("parole_count" = 14) %>% 
+  rename("totfelon_count" = 15) %>% 
+  mutate(totfelon_count = floor(totfelon_count)) %>% 
+  rename("skip16" = 16) %>% 
+  rename("abbrev" = 17) %>% 
+  select(!contains("skip")) %>% 
+  mutate("totfelon_vap_rate" = (totfelon_count/vap_count)*100) 
+
+elections_read <- turnout_2016 %>% 
+  select(c(state,abbrev)) %>% 
+  right_join(elections_read)
+
+turnout_2016 <- turnout_2016 %>% 
+  select(!contains("abbrev"))
+
+
+# 2020
+turnout_2020 <- read_excel("_data/2020 November General Election.xlsx",skip=1)
+
+turnout_2020 <- turnout_2020 %>% 
+  mutate(year=2020) %>% 
+  rename("state" = 1) %>% 
+  rename("skip2" = 2) %>% 
+  rename("skip3" = 3) %>% 
+  rename("totballots_count" = 4) %>% 
+  rename("highestoff_count" = 5) %>% 
+  rename("totballots_vep_rate" = 6) %>% 
+  rename("highestoff_vep_rate" = 7) %>% 
+  rename("vep_count" = 8) %>% 
+  mutate(vep_count = floor(vep_count)) %>% 
+  rename("vap_count" = 9) %>% 
+  mutate(vap_count = floor(vap_count)) %>% 
+  mutate(highestoff_vap_rate = highestoff_count/vap_count) %>% 
+  rename("noncitizen_vap_rate" = 10) %>% 
+  rename("prison_count" = 11) %>% 
+  rename("probation_count" = 12) %>% 
+  rename("parole_count" = 13) %>% 
+  rename("totfelon_count" = 14) %>% 
+  mutate(totfelon_count = floor(totfelon_count)) %>% 
+  mutate(totfelon_vap_rate = (totfelon_count/vap_count)*100) %>% 
+  rename("skip15" = 15) %>%
+  rename("skip16" = 16) %>% 
+  select(!contains("skip")) %>% 
+  mutate(state = str_replace(state, "[*]", ""))
+
+
+# putting it all together
+turnout <- turnout %>% 
+  bind_rows(turnout_2016) %>% 
+  bind_rows(turnout_2020) %>% 
+  mutate(state=str_to_title(state))
+
+elections_read <- elections_read %>% 
+  left_join(turnout)
+
+
+# COVI
+
+covi <- read_excel("_data/COVI Values 1996-2022 website.xlsx",
+                   skip=1,
+                 col_types=c(
+                   "skip","text","numeric","skip","skip","numeric","skip","numeric","skip","skip","skip"),
+                 col_names=c(
+                   "abbrev","year","covi_val","covi_covid"
+                 ))
+
+covi <- covi %>% 
+  filter(year<2022) %>% 
+  mutate(covi_covid = case_when(
+    year == 2020 ~ covi_covid,
+    T ~ covi_val
+  ))
+
+elections_read <- elections_read %>% 
+  left_join(covi) %>% 
+  select(!abbrev)
+
+
+# finalize
+
+elections <- elections_read %>% 
+  arrange(state,year) %>% 
+  mutate(state = as_factor(state)) %>% 
+  mutate(year = as_factor(year)) %>% 
+  mutate(dem_win = case_when(
+    democrat > republican & democrat > third ~ 1,
+    T ~ 0
+  )) %>% 
+  mutate(dem_rate = dem_rate * 100) %>% 
+  mutate(rep_rate = rep_rate * 100) %>% 
+  mutate(third_rate = third_rate * 100) %>% 
+  mutate(totballots_vep_rate = totballots_vep_rate * 100) %>% 
+  mutate(highestoff_vep_rate = highestoff_vep_rate * 100) %>% 
+  mutate(highestoff_vap_rate = highestoff_vap_rate * 100) %>% 
+  mutate(noncitizen_vap_rate = noncitizen_vap_rate * 100)
+
+```
+
+## Visualizations
+
+```{r}
+#| label: visualizations
+
+statelevel_plot <- elections %>%  
+  ggplot(aes(x=highestoff_vap_rate,y=dem_rate)) +
+  geom_point() +
+  geom_smooth(method=lm,se=F) +
+  facet_wrap(vars(state)) +
+  theme_linedraw() +
+  labs(
+    title = "Turnout Rates and Democratic Vote Share",
+    subtitle = "U.S. Presidential Elections by State*, 1980-2020",
+    x = "Turnout Rate (%VAP)",
+    y = "Democratic Vote Share (% of votes cast)",
+    caption = "*Includes Washington, DC"
+  )
+statelevel_plot
+
+covi_plot <- elections %>% 
+  filter(state!="District Of Columbia") %>% 
+  ggplot(aes(x=covi_covid,y=dem_rate)) +
+  geom_point() +
+  geom_smooth(method=lm,se=F) +
+  facet_wrap(vars(state)) +
+  theme_linedraw() +
+  labs(
+    title = "Cost of Voting Index Values and Democratic Vote Share",
+    subtitle = "U.S. Presidential Elections by State*, 1996-2020",
+    x = "Cost of Voting Index",
+    y = "Democratic Vote Share (% of votes cast)",
+    caption = "*Excludes Washington, DC"
+  )
+covi_plot
+```
+
+![State-by-state plots of Democratic vote share against %VAP Turnout](images/boonstra_state_plots.png)
+![State-by-state plots of Democratic vote share against Cost of Voting Index values](images/boonstra_covi_plots.png)
+
+(Duplicate PNG images are included for higher resolution visibility.)
+
+The above plots provide a state-by-state breakdown of the relationships between turnout rate or Cost of Voting Index (COVI) values, and Democratic vote share. While there is hardly any uniform effect, a number of states exhibit a positive relationship between turnout rate and Democratic vote share, supporting $H_1$. Additionally, a number of states exhibit a negative relationship between COVI values and Democratic vote share, lending initial support to the idea that cost of voting and voting access may be the underlying mechanisms behind why a relationship between turnout rate and Democratic vote share might exist.
+
+## Pooled Linear Model
+
+We will begin by briefly assessing a pooled linear model and identifying the reasons why a fixed-effects model is more appropriate for the panel data at hand.
+
+```{r}
+#| label: pooled
+
+pooled_vap <- lm(
+  dem_rate ~ 
+    highestoff_vap_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  data = elections
+)
+
+pooled_vep <- lm(
+  dem_rate ~ 
+    highestoff_vep_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  data = elections
+)
+
+pooled_simple_vap <- lm(
+  dem_rate ~ 
+    highestoff_vap_rate,
+  data = elections
+)
+
+pooled_simple_vep <- lm(
+  dem_rate ~ 
+    highestoff_vep_rate,
+  data = elections
+)
+
+pooled <- list(pooled_vap,pooled_vep)
+pooled_simple <- list(pooled_simple_vap,pooled_simple_vep)
+
+pooled_all <- list(pooled_simple,pooled)
+
+stargazer(pooled_all,
+          title = "Pooled (Basic OLS) Models of Democratic Vote Share Against Turnout",
+          type="text",
+          dep.var.labels = "Democratic Vote Share",
+          covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                               "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+           )
+
+par(mfrow = c(2,3)); plot(pooled_vap, which = 1:6)
+```
+
+The models shown are simple and robust OLS regression models analyzing Democratic vote share (the ratio of votes cast for Democrats to votes cast in total, expressed as a percent) against turnout rate (number of votes cast as a percent of either voting-age population \[%VAP\] or voting-eligible population \[%VEP\], a more selective but generally regarded as a more reliable measure). It should be stated that, in all models, a single "case" or observation is an election-year -- that is, Presidential election results from Alabama in 2004, or Missouri in 1980, for instance. It should also be restated that COVI values were not available for DC or for elections prior to 1996, and that models controlling for COVI will therefore have fewer observations. The diagnostic plots above correspond to the robust pooled model with %VAP turnout rate as the primary explanatory variable (model 3 in the above table).
+
+At first glance, these models appear to be promising, particularly the robust models (3 & 4) -- the effect of turnout is significant, and the R-squared and adjusted R-squared values are healthy. This certainly helps to lend preliminary credence to the notion that this study's hypothesis is supported, but the due diligence must go further.
+
+Reviewing the diagnostic plots does not immediately highlight any issues either, which is positive. It appears by the Cook's Distance plot that there are a few outliers, which is likely to be expected. Some slight irregularities in the Scale-Location plot could probably be explained away. However, knowing that this dataset is ultimately a panel dataset should make us more suspicious and lead us to test for heteroskedasticity more rigorously -- and indeed, the minuscule p-value obtained from running a Breusch-Pagan test makes abundantly clear that these data are heteroskedastic:
+
+```{r}
+#| label: heteroskedastic
+
+bptest(pooled_vap)
+```
+
+Overall, the fact that this data set consists of panel data means that a fixed-effects model will be more appropriate in interpreting and analyzing the data than a simple OLS/pooled model, which is not able to control for specific state-level or time effects the way the fixed-effects model can. What is more, the finding of heteroskedasticity suggests that a fixed-effects model on its own might not even be a fully appropriate modelling tool; for the sake of robustness, then, fixed-effects models will be re-run with clustered standard errors, and the results of both models reported below.
+
+## Fixed-Effects Models
+
+### Linear Model -- Democratic Vote Share
+
+```{r}
+#| label: plm
+
+# basic
+plm1_vap <- plm(
+  dem_rate ~
+    highestoff_vap_rate,
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm1_vap_clustered <- coeftest(plm1_vap, vcov. = vcovHC, type = "HC1")
+
+plm1_vep <- plm(
+  dem_rate ~
+    highestoff_vep_rate,
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm1_vep_clustered <- coeftest(plm1_vep, vcov. = vcovHC, type = "HC1")
+
+#robust
+
+plm3_vap <- plm(
+  dem_rate ~ 
+    highestoff_vap_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm3_vap_clustered <- coeftest(plm3_vap, vcov. = vcovHC, type = "HC1")
+
+plm3_vep <- plm(
+  dem_rate ~ 
+    highestoff_vep_rate + covi_covid +
+    totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  model = "within",
+  effect = "twoway"
+)
+plm3_vep_clustered <- coeftest(plm3_vep, vcov. = vcovHC, type = "HC1")
+
+# stargazer
+
+plm_models <- list(plm1_vap,plm1_vep,plm3_vap,plm3_vep)
+plm_models_clustered <- list(plm1_vap_clustered,plm1_vep_clustered,plm3_vap_clustered,plm3_vep_clustered)
+
+stargazer(
+  plm_models,
+  title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models",
+  type = "text",
+  dep.var.labels = "Democratic Vote Share",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+```
+
+The simplest versions of the model (1 & 2 above, using turnout as a percentage o Voting-Age Population and Voting-Eligible Population, respectively) find a significant (at the 5% significance level) positive correlation between turnout and Democratic vote share. However, the R-squared and adjusted R-squared values are very small (and even, in the case of adjusted R-squared, negative), suggesting that, if there is any effect of turnout on Democratic vote share, it may not be substantively very large. Versions 3 & 4 of the model, which factor in variables controlling for voting cost and accessibility as well as population size, start to paint a more complete picture. (In these models, population size is logged, a transformation done to help make the relationship between population size and other variables linear.) Importantly, both measures of turnout rate still have significant positive coefficients, continuing to support $H_1$.
+
+#### Clustered Standard Errors
+
+```{r}
+#| label: plm clustered se
+
+stargazer(
+  plm_models_clustered,
+  title = "Turnout Rates and Democratic Vote Share, Two-Way Fixed Effects Linear Models w/ Clustered SEs",
+  type = "text",
+  dep.var.labels = "Democratic Vote Share",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate(%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+```
+
+The above table repeats the four models found in the previous table, but calculated with clustered standard errors, to account for heteroskedasticity. It should be noted that these clustered SE models are not "right" and that the other fixed-effects models are not "wrong," but rather that each of these sets of models helps to contribute to a more complete picture of the phenomenon. With that being said, perhaps the most important finding from these clustered SE models is that the effect of turnout on Democratic vote share is no longer significant in the models with controls. However, these controls themselves do remain significant, suggesting that there may be some credence to the original theoretical argument that cost of voting and access opportunities are the underlying mechanism behind any sort of pro-Democratic turnout bias.
+
+
+
+
+### Logit Model -- Democratic Victory
+
+```{r}
+#| label: logit
+
+# basic
+
+demwin_logit_basic_vap <- glm(
+  dem_win ~ 
+    highestoff_vap_rate + state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_basic_vap_cl <- coeftest(demwin_logit_basic_vap, vcov. = vcovHC, type = "HC1")
+
+demwin_logit_basic_vep <- glm(
+  dem_win ~ 
+    highestoff_vep_rate + state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_basic_vep_cl <- coeftest(demwin_logit_basic_vep, vcov. = vcovHC, type = "HC1")
+
+# robust
+
+demwin_logit_robust_vap <- glm(
+  dem_win ~ 
+    highestoff_vap_rate + covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count) +
+    state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_robust_vap_cl <- coeftest(demwin_logit_robust_vap, vcov. = vcovHC, type = "HC1")
+
+demwin_logit_robust_vep <- glm(
+  dem_win ~ 
+    highestoff_vep_rate + covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count) +
+    state - 1,
+  family = binomial(link="logit"),
+  data = elections
+)
+demwin_logit_robust_vep_cl <- coeftest(demwin_logit_robust_vep, vcov. = vcovHC, type = "HC1")
+
+# stargazer
+
+logit_models <- list(demwin_logit_basic_vap,demwin_logit_basic_vep,demwin_logit_robust_vap,demwin_logit_robust_vep)
+logit_models_cl <- list(
+  demwin_logit_basic_vap_cl,demwin_logit_basic_vep_cl,demwin_logit_robust_vap_cl,demwin_logit_robust_vep_cl
+)
+
+stargazer(
+  logit_models,
+  type = "text",
+  omit = c(7:57),
+  dep.var.labels = "Democratic State Victory",
+  title = "Democratic State Win, State-Level Fixed Effects Logit Models",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+
+stargazer(
+  logit_models_cl,
+  type = "text",
+  omit = c(7:57),
+  title = "Democratic State Wins, State-Level Fixed Effects Logit Models w/ Clustered SEs",
+  dep.var.labels = "Democratic State Victory",
+  covariate.labels = c("Turnout Rate (%VAP)","Turnout Rate (%VEP)","Cost of Voting Index",
+                       "Ineligible Felon Rate (%VAP)","Noncitizen Rate (%VAP)","Voting-Age Population (logged)")
+)
+```
+
+Logit models were included that tested a binary variable for whether or not a Democratic candidate won a given election against turnout rate and the same controls as above. Once again, turnout rate has a significant effect (in both the basic and clustered SE models) on Democratic victory, but this effect starts to come into question in the multivariate models. Interestingly, noncitizen rate (percent of the Voting-Age Population that is ineligible to vote due to noncitizenship, which alongside Ineligible Felon Rate modifies the VAP figure into the VAP figure) is the only explanatory variable that maintains significance across all models, both basic and clustered SE. All other explanatory variables aside from logged VAP are significant at a 10% level or lower across all models. Once again, the overall takeaway of these models is that it is hard to draw any firm conclusions from the information at hand, but that there is a case to made that turnout rate and cost of voting at least partially affect partisan election outcomes.
+
+### A Note on Turnout and Cost of Voting
+
+```{r}
+#| label: confounders
+
+# models
+
+plm_turnout_vap <- plm(
+  highestoff_vap_rate ~
+    covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  method = "within",
+  effect = "twoway"
+)
+plm_turnout_vap_cl <- coeftest(plm_turnout_vap, vcov. = vcovHC, type = "HC1")
+
+plm_turnout_vep <- plm(
+  highestoff_vep_rate ~
+    covi_covid + totfelon_vap_rate + noncitizen_vap_rate + log(vap_count),
+  index = c("state","year"),
+  data = elections,
+  method = "within",
+  effect = "twoway"
+)
+plm_turnout_vep_cl <- coeftest(plm_turnout_vep, vcov. = vcovHC, type = "HC1")
+
+# stargazer
+
+turnout_models <- list(plm_turnout_vap,plm_turnout_vep)
+turnout_models_cl <- list(plm_turnout_vap_cl,plm_turnout_vep_cl)
+
+stargazer(
+  turnout_models,
+  type = "text",
+  title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models",
+  dep.var.labels = c("%VAP Turnout Rate","%VEP Turnout Rate"),
+  covariate.labels = c("Cost of Voting Index","Inelgibile Felon Rate (%VAP)","Noncitizen Rate (%VAP)",
+                      "Voting-Age Population (logged)")
+)
+
+stargazer(
+  turnout_models_cl,
+  type = "text",
+  title = "Possible Explanatory Variables for Turnout, Two-Way Fixed Effects Linear Models w/ Clustered SEs",
+  dep.var.labels = "Turnout Rate (%VAP, %VEP)",
+  covariate.labels = c("Cost of Voting Index","Inelgibile Felon Rate (%VAP)","Noncitizen Rate (%VAP)",
+                      "Voting-Age Population (logged)")
+)
+```
+
+It felt prudent to check whether the controls being used were themselves correlated with turnout rate in any way. Adjusted R-squared is very low for both the %VAP and %VEP models. Interestingly, the only variable to maintain significance at the 5% level is logged VAP size, suggesting that turnout rate increases as population size increases. It is not clear what sort of conclusion can be drawn from this finding. Overall, it does not appear that there is any reason to worry about multicollinearity between these variables.
+
+# Conclusions
+
+Overall, the results of the above models and analysis suggest that evidence in favor of $H_1$ and the notion of pro-Democratic turnout bias in American presidential elections is inconclusive. However, the significance of COVI values and other voting access-related variables suggests that there may be credence behind the underlying theoretical argument of cost of voting acting as a mechanism for turnout bias. This is an important finding, and should open a door for further research on this subject. For instance, it is of vital importance to understand the causal direction between cost of voting and partisan bias, assuming a substantial effect can be found; if higher costs of voting consistently disadvantage Democratic candidates, then the legitimacy of a number of regulatory laws passed in the name of electoral fairness/security/etc. is immediately called into question. Ultimately, this study does not put to bed arguments over the veracity of the pro-Democratic turnout bias phenomenon. However, it does open an important door around the direction in which this field of study ought to proceed. Hopefully this further research will be able to find significant, conclusive results one way or the other.
+
+# Works Cited
+
+DeNardo, James. 1980. “Turnout and the Vote: The Joke’s on the Democrats.” The American Political Science Review 74 (2): 406–20. https://doi.org/10.2307/1960636.
+
+Epstein, Reid J. 2021. “The Democratic Turnout Myth Unravels.” The New York Times, November 4, 2021, sec. U.S. https://www.nytimes.com/2021/11/04/us/politics/democrats-turnout-virginia.html.
+
+
+Hlavac, Marek (2022). stargazer: Well-Formatted Regression and Summary Statistics Tables. R package version 5.2.3. https://CRAN.R-project.org/package=stargazer
+
+Shaw, Daron R., and John R. Petrocik. 2020. The Turnout Myth: Voting Rates and Partisan Outcomes in American National Elections. New York, NY: Oxford University Press.
+
+Tucker, Harvey J., Arnold Vedlitz, and James DeNardo. 1986. “Does Heavy Turnout Help Democrats in Presidential Elections?” The American Political Science Review 80 (4): 1291–1304. https://doi.org/10.2307/1960868.
+
+
+
+
+
