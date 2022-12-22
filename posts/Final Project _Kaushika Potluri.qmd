@@ -1,0 +1,645 @@
+---
+title: "Final Project Submission 2"
+author: "Kaushika Potluri"
+desription: "Final Project Submission 2"
+date: "11/11/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+#Introduction 
+The research question that I have been interested in is the impact of education about sex and fertility for women and how that changes the fertility rate.
+Women's education raises the value of time spent working in the market and, as a result, the opportunity cost of spending time to take care of their child seems less.
+Across time and places, there is a clear negative link between women's education and fertility, although its meaning is ambiguous.
+Women's level of education may impact fertility through its effects on children's health, the number of children desired, and women's ability to give birth and understanding of various birth control options.
+Each of these are influenced by local, institutional, and national circumstances.
+Their relative importance may fluctuate as a society develops economically.
+We analyse the education--fertility relationship by using data on women from Botswana.
+A realistic quantification of such a relationship can be problematic for various reasons.
+First, factors such as motivation and ability are associated with fertility and education but cannot be observed and as a consequence cannot be included in the model.
+
+::: callout-tip
+## Research Question
+
+Does education affect the rate of fertility in Women?
+What other factors influence rate of fertility in Women?
+:::
+
+# Hypothesis
+
+::: callout-note
+Ho : β1 = β2 = ... = βp-1 = 0
+
+H1 : βj ≠ 0, for at least one value of j
+
+OR
+
+Ho : Variances equal, model is significant.
+
+H1 : Variances not equal, model is not significant.
+:::
+
+Some measure of access to birth control could be useful if it varied by region.
+Often, policy changes in the advertisement or availability of contraceptives can be found.
+But there is no region information(parameters) in our data set.
+
+## Loading in packages:
+
+```{r}
+library(readr)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(readxl)
+library(DataExplorer)
+library(summarytools)
+library(lmtest)
+library(car)
+library(reshape)
+library(sandwich)
+```
+
+## Reading in Data:
+
+The data was acquired from Professor Sander's article that he used.
+
+```{r}
+Womendata <-  read.csv("_data/data.csv")
+
+```
+
+| Variable    | Description of Variables       |
+|-------------|--------------------------------|
+| children    | number of living children      |
+| education   | years of education             |
+| electricity | equals 1 if has electricity    |
+| tv          | equals 1 if has tv             |
+| urban       | equals 1 if live in urban area |
+| evermarr    | equals 1 if ever married       |
+| radio       | equals 1 if has radio          |
+| bicycle     | equals 1 if has bicycle        |
+| knowmeth    | Knows how to use birth control |
+| usemeth     | Has ever used birth control    |
+| age         | age in years                   |
+| firsthalf   | born in first half of year     |
+
+## Descriptive Statistics
+
+```{r}
+summary(Womendata)
+```
+
+```{r}
+str(Womendata)
+```
+
+```{r}
+print(dfSummary(Womendata, varnumbers = FALSE, plain.ascii = FALSE, graph.magnif = 0.30, style = "grid", valid.col = FALSE), 
+      method = 'render', table.classes = 'table-condensed')
+```
+
+```{r}
+glimpse(Womendata)
+```
+
+We can see that we have 28 variables and 4361 observations in this dataset.
+The dependent variable of interest - number of living children Then I will perform data manipulation to tidy the data.
+The variables of interest are age, yearborn, month born, urban education and many more variables that seem intriguing.
+Variables like radio, bicycle, electric can be ignored in this.
+
+```{r}
+head(Womendata)
+```
+
+##Tidying the data
+
+```{r}
+Womendata <- data.frame(Womendata)
+
+Womendata$mnthborn <- as.factor(Womendata$mnthborn)
+Womendata$age <- as.factor(Womendata$age)
+Womendata$electric <- as.factor(Womendata$electric)
+Womendata$radio <- as.factor(Womendata$radio)
+Womendata$tv <- as.factor(Womendata$tv)
+Womendata$bicycle <- as.factor(Womendata$bicycle)
+Womendata$educ <- as.factor(Womendata$educ)
+Womendata$children <- as.factor(Womendata$children)
+Womendata$knowmeth <- as.factor(Womendata$knowmeth)
+```
+
+The dependent variable of interest -- number of living children (children) or number of children ever born (ceb) is a count variable.
+
+```{r}
+table(is.na(Womendata))
+```
+
+Here we can see that we have some missing values in our dataset.
+Plotting the missing values we can check if they are important or not using 'plot_missing' by loading library DataExplorer.
+
+```{r}
+plot_missing(data = Womendata, geom_label_args = list(size = 1.4), theme_config=list(axis.text=element_text(size = 6 )))
+```
+
+We can see how these missing values do not cause much of an issue since these missing observations(parameters) convey less important information than the other parameters.
+Hence we can ignore these values.
+
+##Removing missing values and parameters that are not required The aim is to estimate the effect of education on women's fertility flexibly, while controlling for possible linear and non-linear effects of observable and unobservable confounding factors, and to analyse how the effect of education changes when considering different expectiles of the response variable distribution.
+We also include two variables regarding the knowledge about and the use of birth control methods as well as marital status.All three obviously influence the number of children.
+Further, we include variables indicating wealth, e.g. about the availability of electricity, a television set or a bicycle.
+
+Excluding variables that have no significant importance from our data.
+
+```{r}
+Womendata <- subset(Womendata, select = -c(agefm,yearfm,monthfm,heduc))
+```
+
+```{r}
+Womendatacleaned <-Womendata[complete.cases(Womendata), ]
+plot_missing(data = Womendatacleaned, geom_label_args = list(size = 1.4), theme_config=list(axis.text=element_text(size = 6 )))
+
+```
+
+## Detecting outliers.
+
+```{r}
+Womendata %>%
+  ggplot(aes(educ)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+We can see that the variable educ i.e education has some outliers.
+Mostly for having education of more than 15 years, but they cannot potentially affect the data set.
+
+```{r}
+Womendata %>%
+  ggplot(aes(age)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+From above box plot, age variable has no outliers.
+
+```{r}
+Womendata %>%
+  ggplot(aes(children)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+From the above plot we can see that the variable children does have outliers but nothing to be concerned about.
+
+```{r}
+Womendata %>%
+  ggplot(aes(urb_educ)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+From the above plot we can see that the variable urban education does have outliers but nothing to be concerned about.
+
+```{r}
+Womendata %>%
+  ggplot(aes(yearborn)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+From the above box plot, yearborn variable has no outliers.
+
+```{r}
+Womendata %>%
+  ggplot(aes(mnthborn)) +
+  geom_boxplot() +
+  coord_flip()
+```
+
+From the above box plot, mnthborn variable has no outliers.
+
+#Exploratory Data Analysis (EDA) Here variables indicating wealth, e.g. about the availability of electricity, a television set or a bicycle can say something about a women's knowledge & use of birth control/ and its impact on how many children they have.
+
+```{r}
+ggplot(Womendatacleaned,aes(x=factor(children),fill=factor(tv)))+
+  
+geom_bar()+theme(axis.text.x = element_text(face="bold", size=15),axis.text.y = element_text(face="bold", size=15))+
+  
+labs(
+    title = "Number of Children based on if they own a Tv or not",
+    x = "Number of children",
+    y = "Count",size=15) +
+   
+scale_fill_manual(
+    name = "Access to Telivision or not",
+    breaks = c("0", "1"),
+    labels = c("No Telivision", "Owns/ has access to a telivision"),
+    values = c("0" = "orange", "1"="yellow")
+  )
+```
+
+We can see that most mothers do not own a TV here.
+
+```{r}
+ggplot(Womendatacleaned,aes(x=factor(children),fill=factor(radio)))+
+  
+geom_bar()+theme(axis.text.x = element_text(face="bold", size=15),axis.text.y = element_text(face="bold", size=15))+
+  
+labs(
+    title = "Number of Children based on if they own a radio or not",
+    x = "Number of children",
+    y = "Count",size=15) +
+   
+scale_fill_manual(
+    name = "Access to Radio or not",
+    breaks = c("0", "1"),
+    labels = c("No Radio", "Owns/ has access to a Radio"),
+    values = c("0" = "green", "1"="pink")
+  )
+```
+
+```{r}
+ggplot(Womendatacleaned,aes(x=factor(children),fill=factor(electric)))+
+  
+geom_bar()+theme(axis.text.x = element_text(face="bold", size=15),axis.text.y = element_text(face="bold", size=15))+
+  
+labs(
+    title = "Number of Children based on if they have electricity or not",
+    x = "Number of children",
+    y = "Count",size=15) +
+   
+scale_fill_manual(
+    name = "Access to Electricity or not",
+    breaks = c("0", "1"),
+    labels = c("No Electricity", "Has access to Electricity"),
+    values = c("0" = "pink", "1"="yellow")
+  )
+```
+
+Here from our bar graph we can see that most mothers that have children do not have electricity.
+
+```{r}
+p <- Womendata %>%
+  ggplot() +
+  geom_bar(aes(Womendata$usemeth)) +
+  ggtitle("Individuals that ever used birth control") + labs(title = "Individuals that have ever used  birth control", 
+x = "No. of individuals that have ever used birth control",y = "Count")
+  theme_classic()
+p
+```
+
+Majority of women have used birth control atleast once in their life.
+
+```{r}
+k <- Womendata %>%
+  ggplot() +
+  geom_bar(aes(Womendata$knowmeth)) +
+  ggtitle("Individuals that know about birth control") + labs(title = "Individual knows about birth control", 
+x = "No. of individuals that know about birth control",y = "Count")
+  theme_classic()
+k
+```
+
+Here, we can see that most individuals know about birth control.
+
+```{r}
+ggplot(data = Womendata,
+       aes(
+         x = children,
+         y = prop.table(stat(count)),
+         fill = factor(usemeth), width = 1,
+         label = scales::percent(prop.table(stat(count)))
+       )) +
+  geom_bar(position = position_dodge()) +
+  geom_text(
+    stat = "count",
+    position = position_dodge(0.2),
+    vjust = -1,
+    size = 1.5
+  ) + scale_y_continuous(labels = scales::percent) +
+  labs(title = "Number of children based on birth control",
+       x = "Number of Children",
+       y = "Count") +
+  theme_classic() +
+  scale_fill_discrete(
+    name = "Birth Control",
+    labels = c("Use birth control", "Never used birth control")
+  )
+```
+
+Here we can see that the number of individuals using birth control is higher than individuals that never used birth control only for individuals have zero children.
+As the number of children go up we can see that individuals most individuals that have never used birth control are higher than the indivuals that have used birth control.
+This can imply that the percentage individuals that have children and use birth control are lesser than the percentage individuals that have children and never used birth control.
+
+```{r}
+ggplot(Womendatacleaned,aes(x=factor(children),fill=factor(evermarr)))+
+  
+geom_bar()+theme(axis.text.x = element_text(face="bold", size=15),axis.text.y = element_text(face="bold", size=15))+
+  
+labs(
+    title = "Number of Children based on Marriage status",
+    x = "Number of children",
+    y = "Count",size=15) +
+   
+scale_fill_manual(
+    name = "Married or not",
+    breaks = c("0", "1"),
+    labels = c("Not Married", "Married"),
+    values = c("0" = "blue", "1"="red")
+  )
+```
+
+Most women have 1 child in majority.
+Majority of those mothers are not married.
+This could say something about our data.
+
+```{r}
+Womendata %>%
+  ggplot() +
+  geom_bar(aes(educ)) +
+  theme_classic() + labs(title = "Number of children based on years of schooling",
+       x = "Number of years of schooling",
+       y = "Count")
+  ggtitle("No of indviduals educated")
+
+```
+
+From the bar graph we can say that majority of women in our data have education of atleast 5-7 years and the next highest is women with 0 years of education.
+This can say a lot about our data when we are talking about the relationship between education and fertility.
+
+```{r}
+
+  
+ggplot(Womendatacleaned,aes(x=factor(age),fill=factor(usemeth)))+
+  
+geom_bar()+theme(axis.text.x = element_text(face="bold", size=5),axis.text.y = element_text(face="bold", size=15))+
+  
+labs(
+    title = "Number of individuals that have used birth control based their age",
+    x = "Age",
+    y = "Count",size=15) +
+   
+scale_fill_manual(
+    name = "Use birth control or not",
+    breaks = c("0", "1"),
+    labels = c("Never used birth control", "Has used birth control"),
+    values = c("0" = "brown", "1"="green")
+  )
+
+```
+
+```{r}
+ggplot(data = Womendata, aes(x=mnthborn, y= children)) + 
+  geom_boxplot(outlier.color = "red", outlier.shape = 1, show.legend = T) + 
+  facet_wrap(~mnthborn)
+```
+
+```{r}
+ggplot(data = Womendata) + 
+  geom_violin(mapping = aes(y=children, x = educ,fill=educ), trim = TRUE, draw_quantiles = c(0.25, 0.5, 0.75))
+```
+
+```{r}
+plot_bar(data = Womendata)
+```
+
+```{r}
+Womendata$educ <-as.integer(as.character(Womendata$educ))
+Womendata$age <- as.integer(as.character(Womendata$age))
+
+Womendata$mnthborn <- as.integer(as.character(Womendata$mnthborn))
+Womendata$electric <- as.integer(as.character(Womendata$electric))
+
+Womendata$radio <- as.integer(as.character(Womendata$radio))
+Womendata$tv <- as.integer(as.character(Womendata$tv))
+
+Womendata$bicycle <- as.integer(as.character(Womendata$bicycle))
+Womendata$children <- as.integer(as.character(Womendata$children))
+
+Womendata$knowmeth <- as.integer(as.character(Womendata$knowmeth))
+plot_histogram(data = Womendata)
+```
+
+## Corelation
+
+```{r}
+
+library(corrplot)
+library(RColorBrewer)
+
+M <-cor(Womendata %>% 
+         dplyr::select(age, yearborn, educ, ceb, agefbrth, children, usemeth, knowmeth))
+
+corrplot(M, type="upper", order = "original",col=brewer.pal(n=8, name="RdYlBu"))
+```
+
+```{r}
+cor(Womendata$educ, Womendata$children)
+```
+
+Here we can see that education and number of children have a negative correlation.
+Negative correlation is a relationship between two variables in which one variable increases as the other decreases, and vice versa.
+
+```{r}
+cor(Womendata$educ, Womendata$ceb)
+
+```
+
+Here we can see that education and number of children ever born have a negative correlation as well.
+This does say lot about education and number of children.
+
+```{r}
+cor(Womendata$age, unclass(Womendata$educ))
+
+```
+
+We can see that age and education have a negative correlation.
+
+```{r}
+cor(Womendata$age, Womendata$children)
+
+```
+
+Age and number of children have a positive correlation.
+
+```{r}
+library(PerformanceAnalytics)
+
+chart.Correlation(Womendata %>% 
+              dplyr::select(age,yearborn, educ, ceb, agefbrth, children), histogram=TRUE, pch=19)
+```
+
+```{r}
+Womendata$educ <- as.factor(Womendata$educ)
+Womendata$age <- as.factor(Womendata$age)
+
+Womendata$mnthborn <- as.factor(Womendata$mnthborn)
+Womendata$electric <- as.factor(Womendata$electric)
+
+Womendata$radio <- as.factor(Womendata$radio)
+Womendata$tv <- as.factor(Womendata$tv)
+
+Womendata$bicycle <- as.factor(Womendata$bicycle)
+Womendata$children <- as.factor(Womendata$children)
+
+Womendata$knowmeth <- as.factor(Womendata$knowmeth)
+Womendata$catholic <- as.factor(Womendata$catholic)
+
+Womendata$frsthalf <- as.factor(Womendata$frsthalf)
+Womendata$educ0 <- as.factor(Womendata$educ0)
+
+Womendata$evermarr <- as.factor(Womendata$evermarr)
+Womendata$protest <- as.factor(Womendata$protest)
+Womendata$spirit <- as.factor(Womendata$spirit)
+
+Womendata$urban <- as.factor(Womendata$urban)
+Womendata$spirit <- as.factor(Womendata$spirit)
+```
+
+```{r}
+summary(Womendata)
+```
+
+```{r}
+Womendata$age <- unclass(Womendata$age)
+Womendata$children <- unclass(Womendata$children)
+Womendata$educ <- unclass(Womendata$educ)
+```
+
+Regression Models :
+
+```{r}
+model1 <- lm(children ~ educ, data = Womendata)
+summary(model1)
+```
+
+```{r}
+model2 <- lm(children ~., data = Womendata)
+summary(model1)
+```
+
+```{r}
+model3 <- lm(children ~ educ + age + mnthborn + bicycle + urb_educ + evermarr + yearborn + radio + agefbrth +idlnchld + ceb, data = Womendata)
+summary(model3)
+```
+
+With an adjusted R-squared of 0.9363 model 3 best fits our data.
+
+```{r}
+library(MASS)
+model4<- lm(log(ceb)~., 
+                data = na.omit(Womendata))
+
+#Using stepAIC search method for feature selection to simplify model without impacting much on the performance.
+step.model <- stepAIC(model4,direction = "both",trace = FALSE)
+
+summary(step.model)
+```
+
+## Interpreting the results of Linear Regression ( Ordinary Least Squares(ols))
+
+```{r}
+ols <- lm(model3, data = Womendata)
+coeftest(ols, vcov. = vcovHC, type = 'HC0')
+```
+## Model Evaluation
+
+```{r}
+par(mfrow=c(2,2)) 
+
+plot(model1)
+```
+
+```{r}
+par(mfrow=c(2,2)) 
+
+plot(model2)
+```
+
+```{r}
+par(mfrow=c(2,2)) 
+
+plot(model3)
+```
+
+```{r}
+par(mfrow=c(2,2)) 
+
+plot(model4)
+```
+
+R\^2 = 0.8895 and adjusted R\^2 = 0.8891, F test value = 2272 p-value = 0.001.
+Under normal distribution assumption.
+According to Central limit teorem , every distribution approximated by a normal distribution.
+A normal distribution is approached very quickly as n increases, note that n is the sample size for each mean and not the number of samples If the null hypothesis is true, the above-mentioned F test statistic can be condensed (dramatically).
+The test statistic will be this sample variance ratio.
+If the null hypothesis is incorrect, we will disprove both our presumption that they were equal and the null hypothesis that the ratio was equal to 1.
+
+##Checking for Heteroskedasticity Breusch Pagan Test for Heteroskedasticity
+
+    Ho: the variance is constant
+    H1: the variance is not constant
+
+```{r}
+bptest(ceb ~ ., data = Womendatacleaned)
+```
+
+Ho hypothesis is rejected since the variance is not constant.
+
+In multiple regression two or more predictor variables might be correlated with each other and situation is referred as collinearity.
+Multicollinearity is where collinearity exists between three or more variables even if no pair of variables has a particularly high correlation.
+This means that there is redundancy between predictor variables.Multicollinearity can assessed by computing a score called the variance inflation factor (or VIF), which measures how much the variance of a regression coefficient is inflated due to multicollinearity in the model.
+The smallest possible value of VIF is one (absence of multicollinearity).
+A VIF value that exceeds 5 or 10 indicates a problematic amount of collinearity.
+
+```{r}
+vif(step.model)
+```
+
+As a thumb rule, since we follow that a VIF value that exceeds 5 or 10 can be a problem.
+This leads to a simpler model without compromising the model accuracy, which is good.
+So now the new model will be without yearborn.
+
+## Without Multicollinearity
+
+```{r}
+library(MASS)
+model2<- lm(log(ceb)~ mnthborn + age +
+                            electric +
+                            children + knowmeth +
+                            usemeth  +
+                            urban + radio +
+                            tv + bicycle +
+                            I(as.factor(educ)) +
+                            idlnchld+urb_educ +
+                            protest, 
+                            data = na.omit(Womendatacleaned))
+
+step.model2 <- stepAIC(model2, 
+                        direction = "both", 
+                        trace = FALSE)
+
+vif(step.model2) # Variance Inflation Factor (or VIF)
+```
+
+Now the new VIF values are all less than 5.
+This is good for our model.
+There is no Multicollinearity.
+
+We expect from our study, if the level of education increases, the number of children is decreasing.
+Also, it should be same parameters negative corelation for example between education and number of children. We found that if the level of education increases, the number of children is decreasing.
+In addition, same parameters negative corelation for example between education and number of children or between birth control pill and children every born / children.
+Also, age and education level is negative corelation.
+Age and number of children are positive corelation.
+
+#Conclusion
+In both developed and developing countries, better-educated women have fewer children than less-educated women. However, the reasons for this are less clear, since the benefits of education extend beyond the value of women's time. Education can reduce fertility because better-educated women earn more and may raise their children more effectively. Education also improves maternal and child health, thereby increasing a woman's physical capacity to give birth and reducing the (economic) necessity for more children. Nevertheless, understanding modern contraception helps women control birth. Finally, higher education empowers women and includes them in household decision-making on family planning. Each mechanism is significant, depending on the individual and institutional context, but there is limited evidence on the relative importance of each one.
+
+##References 
+[1]The effect of women's schooling on fertility by W Sander · 1992 
+[2]The Impact of Women's Schooling on Fertility and Contraceptive Use by M Ainsworth · 1996 [3]Fertility in Botswana: The Recent Decline and Future Prospects by Naomi Rutenberg and Ian Diamond
