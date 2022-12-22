@@ -1,0 +1,271 @@
+---
+title: "HW4_RoyYoon"
+author: "Roy Yoon"
+editor: visual
+desription: "fourth homework"
+date: "12/20/22"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw4
+  - Roy Yoon
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1
+
+For recent data in Jacksonville, Florida, on y = selling price of home (in dollars), x1 = size of home (in square feet), and x2 = lot size (in square feet), the prediction equation is ŷ = −10,536 + 53.8x1 + 2.84x2.
+
+## A
+
+A particular home of 1240 square feet on a lot of 18,000 square feet sold for \$145,000. Find the predicted selling price and the residual, and interpret.
+
+
+Predicted Selling Price
+```{r}
+
+prediction_equation_price <- (-10536 + (53.8 * 1240) + (2.84 * 18000))
+
+prediction_equation_price
+
+```
+
+Residual 
+```{r}
+
+residual <- (145000 - (prediction_equation_price))
+residual
+```
+
+The selling price of the house is 107296 and the house sold for 37704 more than calculated.
+
+
+## B
+
+For fixed lot size, how much is the house selling price predicted to increase for each square-foot increase in home size? Why?
+
+
+The selling price is predicted to increase 53.8 for each square-foot increase as in the equation for every 1 unit increase in x1, there is a 53.8 increase refelcted in the y.
+
+
+## C
+
+According to this prediction equation, for fixed home size, how much would lot size need to increase to have the same impact as a one-square-foot increase in home size?
+
+```{r}
+same_size <- (53.8 / 2.84)
+same_size
+
+```
+
+For fixed home size, 19.94366 lot size is needed to have the sae impact as a one square foot increase in home size.
+
+# Question 2
+
+(Data file: salary in alr4 R package). The data file concerns salary and other characteristics of all faculty in a small Midwestern college collected in the early 1980s for presentation in legal proceedings for which discrimination against women in salary was at issue. All persons in the data hold tenured or tenure track positions; temporary faculty are not included. The variables include degree, a factor with levels PhD and MS; rank, a factor with levels Asst, Assoc, and Prof; sex, a factor with levels Male and Female; Year, years in current rank; ysdeg, years since highest degree, and salary, academic year salary in dollars.
+
+## A {#a-1}
+
+Test the hypothesis that the mean salary for men and women is the same, without regard to any other variable but sex. Explain your findings.
+
+The p-value is greater than the significance level of 0.05, thus we fail to reject the null hypothesis at a significance level of 5%.
+
+```{r}
+salary
+
+summary(lm(salary ~ sex, data = salary))
+
+```
+
+## B
+
+Run a multiple linear regression with salary as the outcome variable and everything else as predictors, including sex. Assuming no interactions between sex and the other predictors, obtain a 95% confidence interval for the difference in salary between males and females.
+
+```{r}
+mlrg <- lm(salary ~ ., data = salary)
+
+summary(mlrg)
+
+a <- confint(mlrg)
+
+a
+```
+
+
+## C
+
+Interpret your finding for each predictor variable; discuss (a) statistical significance, (b) interpretation of the coefficient / slope in relation to the outcome variable and other variables
+
+DegreePhD: those who have a PHD would have an estimated $1388.61 more dollars in their salary. However, this relationship is not statistically significant even at a 10% significance level.
+
+Rank: As a categorical variable, an associate professor can will make $5292 more than the reference category and a professor will make $11118 more than the reference category. These relationships stand when the significance level is less than 0%. 
+
+Sex: A Female can expect 1166.37 more compared to the male salary.However, this relationship is not statistically significant even at a 10% significance level.
+
+Year: For each increase in a year, there is a 476.31 dollars for an increase for faculty members. This observation stands at a significance level of less than 0%.
+
+Ysdeg: For every year after degree completion,there is a salary decrease of 124.57. However, this relationship is not statistically significant even at a 10% significance level.
+
+
+## D
+
+Change the baseline category for the rank variable. Interpret the coefficients related to rank again.
+
+```{r}
+salary$rank<-relevel(salary$rank, ref = 'Assoc')
+summary(lm( salary ~ ., data = salary))
+```
+
+Compared to a associate professor an assistant professor would make 5292.36 less than an associate professor. This observation stands at a significance level of less than 0% yielding statistical significance.
+
+## E
+
+Finkelstein (1980), in a discussion of the use of regression in discrimination cases, wrote, "[a](#a-1) variable may reflect a position or status bestowed by the employer, in which case if there is discrimination in the award of the position or status, the variable may be 'tainted.'" Thus, for example, if discrimination is at work in promotion of faculty to higher ranks, using rank to adjust salaries before comparing the sexes may not be acceptable to the courts.
+
+Exclude the variable rank, refit, and summarize how your findings changed, if they did.
+
+```{r}
+ b <- summary(lm( salary ~ degree + sex + year + ysdeg, data = salary))
+b
+```
+
+Excluding the variable of rank yields sex to a negative direction; however, this relationship does not stand significant even at a 10% significance level
+
+## F
+
+Everyone in this dataset was hired the year they earned their highest degree. It is also known that a new Dean was appointed 15 years ago, and everyone in the dataset who earned their highest degree 15 years ago or less than that has been hired by the new Dean. Some people have argued that the new Dean has been making offers that are a lot more generous to newly hired faculty than the previous one and that this might explain some of the variation in Salary.
+
+Create a new variable that would allow you to test this hypothesis and run another multiple regression model to test this. Select variables carefully to make sure there is no multicollinearity. Explain why multicollinearity would be a concern in this case and how you avoided it. Do you find support for the hypothesis that the people hired by the new Dean are making higher than those that were not?
+
+```{r}
+salary<-mutate(salary, employed = case_when(ysdeg<15 ~ "recent", ysdeg>=15 ~ "past"))
+
+summary(lm(salary ~ employed, data = salary))
+
+summary(lm( salary ~ degree + sex + rank +  employed + year, data = salary))
+```
+Multicolinearity will affect the regression model is there is a close association between the two variables. In this mode, a recent employeee would make 2421.6 more than a 'past' employee by the new dean. This observation stands significant at a 5% significance level.
+
+
+# Question 3
+
+(Data file: house.selling.price in smss R package)
+
+## A
+
+Using the house.selling.price data, run and report regression results modeling y = selling price (in dollars) in terms of size of home (in square feet) and whether the home is new (1 = yes; 0 = no). In particular, for each variable; discuss statistical significance and interpret the meaning of the coefficient. In 
+
+```{r}
+data("house.selling.price")
+house.selling.price
+
+summary(lm(Price ~ Size + New, data = house.selling.price))
+```
+
+size: price of house will increase by $116.132 as one unit of x increases, this observation stands significant at a 0% significance level
+new: as one of unit of x increase, there will be an increase of $57736.283, this observation stand significant at a 1% significance level
+
+## B
+
+Report and interpret the prediction equation, and form separate equations relating selling price to size for new and for not new homes.
+
+
+y = -40230.867 + 116.132(x1 size of home in square feet) +57736.283(x2 whether the home is new (1 = yes; 0 = no))
+
+Plug in: 
+
+New House: 17505.42 + 116.132(x1)
+
+Old House: -40230.867 + 116.132(x1)
+
+
+## C
+
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new
+
+```{r}
+#New Price
+N_Price = 17505.42 + (116.132 * 3000)
+
+N_Price
+
+#Old Price
+O_Price = 40230.867 + (116.132 * 3000)
+
+O_Price
+
+```
+
+## D
+
+Fit another model, this time with an interaction term allowing interaction between size and new, and report the regression results
+
+```{r}
+summary(lm(Price ~ Size*New, data = house.selling.price))
+```
+
+## E
+
+Report the lines relating the predicted selling price to the size for homes that are (i) new, (ii) not new.
+
+-22227.808 + 104.438 * size + -78527.501 * New + 61.916 * New
+
+New House: -100755.3 + 166.354(x1 size of home in square feet)
+
+Old House:-22227.808 + 104.438(x1 size of home in square feet)
+
+
+## F
+
+Find the predicted selling price for a home of 3000 square feet that is (i) new, (ii) not new.
+
+```{r}
+#New
+N_House <- -100755.3 + (166.354 * 3000)
+
+N_House
+
+#not new
+
+O_House <- -22227.808 + (104.438 *3000)
+
+O_House 
+```
+
+## G
+
+Find the predicted selling price for a home of 1500 square feet that is (i) new, (ii) not new. Comparing to (F), explain how the difference in predicted selling prices changes as the size of home increases.
+
+```{r}
+#New
+N1_House <- -100755.3 + (166.354 * 1500)
+
+N1_House
+
+#not new
+
+O1_House <- -22227.808 + (104.438 *1500)
+
+O1_House 
+```
+
+The difference in predicted selling prices as the size of homes increases, increases
+
+## H
+
+Do you think the model with interaction or the one without it represents the relationship of size and new to the outcome price? What makes you prefer one model over another?
+
+The model that incorporates the interaction term seems to yield a model that has s significant interaction term and a "reasonable" sense of price (to a personal level)
