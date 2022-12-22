@@ -36,16 +36,21 @@ Credit risk is defined as the risk of loss resulting from the failure by a borro
 ## Research Question
 
 Q1. How credit risk depends on the age of the person?
-Q2. Does credit risk depends on occupation?
+Q2. Does credit risk depends on Sex & Marital Status?
+1=Male Divorced	
+2=Male Single	
+3=Male, Married/Widowed	
+4=Female
 
 The purpose of this project is to take a data set of loan applications and build a predictive model for making a decision as to whether to approve a loan based on the applicant’s profile. 
 
 ## Hypothesis
 
 For this research, the quantitative data was used. Based on probability techniques, this research has chosen to use random sampling method  based on documents and records of applicants for a German credit In this study dependent variables are divided in two groups. Good and bad legal customers; the aim of this study is to estimate the important independent variables. In this regard, good customer is a company which repays its loan plus the profit at the due date and in contrast, bad customer is a company which don’t repay at the due date. To differentiate between good and bad customers in our statistical analysis calculations, 0 is illustrating good customers and 1 is illustrating bad customers. 
-H1: There is a significant and positive relationship between interest rate and credit risk.
-H2: There is a significant and positive relationship between age and credit risk.
-H3: There is a significant and positive relationship between history of legal customer relationship with the bank of repayment and credit risk.
+
+H1: There is a positive relationship between Sex & Marital Status and credit risk.
+H2: There is a negative relationship between age and credit risk.
+
 
 ## Dataset
 
@@ -112,9 +117,7 @@ The plot shows 300 examples of bad credit risk applicants versus 700 good. This 
 
 The next step is to explore some of the variables in the data. For example, it might be a fair assumption that amount of total savings is strongly linked to the credit risk of the applicant i.e. an applicant with little money in their account is a higher credit risk than one with a lot of savings? Another plot can be produced to confirm this.
 
-```{r}
-print(Credit_new1$Value.Savings.Stocks)
-```
+
 
 ```{r}
 plot1 <- ggplot(Credit_new1, aes(Value.Savings.Stocks, fill = Creditability),           stat="identity") +
@@ -177,6 +180,13 @@ plot3
 ```
 This analysis indicates perhaps some decrease in credit risk with age. However there is probably a lot of correlation between age and other factors such as savings and property so further statistical analysis is needed.
 
+```{r}
+#x <- Credit_new1$Sex.Marital.Status
+plot(x = Credit_new1$Sex.Marital.Status, y = Credit_new1$Age.years)
+#abline(Credit_new1['Sex.Marital.Status'], col = 'red')
+```
+
+
 ## Statistical modeling
 
 # Logistic regression
@@ -232,7 +242,7 @@ plot(AUC)
 performance(lmPred, measure = 'auc')@y.values[[1]]
 ```
 On comparing first model and second model based on AUC it shows
-Model one has a accuracy of 80 % while Model second has a accuracy of 61%. Based on these two models , We can conculde that Model one is the best model with predictor variables to predict the credit risk.
+Model one has a accuracy of 80% while Model second has a accuracy of 61%. Based on these two models , We can conculde that Model one is the best model with predictor variables to predict the credit risk.
 
 ## References
 

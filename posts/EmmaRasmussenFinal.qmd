@@ -1,0 +1,348 @@
+---
+author: "Emma Rasmussen"
+title: "Final Project"
+date: "12/19/2022"
+format:
+  html:
+    toc: true
+    code-copy: true
+    code-tools: true
+categories:
+  - final
+---
+
+```{r}
+#| label: setup
+#| warning: false
+#| message: false
+
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+
+library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(stringr)
+library(googlesheets4)
+library(plotly)
+library(stargazer)
+```
+
+## Research Question
+Does political partisanship correlate with COVID-19 death rates?
+
+## Introduction
+The COVID-19 pandemic became a political matter. Early in the pandemic, mask mandates were protested in some communities. Behaviors associated with COVID-19 prevention, such as masking, social distancing, and vaccine uptake, were adopted on partisan lines. My research question is have these behaviors affected COVID-19 death rates along partisan lines?
+
+For this analysis, I used cumulative COVID-19 death toll as opposed to infection rates as infection rates are constantly changing over time. Other studies have looked at infection rates on partisan lines over waves of the pandemic, (see this study from the Pew Research Center (Jones 2022)). I measured partisanship using 2016 county-level election results (% voting for Trump). My research is looking to see if (county-level) Trump support correlates with COVID-19 death rates. The unit of analysis for this study was U.S. counties. 
+
+If there is a systematic difference, public health interventions could target communities that may be higher risk for COVID-19 deaths based on political partisanship. 
+
+I also control for age (percent of the population over 65), income (median household income in 2020), urbanization (Urban-Rural Continuum Code), and policy (2020 governor dummy variable). Later in the analysis, I add a control for vaccination rates as previous studies have found this to be the mechanism behind this relationship (Wood and Brumfiel 2021).
+
+## Hypothesis
+While I came up with this research idea on my own, other organizations such as NPR (Wood and Brumfiel 2021) and the Pew Research Center (Jones 2022) have already tested this and found a significant correlation in Trump support and COVID-19 death and infection rates. For this project, I will use more recent data and include additional control variables that were not accounted for in these previous studies. 
+
+H0: B1 (the correlation coefficient for political partisanship) is zero. There is no correlation between political partisanship and COVID-19 death rates. 
+HA: B1 is not zero. There is a correlation between partisanship and COVID-19 death rates. 
+
+## Variables
+
+### Political Partisanship
+
+For this project, I measured partisanship as percentage of the county that voted for Trump in the 2016 election against Clinton. I did not use 2020 election results in case counties "flipped" support as a result of COVID-19. Below I tidied the data, filtering out only 2016 election results, created a variable: percent voting for Trump in 2016, and selected the percent_trump and FIPS Code variables to use in the analysis. 
+
+The data used for this variable came from the MIT Election Data and Science Lab (2021).
+```{r}
+gs4_deauth()
+
+#2016 election df
+
+votedf<-read_sheet("https://docs.google.com/spreadsheets/d/1fmxoA_bibvsxsvgRdVPCgMA7DkmJNZfxiWgLgCLcsOY/edit#gid=937778872")
+
+votedf$county_fips <- as.character(votedf$county_fips)
+votedf<-mutate(votedf, county_fipsNEW=str_pad(votedf$county_fips, 5, pad = "0"))
+votedf<-votedf %>% 
+  filter(year==2016, candidate=="DONALD TRUMP")
+  votedf$percent_trump <-votedf$candidatevotes/votedf$totalvotes
+  
+votedf<- select(votedf, county_fipsNEW, percent_trump)
+head(votedf)
+```
+
+### COVID-19 Cumulative Death Rate
+
+This data comes from USAFacts.org. Their collection methods are thoroughly described on their website (see USA Facts 2022 in References). Originally I planned on using CDC/NIH data, however they only had data for a little over 1,000 counties, compared to USAFacts which had data for over 3,000. USAFacts compiles their data from CDC, but also town, county, and state leading to a larger number of observations in their dataset. 
+
+Cumulative county-level death toll is taken as of March 19, 2022, when many states stopped regularly reporting COVID-19 deaths (and beginning late in January 2020) (USA Facts 2022). 
+
+```{r}
+coviddf_2<-read_sheet("https://docs.google.com/spreadsheets/d/1ZKa3sg_UdtyX5z0OGGVZN6nuqcC_OKWcsOjm1ZHNjQY/edit#gid=716391091")
+
+#adding leading 0 back to fips
+coviddf_2<-mutate(coviddf_2, county_fipsNEW=str_pad(coviddf_2$"countyFIPS", 5, pad = "0"))
+
+#selecting march 19, 2022, the day before the first day of spring in 2022, when many states stopped/slowed reporting (USA Facts)
+coviddf_2<-select(coviddf_2, county_fipsNEW, "County Name", State, "2022-03-19")
+coviddf_2<-rename(coviddf_2, "covid_deaths" = "2022-03-19")
+head(coviddf_2)
+```
+
+### Control: Age
+
+Because age correlates with political party and older Americans (over 65) were disproportionately more likely to die as a result of COVID-19, this is included in the analysis as a control. According to an article from the Mayo Clinic Website, 81% of COVID-19 deaths occurred in individuals 65 or over (Mayo Clinic Staff 2022). Previous studies have controlled for age as well (Brumfiel and Wood 2021). I controlled for age by creating the variable percent of the county's population over 65 years of age. 
+
+```{r}
+#Please see pdf of code tidying I did to make df into a manageable size for google sheets
+
+age<- read_sheet("https://docs.google.com/spreadsheets/d/1EysREWJ61NCSYyiYH8-2pmZC_TnuLTgqa8Lz5ZpsPZ4/edit#gid=271068707")
+head(age)
+```
+
+### Control: Policy Dummy Variable
+
+This variable (2020 governor party) attempts to control for local and state policy such as mask mandates, stay-at-home orders, and vaccine requirements to attend large events that contribute to COVID-19 death and infection rates. This data set was created from a table of current U.S. governors and their political party on Ballotpedia.org (2022). I adjusted a couple observations when governors had been elected more recently than March 11, when the WHO declared COVID-19 a global pandemic. This data represents the political party of state governors as of March 11, 2020.
+
+````{r}
+#Governor/policy df
+
+#reading in gov dummy variable: whoever was in office March 11, 2020 (when WHO declared covid-19 a global pandemic)
+
+gov2020<-read_sheet("https://docs.google.com/spreadsheets/d/1-pToTikvnXl1-lT-xazjoxX0sOCwOH5-7Bl8vJqu9Tk/edit#gid=0")
+
+gov2020$Office<-str_remove(gov2020$Office, "Governor of ")
+gov2020<-rename(gov2020, "STNAME" = Office)
+gov2020<-select(gov2020, STNAME, Name, Party)
+head(gov2020)
+
+```
+
+### Control: Income
+
+Median household income by county in 2020 is taken from the Economic Research Service at United States Department of Agriculture (2022). Income likely correlates with both political affiliation and COVID-19 death rates (access to medical care, preventative treatment etc), which is why it is included in the analysis. 
+
+### Control: Rural-Urban Continuum Code
+
+This is also taken from the Economic Research Service/USDA dataset. According to the USDA, the 2013 rural-urban continuum code is a "classification scheme that distinguishes metropolitan counties by the population size of their metro area, and non-metropolitan counties by degree of urbanization and adjacency to a metro area". In my opinion, this makes more sense to include than a simple calculation of population density, because it takes into account cities/ how close people settle to cities rather than just population divided by land area. (For instance, a large county, land-wise, may have a majority of the population in a large city, however this could still result in a fairly small population density depending on land area). The Rural Urban Continuum code is on an integer scale from 1 to 9, where 1 represents the most urban/metro counties, and 9 represents the most rural counties.
+
+Generally speaking, more rural counties tend to favor Trump while more metropolitan areas tend to be more democratic. At the same time, one would expect that more densely populated areas/ people living closer together in cities would experience higher infection (and therefore death rates) of COVID-19. 
+
+```{r}
+#Income and density df
+
+#reading in income variable sheet, renaming variables, and selecting only relevant columns, then renaming fips code variable to join to other df's
+
+income<-read_sheet("https://docs.google.com/spreadsheets/d/1ntReIIrpzjRvGabr64-91xEpSJk10r6Er1CX3pG5zBg/edit#gid=1233692484", skip=4) %>% 
+  rename("med_income_2020" = Median_Household_Income_2020, "county_fipsNEW" = FIPS_code) %>% 
+  select(county_fipsNEW, State, Area_name, med_income_2020, Rural_urban_continuum_code_2013)
+head(income)
+
+```
+
+
+### Joining the Dataframes
+
+Below I join the data based on FIPS code (except for the governor policy dummy variable, which is joined by state).
+
+```{r}
+covidvote_2<-votedf %>% 
+  left_join(coviddf_2, by="county_fipsNEW")
+
+covid_vote_3 <- covidvote_2 %>% 
+  left_join(age, by= "county_fipsNEW")
+
+covid_vote_4<- covid_vote_3 %>% 
+  left_join(gov2020, by="STNAME")
+
+covid_vote_5<- covid_vote_4 %>% 
+  left_join(income, by= "county_fipsNEW")
+head(covid_vote_5)
+
+#covid_vote_5 has all 5 dataframes joined together
+```
+
+More tidying:
+```{r}
+#converting covid deaths, age, and total population to numeric variables
+covid_vote_5$covid_deaths<-as.numeric(covid_vote_5$covid_deaths)
+covid_vote_5$tot_pop<-as.numeric(covid_vote_5$tot_pop)
+covid_vote_5$over65_pct<-as.numeric(covid_vote_5$over65_pct)
+
+#creating a death rate variable (COVID-19 deaths per 100,000 by county from January 2020-March 2022)
+covid_vote_5$"covid_death_rate" = (covid_vote_5$covid_deaths / covid_vote_5$tot_pop)*100000
+
+#selecting only relevant columns for analysis
+covid_vote_5<- select(covid_vote_5, county_fipsNEW, STNAME, CTYNAME, covid_death_rate, percent_trump, over65_pct, Party, med_income_2020, tot_pop, Rural_urban_continuum_code_2013)
+head(covid_vote_5)
+```
+
+Removing counties with death rates of zero:
+```{r}
+# Creating df where counties with death rates of exactly 0 (no covid deaths) are excluded. Doing this exclude counties that likely did not report COVID-19 deaths. Filtering counties where covid_death_pct is greater than zero removes 66 counties from the analysis.
+
+covid_vote_5_no_zero<-filter(covid_vote_5, covid_death_rate >0)
+
+head(covid_vote_5_no_zero)
+
+```
+```{r}
+#Checking data set summary
+summary(covid_vote_5_no_zero)
+
+```
+
+### Explotatory Analysis
+
+```{r}
+#Scatter plot of percent trump and percent population dying of covid. 
+visual1<-ggplot(covid_vote_5_no_zero, aes(x=percent_trump, y=covid_death_rate))+geom_point()+geom_smooth(size=0.5, color="firebrick")+labs(x= "Proportion Voting for Trump in 2016", y="COVID-19 Deaths per 100,000 People", title= "COVID-19 Death Rate Based on 2016 Trump Support")
+ggplotly(visual1)
+
+```
+
+There appears to be a slight positive trend, especially among counties where percentage Trump votes was over 50%. Interestingly, on this plot, the death rate appears to decrease slightly from 0 to 40% percent voting for Trump, and then increases. Perhaps this could be due to the fact that highly democratic counties are more likely to be more urban- therefore people live more close together and infection rate is likely higher.  From this visual, it appears that the county with the highest COVID-19 death rate (1121 per 100,000) voted heavily for Trump in 2016 (over 90%). 
+
+A simple linear regression model show a slight positive trend between proportion voting for Trump and cumulative death rate.
+
+```{r}
+ggplot(covid_vote_5_no_zero, aes(x=percent_trump, y=covid_death_rate))+geom_point()+geom_smooth(method= "lm", size=0.5, color="firebrick")+labs(x= "Proportion Voting for Trump in 2016", y="COVID-19 Deaths per 100,000 People", title= "COVID-19 Death Rate Based on 2016 Trump Support")
+
+summary(lm(covid_death_rate ~ percent_trump, data= covid_vote_5_no_zero))
+
+cor.test(x= covid_vote_5_no_zero$percent_trump, y= covid_vote_5_no_zero$covid_death_rate)
+
+#Creating a new variable, whether trump or clinton was the majority vote
+covid_vote_5_no_zero<- covid_vote_5_no_zero%>% 
+  mutate(majority= case_when(percent_trump > 0.5 ~ "Trump_favor",
+                                             percent_trump < 0.5 ~ "Clinton_favor"))
+head(covid_vote_5_no_zero)
+#creating a boxplot to compare means of two groups
+ggplot(na.omit(covid_vote_5_no_zero), aes(x=majority, y=covid_death_rate))+geom_boxplot()+labs(x="Majority", y="COVID-19 Deaths per 100,000 People", title= "COVID-19 Death Rates in Clinton and Trump Majority Counties")+theme_light()
+
+#Conducting a T test for difference of means:
+t.test(covid_death_rate ~ majority, data = covid_vote_5_no_zero)
+
+#calculating medians for both groups
+
+#Trump favor median
+filter(covid_vote_5_no_zero, majority=="Trump_favor") %>% 
+  summarize(median(covid_death_rate, na.rm=T))
+#Clinton favor median
+filter(covid_vote_5_no_zero, majority=="Clinton_favor") %>% 
+  summarize(median(covid_death_rate, na.rm=T))
+```
+The Pearson’s correlation coefficient for this simple linear model is 0.29 with an R-squared of 0.084 and a p-value below 0.01, indicating a statistically significant relationship between political partisanship and COVID-19 deaths in U.S. counties. However, because the R-squared is so low, there are likely other variables beyond political partisanship that contribute to differential COVID-19 deaths. This relationship is also statistically significant when the percent Trump variable is converted to a dummy variable (Clinton-favoring or Trump-favoring counties). A Welch Two-Sample T-test reveals a significant difference in means between Trump-favoring, and Clinton-favoring counties with a p-value below 0.01. The 95% confidence interval for this difference in death rates between Trump- and Clinton-majority counties is [-102.43835, -73.09319], with Trump-majority counties having a higher median death rate. For Clinton-majority counties, the median death rate is 257 per 100,00 people. For Trump-majority counties, the median death rate is 368 per 100,000 people.
+
+
+### Modeling this Relationship
+
+Below I test a few models. The first is all variables but no transformations. The second is a log transformation of the income variable which makes sense given the possibility of diminishing returns. In other words, the decrease in COVID-19 deaths as income increases is smaller (smaller decrease) as income gets bigger (diminishing returns). The last model removes the governor party variable to see if the coefficient for percent_trump is still significant when the policy dummy variable is removed (potential multicollinearity).
+
+```{r}
+#no transformations
+summary(lm(covid_death_rate ~ percent_trump + over65_pct + med_income_2020 + Party+ Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero))
+
+fit0<- lm(covid_death_rate ~ percent_trump + over65_pct + med_income_2020 + Party+ Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero)
+
+#log income
+summary(lm(covid_death_rate ~ percent_trump + over65_pct + log(med_income_2020) + Party+ Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero))
+
+fitlog<-lm(covid_death_rate ~ percent_trump + over65_pct + log(med_income_2020) + Party+ Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero)
+
+#log income model with policy removed (to check for possible multicollinearity with percent Trump)
+summary(lm(covid_death_rate ~ percent_trump + log(med_income_2020) + over65_pct + Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero))
+
+fitlog_no_policy<-lm(covid_death_rate ~ percent_trump + log(med_income_2020) + over65_pct + Rural_urban_continuum_code_2013, data= covid_vote_5_no_zero)
+
+```
+Once the policy dummy variable is removed, the coefficients and adjusted R-squared do not change significantly so we do not need to be super concerned about the policy dummy introducing multicollinearity. 
+
+Diagnostic Plots:
+```{r}
+#fit0
+par(mfrow= c(2,3)); plot(fit0, which=1:6)
+
+#fitlog
+par(mfrow= c(2,3)); plot(fitlog, which=1:6)
+
+```
+
+According to the diagnostic plots for fitlog (the second set of plots above where where covid_death_rate is log transformed,) the residuals seem to have a slight trend (higher fitted values have larger residuals) but no funnel shape so constant variance is not violated. Again, for the Q-Q, plot, higher theoretical quantiles have larger standardized residuals (there are high residuals at higher values), however the trend is not overly concerning. The scale location graph does not look too bad, the line is approximately horizontal. For the Cook's distance plot, there may be a couple outliers affecting the model according  to 4/n which is approximately 0.0013, however there a no points with a Cook's distance larger than 1. Residuals versus leverage and Cook's distance versus leverage plots look okay, there does not appear to be any observations with both high leverage and Cooks distance. The plots for the log transformed income variable look better than the plots without the transformation.
+
+```{r}
+#Below the models are displayed in regression table for ease of comparison.
+stargazer(fit0, fitlog, fitlog_no_policy, type= "text", style="apsr", covariate.labels=c("Percent Trump", "Percent Over 65", "Median HH Income", "log(Median HH Income)", "Policy- Republican", "Population Density Code", "Percent Vaccinated"), dep.var.labels= "COVID-19 Death Rate")
+
+PRESS(fit0)
+PRESS(fitlog)
+PRESS(fitlog_no_policy)
+
+```
+
+In both models, the coefficient of interest percent_trump, is positive and significant at the 0.001 significance level. These models suggests that there is evidence that counties that vote in greater numbers for Trump experience higher COVID-19 death rates. The PRESS statistic for the second model (where income is logged) is the lowest, indicating this may be a better model than without the transformation.
+
+### Adding a Control for Vaccines
+
+Data from the CDC (2022) on vaccination rates was added to the model. Vaccination rates as of March 19, 2022 is taken (same as the cut-off date for the COVID-19 deaths outcome variable) and is expressed as a proportion of the population fully-vaccinated (1 dose of Janssen or 2 doses of the Pfizer or Moderna vaccine) (CDC 2022).
+
+```{r}
+#this is the code I used to reduce the file size of the vaccine data to make it upload-able to Google Sheets. I used the proportion of the population in the county with a complete primary series of vaccine(s) as of 3/19/2022 (same as cut off date for COVID-19 death data)
+
+#vaccines<-read_csv("COVID-19_Vaccinations_in_the_United_States_County (1).csv")
+#vaccines<-filter(vaccines, Date =="03/19/2022")
+#vaccines<-rename(vaccines, "county_fipsNEW"=FIPS)
+#vaccines<-select(vaccines, "county_fipsNEW", Series_Complete_Pop_Pct)
+
+vaccines<-read_sheet("https://docs.google.com/spreadsheets/d/18X8jPAatcAxE1-kuadH4FB44Sp2Zpg6Q-kw8efqYY-g/edit?usp=sharing")
+
+head(vaccines)
+```
+
+
+```{r}
+#joining to the df
+covid_vote_6<- covid_vote_5_no_zero %>% 
+  left_join(vaccines, by= "county_fipsNEW")
+
+#converting Series_Complete_Pop_Pct to numeric
+covid_vote_6$Series_Complete_Pop_Pct<-as.numeric(covid_vote_6$Series_Complete_Pop_Pct)
+
+#converting percent vaccinated to proportion
+covid_vote_6$fullvax_prop<-covid_vote_6$Series_Complete_Pop_Pct/100 
+
+head(covid_vote_6)
+```
+
+
+```{r}
+#adding vaccines to the model
+summary(lm(covid_death_rate ~ percent_trump + over65_pct + log(med_income_2020) + Party+ Rural_urban_continuum_code_2013 + fullvax_prop, data= covid_vote_6))
+
+fitvaccines<-(lm(covid_death_rate ~ percent_trump + over65_pct + log(med_income_2020) + Party+ Rural_urban_continuum_code_2013 + fullvax_prop, data= covid_vote_6))
+
+stargazer(fit0, fitlog, fitvaccines, type= "text", style="apsr", covariate.labels=c("Percent Trump", "Percent Over 65", "Median HH Income", "log(Median HH Income)", "Policy- Republican", "Population Density Code", "Percent Vaccinated"), dep.var.labels= "COVID-19 Death Rate")
+
+```
+
+Even once we control for vaccination rates, the percent Trump coefficient is still positive and significant (though to a slightly lesser magnitude). This suggests that vaccine uptake is responsible for a part of this difference however, other health behaviors may contribute to higher COVID-19 death rates in pro-Trump counties. Previous research has attributed this difference mainly to vaccine uptake (Wood and Brumfiel 2021), however, this model shows there are more variables at play, and that differential death rates in pro-Trump counties are still significant when we control for vaccine uptake (though to a lesser magnitude). One limitation of this variable is that a majority of deaths likely occurred prior to when the vaccine was available- which may explain why while the coefficient is negative, it is not statistically significant in our model. 
+
+## References
+Ballotpedia. (2022). *Partisan composition of governors*. Accessed [November 10, 2022]. https://ballotpedia.org/Partisan_composition_of_governors
+
+Centers for Disease Control. (2022). *COVID-19 Vaccinations in the United States,County*. Accessed [December 6, 2022]. https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh
+
+Economic Research Service. (2022). *Unemployment and median household income for the U.S., States, and counties, 2000-2021*. Accessed from the United States Department of Agriculture [November 10, 2022]. https://www.ers.usda.gov/data-products/county-level-data-sets/county-level-data-sets-download-data/
+
+Jones, B. (2022). *The Changing Political Geography of COVID-19 Over the Last Two Years*. Pew Research Center. March 3, 2022. https://www.pewresearch.org/politics/2022/03/03/the-changing-political-geography-of-covid-19-over-the-last-two-years/
+
+Mayo Clinic Staff. (2022). *COVID-19: Who's at Higher Risk of Serious Symptoms?* Accessed from Mayo Clinic, [November 11, 2022]. https://www.mayoclinic.org/diseases-conditions/coronavirus/in-depth/coronavirus-who-is-at-risk/art-20483301
+
+MIT Election Data and Science Lab. (2021) *County Presidential Election Returns 2000-2020*. Accessed from the Harvard Dataverse [October 11, 2022]. https://doi.org/10.7910/DVN/VOQCHQ
+
+National Center for Health Statistics. (2022). *Provisional COVID-19 Deaths by County, and Race and Hispanic Origin*. Accessed from the Centers for Disease Control [October 11, 2022]. https://data.cdc.gov/d/k8wy-p9cg
+
+USA Facts. (2022). *US COVID-19 cases and deaths by state*. Accessed [November 10, 2022]. https://usafacts.org/visualizations/coronavirus-covid-19-spread-map/?utm_source=usnews&utm_medium=partnership&utm_campaign=2020&utm_content=healthiestcommunitiescovid
+
+United States Census Bureau. (2019). *Annual County Resident Population Estimates by Age, Sex, Race, and Hispanic Origin: April 1, 2010 to July 1, 2019 (CC-EST2019-ALLDATA)*. Accessed from Census.gov [November 11, 2022].https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html
+
+Wood, D. and Brumfiel, G. (2021). *Pro-Trump counties now have far higher COVID death rates*. Misinformation is to blame. NPR. December 5, 2021. https://www.npr.org/sections/health-shots/2021/12/05/1059828993/data-vaccine-misinformation-trump-counties-covid-death-rate

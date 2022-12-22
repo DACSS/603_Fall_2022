@@ -1,0 +1,147 @@
+---
+title: "HW5_RoyYoon"
+author: "Roy Yoon"
+editor: visual
+desription: "Fifth homework"
+date: "12/20/22"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - hw5
+  - Roy Yoon
+  - HW
+  
+---
+
+```{r}
+#| label: setup
+#| warning: false
+
+library(tidyverse)
+library(alr4)
+library(smss)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Question 1
+
+```{r}
+
+house.selling.price
+
+```
+
+## 1a.
+
+For backward elimination, which variable would be deleted first? Why?
+
+the variables "Beds" would be deleted first because it presents the highest p-value
+
+```{r}
+
+```
+
+## 1b.
+
+For forward selection, which variable would be added first? Why?
+
+The variables "New" and "Size" would be added first as they present the smallest p-values. It is important to note that "Size" would be added before "New" as is has a higher correlation with "Price"
+
+```{r}
+
+```
+
+## 1.c
+
+Why do you think that BEDS has such a large P-value in the multiple regression model, even though it has a substantial correlation with PRICE?
+
+"Beds" may have a larger p-value because there could be many interaction terms. In addition, the sample size may have to be increased to yield a more significant p-value.
+
+```{r}
+```
+
+## 1d.
+
+```{r}
+a <- lm(Price~ .-Taxes - case, data = house.selling.price)
+summary(a)
+AIC(a)
+BIC(a)
+
+b <- lm(Price~ .- Taxes - case- Beds, data = house.selling.price)
+summary(b)
+AIC(b)
+BIC(b)
+c <- lm (Price~ .- Taxes - case- Beds - Baths, data = house.selling.price)
+summary(c)
+AIC(c)
+BIC(c)
+
+d <- lm (Price~ .- Taxes - case- Beds - New, data = house.selling.price)
+summary(d)
+AIC(d)
+BIC(d)
+```
+
+```{r}
+
+```
+
+# Question 2
+
+```{r}
+trees
+```
+
+## 2a
+
+fit a multiple regression model with  the Volume as the outcome and Girth  and Height as the explanatory variables
+
+```{r}
+e<- lm(Volume ~ Girth + Height, data = trees)
+summary(e)
+```
+
+## 2b
+
+Run regression diagnostic plots on the model. Based on the plots, do you think any of the regression assumptions is violated?
+
+```{r}
+par(mfrow = c (2,3)); plot(e,which = 1:6)
+
+```
+
+The residual vs fitted and scale location could present a more uniform in their curve.
+
+# Question 3
+
+Run  simple linear regression model where the Buchanan vote is the outcome and the Bush vote is the explanatory variable. Produce the regression diagnostic plots. Is Palm Beach County an outlier based on the diagnostic plots? Why or why not?
+
+```{r}
+florida
+```
+
+```{r}
+g <- lm(formula = Buchanan ~ Bush, data = florida)
+summary(g)
+
+par(mfrow = c(2, 3)); plot(g, which = 1:6)
+```
+
+The diagnostic plots suggest that "Palm Beach" is an outlier. The "Palm Beach" residuals vs fitted plot show that the residuals are large, with a uniform and linear shape. This indicates with the "Palm Beach" outlier being nowhere near the rest of the residuals, as an outlier.
+
+Take the log of both variables (Bush vote and Buchanan Vote) and repeat the analysis in (a). Does your findings change?
+
+```{r}
+h<- lm(log(Buchanan) ~ log(Bush), data = florida)
+summary(h)
+
+
+par(mfrow = c (2,3)); plot(h,which = 1:6)
+```
+
+After the "Buchanan" and "Bush" is lagged, the residuals vs fitted diagnostic plot shows a more uniform and even distribution around the line. Scale location and normal q-q show the residuals also being more uniform and linear.
