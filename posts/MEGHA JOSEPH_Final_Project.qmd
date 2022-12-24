@@ -1,0 +1,409 @@
+---
+title: "Final Project"
+author: "Megha Joseph"
+description: Final project
+date: "12/15/2022"
+format:
+  html:
+    toc: true
+    code-fold: true
+    code-copy: true
+    code-tools: true
+categories:
+  - Finalpart
+  - Megha Joseph
+---
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(cowplot)
+library(caret)
+library(ROCR)
+library(rpart)
+library(rpart.plot)
+library(rattle)
+library(plotly)
+library(grid)
+library(gridExtra)
+library(corrplot)
+library(ggplot2) #for data visualization
+library(grid) # for grids
+library(gridExtra) # for arranging the grids
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+Diabetes is a chronic disease characterized by a high amount of glucose in the blood and can cause too many complications also in the body, such as internal organ failure, retinopathy, and neuropathy. According to the predictions made by WHO, the figure may reach approximately 642 million by 2040, which means one in a ten may suffer from diabetes due to unhealthy lifestyle and lack of exercise. 
+
+## Research Question
+
+Q1. How diabetes depends on the BMI of the person?
+
+The purpose of this project is to take a data set of diabetes patients and build a predictive model for making a decision as to predict whether a person with certain medical diagnostic attributes is likely to have a diabetes or not. 
+
+
+## Hypothesis
+
+H0: There is a no relationship between BMI and Diabetes.
+HA: There is a relationship between BMI and Diabetes.
+
+
+## Dataset
+
+This dataset is originally from the National Institute of Diabetes and Digestive and Kidney Diseases. The objective of the dataset is to diagnostically predict whether or not a patient has diabetes, based on certain diagnostic measurements included in the dataset. Several constraints were placed on the selection of these instances from a larger database. In particular, all patients here are females at least 21 years old of Pima Indian heritage.
+
+The data can be downloaded from Kaggle database, https://www.kaggle.com/datasets/uciml/pima-indians-diabetes-database
+
+### Importing Dataset
+```{r}
+library(readr)
+dbp <- read_csv("_data/DiabetesPrediction.csv")
+str(dbp)
+```
+The following features have been provided to help us predict whether a person is diabetic or not:
+
+Pregnancies: Number of times pregnant
+Glucose: Plasma glucose concentration over 2 hours in an oral glucose tolerance test
+Blood Pressure: Diastolic blood pressure (mm Hg)
+Skin Thickness: Triceps skin fold thickness (mm)
+Insulin: 2-Hour serum insulin (mu U/ml)
+BMI: Body mass index (weight in kg/(height in m)2)
+Diabetes Pedigree Function: Diabetes pedigree function (a function which scores likelihood of diabetes based on family history)
+Age: Age (years)
+Outcome: Class variable (0 if non-diabetic, 1 if diabetic)
+
+```{r}
+glimpse(dbp)
+```
+
+
+
+# Data cleaning
+
+Checking for missing value and NULL value in the given dataset is one of the crucial steps in data cleaning
+```{r}
+ any(is.na(dbp))
+```
+```{r}
+ any(is.null(dbp))
+
+```
+The results are False indicating that our data set does not contain neither missing value nor NULL value. So, we can do further analysis.
+
+Next step, we will look for duplicate records in the dataset.
+
+```{r}
+dp<-unique(dbp)
+dim(dbp)[1]
+```
+Using unique function, we can sort out the unique records within the original dataset. The new dataset’s dimension has 768 unique rows which has the same number of records with our original dataset. Both contain 768 rows. Thus, we come to the conclusion that there is no duplicate value.
+
+## Exploratory analysis
+
+Checking for missing values.
+
+```{r}
+colSums(is.na(dbp))
+```
+We need to check the class proportion of the target variable.
+
+```{r}
+x <- prop.table(table(dbp$Outcome))
+b <- barplot(x,col="lightGreen", main = "Target Class Proportion Diagram")
+text(x=b, y= x, labels=round(x,2), pos = 1)
+```
+The target variable class is still relatively balanced
+
+## Plotting Histograms of Numeric Values
+
+
+```{r}
+ph1 <- ggplot(dbp, aes(x=Pregnancies)) + ggtitle("Number of times pregnant") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 1, colour="black", fill="blue") + ylab("Percentage")
+ph2 <- ggplot(dbp, aes(x=Glucose)) + ggtitle("Glucose") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 5, colour="black", fill="orange") + ylab("Percentage")
+ph3 <- ggplot(dbp, aes(x=BloodPressure)) + ggtitle("Blood Pressure") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 2, colour="black", fill="green") + ylab("Percentage")
+ph4 <- ggplot(dbp, aes(x=SkinThickness)) + ggtitle("Skin Thickness") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 2, colour="black", fill="pink") + ylab("Percentage")
+ph5 <- ggplot(dbp, aes(x=Insulin)) + ggtitle("Insulin") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 20, colour="black", fill="red") + ylab("Percentage")
+ph6 <- ggplot(dbp, aes(x=BMI)) + ggtitle("Body Mass Index") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth = 1, colour="black", fill="yellow") + ylab("Percentage")
+ph7 <- ggplot(dbp, aes(x=DiabetesPedigreeFunction)) + ggtitle("Diabetes Pedigree Function") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), colour="black", fill="purple") + ylab("Percentage")
+ph8 <- ggplot(dbp, aes(x=Age)) + ggtitle("Age") +
+  geom_histogram(aes(y = 100*(..count..)/sum(..count..)), binwidth=1, colour="black", fill="lightblue") + ylab("Percentage")
+grid.arrange(ph1, ph2, ph3, ph4, ph5, ph6, ph7, ph8, ncol=2)
+grid.rect(width = 1, height = 1, gp = gpar(lwd = 1, col = "black", fill = NA))
+
+```
+All the variables seem to have reasonable broad distribution, therefore, will be kept for the regression analysis.
+
+## Correlation between Numeric Variables
+
+Here, sapply() function will return the columns from the diabetes dataset which have numeric values. cor() function will produce correlation matrix of all those numeric columns returned by sapply(). corrplot() provides a visual representation of correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables.
+
+```{r}
+nv <- sapply(dbp, is.numeric)
+corr.matrix <- cor(dbp[,nv])
+corrplot(corr.matrix, main="\n\nCorrelation Plot for Numerical Variables", order = "hclust", tl.col = "black", tl.srt=45, tl.cex=0.8, cl.cex=0.8)
+box(which = "outer", lty = "solid")
+
+```
+The numeric variables are almost not correlated.
+
+## Correlation between Numeric Variables and Outcomes
+
+```{r}
+attach(dbp)
+par(mfrow=c(2,4))
+boxplot(Pregnancies~Outcome, main="No. of Pregnancies vs. Diabetes", 
+        xlab="Outcome", ylab="Pregnancies",col="red")
+boxplot(Glucose~Outcome, main="Glucose vs. Diabetes", 
+        xlab="Outcome", ylab="Glucose",col="pink")
+boxplot(BloodPressure~Outcome, main="Blood Pressure vs. Diabetes", 
+        xlab="Outcome", ylab="Blood Pressure",col="green")
+boxplot(SkinThickness~Outcome, main="Skin Thickness vs. Diabetes", 
+        xlab="Outcome", ylab="Skin Thickness",col="orange")
+boxplot(Insulin~Outcome, main="Insulin vs. Diabetes", 
+        xlab="Outcome", ylab="Insulin",col="yellow")
+boxplot(BMI~Outcome, main="BMI vs. Diabetes", 
+        xlab="Outcome", ylab="BMI",col="purple")
+boxplot(DiabetesPedigreeFunction~Outcome, main="Diabetes Pedigree Function vs. Diabetes", xlab="Outcome", ylab="DiabetesPedigreeFunction",col="lightgreen")
+boxplot(Age~Outcome, main="Age vs. Diabetes", 
+        xlab="Outcome", ylab="Age",col="lightblue")
+box(which = "outer", lty = "solid")
+```
+Blood pressure and skin thickness show little variation with diabetes, they will be excluded from the model. Other variables show more or less correlation with diabetes, so will be kept.
+
+
+
+
+
+# Linear Regression with BMI :
+
+A linear regression is a statistical model that analyzes the relationship between a response variable (often called y) and one or more variables and their interactions (often called x or explanatory variables).
+BMI is a independent variable (x) and Diabetes is the dependent variable (y)
+
+1. Perform OLS Regression
+
+```{r}
+BI <- dbp$BMI
+Diabetes_P <- dbp$Outcome
+plot(BI,Diabetes_P)
+#fit simple linear regression model
+model <- lm(Diabetes_P~BI)
+abline(model, col = 'blue')
+```
+
+From the plot we can see that the relationship doesn't appear to be linear.
+
+```{r}
+#view model summary
+summary(model)
+```
+*Here is how to interpret the rest of the model summary*:
+
+*Pr(>|t|)*: This is the p-value associated with the model coefficients. Since the p-value for BMI (0.00106) is significantly less than .05, we can say that there is a statistically significant association between BMI and diabetes.
+
+*Multiple R-squared*: This number tells us the percentage of the variation in the diabetes outcome can be explained by the BMI. In general, the larger the R-squared value of a regression model the better the predictor variables are able to predict the value of the response variable. In this case, 1% of the variation in diabetes outcome can be explained using BMI.
+
+2. Histogram: 
+
+```{r}
+hist(resid(model))
+```
+Histogram for a dataset is not bell-shaped,it’s likely that the data is not normally distributed.
+
+3.Residual Plots:
+
+```{r}
+plot(BI, resid(model))
+abline(h=0, col = 'red')
+```
+4.Normal Q-Q plot:
+
+```{r}
+#create Q-Q plot for residuals
+qqnorm(resid(model))
+
+#add a straight diagonal line to the plot
+qqline(resid(model)) 
+```
+
+The residuals of a model follow a normal distribution. The points on the plot not forming a straight diagonal line, then the normality assumption is not satisfying the condition.
+
+Because the above reasons Linear regression is not a good model to predict the relation between BMI and diabetes that's we are implementing logistic regression. 
+
+# Logistic regression
+
+Logistic regression (aka logit regression or logit model)is a regression model where the response variable Y is categorical. Logistic regression allows us to estimate the probability of a categorical response based on one or more predictor variables (X). It allows one to say that the presence of a predictor increases (or decreases) the probability of a given outcome by a specific percentage. When Y is binary — that is, where it can take only two values, “0” and “1”, which represent outcomes such as pass/fail, win/lose, good/bad or healthy/sick. Cases where the dependent variable has more than two outcome categories may be analysed with multinomial logistic regression, or, if the multiple categories are ordered, in ordinal logistic regression. 
+
+The first step before applying models is to create training and test data sets. The data will be split 70/30 and spread evenly between having diabetes and not having diabetes using the Create Data Partition function in the caret package.
+
+##Cross Validation
+
+Before we make the model, we need to split the data into train data set and test data set. We will take 70% of the data as the training data and the rest of it as the testing data.
+
+```{r}
+#RNGkind(sample.kind = "Rounding")
+set.seed(23)
+
+intrain <- sample(nrow(dbp),nrow(dbp)*.7)
+
+dbp_train <- dbp[intrain,]
+dbp_test <- dbp[-intrain,]
+
+```
+We need to check again the proportion of our train dataset, wheter it is still balanced or not.
+
+```{r}
+prop.table(table(dbp_train$Outcome))
+```
+##Modelling
+
+We will try to create several models the Logistic Regression using Outcome as the target value. The models that we will create come from several ways, some from the my understanding or estimation and from stepwise selection.
+
+```{r}
+dbp_model<- glm(formula = Outcome ~ ., data = dbp_train, family = "binomial")
+
+summary(dbp_model)
+```
+High BMI has a high corelation with developing diabetes
+
+*Model 2*
+The first model of logistic regression using the glm() function where we are predicting diabetes with all variables of the dataset.
+
+
+```{r}
+dbp_model<- glm(formula = Outcome ~ BMI, data = dbp_train, family = "binomial")
+
+summary(dbp_model)
+
+```
+
+
+```{r}
+set.seed(2800)
+lmModel_all <- glm(Outcome ~ ., family = binomial, data = dbp_train)
+
+# Fit model to test set
+lmFit_all <- predict(lmModel_all, type = "response", dbp_test)
+
+# Compare predictions to test set
+lmPred_all <- prediction(lmFit_all, dbp_test$Outcome)
+
+# Create Area Under the Curve (AUC) plot
+AUC <- performance(lmPred_all, 'tpr', 'fpr')
+plot(AUC,main = 'Outcome Vs All Independent Variables')
+```
+
+```{r}
+library(pROC)
+roccurve <- roc(dbp_test$Outcome~lmFit_all)
+print(auc(roccurve))
+```
+
+```{r}
+summary(lmModel_all)
+```
+
+```{r}
+performance(lmPred_all, measure = 'auc')@y.values[[1]]
+```
+
+*Model 3*
+The second model of logistic regression using the glm() function where we are predicting diabetes outcome with BMI and other factors such as age and glucose variables of the dataset.
+
+```{r}
+
+dbp_model<- glm(formula = Outcome ~ BMI+Age+Glucose, data = dbp_train, family = "binomial")
+
+summary(dbp_model)
+```
+
+
+```{r}
+set.seed(2800)
+lmModel_mul <- glm(Outcome ~ BMI + Age+ Glucose, family = binomial, data = dbp_train)
+# Fit model to test set
+lmFit_mul <- predict(lmModel_mul, type = "response", dbp_test)
+
+# Compare predictions to test set
+lmPred_mul <- prediction(lmFit_mul, dbp_test$Outcome)
+
+# Create Area Under the Curve (AUC) plot
+AUC <- performance(lmPred_mul, 'tpr', 'fpr')
+plot(AUC,main = 'Outcome Vs BMI + Age + Glucose')
+```
+
+```{r}
+summary(lmModel_mul)
+```
+
+```{r}
+performance(lmPred_mul, measure = 'auc')@y.values[[1]]
+```
+
+*Model 3*
+Logistic Regression with BMI :
+
+```{r}
+lmModel_age <- glm(Outcome ~ BMI, family = binomial, data = dbp)
+summary(lmModel_age)
+```
+
+
+```{r}
+set.seed(2800)
+lmModel_age <- glm(Outcome ~ BMI, family = binomial, data = dbp_train)
+# Fit model to test set
+lmFit_age <- predict(lmModel_age, type = "response", dbp_test)
+
+# Compare predictions to test set
+lmPred_age <- prediction(lmFit_age, dbp_test$Outcome)
+
+# Create Area Under the Curve (AUC) plot
+AUC <- performance(lmPred_age, 'tpr', 'fpr')
+plot(AUC,main = 'Diabetes Outcome Vs BMI')
+```
+
+```{r}
+summary(lmModel_age)
+```
+Let us take a closer look on the coefficients:
+
+```{r}
+summary(lmModel_age)$coefficients
+```
+
+```{r}
+exp(coefficients(lmModel_age)[2])
+```
+
+
+```{r}
+performance(lmPred_age, measure = 'auc')@y.values[[1]]
+```
+
+#Interpreting the results of our logistic regression model.
+
+*P-Value*
+Now we can analyze the fitting and interpret what the models are telling us.
+First of all, we can see that BMI is statistically significant variable as the p-value is less than 0.05 suggesting a strong association of the BMI with diabetes outcome. So we can reject null hypothesis.   
+
+
+*Coefficient*
+The coefficient of the BMI has a positive sign of this value indicates that the chance of Diabetes increases with BMI. The magnitude of the coefficient implies that for every degree increase in BMI the log-odds increases by a constant 0.009393367 units, on average. By taking the exponent of the coefficient value, we get the odds ratio. In all three models Diabetes is increasing with BMI. So we can conclude On comparing first model and second model based on AUC it shows Model one has a accuracy of 80% while Model second has a accuracy of 61%. Based on these two models , We can conclude that Model one is the best model with predictor variables to predict the diabetes.
+
+## References
+
+1. Collins, Gary S, et al. “Developing Risk Prediction Models for Type 2 Diabetes: A Systematic Review of Methodology and Reporting - BMC Medicine.” BioMed Central, BioMed Central, 8 Sept. 2011, https://bmcmedicine.biomedcentral.com/articles/10.1186/1741-7015-9-103
+
+2. panelAishwaryaMujumdaraEnvelopeVVaidehiDr.b, Author links open overlay, et al. “Diabetes Prediction Using Machine Learning Algorithms.” Procedia Computer Science, Elsevier, 27 Feb. 2020, https://www.sciencedirect.com/science/article/pii/S1877050920300557. 
+
+3. “Sign In.” RPubs, https://rpubs.com/niamzaki/diabetics_prediction_lr_knn. 
